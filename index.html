@@ -2,13 +2,23 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boostly — Grow Your Local Business</title>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-<meta name="description" content="Boostly helps local businesses get discovered, attract customers and grow.">
+<meta name="description"
+      content="Boostly helps local businesses get discovered, attract customers, increase bookings and grow online.">
+
+<meta name="theme-color"
+      content="#635bff">
+
+<title>Boostly – Grow Your Local Business</title>
 
 <style>
+
+/* =========================
+   RESET
+========================= */
 
 * {
     margin: 0;
@@ -21,342 +31,1490 @@ html {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f7f9fc;
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
     color: #111827;
+    background: #ffffff;
     line-height: 1.6;
+    overflow-x: hidden;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
 }
 
 a {
-    text-decoration: none;
     color: inherit;
+    text-decoration: none;
 }
+
+/* =========================
+   VARIABLES
+========================= */
+
+:root {
+    --primary: #635bff;
+    --primary-dark: #5148e8;
+    --dark: #111827;
+    --dark-2: #1e293b;
+    --muted: #64748b;
+    --light: #f8f9ff;
+    --border: #e5e7eb;
+    --white: #ffffff;
+    --success: #16a34a;
+    --shadow:
+        0 20px 60px rgba(17, 24, 39, 0.10);
+}
+
+/* =========================
+   CONTAINER
+========================= */
 
 .container {
     width: min(1120px, 92%);
     margin: auto;
 }
 
-/* NAVBAR */
+/* =========================
+   HEADER
+========================= */
 
-.navbar {
+.header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid #e5e7eb;
+
+    background: rgba(255,255,255,0.94);
+    backdrop-filter: blur(15px);
+
+    border-bottom: 1px solid rgba(229,231,235,0.8);
 }
 
-.nav-inner {
-    min-height: 72px;
+.navbar {
+    min-height: 76px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 25px;
 }
 
 .logo {
-    font-size: 25px;
+    font-size: 30px;
     font-weight: 900;
-    letter-spacing: -1px;
+    letter-spacing: -1.5px;
 }
 
 .logo span {
-    color: #635bff;
+    color: var(--primary);
 }
 
 .nav-links {
     display: flex;
-    gap: 28px;
     align-items: center;
+    gap: 28px;
 }
 
 .nav-links a {
-    font-size: 14px;
-    font-weight: 600;
-    color: #4b5563;
+    font-size: 15px;
+    font-weight: 700;
+    color: #475569;
+
+    transition: 0.25s ease;
 }
 
-.nav-button {
-    background: #635bff;
-    color: white !important;
-    padding: 11px 18px;
-    border-radius: 10px;
+.nav-links a:hover {
+    color: var(--primary);
 }
 
-/* HERO */
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn {
+    border: none;
+    border-radius: 14px;
+
+    padding: 13px 20px;
+
+    font-weight: 800;
+    font-size: 15px;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+.btn-primary {
+    color: white;
+    background: var(--primary);
+
+    box-shadow:
+        0 12px 25px rgba(99,91,255,0.25);
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+
+    box-shadow:
+        0 16px 30px rgba(99,91,255,0.32);
+}
+
+.btn-outline {
+    background: white;
+    color: var(--dark);
+
+    border: 1px solid var(--border);
+}
+
+.menu-btn {
+    display: none;
+
+    width: 44px;
+    height: 44px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    background: white;
+
+    font-size: 24px;
+}
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+.mobile-menu {
+    display: none;
+
+    padding: 18px 0 22px;
+
+    border-top: 1px solid var(--border);
+}
+
+.mobile-menu.active {
+    display: block;
+    animation: menuOpen .3s ease;
+}
+
+.mobile-menu a {
+    display: block;
+
+    padding: 13px 5px;
+
+    font-weight: 700;
+    color: #475569;
+
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.mobile-menu .mobile-cta {
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* =========================
+   HERO
+========================= */
 
 .hero {
-    padding: 90px 0 70px;
+    position: relative;
+    overflow: hidden;
+
+    padding:
+        90px 0 100px;
+
     background:
-        radial-gradient(circle at 10% 20%, rgba(99,91,255,0.15), transparent 35%),
-        radial-gradient(circle at 90% 20%, rgba(16,185,129,0.12), transparent 35%),
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(99,91,255,.15),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(20,184,166,.13),
+            transparent 30%
+        ),
         #ffffff;
 }
 
 .hero-grid {
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 50px;
+    grid-template-columns: 1.05fr .95fr;
     align-items: center;
+    gap: 55px;
 }
 
 .badge {
-    display: inline-block;
-    background: #eeecff;
-    color: #5149d9;
-    padding: 8px 14px;
-    border-radius: 50px;
-    font-size: 13px;
-    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 9px 15px;
+
+    border-radius: 999px;
+
+    background: #f0efff;
+    color: #5148e8;
+
+    font-weight: 800;
+    font-size: 14px;
+
     margin-bottom: 22px;
 }
 
 .hero h1 {
-    font-size: clamp(42px, 6vw, 72px);
-    line-height: 1.03;
-    letter-spacing: -3px;
-    margin-bottom: 22px;
+    font-size: clamp(48px, 7vw, 78px);
+
+    line-height: .98;
+
+    letter-spacing: -4px;
+
+    max-width: 720px;
+
+    margin-bottom: 25px;
 }
 
-.hero h1 span {
-    color: #635bff;
+.gradient-text {
+    background:
+        linear-gradient(
+            90deg,
+            #635bff,
+            #8b5cf6,
+            #ec4899
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
-.hero p {
+.hero-description {
+    max-width: 620px;
+
+    color: #64748b;
+
     font-size: 19px;
-    color: #667085;
-    max-width: 600px;
-    margin-bottom: 32px;
+
+    margin-bottom: 30px;
 }
 
-.buttons {
+.hero-actions {
     display: flex;
-    gap: 12px;
+    gap: 13px;
     flex-wrap: wrap;
 }
 
-.primary {
-    background: #635bff;
-    color: white;
-    padding: 14px 22px;
-    border-radius: 11px;
-    font-weight: 700;
+/* =========================
+   HERO DASHBOARD
+========================= */
+
+.dashboard-card {
+    position: relative;
+
+    padding: 20px;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #171f31,
+            #26324a
+        );
+
+    box-shadow:
+        0 30px 80px rgba(17,24,39,.25);
+
+    animation: floatCard 5s ease-in-out infinite;
 }
 
-.secondary {
-    background: white;
-    border: 1px solid #d8dce5;
-    padding: 14px 22px;
-    border-radius: 11px;
-    font-weight: 700;
-}
-
-.hero-card {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 24px;
-    padding: 25px;
-    box-shadow: 0 25px 70px rgba(31,41,55,0.10);
-}
-
-.hero-card-top {
+.dashboard-top {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 22px;
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+.dashboard-title {
+    color: white;
+    font-weight: 800;
+}
+
+.live {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: 12px;
+    color: #bbf7d0;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+    background: #22c55e;
+
+    animation: pulse 1.8s infinite;
+}
+
+.dashboard-business {
+    padding: 20px;
+
+    background: #ffffff;
+    border-radius: 20px;
+
+    margin-bottom: 15px;
 }
 
 .business-name {
     font-size: 21px;
-    font-weight: 800;
+    font-weight: 900;
+}
+
+.business-location {
+    color: #64748b;
+    margin-top: 4px;
 }
 
 .rating {
     color: #f59e0b;
-    font-weight: 700;
+    font-weight: 800;
 }
 
-.metric-grid {
+.dashboard-stats {
     display: grid;
     grid-template-columns: repeat(2,1fr);
     gap: 12px;
 }
 
-.metric {
-    background: #f8fafc;
+.stat-box {
     padding: 18px;
-    border-radius: 14px;
+
+    border-radius: 17px;
+
+    background: #f8fafc;
 }
 
-.metric strong {
-    display: block;
-    font-size: 25px;
+.stat-number {
+    font-size: 30px;
+    font-weight: 900;
 }
 
-.metric small {
-    color: #667085;
+.stat-label {
+    color: #64748b;
+    font-size: 13px;
 }
 
-/* SECTIONS */
+/* =========================
+   SEARCH
+========================= */
 
-section {
-    padding: 80px 0;
+.search-section {
+    margin-top: -35px;
+    position: relative;
+    z-index: 5;
+}
+
+.search-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+
+    gap: 10px;
+
+    padding: 12px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    box-shadow: var(--shadow);
+}
+
+.search-box input,
+.search-box select {
+    min-width: 0;
+
+    padding: 15px;
+
+    border: 1px solid var(--border);
+    border-radius: 13px;
+
+    outline: none;
+
+    background: #f8fafc;
+}
+
+.search-box input:focus,
+.search-box select:focus {
+    border-color: var(--primary);
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section {
+    padding: 95px 0;
+}
+
+.section-light {
+    background: #f8f9ff;
+}
+
+.section-dark {
+    background: #101827;
+    color: white;
 }
 
 .section-heading {
     text-align: center;
-    max-width: 700px;
-    margin: auto auto 45px;
+
+    max-width: 720px;
+
+    margin:
+        0 auto 55px;
 }
 
 .section-heading h2 {
-    font-size: 40px;
-    letter-spacing: -1.5px;
-    margin-bottom: 12px;
+    font-size: clamp(36px, 5vw, 58px);
+
+    line-height: 1.05;
+
+    letter-spacing: -2px;
+
+    margin-bottom: 18px;
 }
 
 .section-heading p {
-    color: #667085;
+    color: #64748b;
+    font-size: 18px;
 }
 
-/* FEATURES */
+.section-dark .section-heading p {
+    color: #aab4c7;
+}
 
-.features {
+/* =========================
+   CATEGORIES
+========================= */
+
+.categories {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 20px;
+
+    grid-template-columns:
+        repeat(6,1fr);
+
+    gap: 15px;
 }
 
-.feature {
+.category {
+    padding: 22px 12px;
+
+    text-align: center;
+
     background: white;
-    border: 1px solid #e5e7eb;
-    padding: 28px;
+
+    border: 1px solid var(--border);
+
     border-radius: 18px;
+
+    transition: .3s ease;
 }
 
-.feature-icon {
-    width: 48px;
-    height: 48px;
-    display: grid;
-    place-items: center;
-    background: #eeecff;
-    border-radius: 12px;
-    margin-bottom: 18px;
-    font-size: 22px;
+.category:hover {
+    transform: translateY(-7px);
+
+    box-shadow: var(--shadow);
+
+    border-color: #d9d5ff;
 }
 
-.feature h3 {
+.category-icon {
+    font-size: 30px;
+
     margin-bottom: 8px;
 }
 
-.feature p {
-    color: #667085;
-    font-size: 15px;
-}
-
-/* BUSINESS */
-
-.business-section {
-    background: #111827;
-    color: white;
-}
-
-.business-section .section-heading p {
-    color: #b7becb;
-}
-
-.business-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-}
-
-.business-card {
-    background: #1f2937;
-    border: 1px solid #374151;
-    padding: 28px;
-    border-radius: 18px;
-}
-
-.business-card h3 {
-    margin-bottom: 12px;
-}
-
-.business-card p {
-    color: #b7becb;
-    margin-bottom: 18px;
-}
-
-/* CTA */
-
-.cta {
-    text-align: center;
-    background: linear-gradient(135deg, #635bff, #7c3aed);
-    color: white;
-    border-radius: 28px;
-    padding: 60px 25px;
-}
-
-.cta h2 {
-    font-size: 42px;
-    margin-bottom: 15px;
-}
-
-.cta p {
-    opacity: .9;
-    margin-bottom: 28px;
-}
-
-/* FOOTER */
-
-footer {
-    background: #ffffff;
-    border-top: 1px solid #e5e7eb;
-    padding: 35px 0;
-}
-
-.footer-inner {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    color: #667085;
+.category strong {
     font-size: 14px;
 }
 
-/* MOBILE */
+/* =========================
+   FEATURES
+========================= */
 
-@media(max-width: 800px) {
+.feature-grid {
+    display: grid;
 
-    .nav-links {
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 22px;
+}
+
+.feature-card {
+    padding: 32px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 24px;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow: var(--shadow);
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+
+    display: grid;
+    place-items: center;
+
+    background: #efedff;
+
+    border-radius: 17px;
+
+    font-size: 29px;
+
+    margin-bottom: 25px;
+}
+
+.feature-card h3 {
+    font-size: 23px;
+
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    color: #64748b;
+}
+
+/* =========================
+   BUSINESS CARDS
+========================= */
+
+.business-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 22px;
+}
+
+.business-card {
+    overflow: hidden;
+
+    background: white;
+
+    border-radius: 22px;
+
+    border: 1px solid var(--border);
+
+    transition: .3s ease;
+}
+
+.business-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow: var(--shadow);
+}
+
+.business-image {
+    height: 210px;
+
+    object-fit: cover;
+}
+
+.business-content {
+    padding: 21px;
+}
+
+.business-content h3 {
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+
+.business-meta {
+    color: #64748b;
+    font-size: 14px;
+
+    margin-bottom: 13px;
+}
+
+.business-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.business-rating {
+    color: #f59e0b;
+    font-weight: 800;
+}
+
+.small-btn {
+    padding: 9px 13px;
+
+    border-radius: 10px;
+
+    border: none;
+
+    background: #efedff;
+
+    color: #5148e8;
+
+    font-weight: 800;
+}
+
+/* =========================
+   HOW IT WORKS
+========================= */
+
+.steps {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 25px;
+}
+
+.step {
+    position: relative;
+
+    padding: 35px 28px;
+
+    background: white;
+
+    border-radius: 24px;
+
+    border: 1px solid var(--border);
+}
+
+.step-number {
+    width: 48px;
+    height: 48px;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--primary);
+
+    color: white;
+
+    border-radius: 50%;
+
+    font-weight: 900;
+
+    margin-bottom: 22px;
+}
+
+.step h3 {
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.step p {
+    color: #64748b;
+}
+
+/* =========================
+   VIDEO SECTION
+========================= */
+
+.video-wrap {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 50px;
+
+    align-items: center;
+}
+
+.video-preview {
+    position: relative;
+
+    min-height: 390px;
+
+    overflow: hidden;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #171f31,
+            #4c3fc9
+        );
+
+    box-shadow:
+        0 30px 70px rgba(0,0,0,.25);
+
+    display: grid;
+    place-items: center;
+}
+
+.video-preview::before {
+    content: "";
+
+    position: absolute;
+
+    width: 230px;
+    height: 230px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.20),
+            transparent 70%
+        );
+
+    animation: videoGlow 4s ease-in-out infinite;
+}
+
+.video-content {
+    position: relative;
+
+    text-align: center;
+
+    z-index: 2;
+}
+
+.play-button {
+    width: 82px;
+    height: 82px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: white;
+
+    color: var(--primary);
+
+    font-size: 30px;
+
+    margin-bottom: 18px;
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.25);
+
+    transition: .3s ease;
+}
+
+.play-button:hover {
+    transform: scale(1.08);
+}
+
+.video-content h3 {
+    color: white;
+    font-size: 28px;
+}
+
+.video-content p {
+    color: #dbe4f3;
+}
+
+.video-text h2 {
+    font-size: clamp(36px,5vw,55px);
+
+    line-height: 1.05;
+
+    letter-spacing: -2px;
+
+    margin-bottom: 20px;
+}
+
+.video-text p {
+    color: #aab4c7;
+
+    font-size: 18px;
+
+    margin-bottom: 25px;
+}
+
+/* =========================
+   DARK CARDS
+========================= */
+
+.dark-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 22px;
+}
+
+.dark-card {
+    padding: 35px;
+
+    border: 1px solid #334155;
+
+    background: #1d2939;
+
+    border-radius: 25px;
+
+    transition: .3s ease;
+}
+
+.dark-card:hover {
+    transform: translateY(-7px);
+
+    border-color: #6159ff;
+}
+
+.dark-card h3 {
+    font-size: 26px;
+    margin-bottom: 13px;
+}
+
+.dark-card p {
+    color: #b8c3d6;
+
+    margin-bottom: 25px;
+}
+
+/* =========================
+   CTA
+========================= */
+
+.cta-section {
+    padding: 90px 0;
+}
+
+.cta {
+    position: relative;
+
+    overflow: hidden;
+
+    text-align: center;
+
+    padding: 80px 30px;
+
+    border-radius: 35px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #635bff,
+            #7c3aed
+        );
+
+    color: white;
+
+    box-shadow:
+        0 30px 80px rgba(99,91,255,.30);
+}
+
+.cta::before,
+.cta::after {
+    content: "";
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.10);
+}
+
+.cta::before {
+    width: 250px;
+    height: 250px;
+
+    top: -120px;
+    left: -80px;
+}
+
+.cta::after {
+    width: 300px;
+    height: 300px;
+
+    bottom: -160px;
+    right: -100px;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+}
+
+.cta h2 {
+    font-size: clamp(40px,6vw,65px);
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+
+    margin-bottom: 20px;
+}
+
+.cta p {
+    max-width: 650px;
+
+    margin:
+        0 auto 30px;
+
+    font-size: 18px;
+
+    color: #ecebff;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-section {
+    background: #f8f9ff;
+}
+
+.contact-grid {
+    display: grid;
+
+    grid-template-columns:
+        .8fr 1.2fr;
+
+    gap: 45px;
+
+    align-items: start;
+}
+
+.contact-info h2 {
+    font-size: 45px;
+
+    line-height: 1.05;
+
+    margin-bottom: 17px;
+}
+
+.contact-info p {
+    color: #64748b;
+
+    font-size: 17px;
+}
+
+.contact-card {
+    padding: 30px;
+
+    background: white;
+
+    border-radius: 25px;
+
+    border: 1px solid var(--border);
+
+    box-shadow: var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 17px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-weight: 800;
+
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+
+    padding: 14px 15px;
+
+    border-radius: 12px;
+
+    border: 1px solid var(--border);
+
+    outline: none;
+
+    background: #f8fafc;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: var(--primary);
+
+    background: white;
+}
+
+.form-group textarea {
+    min-height: 120px;
+
+    resize: vertical;
+}
+
+.form-success {
+    display: none;
+
+    margin-top: 15px;
+
+    padding: 13px;
+
+    border-radius: 12px;
+
+    background: #dcfce7;
+
+    color: #166534;
+
+    font-weight: 700;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    padding: 55px 0 25px;
+
+    background: #0f172a;
+
+    color: white;
+}
+
+.footer-grid {
+    display: grid;
+
+    grid-template-columns:
+        1.5fr 1fr 1fr 1fr;
+
+    gap: 35px;
+
+    padding-bottom: 40px;
+
+    border-bottom: 1px solid #293548;
+}
+
+.footer-brand p {
+    max-width: 330px;
+
+    color: #94a3b8;
+
+    margin-top: 13px;
+}
+
+.footer-column h4 {
+    margin-bottom: 15px;
+}
+
+.footer-column a {
+    display: block;
+
+    color: #94a3b8;
+
+    margin: 9px 0;
+
+    transition: .2s ease;
+}
+
+.footer-column a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding-top: 23px;
+
+    color: #94a3b8;
+
+    font-size: 14px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 3000;
+
+    display: none;
+
+    place-items: center;
+
+    padding: 20px;
+
+    background:
+        rgba(15,23,42,.75);
+
+    backdrop-filter: blur(8px);
+}
+
+.modal.active {
+    display: grid;
+}
+
+.modal-box {
+    width: min(700px,100%);
+
+    padding: 30px;
+
+    background: white;
+
+    border-radius: 25px;
+
+    position: relative;
+
+    animation: modalIn .3s ease;
+}
+
+.modal-close {
+    position: absolute;
+
+    top: 12px;
+    right: 15px;
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #f1f5f9;
+
+    font-size: 22px;
+}
+
+.modal-box h2 {
+    margin-bottom: 12px;
+}
+
+.demo-video {
+    margin-top: 20px;
+
+    min-height: 280px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111827,
+            #635bff
+        );
+
+    display: grid;
+
+    place-items: center;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 30px;
+}
+
+.demo-video-icon {
+    font-size: 60px;
+
+    margin-bottom: 10px;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+.reveal {
+    opacity: 0;
+
+    transform: translateY(30px);
+
+    transition:
+        opacity .7s ease,
+        transform .7s ease;
+}
+
+.reveal.show {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+@keyframes floatCard {
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(34,197,94,.5);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(34,197,94,0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(34,197,94,0);
+    }
+}
+
+@keyframes videoGlow {
+    0%,100% {
+        transform: scale(1);
+        opacity: .6;
+    }
+
+    50% {
+        transform: scale(1.3);
+        opacity: 1;
+    }
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: scale(.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes menuOpen {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .nav-links,
+    .nav-buttons {
         display: none;
     }
 
-    .hero {
-        padding-top: 60px;
+    .menu-btn {
+        display: block;
     }
 
     .hero-grid {
         grid-template-columns: 1fr;
     }
 
+    .hero {
+        padding-top: 65px;
+    }
+
     .hero h1 {
-        font-size: 46px;
+        letter-spacing: -3px;
     }
 
-    .features {
-        grid-template-columns: 1fr;
+    .categories {
+        grid-template-columns:
+            repeat(3,1fr);
     }
 
+    .feature-grid,
     .business-grid {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .video-wrap,
+    .contact-grid {
         grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+}
+
+@media (max-width: 650px) {
+
+    .container {
+        width: min(92%, 520px);
+    }
+
+    .navbar {
+        min-height: 68px;
+    }
+
+    .logo {
+        font-size: 27px;
+    }
+
+    .hero {
+        padding: 55px 0 75px;
+    }
+
+    .hero h1 {
+        font-size: 49px;
+
+        letter-spacing: -2.5px;
+    }
+
+    .hero-description {
+        font-size: 17px;
+    }
+
+    .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
+    .search-box {
+        grid-template-columns: 1fr;
+    }
+
+    .section {
+        padding: 70px 0;
+    }
+
+    .section-heading {
+        margin-bottom: 38px;
     }
 
     .section-heading h2 {
-        font-size: 32px;
+        font-size: 39px;
     }
 
-    .footer-inner {
+    .categories {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .feature-grid,
+    .business-grid,
+    .steps,
+    .dark-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-card {
+        padding: 27px;
+    }
+
+    .video-preview {
+        min-height: 300px;
+    }
+
+    .video-text h2 {
+        font-size: 40px;
+    }
+
+    .cta {
+        padding: 65px 22px;
+        border-radius: 28px;
+    }
+
+    .cta h2 {
+        font-size: 48px;
+    }
+
+    .contact-info h2 {
+        font-size: 39px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-bottom {
         flex-direction: column;
+    }
+}
+
+@media (max-width: 390px) {
+
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .dashboard-card {
+        padding: 14px;
+    }
+
+    .dashboard-stats {
+        gap: 8px;
+    }
+
+    .stat-box {
+        padding: 14px;
     }
 }
 
@@ -365,102 +1523,222 @@ footer {
 
 <body>
 
-<header class="navbar">
-    <div class="container nav-inner">
+<!-- =========================
+     HEADER
+========================= -->
 
-        <a href="#" class="logo">
-            Boost<span>ly</span>
-        </a>
+<header class="header">
 
-        <nav class="nav-links">
-            <a href="#features">Features</a>
-            <a href="#business">For Businesses</a>
-            <a href="#contact">Contact</a>
-            <a href="#business" class="nav-button">Get Started</a>
+    <div class="container">
+
+        <nav class="navbar">
+
+            <a href="#home" class="logo">
+                Boost<span>ly</span>
+            </a>
+
+            <div class="nav-links">
+
+                <a href="#home">Home</a>
+
+                <a href="#explore">Explore</a>
+
+                <a href="#features">Features</a>
+
+                <a href="#how-it-works">How It Works</a>
+
+                <a href="#contact">Contact</a>
+
+            </div>
+
+            <div class="nav-buttons">
+
+                <a href="#contact"
+                   class="btn btn-outline">
+                    Login
+                </a>
+
+                <a href="#contact"
+                   class="btn btn-primary">
+                    Get Started
+                </a>
+
+            </div>
+
+            <button
+                class="menu-btn"
+                id="menuBtn"
+                aria-label="Open menu">
+                ☰
+            </button>
+
         </nav>
 
-    </div>
-</header>
+        <div
+            class="mobile-menu"
+            id="mobileMenu">
 
+            <a href="#home">Home</a>
 
-<main>
+            <a href="#explore">Explore Businesses</a>
 
-<section class="hero">
+            <a href="#features">Features</a>
 
-    <div class="container hero-grid">
+            <a href="#how-it-works">How It Works</a>
 
-        <div>
+            <a href="#contact">Contact</a>
 
-            <div class="badge">
-                🚀 Local Business Growth Platform
-            </div>
-
-            <h1>
-                Grow your local business <span>smarter.</span>
-            </h1>
-
-            <p>
-                Boostly helps local businesses get discovered,
-                attract new customers, increase bookings and build
-                stronger customer relationships.
-            </p>
-
-            <div class="buttons">
-
-                <a href="#business" class="primary">
-                    Grow My Business →
-                </a>
-
-                <a href="#features" class="secondary">
-                    Explore Boostly
-                </a>
-
-            </div>
+            <a
+                href="#contact"
+                class="btn btn-primary mobile-cta">
+                Get Started
+            </a>
 
         </div>
 
+    </div>
 
-        <div class="hero-card">
+</header>
 
-            <div class="hero-card-top">
 
-                <div>
-                    <div class="business-name">
-                        Royal Look Salon
-                    </div>
+<!-- =========================
+     HERO
+========================= -->
 
-                    <small>
-                        📍 Ludhiana · Beauty & Hair
-                    </small>
+<main>
+
+<section
+    class="hero"
+    id="home">
+
+    <div class="container">
+
+        <div class="hero-grid">
+
+            <div class="reveal">
+
+                <div class="badge">
+                    🚀 Local Business Growth Platform
                 </div>
 
-                <div class="rating">
-                    ★ 4.8
+                <h1>
+                    Grow your local business
+                    <span class="gradient-text">
+                        smarter.
+                    </span>
+                </h1>
+
+                <p class="hero-description">
+                    Boostly helps local businesses get discovered,
+                    attract new customers, increase bookings and
+                    build stronger customer relationships.
+                </p>
+
+                <div class="hero-actions">
+
+                    <a
+                        href="#contact"
+                        class="btn btn-primary">
+                        Grow My Business →
+                    </a>
+
+                    <a
+                        href="#explore"
+                        class="btn btn-outline">
+                        Explore Businesses
+                    </a>
+
                 </div>
 
             </div>
 
 
-            <div class="metric-grid">
+            <div class="dashboard-card reveal">
 
-                <div class="metric">
-                    <strong>84</strong>
-                    <small>Profile Views</small>
+                <div class="dashboard-top">
+
+                    <div class="dashboard-title">
+                        📊 Business Growth
+                    </div>
+
+                    <div class="live">
+                        <span class="live-dot"></span>
+                        Live
+                    </div>
+
                 </div>
 
-                <div class="metric">
-                    <strong>12</strong>
-                    <small>Enquiries</small>
+                <div class="dashboard-business">
+
+                    <div
+                        style="
+                        display:flex;
+                        justify-content:space-between;
+                        gap:10px;
+                        ">
+
+                        <div>
+
+                            <div class="business-name">
+                                Royal Look Salon
+                            </div>
+
+                            <div class="business-location">
+                                📍 Ludhiana · Beauty & Hair
+                            </div>
+
+                        </div>
+
+                        <div class="rating">
+                            ★ 4.8
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <div class="metric">
-                    <strong>6</strong>
-                    <small>Bookings</small>
-                </div>
+                <div class="dashboard-stats">
 
-                <div class="metric">
-                    <strong>78</strong>
-                    <small>Growth Score</small>
+                    <div class="stat-box">
+                        <div class="stat-number">
+                            84
+                        </div>
+
+                        <div class="stat-label">
+                            Profile Views
+                        </div>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-number">
+                            12
+                        </div>
+
+                        <div class="stat-label">
+                            Enquiries
+                        </div>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-number">
+                            6
+                        </div>
+
+                        <div class="stat-label">
+                            Bookings
+                        </div>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-number">
+                            78%
+                        </div>
+
+                        <div class="stat-label">
+                            Growth Score
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
@@ -472,11 +1750,186 @@ footer {
 </section>
 
 
-<section id="features">
+<!-- =========================
+     SEARCH
+========================= -->
+
+<section class="search-section">
 
     <div class="container">
 
-        <div class="section-heading">
+        <div class="search-box">
+
+            <input
+                type="search"
+                id="businessSearch"
+                placeholder="Search businesses...">
+
+            <select id="categoryFilter">
+
+                <option value="all">
+                    All Categories
+                </option>
+
+                <option value="beauty">
+                    Beauty & Hair
+                </option>
+
+                <option value="restaurant">
+                    Restaurants
+                </option>
+
+                <option value="fitness">
+                    Fitness
+                </option>
+
+                <option value="cafe">
+                    Cafés
+                </option>
+
+                <option value="shopping">
+                    Shopping
+                </option>
+
+                <option value="hotel">
+                    Hotels
+                </option>
+
+            </select>
+
+            <button
+                class="btn btn-primary"
+                id="searchBtn">
+                Search
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CATEGORIES
+========================= -->
+
+<section
+    class="section section-light"
+    id="explore">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <h2>
+                Explore local businesses
+            </h2>
+
+            <p>
+                Discover businesses and services around you.
+            </p>
+
+        </div>
+
+        <div class="categories">
+
+            <a href="#businesses"
+               class="category reveal">
+
+                <div class="category-icon">
+                    💇
+                </div>
+
+                <strong>
+                    Beauty
+                </strong>
+
+            </a>
+
+            <a href="#businesses"
+               class="category reveal">
+
+                <div class="category-icon">
+                    🍽️
+                </div>
+
+                <strong>
+                    Restaurants
+                </strong>
+
+            </a>
+
+            <a href="#businesses"
+               class="category reveal">
+
+                <div class="category-icon">
+                    🏋️
+                </div>
+
+                <strong>
+                    Fitness
+                </strong>
+
+            </a>
+
+            <a href="#businesses"
+               class="category reveal">
+
+                <div class="category-icon">
+                    ☕
+                </div>
+
+                <strong>
+                    Cafés
+                </strong>
+
+            </a>
+
+            <a href="#businesses"
+               class="category reveal">
+
+                <div class="category-icon">
+                    🛍️
+                </div>
+
+                <strong>
+                    Shopping
+                </strong>
+
+            </a>
+
+            <a href="#businesses"
+               class="category reveal">
+
+                <div class="category-icon">
+                    🏨
+                </div>
+
+                <strong>
+                    Hotels
+                </strong>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FEATURES
+========================= -->
+
+<section
+    class="section"
+    id="features">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
 
             <h2>
                 Everything you need to grow
@@ -490,11 +1943,13 @@ footer {
         </div>
 
 
-        <div class="features">
+        <div class="feature-grid">
 
-            <div class="feature">
+            <div class="feature-card reveal">
 
-                <div class="feature-icon">📍</div>
+                <div class="feature-icon">
+                    📍
+                </div>
 
                 <h3>
                     Get Discovered
@@ -508,9 +1963,11 @@ footer {
             </div>
 
 
-            <div class="feature">
+            <div class="feature-card reveal">
 
-                <div class="feature-icon">📅</div>
+                <div class="feature-icon">
+                    📅
+                </div>
 
                 <h3>
                     Get More Bookings
@@ -524,17 +1981,73 @@ footer {
             </div>
 
 
-            <div class="feature">
+            <div class="feature-card reveal">
 
-                <div class="feature-icon">🔥</div>
+                <div class="feature-icon">
+                    🔥
+                </div>
 
                 <h3>
-                    Grow Customers
+                    Smart Offers
                 </h3>
 
                 <p>
-                    Use offers, promotions and customer
-                    engagement tools to encourage repeat business.
+                    Create attractive offers and promotions
+                    designed to bring customers back.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card reveal">
+
+                <div class="feature-icon">
+                    ⭐
+                </div>
+
+                <h3>
+                    Build Reputation
+                </h3>
+
+                <p>
+                    Showcase your services, customer feedback
+                    and business information in one place.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card reveal">
+
+                <div class="feature-icon">
+                    📈
+                </div>
+
+                <h3>
+                    Track Growth
+                </h3>
+
+                <p>
+                    Understand profile views, enquiries,
+                    bookings and customer activity.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card reveal">
+
+                <div class="feature-icon">
+                    🤝
+                </div>
+
+                <h3>
+                    Connect With Customers
+                </h3>
+
+                <p>
+                    Give customers simple ways to discover
+                    and connect with your business.
                 </p>
 
             </div>
@@ -546,11 +2059,445 @@ footer {
 </section>
 
 
-<section id="business" class="business-section">
+<!-- =========================
+     BUSINESSES
+========================= -->
+
+<section
+    class="section section-light"
+    id="businesses">
 
     <div class="container">
 
-        <div class="section-heading">
+        <div class="section-heading reveal">
+
+            <h2>
+                Discover businesses
+            </h2>
+
+            <p>
+                A preview of how businesses can appear
+                on the Boostly platform.
+            </p>
+
+        </div>
+
+
+        <div
+            class="business-grid"
+            id="businessGrid">
+
+
+            <article
+                class="business-card reveal"
+                data-name="Royal Look Salon"
+                data-category="beauty">
+
+                <img
+                    class="business-image"
+                    src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=900&q=80"
+                    alt="Beauty salon">
+
+                <div class="business-content">
+
+                    <h3>
+                        Royal Look Salon
+                    </h3>
+
+                    <div class="business-meta">
+                        📍 Ludhiana · Beauty & Hair
+                    </div>
+
+                    <div class="business-bottom">
+
+                        <div class="business-rating">
+                            ★ 4.8
+                        </div>
+
+                        <button
+                            class="small-btn"
+                            onclick="showBusiness('Royal Look Salon')">
+                            View Profile
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article
+                class="business-card reveal"
+                data-name="Urban Taste"
+                data-category="restaurant">
+
+                <img
+                    class="business-image"
+                    src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80"
+                    alt="Restaurant interior">
+
+                <div class="business-content">
+
+                    <h3>
+                        Urban Taste
+                    </h3>
+
+                    <div class="business-meta">
+                        📍 Ludhiana · Restaurant
+                    </div>
+
+                    <div class="business-bottom">
+
+                        <div class="business-rating">
+                            ★ 4.7
+                        </div>
+
+                        <button
+                            class="small-btn"
+                            onclick="showBusiness('Urban Taste')">
+                            View Profile
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article
+                class="business-card reveal"
+                data-name="FitZone Studio"
+                data-category="fitness">
+
+                <img
+                    class="business-image"
+                    src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80"
+                    alt="Fitness gym">
+
+                <div class="business-content">
+
+                    <h3>
+                        FitZone Studio
+                    </h3>
+
+                    <div class="business-meta">
+                        📍 Jalandhar · Fitness
+                    </div>
+
+                    <div class="business-bottom">
+
+                        <div class="business-rating">
+                            ★ 4.9
+                        </div>
+
+                        <button
+                            class="small-btn"
+                            onclick="showBusiness('FitZone Studio')">
+                            View Profile
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article
+                class="business-card reveal"
+                data-name="Bean & Brew"
+                data-category="cafe">
+
+                <img
+                    class="business-image"
+                    src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=900&q=80"
+                    alt="Cafe">
+
+                <div class="business-content">
+
+                    <h3>
+                        Bean & Brew
+                    </h3>
+
+                    <div class="business-meta">
+                        📍 Amritsar · Café
+                    </div>
+
+                    <div class="business-bottom">
+
+                        <div class="business-rating">
+                            ★ 4.6
+                        </div>
+
+                        <button
+                            class="small-btn"
+                            onclick="showBusiness('Bean & Brew')">
+                            View Profile
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article
+                class="business-card reveal"
+                data-name="Style Street"
+                data-category="shopping">
+
+                <img
+                    class="business-image"
+                    src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=900&q=80"
+                    alt="Shopping store">
+
+                <div class="business-content">
+
+                    <h3>
+                        Style Street
+                    </h3>
+
+                    <div class="business-meta">
+                        📍 Chandigarh · Shopping
+                    </div>
+
+                    <div class="business-bottom">
+
+                        <div class="business-rating">
+                            ★ 4.7
+                        </div>
+
+                        <button
+                            class="small-btn"
+                            onclick="showBusiness('Style Street')">
+                            View Profile
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article
+                class="business-card reveal"
+                data-name="Grand Stay"
+                data-category="hotel">
+
+                <img
+                    class="business-image"
+                    src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80"
+                    alt="Hotel">
+
+                <div class="business-content">
+
+                    <h3>
+                        Grand Stay
+                    </h3>
+
+                    <div class="business-meta">
+                        📍 Punjab · Hotel
+                    </div>
+
+                    <div class="business-bottom">
+
+                        <div class="business-rating">
+                            ★ 4.8
+                        </div>
+
+                        <button
+                            class="small-btn"
+                            onclick="showBusiness('Grand Stay')">
+                            View Profile
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+        <div
+            id="noResults"
+            style="
+            display:none;
+            text-align:center;
+            padding:30px;
+            color:#64748b;
+            ">
+            No businesses found. Try another search.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     HOW IT WORKS
+========================= -->
+
+<section
+    class="section"
+    id="how-it-works">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <h2>
+                How Boostly works
+            </h2>
+
+            <p>
+                Simple steps to help local businesses
+                build a stronger online presence.
+            </p>
+
+        </div>
+
+
+        <div class="steps">
+
+            <div class="step reveal">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <h3>
+                    Create your profile
+                </h3>
+
+                <p>
+                    Add your business name, category,
+                    location, services, photos and information.
+                </p>
+
+            </div>
+
+
+            <div class="step reveal">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <h3>
+                    Get discovered
+                </h3>
+
+                <p>
+                    Customers can discover your business
+                    through Boostly's local discovery experience.
+                </p>
+
+            </div>
+
+
+            <div class="step reveal">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <h3>
+                    Grow your customers
+                </h3>
+
+                <p>
+                    Use enquiries, bookings, offers and
+                    customer engagement tools to grow.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     VIDEO
+========================= -->
+
+<section
+    class="section section-dark"
+    id="video">
+
+    <div class="container">
+
+        <div class="video-wrap">
+
+            <div class="video-preview reveal">
+
+                <div class="video-content">
+
+                    <button
+                        class="play-button"
+                        onclick="openVideo()"
+                        aria-label="Play Boostly video">
+                        ▶
+                    </button>
+
+                    <h3>
+                        See How Boostly Works
+                    </h3>
+
+                    <p>
+                        A simple growth platform for local businesses.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="video-text reveal">
+
+                <h2>
+                    Turn your business profile into a growth engine.
+                </h2>
+
+                <p>
+                    Showcase your business, attract customers,
+                    promote offers and understand your growth
+                    from one simple platform.
+                </p>
+
+                <a
+                    href="#contact"
+                    class="btn btn-primary">
+                    Start Growing →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     BUSINESS OWNER
+========================= -->
+
+<section
+    class="section section-dark">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
 
             <h2>
                 Built for ambitious local businesses
@@ -564,27 +2511,30 @@ footer {
         </div>
 
 
-        <div class="business-grid">
+        <div class="dark-grid">
 
-            <div class="business-card">
+            <div class="dark-card reveal">
 
                 <h3>
                     📊 Business Growth Dashboard
                 </h3>
 
                 <p>
-                    Understand enquiries, bookings, customers,
-                    offers and your overall business growth.
+                    Understand enquiries, bookings,
+                    customers, offers and your overall
+                    business growth.
                 </p>
 
-                <a href="#contact" class="primary">
+                <a
+                    href="#contact"
+                    class="btn btn-primary">
                     Start Growing
                 </a>
 
             </div>
 
 
-            <div class="business-card">
+            <div class="dark-card reveal">
 
                 <h3>
                     🔥 Smart Offers
@@ -595,7 +2545,9 @@ footer {
                     designed to bring customers back.
                 </p>
 
-                <a href="#contact" class="primary">
+                <a
+                    href="#contact"
+                    class="btn btn-primary">
                     Create Your Profile
                 </a>
 
@@ -608,24 +2560,226 @@ footer {
 </section>
 
 
-<section id="contact">
+<!-- =========================
+     CTA
+========================= -->
+
+<section class="cta-section">
 
     <div class="container">
 
-        <div class="cta">
+        <div class="cta reveal">
 
-            <h2>
-                Ready to grow?
-            </h2>
+            <div class="cta-content">
 
-            <p>
-                Join Boostly and start building a stronger
-                local business presence.
-            </p>
+                <h2>
+                    Ready to grow?
+                </h2>
 
-            <a href="mailto:hello@boostly.example" class="secondary">
-                Contact Boostly
-            </a>
+                <p>
+                    Join Boostly and start building a stronger
+                    local business presence.
+                </p>
+
+                <a
+                    href="#contact"
+                    class="btn"
+                    style="
+                    background:white;
+                    color:#5148e8;
+                    ">
+                    Get Started Free →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT / CTA FORM
+========================= -->
+
+<section
+    class="section form-section"
+    id="contact">
+
+    <div class="container">
+
+        <div class="contact-grid">
+
+            <div class="contact-info reveal">
+
+                <div class="badge">
+                    🚀 Let's grow
+                </div>
+
+                <h2>
+                    Put your business on Boostly.
+                </h2>
+
+                <p>
+                    Tell us a little about your business.
+                    This form currently works as a frontend
+                    enquiry form and can later be connected
+                    to a real database.
+                </p>
+
+                <br>
+
+                <p>
+                    <strong>✓ Professional profile</strong>
+                </p>
+
+                <p>
+                    <strong>✓ Local discovery</strong>
+                </p>
+
+                <p>
+                    <strong>✓ Customer enquiries</strong>
+                </p>
+
+                <p>
+                    <strong>✓ Growth tools</strong>
+                </p>
+
+            </div>
+
+
+            <div class="contact-card reveal">
+
+                <form
+                    id="businessForm">
+
+                    <div class="form-group">
+
+                        <label>
+                            Your Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Enter your name"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Business Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="businessName"
+                            placeholder="Your business name"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Business Category
+                        </label>
+
+                        <select
+                            id="businessCategory"
+                            required>
+
+                            <option value="">
+                                Select category
+                            </option>
+
+                            <option>
+                                Beauty & Hair
+                            </option>
+
+                            <option>
+                                Restaurant
+                            </option>
+
+                            <option>
+                                Fitness
+                            </option>
+
+                            <option>
+                                Café
+                            </option>
+
+                            <option>
+                                Shopping
+                            </option>
+
+                            <option>
+                                Hotel
+                            </option>
+
+                            <option>
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Phone / WhatsApp
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            placeholder="Enter phone number"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Tell us about your business
+                        </label>
+
+                        <textarea
+                            id="message"
+                            placeholder="What does your business offer?"></textarea>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        style="width:100%;">
+                        Submit Business Enquiry →
+                    </button>
+
+
+                    <div
+                        class="form-success"
+                        id="formSuccess">
+
+                        ✅ Thank you! Your enquiry has been
+                        received on this demo page.
+
+                    </div>
+
+                </form>
+
+            </div>
 
         </div>
 
@@ -636,21 +2790,582 @@ footer {
 </main>
 
 
-<footer>
+<!-- =========================
+     FOOTER
+========================= -->
 
-    <div class="container footer-inner">
+<footer class="footer">
 
-        <div>
-            © 2026 Boostly. All rights reserved.
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div class="footer-brand">
+
+                <div class="logo">
+                    Boost<span>ly</span>
+                </div>
+
+                <p>
+                    A modern platform designed to help
+                    local businesses get discovered,
+                    attract customers and grow.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Platform
+                </h4>
+
+                <a href="#explore">
+                    Explore
+                </a>
+
+                <a href="#features">
+                    Features
+                </a>
+
+                <a href="#how-it-works">
+                    How It Works
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Business
+                </h4>
+
+                <a href="#contact">
+                    Create Profile
+                </a>
+
+                <a href="#contact">
+                    Get Started
+                </a>
+
+                <a href="#contact">
+                    Contact
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Company
+                </h4>
+
+                <a href="#home">
+                    About Boostly
+                </a>
+
+                <a href="#contact">
+                    Support
+                </a>
+
+                <a href="#contact">
+                    Join Boostly
+                </a>
+
+            </div>
+
         </div>
 
-        <div>
-            Grow smarter. Serve better.
+
+        <div class="footer-bottom">
+
+            <div>
+                © 2026 Boostly. All rights reserved.
+            </div>
+
+            <div>
+                Built for local business growth.
+            </div>
+
         </div>
 
     </div>
 
 </footer>
+
+
+<!-- =========================
+     VIDEO MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="videoModal">
+
+    <div class="modal-box">
+
+        <button
+            class="modal-close"
+            onclick="closeVideo()">
+            ×
+        </button>
+
+        <h2>
+            How Boostly Works
+        </h2>
+
+        <p>
+            Boostly connects local businesses with
+            customers through profiles, discovery,
+            enquiries and growth tools.
+        </p>
+
+        <div class="demo-video">
+
+            <div>
+
+                <div class="demo-video-icon">
+                    🚀
+                </div>
+
+                <h3>
+                    Boostly Growth Experience
+                </h3>
+
+                <p>
+                    Your promotional video can be added
+                    here later without changing the page design.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     BUSINESS MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="businessModal">
+
+    <div class="modal-box">
+
+        <button
+            class="modal-close"
+            onclick="closeBusiness()">
+            ×
+        </button>
+
+        <div class="badge">
+            ⭐ Boostly Business
+        </div>
+
+        <h2 id="businessModalTitle">
+            Business Profile
+        </h2>
+
+        <p>
+            This is a preview of the future Boostly
+            business profile page.
+        </p>
+
+        <br>
+
+        <p>
+            📍 Local Business
+        </p>
+
+        <p>
+            ⭐ 4.8 Rating
+        </p>
+
+        <p>
+            📞 Customer enquiries
+        </p>
+
+        <p>
+            📅 Bookings
+        </p>
+
+        <br>
+
+        <a
+            href="#contact"
+            onclick="closeBusiness()"
+            class="btn btn-primary">
+            Create Your Business Profile →
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+const menuBtn =
+    document.getElementById("menuBtn");
+
+const mobileMenu =
+    document.getElementById("mobileMenu");
+
+menuBtn.addEventListener("click", function() {
+
+    mobileMenu.classList.toggle("active");
+
+    if (mobileMenu.classList.contains("active")) {
+        menuBtn.textContent = "✕";
+    } else {
+        menuBtn.textContent = "☰";
+    }
+
+});
+
+
+/* Close mobile menu after clicking */
+
+document
+    .querySelectorAll(".mobile-menu a")
+    .forEach(function(link) {
+
+        link.addEventListener("click", function() {
+
+            mobileMenu.classList.remove("active");
+
+            menuBtn.textContent = "☰";
+
+        });
+
+    });
+
+
+/* =========================
+   SCROLL ANIMATION
+========================= */
+
+const revealElements =
+    document.querySelectorAll(".reveal");
+
+const revealObserver =
+    new IntersectionObserver(
+
+        function(entries) {
+
+            entries.forEach(function(entry) {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("show");
+
+                    revealObserver.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+
+        {
+            threshold: 0.12
+        }
+
+    );
+
+
+revealElements.forEach(function(element) {
+
+    revealObserver.observe(element);
+
+});
+
+
+/* =========================
+   BUSINESS SEARCH
+========================= */
+
+const searchInput =
+    document.getElementById("businessSearch");
+
+const categoryFilter =
+    document.getElementById("categoryFilter");
+
+const searchBtn =
+    document.getElementById("searchBtn");
+
+const businessCards =
+    document.querySelectorAll(".business-card");
+
+const noResults =
+    document.getElementById("noResults");
+
+
+function searchBusinesses() {
+
+    const search =
+        searchInput.value
+            .toLowerCase()
+            .trim();
+
+    const category =
+        categoryFilter.value;
+
+    let visibleCount = 0;
+
+
+    businessCards.forEach(function(card) {
+
+        const name =
+            card.dataset.name
+                .toLowerCase();
+
+        const cardCategory =
+            card.dataset.category;
+
+        const matchesSearch =
+            name.includes(search);
+
+        const matchesCategory =
+            category === "all" ||
+            cardCategory === category;
+
+
+        if (
+            matchesSearch &&
+            matchesCategory
+        ) {
+
+            card.style.display = "";
+
+            visibleCount++;
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+
+    if (visibleCount === 0) {
+
+        noResults.style.display = "block";
+
+    } else {
+
+        noResults.style.display = "none";
+
+    }
+
+
+    document
+        .getElementById("businesses")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+searchBtn.addEventListener(
+    "click",
+    searchBusinesses
+);
+
+
+searchInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+
+            searchBusinesses();
+
+        }
+
+    }
+);
+
+
+categoryFilter.addEventListener(
+    "change",
+    searchBusinesses
+);
+
+
+/* =========================
+   VIDEO MODAL
+========================= */
+
+const videoModal =
+    document.getElementById("videoModal");
+
+
+function openVideo() {
+
+    videoModal.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+
+}
+
+
+function closeVideo() {
+
+    videoModal.classList.remove("active");
+
+    document.body.style.overflow = "";
+
+}
+
+
+/* =========================
+   BUSINESS MODAL
+========================= */
+
+const businessModal =
+    document.getElementById("businessModal");
+
+const businessModalTitle =
+    document.getElementById("businessModalTitle");
+
+
+function showBusiness(name) {
+
+    businessModalTitle.textContent =
+        name;
+
+    businessModal.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+
+}
+
+
+function closeBusiness() {
+
+    businessModal.classList.remove("active");
+
+    document.body.style.overflow = "";
+
+}
+
+
+/* =========================
+   CLOSE MODALS
+========================= */
+
+window.addEventListener(
+    "click",
+    function(event) {
+
+        if (event.target === videoModal) {
+
+            closeVideo();
+
+        }
+
+        if (event.target === businessModal) {
+
+            closeBusiness();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Escape") {
+
+            closeVideo();
+
+            closeBusiness();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   FORM
+========================= */
+
+const businessForm =
+    document.getElementById("businessForm");
+
+const formSuccess =
+    document.getElementById("formSuccess");
+
+
+businessForm.addEventListener(
+    "submit",
+    function(event) {
+
+        event.preventDefault();
+
+        formSuccess.style.display =
+            "block";
+
+        businessForm.reset();
+
+        formSuccess.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }
+);
+
+
+/* =========================
+   CTA TRACKING
+========================= */
+
+document
+    .querySelectorAll('a[href="#contact"]')
+    .forEach(function(link) {
+
+        link.addEventListener(
+            "click",
+            function() {
+
+                setTimeout(function() {
+
+                    const firstInput =
+                        document.getElementById("name");
+
+                    if (firstInput) {
+                        firstInput.focus();
+                    }
+
+                }, 700);
+
+            }
+        );
+
+    });
+
+</script>
 
 </body>
 </html>
