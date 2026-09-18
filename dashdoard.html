@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Dashboard – Boostly</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f6f7fb;
+  color:#171827;
+}
+
+a{text-decoration:none;color:inherit}
+
+.header{
+  height:70px;
+  background:white;
+  border-bottom:1px solid #e7e8ef;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 5%;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.logo{
+  font-size:27px;
+  font-weight:900;
+  color:#5b50e6;
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.view-site{
+  font-size:13px;
+  font-weight:800;
+  color:#5b50e6;
+}
+
+.avatar{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#f0efff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  color:#5b50e6;
+}
+
+.layout{
+  max-width:1200px;
+  margin:auto;
+  padding:28px 20px 60px;
+}
+
+.welcome{
+  margin-bottom:25px;
+}
+
+.welcome h1{
+  font-size:30px;
+  margin-bottom:5px;
+}
+
+.welcome p{
+  color:#747688;
+  font-size:14px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-bottom:28px;
+}
+
+.stat{
+  background:white;
+  border:1px solid #e6e7ee;
+  border-radius:16px;
+  padding:20px;
+}
+
+.stat-icon{
+  font-size:24px;
+  margin-bottom:12px;
+}
+
+.stat-number{
+  font-size:27px;
+  font-weight:900;
+  margin-bottom:4px;
+}
+
+.stat-label{
+  color:#77798b;
+  font-size:12px;
+  font-weight:700;
+}
+
+.change{
+  color:#21a366;
+  font-size:11px;
+  font-weight:800;
+  margin-top:7px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:20px;
+}
+
+.card{
+  background:white;
+  border:1px solid #e6e7ee;
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:20px;
+}
+
+.card h2{
+  font-size:19px;
+  margin-bottom:18px;
+}
+
+.profile{
+  display:flex;
+  gap:18px;
+  align-items:center;
+}
+
+.profile-image{
+  width:85px;
+  height:85px;
+  border-radius:14px;
+  object-fit:cover;
+}
+
+.profile-info h3{
+  font-size:20px;
+  margin-bottom:5px;
+}
+
+.profile-info p{
+  color:#77798b;
+  font-size:13px;
+  margin-bottom:5px;
+}
+
+.verified{
+  display:inline-block;
+  color:#2878e8;
+  background:#edf5ff;
+  padding:4px 8px;
+  border-radius:20px;
+  font-size:10px;
+  font-weight:800;
+}
+
+.actions{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:20px;
+}
+
+.action{
+  border:1px solid #e2e3eb;
+  border-radius:10px;
+  padding:12px 8px;
+  text-align:center;
+  font-size:12px;
+  font-weight:800;
+  color:#5148d9;
+  background:#fafaff;
+  cursor:pointer;
+}
+
+.action:hover{
+  background:#f0efff;
+}
+
+.chart{
+  height:190px;
+  display:flex;
+  align-items:flex-end;
+  gap:12px;
+  padding:15px 5px 5px;
+  border-bottom:1px solid #e2e3eb;
+}
+
+.bar{
+  flex:1;
+  background:#5b50e6;
+  border-radius:7px 7px 0 0;
+  min-height:25px;
+}
+
+.days{
+  display:flex;
+  justify-content:space-around;
+  color:#888a99;
+  font-size:11px;
+  padding-top:8px;
+}
+
+.lead{
+  padding:14px 0;
+  border-bottom:1px solid #eeeef3;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.lead:last-child{
+  border-bottom:0;
+}
+
+.lead strong{
+  font-size:13px;
+}
+
+.lead p{
+  color:#77798b;
+  font-size:11px;
+  margin-top:3px;
+}
+
+.lead-status{
+  background:#eaf9f0;
+  color:#16814b;
+  padding:5px 8px;
+  border-radius:20px;
+  font-size:10px;
+  font-weight:800;
+  height:max-content;
+}
+
+.offer{
+  padding:15px;
+  border-radius:12px;
+  background:#f7f6ff;
+  margin-bottom:10px;
+}
+
+.offer strong{
+  display:block;
+  font-size:13px;
+  margin-bottom:4px;
+}
+
+.offer span{
+  color:#77798b;
+  font-size:11px;
+}
+
+.quick-links a{
+  display:block;
+  padding:13px 0;
+  border-bottom:1px solid #eeeef3;
+  color:#5148d9;
+  font-size:13px;
+  font-weight:800;
+}
+
+.quick-links a:last-child{
+  border-bottom:0;
+}
+
+footer{
+  text-align:center;
+  color:#858696;
+  font-size:11px;
+  padding:25px;
+}
+
+@media(max-width:850px){
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:550px){
+
+  .header{
+    padding:0 18px;
+  }
+
+  .view-site{
+    display:none;
+  }
+
+  .layout{
+    padding:22px 15px 45px;
+  }
+
+  .welcome h1{
+    font-size:25px;
+  }
+
+  .stats{
+    gap:10px;
+  }
+
+  .stat{
+    padding:15px;
+  }
+
+  .stat-number{
+    font-size:23px;
+  }
+
+  .profile{
+    align-items:flex-start;
+  }
+
+  .profile-image{
+    width:65px;
+    height:65px;
+  }
+
+  .actions{
+    grid-template-columns:1fr;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+  <a href="index.html" class="logo">Boostly</a>
+
+  <div class="header-right">
+
+    <a href="explore. html" class="view-site">
+      View Explore
+    </a>
+
+    <div class="avatar">RL</div>
+
+  </div>
+
+</header>
+
+<main class="layout">
+
+  <section class="welcome">
+    <h1>Welcome back, Royal Look Salon 👋</h1>
+    <p>Manage your business and track your growth on Boostly.</p>
+  </section>
+
+  <section class="stats">
+
+    <div class="stat">
+      <div class="stat-icon">👁️</div>
+      <div class="stat-number">2,486</div>
+      <div class="stat-label">Profile Views</div>
+      <div class="change">↑ 18% this month</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">👥</div>
+      <div class="stat-number">186</div>
+      <div class="stat-label">Customer Enquiries</div>
+      <div class="change">↑ 12% this month</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">📞</div>
+      <div class="stat-number">74</div>
+      <div class="stat-label">Calls</div>
+      <div class="change">↑ 9% this month</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">💬</div>
+      <div class="stat-number">52</div>
+      <div class="stat-label">WhatsApp Leads</div>
+      <div class="change">↑ 24% this month</div>
+    </div>
+
+  </section>
+
+  <div class="grid">
+
+    <div>
+
+      <section class="card">
+
+        <h2>Your Business Profile</h2>
+
+        <div class="profile">
+
+          <img
+            class="profile-image"
+            src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=400&q=80"
+            alt="Royal Look Salon"
+          >
+
+          <div class="profile-info">
+
+            <h3>Royal Look Salon</h3>
+
+            <p>📍 Model Town, Ludhiana</p>
+
+            <p>⭐ 4.8 · 126 Reviews</p>
+
+            <span class="verified">
+              ✓ VERIFIED BUSINESS
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="actions">
+
+          <a class="action" href="business.html">
+            👁️ View Profile
+          </a>
+
+          <a class="action" href="business.html">
+            ✏️ Edit Profile
+          </a>
+
+          <a class="action" href="business.html">
+            📸 Manage Photos
+          </a>
+
+        </div>
+
+      </section>
+
+      <section class="card">
+
+        <h2>Profile Views</h2>
+
+        <div class="chart">
+
+          <div class="bar" style="height:45%"></div>
+          <div class="bar" style="height:58%"></div>
+          <div class="bar" style="height:48%"></div>
+          <div class="bar" style="height:72%"></div>
+          <div class="bar" style="height:65%"></div>
+          <div class="bar" style="height:85%"></div>
+          <div class="bar" style="height:70%"></div>
+
+        </div>
+
+        <div class="days">
+          <span>Mon</span>
+          <span>Tue</span>
+          <span>Wed</span>
+          <span>Thu</span>
+          <span>Fri</span>
+          <span>Sat</span>
+          <span>Sun</span>
+        </div>
+
+      </section>
+
+    </div>
+
+    <aside>
+
+      <section class="card">
+
+        <h2>Recent Enquiries</h2>
+
+        <div class="lead">
+          <div>
+            <strong>Customer Enquiry</strong>
+            <p>Haircut & Styling · Today</p>
+          </div>
+          <span class="lead-status">New</span>
+        </div>
+
+        <div class="lead">
+          <div>
+            <strong>WhatsApp Lead</strong>
+            <p>Hair Colour · Yesterday</p>
+          </div>
+          <span class="lead-status">New</span>
+        </div>
+
+        <div class="lead">
+          <div>
+            <strong>Customer Enquiry</strong>
+            <p>Bridal Styling · 2 days ago</p>
+          </div>
+          <span class="lead-status">Open</span>
+        </div>
+
+        <div class="lead">
+          <div>
+            <strong>Call Lead</strong>
+            <p>Hair Spa · 3 days ago</p>
+          </div>
+          <span class="lead-status">Open</span>
+        </div>
+
+      </section>
+
+      <section class="card">
+
+        <h2>Active Offers</h2>
+
+        <div class="offer">
+          <strong>20% OFF First Visit</strong>
+          <span>Bring new customers to your salon.</span>
+        </div>
+
+        <div class="offer">
+          <strong>Haircut + Hair Spa</strong>
+          <span>Special package for customers.</span>
+        </div>
+
+      </section>
+
+      <section class="card">
+
+        <h2>Quick Actions</h2>
+
+        <div class="quick-links">
+
+          <a href="business.html">
+            ✏️ Edit Business Profile
+          </a>
+
+          <a href="business.html">
+            📸 Add Business Photos
+          </a>
+
+          <a href="business.html">
+            🎁 Create New Offer
+          </a>
+
+          <a href="business.html">
+            ⭐ Manage Reviews
+          </a>
+
+          <a href="explore. html">
+            🔎 View Your Listing
+          </a>
+
+        </div>
+
+      </section>
+
+    </aside>
+
+  </div>
+
+</main>
+
+<footer>
+  © 2026 Boostly. Business Dashboard.
+</footer>
+
+</body>
+</html>
