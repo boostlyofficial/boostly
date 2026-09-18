@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Account – Boostly</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  min-height:100vh;
+  background:linear-gradient(135deg,#f5f4ff,#eef2ff);
+  color:#171827;
+}
+
+a{
+  text-decoration:none;
+}
+
+.header{
+  height:72px;
+  background:white;
+  border-bottom:1px solid #e8e8ef;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 6%;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:900;
+  color:#5b50e6;
+}
+
+.home-link{
+  color:#55576b;
+  font-size:14px;
+  font-weight:700;
+}
+
+.home-link:hover{
+  color:#5b50e6;
+}
+
+.wrapper{
+  min-height:calc(100vh - 72px);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:35px 20px;
+}
+
+.signup-card{
+  width:100%;
+  max-width:470px;
+  background:white;
+  padding:38px;
+  border-radius:22px;
+  box-shadow:0 18px 50px rgba(30,30,80,.12);
+  border:1px solid #e8e8f0;
+}
+
+.icon{
+  width:58px;
+  height:58px;
+  margin:0 auto 18px;
+  border-radius:16px;
+  background:#f0efff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+}
+
+h1{
+  text-align:center;
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#747688;
+  font-size:14px;
+  margin-bottom:28px;
+}
+
+.input-group{
+  margin-bottom:17px;
+}
+
+label{
+  display:block;
+  font-size:13px;
+  font-weight:800;
+  margin-bottom:7px;
+}
+
+input,
+select{
+  width:100%;
+  padding:14px;
+  border:1px solid #dfe0e9;
+  border-radius:10px;
+  font-size:14px;
+  outline:none;
+  background:white;
+}
+
+input:focus,
+select:focus{
+  border-color:#5b50e6;
+  box-shadow:0 0 0 3px rgba(91,80,230,.08);
+}
+
+.password-row{
+  position:relative;
+}
+
+.password-row input{
+  padding-right:75px;
+}
+
+.show-password{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  border:0;
+  background:none;
+  color:#5b50e6;
+  font-size:12px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.account-types{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.account-option{
+  position:relative;
+}
+
+.account-option input{
+  position:absolute;
+  opacity:0;
+}
+
+.account-option label{
+  display:block;
+  padding:13px 10px;
+  text-align:center;
+  border:1px solid #dfe0e9;
+  border-radius:10px;
+  cursor:pointer;
+  color:#666879;
+  font-size:12px;
+  font-weight:800;
+  transition:.2s;
+}
+
+.account-option input:checked + label{
+  border-color:#5b50e6;
+  background:#f0efff;
+  color:#5148d9;
+}
+
+.terms{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  margin:5px 0 20px;
+  color:#686a7a;
+  font-size:12px;
+  line-height:1.5;
+}
+
+.terms input{
+  width:auto;
+  margin-top:3px;
+}
+
+.terms a{
+  color:#5b50e6;
+  font-weight:800;
+}
+
+.signup-btn{
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:11px;
+  background:#5b50e6;
+  color:white;
+  font-size:15px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.signup-btn:hover{
+  background:#4d43d5;
+}
+
+.message{
+  display:none;
+  margin-top:15px;
+  padding:12px;
+  border-radius:9px;
+  background:#f0efff;
+  color:#4d43d5;
+  text-align:center;
+  font-size:13px;
+  font-weight:700;
+}
+
+.divider{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:25px 0;
+  color:#999baa;
+  font-size:12px;
+}
+
+.divider::before,
+.divider::after{
+  content:"";
+  height:1px;
+  background:#e5e5ed;
+  flex:1;
+}
+
+.login{
+  text-align:center;
+  color:#686a7a;
+  font-size:13px;
+}
+
+.login a{
+  color:#5b50e6;
+  font-weight:900;
+}
+
+@media(max-width:500px){
+
+  .header{
+    padding:0 20px;
+  }
+
+  .signup-card{
+    padding:28px 20px;
+    border-radius:18px;
+  }
+
+  h1{
+    font-size:26px;
+  }
+
+  .wrapper{
+    padding:25px 15px;
+  }
+
+}
+
+@media(max-width:380px){
+
+  .account-types{
+    grid-template-columns:1fr;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+  <a href="index.html" class="logo">
+    Boostly
+  </a>
+
+  <a href="index.html" class="home-link">
+    ← Back to Home
+  </a>
+
+</header>
+
+<main class="wrapper">
+
+  <section class="signup-card">
+
+    <div class="icon">🚀</div>
+
+    <h1>Create Your Account</h1>
+
+    <p class="subtitle">
+      Join Boostly and grow with your local community
+    </p>
+
+    <form onsubmit="signupDemo(event)">
+
+      <div class="input-group">
+
+        <label for="name">Full Name</label>
+
+        <input
+          id="name"
+          type="text"
+          placeholder="Enter your full name"
+          required
+        >
+
+      </div>
+
+      <div class="input-group">
+
+        <label for="email">Email Address</label>
+
+        <input
+          id="email"
+          type="email"
+          placeholder="Enter your email"
+          required
+        >
+
+      </div>
+
+      <div class="input-group">
+
+        <label>Account Type</label>
+
+        <div class="account-types">
+
+          <div class="account-option">
+
+            <input
+              type="radio"
+              id="customer"
+              name="accountType"
+              value="Customer"
+              checked
+            >
+
+            <label for="customer">
+              👤 Customer
+            </label>
+
+          </div>
+
+          <div class="account-option">
+
+            <input
+              type="radio"
+              id="business"
+              name="accountType"
+              value="Business Owner"
+            >
+
+            <label for="business">
+              🏪 Business Owner
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="input-group">
+
+        <label for="password">Password</label>
+
+        <div class="password-row">
+
+          <input
+            id="password"
+            type="password"
+            placeholder="Create a password"
+            minlength="6"
+            required
+          >
+
+          <button
+            type="button"
+            class="show-password"
+            onclick="togglePassword('password',this)"
+          >
+            Show
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="input-group">
+
+        <label for="confirmPassword">
+          Confirm Password
+        </label>
+
+        <div class="password-row">
+
+          <input
+            id="confirmPassword"
+            type="password"
+            placeholder="Confirm your password"
+            minlength="6"
+            required
+          >
+
+          <button
+            type="button"
+            class="show-password"
+            onclick="togglePassword('confirmPassword',this)"
+          >
+            Show
+          </button>
+
+        </div>
+
+      </div>
+
+      <label class="terms">
+
+        <input
+          id="terms"
+          type="checkbox"
+          required
+        >
+
+        <span>
+          I agree to Boostly's
+          <a href="#">Terms</a>
+          and
+          <a href="#">Privacy Policy</a>.
+        </span>
+
+      </label>
+
+      <button type="submit" class="signup-btn">
+        Create Boostly Account
+      </button>
+
+    </form>
+
+    <div class="message" id="message">
+      Demo account created successfully. Real authentication will be connected later.
+    </div>
+
+    <div class="divider">
+      OR
+    </div>
+
+    <div class="login">
+      Already have an account?
+      <a href="login.html">Login to Boostly</a>
+    </div>
+
+  </section>
+
+</main>
+
+<script>
+
+function togglePassword(id,button){
+
+  const password =
+    document.getElementById(id);
+
+  if(password.type === "password"){
+
+    password.type = "text";
+    button.textContent = "Hide";
+
+  }else{
+
+    password.type = "password";
+    button.textContent = "Show";
+
+  }
+
+}
+
+function signupDemo(event){
+
+  event.preventDefault();
+
+  const password =
+    document.getElementById("password").value;
+
+  const confirmPassword =
+    document.getElementById("confirmPassword").value;
+
+  if(password !== confirmPassword){
+
+    alert("Passwords do not match.");
+    return;
+
+  }
+
+  document.getElementById("message").style.display = "block";
+
+}
+
+</script>
+
+</body>
+</html>
