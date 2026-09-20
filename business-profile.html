@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Business Profile - Boostly</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f5f7fb;
+  color:#1f2937;
+}
+
+header{
+  background:#111827;
+  color:white;
+  padding:16px 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:bold;
+}
+
+header a{
+  color:white;
+  text-decoration:none;
+  background:#2563eb;
+  padding:10px 16px;
+  border-radius:8px;
+}
+
+.container{
+  width:92%;
+  max-width:800px;
+  margin:40px auto;
+}
+
+.card{
+  background:white;
+  padding:30px;
+  border-radius:16px;
+  box-shadow:0 5px 25px rgba(0,0,0,.07);
+}
+
+h1{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.subtitle{
+  color:#6b7280;
+  margin-bottom:28px;
+}
+
+.form-group{
+  margin-bottom:20px;
+}
+
+label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:13px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  font-size:16px;
+  outline:none;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#2563eb;
+}
+
+textarea{
+  min-height:130px;
+  resize:vertical;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  background:#2563eb;
+  color:white;
+  border:none;
+  border-radius:8px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#1d4ed8;
+}
+
+.note{
+  margin-top:15px;
+  padding:12px;
+  background:#eff6ff;
+  border-radius:8px;
+  color:#1e40af;
+  font-size:14px;
+}
+
+.success{
+  display:none;
+  margin-top:20px;
+  padding:14px;
+  background:#dcfce7;
+  color:#166534;
+  border-radius:8px;
+}
+
+.error{
+  display:none;
+  margin-top:20px;
+  padding:14px;
+  background:#fee2e2;
+  color:#991b1b;
+  border-radius:8px;
+}
+
+@media(max-width:600px){
+
+  .container{
+    margin:25px auto;
+  }
+
+  .card{
+    padding:22px;
+  }
+
+  h1{
+    font-size:25px;
+  }
+
+  header{
+    padding:14px 5%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="logo">
+    🚀 Boostly
+  </div>
+
+  <a href="dashboard.html">
+    Dashboard
+  </a>
+
+</header>
+
+
+<main class="container">
+
+  <div class="card">
+
+    <h1>Create Your Business Profile</h1>
+
+    <p class="subtitle">
+      Add your business information so customers can discover you on Boostly.
+    </p>
+
+
+    <form action="/api/business" method="POST">
+
+      <!-- BUSINESS NAME -->
+
+      <div class="form-group">
+
+        <label for="businessName">
+          Business Name *
+        </label>
+
+        <input
+          type="text"
+          id="businessName"
+          name="businessName"
+          placeholder="Enter your business name"
+          required
+        >
+
+      </div>
+
+
+      <!-- CATEGORY -->
+
+      <div class="form-group">
+
+        <label for="category">
+          Business Category *
+        </label>
+
+        <select
+          id="category"
+          name="category"
+          required
+        >
+
+          <option value="">
+            Select Category
+          </option>
+
+          <option value="Salon">
+            Salon
+          </option>
+
+          <option value="Cafe">
+            Cafe
+          </option>
+
+          <option value="Gym">
+            Gym
+          </option>
+
+          <option value="Fashion">
+            Fashion
+          </option>
+
+          <option value="Hotel">
+            Hotel
+          </option>
+
+          <option value="Restaurant">
+            Restaurant
+          </option>
+
+          <option value="Services">
+            Services
+          </option>
+
+          <option value="Other">
+            Other
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- PHONE -->
+
+      <div class="form-group">
+
+        <label for="phone">
+          Business Phone
+        </label>
+
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="Enter business phone number"
+          inputmode="numeric"
+        >
+
+      </div>
+
+
+      <!-- WHATSAPP -->
+
+      <div class="form-group">
+
+        <label for="whatsapp">
+          WhatsApp Number
+        </label>
+
+        <input
+          type="tel"
+          id="whatsapp"
+          name="whatsapp"
+          placeholder="Enter WhatsApp number"
+          inputmode="numeric"
+        >
+
+      </div>
+
+
+      <!-- CITY -->
+
+      <div class="form-group">
+
+        <label for="city">
+          City *
+        </label>
+
+        <input
+          type="text"
+          id="city"
+          name="city"
+          placeholder="Enter your city"
+          required
+        >
+
+      </div>
+
+
+      <!-- ADDRESS -->
+
+      <div class="form-group">
+
+        <label for="address">
+          Business Address
+        </label>
+
+        <textarea
+          id="address"
+          name="address"
+          placeholder="Enter your complete business address"
+        ></textarea>
+
+      </div>
+
+
+      <!-- DESCRIPTION -->
+
+      <div class="form-group">
+
+        <label for="description">
+          Business Description
+        </label>
+
+        <textarea
+          id="description"
+          name="description"
+          placeholder="Tell customers about your business"
+        ></textarea>
+
+      </div>
+
+
+      <button type="submit">
+        Save Business Profile
+      </button>
+
+    </form>
+
+
+    <div class="note">
+      * Required fields. Your information will be used to create your Boostly business listing.
+    </div>
+
+
+    <div class="success">
+      Business profile saved successfully!
+    </div>
+
+
+    <div class="error">
+      Something went wrong. Please try again.
+    </div>
+
+  </div>
+
+</main>
+
+
+<footer style="
+  text-align:center;
+  padding:30px;
+  color:#6b7280;
+">
+
+  © 2026 Boostly. All rights reserved.
+
+</footer>
+
+</body>
+</html>
