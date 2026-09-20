@@ -3,66 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Business Dashboard – Boostly</title>
+
+<title>Boostly Dashboard</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f6f7fb;
-  color:#171827;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-a{text-decoration:none;color:inherit}
+body{
+  font-family:Arial,sans-serif;
+  background:#f5f7fb;
+  color:#1f2937;
+}
 
-.header{
-  height:70px;
-  background:white;
-  border-bottom:1px solid #e7e8ef;
+header{
+  background:#111827;
+  color:white;
+  padding:16px 6%;
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  padding:0 5%;
+  align-items:center;
   position:sticky;
   top:0;
   z-index:100;
 }
 
 .logo{
-  font-size:27px;
-  font-weight:900;
-  color:#5b50e6;
+  font-size:24px;
+  font-weight:bold;
 }
 
 .header-right{
   display:flex;
   align-items:center;
-  gap:18px;
+  gap:15px;
 }
 
-.view-site{
-  font-size:13px;
-  font-weight:800;
-  color:#5b50e6;
+.header-right a{
+  color:white;
+  text-decoration:none;
+  background:#2563eb;
+  padding:10px 16px;
+  border-radius:8px;
 }
 
 .avatar{
-  width:40px;
-  height:40px;
+  width:42px;
+  height:42px;
+  background:#2563eb;
   border-radius:50%;
-  background:#f0efff;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:900;
-  color:#5b50e6;
+  font-weight:bold;
 }
 
-.layout{
+.container{
+  width:90%;
   max-width:1200px;
-  margin:auto;
-  padding:28px 20px 60px;
+  margin:35px auto;
 }
 
 .welcome{
@@ -70,514 +72,607 @@ a{text-decoration:none;color:inherit}
 }
 
 .welcome h1{
-  font-size:30px;
-  margin-bottom:5px;
+  font-size:32px;
+  margin-bottom:8px;
 }
 
 .welcome p{
-  color:#747688;
-  font-size:14px;
+  color:#6b7280;
 }
 
 .stats{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:16px;
-  margin-bottom:28px;
+  gap:18px;
+  margin-bottom:30px;
 }
 
 .stat{
   background:white;
-  border:1px solid #e6e7ee;
-  border-radius:16px;
-  padding:20px;
+  padding:25px;
+  border-radius:14px;
+  box-shadow:0 5px 20px rgba(0,0,0,.06);
 }
 
-.stat-icon{
-  font-size:24px;
-  margin-bottom:12px;
+.stat h3{
+  font-size:28px;
+  margin-bottom:6px;
 }
 
-.stat-number{
-  font-size:27px;
-  font-weight:900;
-  margin-bottom:4px;
-}
-
-.stat-label{
-  color:#77798b;
-  font-size:12px;
-  font-weight:700;
-}
-
-.change{
-  color:#21a366;
-  font-size:11px;
-  font-weight:800;
-  margin-top:7px;
+.stat p{
+  color:#6b7280;
 }
 
 .grid{
   display:grid;
   grid-template-columns:2fr 1fr;
-  gap:20px;
+  gap:25px;
 }
 
 .card{
   background:white;
-  border:1px solid #e6e7ee;
-  border-radius:18px;
-  padding:22px;
-  margin-bottom:20px;
+  border-radius:14px;
+  padding:25px;
+  box-shadow:0 5px 20px rgba(0,0,0,.06);
+  margin-bottom:25px;
 }
 
 .card h2{
-  font-size:19px;
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 
 .profile{
   display:flex;
-  gap:18px;
+  gap:20px;
   align-items:center;
 }
 
-.profile-image{
-  width:85px;
-  height:85px;
-  border-radius:14px;
+.profile img{
+  width:110px;
+  height:110px;
   object-fit:cover;
+  border-radius:12px;
 }
 
 .profile-info h3{
-  font-size:20px;
-  margin-bottom:5px;
+  font-size:24px;
+  margin-bottom:8px;
 }
 
 .profile-info p{
-  color:#77798b;
-  font-size:13px;
-  margin-bottom:5px;
+  color:#6b7280;
+  margin:5px 0;
 }
 
-.verified{
-  display:inline-block;
-  color:#2878e8;
-  background:#edf5ff;
-  padding:4px 8px;
-  border-radius:20px;
-  font-size:10px;
-  font-weight:800;
-}
-
-.actions{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
+.buttons{
   margin-top:20px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
-.action{
-  border:1px solid #e2e3eb;
-  border-radius:10px;
-  padding:12px 8px;
-  text-align:center;
-  font-size:12px;
-  font-weight:800;
-  color:#5148d9;
-  background:#fafaff;
+.btn{
+  text-decoration:none;
+  padding:11px 17px;
+  border-radius:8px;
+  background:#2563eb;
+  color:white;
+  display:inline-block;
+  border:none;
   cursor:pointer;
 }
 
-.action:hover{
-  background:#f0efff;
+.btn.secondary{
+  background:#111827;
+}
+
+.info-row{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid #eee;
+}
+
+.info-row:last-child{
+  border-bottom:none;
+}
+
+.label{
+  color:#6b7280;
 }
 
 .chart{
-  height:190px;
-  display:flex;
-  align-items:flex-end;
-  gap:12px;
-  padding:15px 5px 5px;
-  border-bottom:1px solid #e2e3eb;
+  margin-top:20px;
 }
 
 .bar{
-  flex:1;
-  background:#5b50e6;
-  border-radius:7px 7px 0 0;
-  min-height:25px;
-}
-
-.days{
-  display:flex;
-  justify-content:space-around;
-  color:#888a99;
-  font-size:11px;
-  padding-top:8px;
-}
-
-.lead{
-  padding:14px 0;
-  border-bottom:1px solid #eeeef3;
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.lead:last-child{
-  border-bottom:0;
-}
-
-.lead strong{
-  font-size:13px;
-}
-
-.lead p{
-  color:#77798b;
-  font-size:11px;
-  margin-top:3px;
-}
-
-.lead-status{
-  background:#eaf9f0;
-  color:#16814b;
-  padding:5px 8px;
+  height:18px;
+  background:#e5e7eb;
   border-radius:20px;
-  font-size:10px;
-  font-weight:800;
-  height:max-content;
+  margin:12px 0;
+  overflow:hidden;
+}
+
+.bar span{
+  display:block;
+  height:100%;
+  background:#2563eb;
+  border-radius:20px;
+}
+
+.enquiry{
+  padding:15px 0;
+  border-bottom:1px solid #eee;
+}
+
+.enquiry:last-child{
+  border-bottom:none;
 }
 
 .offer{
-  padding:15px;
-  border-radius:12px;
-  background:#f7f6ff;
-  margin-bottom:10px;
-}
-
-.offer strong{
-  display:block;
-  font-size:13px;
-  margin-bottom:4px;
-}
-
-.offer span{
-  color:#77798b;
-  font-size:11px;
-}
-
-.quick-links a{
-  display:block;
-  padding:13px 0;
-  border-bottom:1px solid #eeeef3;
-  color:#5148d9;
-  font-size:13px;
-  font-weight:800;
-}
-
-.quick-links a:last-child{
-  border-bottom:0;
+  background:#eff6ff;
+  padding:16px;
+  border-radius:10px;
+  margin-bottom:12px;
 }
 
 footer{
   text-align:center;
-  color:#858696;
-  font-size:11px;
-  padding:25px;
+  padding:30px;
+  color:#6b7280;
 }
 
-@media(max-width:850px){
+@media(max-width:800px){
 
   .stats{
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(2,1fr);
   }
 
   .grid{
     grid-template-columns:1fr;
   }
 
-}
-
-@media(max-width:550px){
-
-  .header{
-    padding:0 18px;
-  }
-
-  .view-site{
-    display:none;
-  }
-
-  .layout{
-    padding:22px 15px 45px;
-  }
-
-  .welcome h1{
-    font-size:25px;
-  }
-
-  .stats{
-    gap:10px;
-  }
-
-  .stat{
-    padding:15px;
-  }
-
-  .stat-number{
-    font-size:23px;
-  }
-
   .profile{
+    flex-direction:column;
     align-items:flex-start;
   }
 
-  .profile-image{
-    width:65px;
-    height:65px;
+  .welcome h1{
+    font-size:26px;
   }
+}
 
-  .actions{
+@media(max-width:500px){
+
+  .stats{
     grid-template-columns:1fr;
   }
 
+  header{
+    padding:14px 5%;
+  }
+
+  .header-right a{
+    display:none;
+  }
+
+  .container{
+    width:92%;
+  }
+
+  .card{
+    padding:20px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<header class="header">
+<header>
 
-  <a href="index.html" class="logo">Boostly</a>
+  <div class="logo">
+    🚀 Boostly
+  </div>
 
   <div class="header-right">
 
-    <a href="explore. html" class="view-site">
-      View Explore
+    <a href="explore. html">
+      Explore
     </a>
 
-    <div class="avatar">RL</div>
+    <div class="avatar">
+      B
+    </div>
 
   </div>
 
 </header>
 
-<main class="layout">
+
+<main class="container">
+
+  <!-- WELCOME -->
 
   <section class="welcome">
-    <h1>Welcome back, Royal Look Salon 👋</h1>
-    <p>Manage your business and track your growth on Boostly.</p>
+
+    <h1>
+      Welcome, <span data-user-name>Boostly User</span> 👋
+    </h1>
+
+    <p>
+      Manage your Boostly business profile and track your customers.
+    </p>
+
   </section>
+
+
+  <!-- STATS -->
 
   <section class="stats">
 
     <div class="stat">
-      <div class="stat-icon">👁️</div>
-      <div class="stat-number">2,486</div>
-      <div class="stat-label">Profile Views</div>
-      <div class="change">↑ 18% this month</div>
+      <h3>2,486</h3>
+      <p>Profile Views</p>
     </div>
 
     <div class="stat">
-      <div class="stat-icon">👥</div>
-      <div class="stat-number">186</div>
-      <div class="stat-label">Customer Enquiries</div>
-      <div class="change">↑ 12% this month</div>
+      <h3>186</h3>
+      <p>Customer Enquiries</p>
     </div>
 
     <div class="stat">
-      <div class="stat-icon">📞</div>
-      <div class="stat-number">74</div>
-      <div class="stat-label">Calls</div>
-      <div class="change">↑ 9% this month</div>
+      <h3>74</h3>
+      <p>Calls</p>
     </div>
 
     <div class="stat">
-      <div class="stat-icon">💬</div>
-      <div class="stat-number">52</div>
-      <div class="stat-label">WhatsApp Leads</div>
-      <div class="change">↑ 24% this month</div>
+      <h3>52</h3>
+      <p>WhatsApp Leads</p>
     </div>
 
   </section>
 
-  <div class="grid">
+
+  <section class="grid">
 
     <div>
 
-      <section class="card">
+      <!-- PROFILE -->
 
-        <h2>Your Business Profile</h2>
+      <div class="card">
+
+        <h2>Your Profile</h2>
 
         <div class="profile">
 
           <img
-            class="profile-image"
-            src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=400&q=80"
-            alt="Royal Look Salon"
+            src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=500&q=80"
+            alt="Business"
           >
 
           <div class="profile-info">
 
-            <h3>Royal Look Salon</h3>
+            <h3>
+              <span data-user-name>Boostly User</span>
+            </h3>
 
-            <p>📍 Model Town, Ludhiana</p>
+            <p>
+              📧 <span data-user-email>-</span>
+            </p>
 
-            <p>⭐ 4.8 · 126 Reviews</p>
+            <p>
+              📱 <span data-user-phone>Not added</span>
+            </p>
 
-            <span class="verified">
-              ✓ VERIFIED BUSINESS
-            </span>
+            <p>
+              📍 <span data-user-city>Not added</span>
+            </p>
 
           </div>
 
         </div>
 
-        <div class="actions">
+        <div class="buttons">
 
-          <a class="action" href="business.html">
-            👁️ View Profile
+          <a class="btn" href="business.html">
+            View Profile
           </a>
 
-          <a class="action" href="business.html">
-            ✏️ Edit Profile
-          </a>
-
-          <a class="action" href="business.html">
-            📸 Manage Photos
+          <a class="btn secondary" href="business.html">
+            Edit Profile
           </a>
 
         </div>
 
-      </section>
+      </div>
 
-      <section class="card">
+
+      <!-- PROFILE VIEWS -->
+
+      <div class="card">
 
         <h2>Profile Views</h2>
 
         <div class="chart">
 
-          <div class="bar" style="height:45%"></div>
-          <div class="bar" style="height:58%"></div>
-          <div class="bar" style="height:48%"></div>
-          <div class="bar" style="height:72%"></div>
-          <div class="bar" style="height:65%"></div>
-          <div class="bar" style="height:85%"></div>
-          <div class="bar" style="height:70%"></div>
+          <p>Monday</p>
+          <div class="bar">
+            <span style="width:55%"></span>
+          </div>
+
+          <p>Tuesday</p>
+          <div class="bar">
+            <span style="width:70%"></span>
+          </div>
+
+          <p>Wednesday</p>
+          <div class="bar">
+            <span style="width:45%"></span>
+          </div>
+
+          <p>Thursday</p>
+          <div class="bar">
+            <span style="width:85%"></span>
+          </div>
+
+          <p>Friday</p>
+          <div class="bar">
+            <span style="width:65%"></span>
+          </div>
 
         </div>
 
-        <div class="days">
-          <span>Mon</span>
-          <span>Tue</span>
-          <span>Wed</span>
-          <span>Thu</span>
-          <span>Fri</span>
-          <span>Sat</span>
-          <span>Sun</span>
-        </div>
+      </div>
 
-      </section>
 
-    </div>
+      <!-- ENQUIRIES -->
 
-    <aside>
-
-      <section class="card">
+      <div class="card">
 
         <h2>Recent Enquiries</h2>
 
-        <div class="lead">
-          <div>
-            <strong>Customer Enquiry</strong>
-            <p>Haircut & Styling · Today</p>
-          </div>
-          <span class="lead-status">New</span>
+        <div class="enquiry">
+
+          <strong>Rahul</strong>
+
+          <p>
+            Interested in Hair Spa.
+          </p>
+
         </div>
 
-        <div class="lead">
-          <div>
-            <strong>WhatsApp Lead</strong>
-            <p>Hair Colour · Yesterday</p>
-          </div>
-          <span class="lead-status">New</span>
+        <div class="enquiry">
+
+          <strong>Simran</strong>
+
+          <p>
+            Asked about bridal styling.
+          </p>
+
         </div>
 
-        <div class="lead">
-          <div>
-            <strong>Customer Enquiry</strong>
-            <p>Bridal Styling · 2 days ago</p>
-          </div>
-          <span class="lead-status">Open</span>
+        <div class="enquiry">
+
+          <strong>Arjun</strong>
+
+          <p>
+            Asked about haircut pricing.
+          </p>
+
         </div>
 
-        <div class="lead">
-          <div>
-            <strong>Call Lead</strong>
-            <p>Hair Spa · 3 days ago</p>
-          </div>
-          <span class="lead-status">Open</span>
+      </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+
+    <div>
+
+      <!-- ACCOUNT INFO -->
+
+      <div class="card">
+
+        <h2>Account Information</h2>
+
+        <div class="info-row">
+
+          <span class="label">Name</span>
+
+          <strong data-user-name>
+            Boostly User
+          </strong>
+
         </div>
 
-      </section>
+        <div class="info-row">
 
-      <section class="card">
+          <span class="label">Email</span>
+
+          <span data-user-email>
+            -
+          </span>
+
+        </div>
+
+        <div class="info-row">
+
+          <span class="label">Phone</span>
+
+          <span data-user-phone>
+            Not added
+          </span>
+
+        </div>
+
+        <div class="info-row">
+
+          <span class="label">City</span>
+
+          <span data-user-city>
+            Not added
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- OFFERS -->
+
+      <div class="card">
 
         <h2>Active Offers</h2>
 
         <div class="offer">
-          <strong>20% OFF First Visit</strong>
-          <span>Bring new customers to your salon.</span>
+
+          <strong>
+            20% OFF First Visit
+          </strong>
+
+          <p>
+            Special offer for new customers.
+          </p>
+
         </div>
 
         <div class="offer">
-          <strong>Haircut + Hair Spa</strong>
-          <span>Special package for customers.</span>
+
+          <strong>
+            Haircut + Hair Spa Package
+          </strong>
+
+          <p>
+            Special combo package available.
+          </p>
+
         </div>
 
-      </section>
+      </div>
 
-      <section class="card">
+
+      <!-- QUICK ACTIONS -->
+
+      <div class="card">
 
         <h2>Quick Actions</h2>
 
-        <div class="quick-links">
+        <div class="buttons">
 
-          <a href="business.html">
-            ✏️ Edit Business Profile
+          <a class="btn" href="business.html">
+            Edit Profile
           </a>
 
-          <a href="business.html">
-            📸 Add Business Photos
+          <a class="btn secondary" href="business.html">
+            Manage Photos
           </a>
 
-          <a href="business.html">
-            🎁 Create New Offer
-          </a>
-
-          <a href="business.html">
-            ⭐ Manage Reviews
-          </a>
-
-          <a href="explore. html">
-            🔎 View Your Listing
+          <a class="btn" href="explore. html">
+            View Explore
           </a>
 
         </div>
 
-      </section>
+      </div>
 
-    </aside>
+    </div>
 
-  </div>
+  </section>
 
 </main>
 
+
 <footer>
-  © 2026 Boostly. Business Dashboard.
+
+  © 2026 Boostly. All rights reserved.
+
 </footer>
+
+
+<!-- REAL USER DATA -->
+
+<script>
+
+async function loadUserData() {
+
+  try {
+
+    const response = await fetch("/api/me");
+
+    if (!response.ok) {
+
+      window.location.href = "/login.html";
+
+      return;
+
+    }
+
+    const user = await response.json();
+
+
+    const nameElements =
+      document.querySelectorAll("[data-user-name]");
+
+    const emailElements =
+      document.querySelectorAll("[data-user-email]");
+
+    const phoneElements =
+      document.querySelectorAll("[data-user-phone]");
+
+    const cityElements =
+      document.querySelectorAll("[data-user-city]");
+
+
+    nameElements.forEach(function(el) {
+
+      el.textContent =
+        user.full_name || "Boostly User";
+
+    });
+
+
+    emailElements.forEach(function(el) {
+
+      el.textContent =
+        user.email || "-";
+
+    });
+
+
+    phoneElements.forEach(function(el) {
+
+      el.textContent =
+        user.phone || "Not added";
+
+    });
+
+
+    cityElements.forEach(function(el) {
+
+      el.textContent =
+        user.city || "Not added";
+
+    });
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "User loading error:",
+      error
+    );
+
+  }
+
+}
+
+
+loadUserData();
+
+</script>
 
 </body>
 </html>
