@@ -277,9 +277,32 @@ footer{
 
   <div class="header-right">
 
-    <a href="explore. html">
-      Explore
-    </a>
+    <div class="header-right">
+
+  <a href="explore. html">
+    Explore
+  </a>
+
+  <button
+    onclick="logoutUser()"
+    style="
+      background:#dc2626;
+      color:white;
+      border:none;
+      padding:10px 16px;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:14px;
+    "
+  >
+    Logout
+  </button>
+
+  <div class="avatar">
+    B
+  </div>
+
+</div>
 
     <div class="avatar">
       B
@@ -673,6 +696,33 @@ async function loadUserData() {
 loadUserData();
 
 </script>
+<script>
 
+async function logoutUser() {
+
+  try {
+
+    const response = await fetch("/api/logout", {
+      method: "POST"
+    });
+
+    if (response.redirected) {
+      window.location.href = response.url;
+      return;
+    }
+
+    window.location.href = "/login.html";
+
+  } catch (error) {
+
+    console.error("Logout error:", error);
+
+    window.location.href = "/login.html";
+
+  }
+
+}
+
+</script>
 </body>
 </html>
