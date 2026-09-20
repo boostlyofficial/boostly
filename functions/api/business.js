@@ -1,7 +1,12 @@
 export async function onRequestPost(context) {
   try {
 
-    // 1. Logged-in user's session cookie check karo
+    if (!context.env.DB) {
+      return new Response("ERROR: D1 database binding DB not found.", {
+        status: 500
+      });
+    }
+
     const cookieHeader = context.request.headers.get("Cookie") || "";
 
     const match = cookieHeader.match(
@@ -9,15 +14,14 @@ export async function onRequestPost(context) {
     );
 
     if (!match) {
-      return new Response("Please login first.", {
-        status: 401
-      });
+      return new Response(
+        "ERROR: You are not logged in. Please login again.",
+        { status: 401 }
+      );
     }
 
     const sessionId = match[1];
 
-
-    // 2. Session se user ID nikalo
     const session = await context.env.DB
       .prepare(`
         SELECT user_id
@@ -29,16 +33,14 @@ export async function onRequestPost(context) {
       .first();
 
     if (!session) {
-      return new Response("Your session has expired. Please login again.", {
-        status: 401
-      });
+      return new Response(
+        "ERROR: Session expired. Please login again.",
+        { status: 401 }
+      );
     }
-
 
     const userId = session.user_id;
 
-
-    // 3. Form data read karo
     const formData = await context.request.formData();
 
     const businessName = String(
@@ -69,19 +71,13 @@ export async function onRequestPost(context) {
       formData.get("description") || ""
     ).trim();
 
-
-    // 4. Required fields check
     if (!businessName || !category || !city) {
       return new Response(
-        "Business Name, Category and City are required.",
-        {
-          status: 400
-        }
+        "ERROR: Business Name, Category and City are required.",
+        { status: 400 }
       );
     }
 
-
-    // 5. Check karo kya is user ka business already hai
     const existingBusiness = await context.env.DB
       .prepare(`
         SELECT id
@@ -92,8 +88,6 @@ export async function onRequestPost(context) {
       .bind(userId)
       .first();
 
-
-    // 6. Agar business already hai to update karo
     if (existingBusiness) {
 
       await context.env.DB
@@ -125,7 +119,6 @@ export async function onRequestPost(context) {
 
     } else {
 
-      // 7. Agar business nahi hai to naya business create karo
       await context.env.DB
         .prepare(`
           INSERT INTO businesses
@@ -152,24 +145,25 @@ export async function onRequestPost(context) {
           description || null
         )
         .run();
-
     }
 
-
-    // 8. Business profile save hone ke baad dashboard par bhejo
     return Response.redirect(
-      new URL("/dashboard.html?business=saved", context.request.url),
+      new URL(
+        "/dashboard.html?business=saved",
+        context.request.url
+      ),
       303
     );
 
   } catch (error) {
 
-    console.error("Business save error:", error);
-
     return new Response(
-      "Business profile save failed.",
+      "BUSINESS PROFILE ERROR: " + error.message,
       {
-        status: 500
+        status: 500,
+        headers: {
+          "Content-Type": "text/plain"
+        }
       }
     );
   }
