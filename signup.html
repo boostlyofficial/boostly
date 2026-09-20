@@ -311,147 +311,59 @@ select:focus{
 
     <form action="login.html" method="get">
 
-      <div class="input-group">
+  <label for="accountType">Account Type</label>
+  <select id="accountType" name="accountType" required>
+    <option value="">Select Account Type</option>
+    <option value="customer">Customer</option>
+    <option value="business">Business Owner</option>
+  </select>
 
-        <label for="name">Full Name</label>
+  <label for="fullName">Full Name</label>
+  <input
+    type="text"
+    id="fullName"
+    name="fullName"
+    placeholder="Enter your full name"
+    required
+  >
 
-        <input
-          id="name"
-          type="text"
-          placeholder="Enter your full name"
-          required
-        >
+  <label for="email">Email Address</label>
+  <input
+    type="email"
+    id="email"
+    name="email"
+    placeholder="Enter your email"
+    required
+  >
 
-      </div>
+  <label for="password">Password</label>
+  <input
+    type="password"
+    id="password"
+    name="password"
+    placeholder="Create a password"
+    minlength="6"
+    required
+  >
 
-      <div class="input-group">
+  <label for="confirmPassword">Confirm Password</label>
+  <input
+    type="password"
+    id="confirmPassword"
+    name="confirmPassword"
+    placeholder="Confirm your password"
+    minlength="6"
+    required
+  >
 
-        <label for="email">Email Address</label>
+  <label class="checkbox-row">
+    <input type="checkbox" required>
+    <span>I agree to the Terms & Privacy Policy</span>
+  </label>
 
-        <input
-          id="email"
-          type="email"
-          placeholder="Enter your email"
-          required
-        >
-
-      </div>
-
-      <div class="input-group">
-
-        <label>Account Type</label>
-
-        <div class="account-types">
-
-          <div class="account-option">
-
-            <input
-              type="radio"
-              id="customer"
-              name="accountType"
-              value="Customer"
-              checked
-            >
-
-            <label for="customer">
-              👤 Customer
-            </label>
-
-          </div>
-
-          <div class="account-option">
-
-            <input
-              type="radio"
-              id="business"
-              name="accountType"
-              value="Business Owner"
-            >
-
-            <label for="business">
-              🏪 Business Owner
-            </label>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="input-group">
-
-        <label for="password">Password</label>
-
-        <div class="password-row">
-
-          <input
-            id="password"
-            type="password"
-            placeholder="Create a password"
-            minlength="6"
-            required
-          >
-
-          <button
-            type="button"
-            class="show-password"
-            onclick="togglePassword('password',this)"
-          >
-            Show
-          </button>
-
-        </div>
-
-      </div>
-
-      <div class="input-group">
-
-        <label for="confirmPassword">
-          Confirm Password
-        </label>
-
-        <div class="password-row">
-
-          <input
-            id="confirmPassword"
-            type="password"
-            placeholder="Confirm your password"
-            minlength="6"
-            required
-          >
-
-          <button
-            type="button"
-            class="show-password"
-            onclick="togglePassword('confirmPassword',this)"
-          >
-            Show
-          </button>
-
-        </div>
-
-      </div>
-
-      <label class="terms">
-
-        <input
-          id="terms"
-          type="checkbox"
-          required
-        >
-
-        <span>
-          I agree to Boostly's
-          <a href="#">Terms</a>
-          and
-          <a href="#">Privacy Policy</a>.
-        </span>
-
-      </label>
-
-      <button type="submit" class="signup-btn">
-        Create Boostly Account
-      </button>
+  <button type="submit">
+    Create Boostly Account
+  </button>
 
     </form>
 
