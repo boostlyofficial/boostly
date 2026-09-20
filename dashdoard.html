@@ -14,26 +14,27 @@
 }
 
 body{
-  font-family:Arial,sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
   background:#f5f7fb;
-  color:#1f2937;
+  color:#172033;
 }
 
 header{
-  background:#111827;
-  color:white;
+  background:#ffffff;
+  border-bottom:1px solid #e8ebf2;
   padding:16px 6%;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   position:sticky;
   top:0;
   z-index:100;
 }
 
 .logo{
-  font-size:24px;
-  font-weight:bold;
+  font-size:25px;
+  font-weight:800;
+  color:#2563eb;
 }
 
 .header-right{
@@ -42,23 +43,32 @@ header{
   gap:15px;
 }
 
-.header-right a{
-  color:white;
+.explore-btn{
   text-decoration:none;
-  background:#2563eb;
-  padding:10px 16px;
-  border-radius:8px;
+  color:#2563eb;
+  font-weight:700;
+}
+
+.logout-btn{
+  border:none;
+  background:#ef4444;
+  color:white;
+  padding:10px 17px;
+  border-radius:9px;
+  font-weight:700;
+  cursor:pointer;
 }
 
 .avatar{
   width:42px;
   height:42px;
-  background:#2563eb;
   border-radius:50%;
+  background:#2563eb;
+  color:white;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:bold;
+  font-weight:800;
 }
 
 .container{
@@ -77,153 +87,248 @@ header{
 }
 
 .welcome p{
-  color:#6b7280;
+  color:#667085;
 }
 
 .stats{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:18px;
-  margin-bottom:30px;
+  margin-bottom:25px;
 }
 
 .stat{
   background:white;
-  padding:25px;
-  border-radius:14px;
-  box-shadow:0 5px 20px rgba(0,0,0,.06);
+  padding:22px;
+  border-radius:15px;
+  border:1px solid #e8ebf2;
 }
 
 .stat h3{
   font-size:28px;
-  margin-bottom:6px;
+  color:#2563eb;
+  margin-bottom:7px;
 }
 
 .stat p{
-  color:#6b7280;
+  color:#667085;
 }
 
 .grid{
   display:grid;
   grid-template-columns:2fr 1fr;
-  gap:25px;
+  gap:22px;
 }
 
 .card{
   background:white;
-  border-radius:14px;
+  border:1px solid #e8ebf2;
+  border-radius:16px;
   padding:25px;
-  box-shadow:0 5px 20px rgba(0,0,0,.06);
-  margin-bottom:25px;
+  margin-bottom:22px;
 }
 
 .card h2{
   margin-bottom:20px;
+  font-size:21px;
 }
 
-.profile{
+.business-top{
   display:flex;
   gap:20px;
   align-items:center;
+  margin-bottom:20px;
 }
 
-.profile img{
-  width:110px;
-  height:110px;
-  object-fit:cover;
-  border-radius:12px;
-}
-
-.profile-info h3{
-  font-size:24px;
-  margin-bottom:8px;
-}
-
-.profile-info p{
-  color:#6b7280;
-  margin:5px 0;
-}
-
-.buttons{
-  margin-top:20px;
+.business-image{
+  width:90px;
+  height:90px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#2563eb,#7c3aed);
   display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.btn{
-  text-decoration:none;
-  padding:11px 17px;
-  border-radius:8px;
-  background:#2563eb;
+  align-items:center;
+  justify-content:center;
   color:white;
-  display:inline-block;
-  border:none;
-  cursor:pointer;
+  font-size:30px;
+  font-weight:800;
+  flex-shrink:0;
 }
 
-.btn.secondary{
-  background:#111827;
+.business-name{
+  font-size:25px;
+  font-weight:800;
+  margin-bottom:7px;
+}
+
+.category{
+  display:inline-block;
+  background:#eff6ff;
+  color:#2563eb;
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.status{
+  display:inline-block;
+  margin-left:7px;
+  background:#ecfdf3;
+  color:#15803d;
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.info{
+  display:grid;
+  gap:13px;
+  margin:20px 0;
 }
 
 .info-row{
   display:flex;
-  justify-content:space-between;
-  padding:12px 0;
-  border-bottom:1px solid #eee;
+  gap:10px;
+  color:#475467;
 }
 
-.info-row:last-child{
-  border-bottom:none;
+.info-row strong{
+  color:#172033;
+  min-width:90px;
 }
 
-.label{
-  color:#6b7280;
+.description{
+  color:#667085;
+  line-height:1.7;
+  margin-bottom:20px;
+}
+
+.buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.btn{
+  display:inline-block;
+  text-decoration:none;
+  padding:11px 17px;
+  border-radius:9px;
+  font-weight:700;
+  border:none;
+  cursor:pointer;
+}
+
+.primary{
+  background:#2563eb;
+  color:white;
+}
+
+.secondary{
+  background:#eef2ff;
+  color:#3730a3;
+}
+
+.green{
+  background:#dcfce7;
+  color:#15803d;
+}
+
+.empty{
+  text-align:center;
+  padding:25px 10px;
+  color:#667085;
+}
+
+.empty h3{
+  color:#172033;
+  margin-bottom:8px;
 }
 
 .chart{
-  margin-top:20px;
+  display:flex;
+  align-items:flex-end;
+  height:190px;
+  gap:18px;
+  padding-top:20px;
 }
 
 .bar{
-  height:18px;
-  background:#e5e7eb;
-  border-radius:20px;
-  margin:12px 0;
-  overflow:hidden;
-}
-
-.bar span{
-  display:block;
-  height:100%;
+  flex:1;
   background:#2563eb;
-  border-radius:20px;
+  border-radius:7px 7px 0 0;
+  min-height:30px;
 }
 
-.enquiry{
-  padding:15px 0;
-  border-bottom:1px solid #eee;
+.chart-labels{
+  display:flex;
+  gap:18px;
+  margin-top:8px;
 }
 
-.enquiry:last-child{
-  border-bottom:none;
+.chart-labels span{
+  flex:1;
+  text-align:center;
+  font-size:12px;
+  color:#667085;
 }
 
-.offer{
-  background:#eff6ff;
-  padding:16px;
+.list{
+  display:grid;
+  gap:14px;
+}
+
+.list-item{
+  padding:15px;
+  background:#f8fafc;
   border-radius:10px;
-  margin-bottom:12px;
+}
+
+.list-item strong{
+  display:block;
+  margin-bottom:5px;
+}
+
+.list-item small{
+  color:#667085;
+}
+
+.quick-actions{
+  display:grid;
+  gap:10px;
+}
+
+.action{
+  display:block;
+  text-decoration:none;
+  padding:14px;
+  background:#f8fafc;
+  border-radius:10px;
+  color:#172033;
+  font-weight:700;
+}
+
+.action:hover{
+  background:#eef2ff;
 }
 
 footer{
   text-align:center;
+  color:#667085;
   padding:30px;
-  color:#6b7280;
+  font-size:14px;
 }
 
-@media(max-width:800px){
+.loading{
+  color:#667085;
+}
 
+.error{
+  color:#dc2626;
+}
+
+@media(max-width:850px){
   .stats{
     grid-template-columns:repeat(2,1fr);
   }
@@ -231,37 +336,74 @@ footer{
   .grid{
     grid-template-columns:1fr;
   }
-
-  .profile{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .welcome h1{
-    font-size:26px;
-  }
 }
 
-@media(max-width:500px){
-
-  .stats{
-    grid-template-columns:1fr;
-  }
-
+@media(max-width:600px){
   header{
-    padding:14px 5%;
+    padding:13px 4%;
   }
 
-  .header-right a{
+  .logo{
+    font-size:22px;
+  }
+
+  .explore-btn{
     display:none;
   }
 
   .container{
     width:92%;
+    margin:25px auto;
+  }
+
+  .welcome h1{
+    font-size:26px;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .stat{
+    padding:16px;
+  }
+
+  .stat h3{
+    font-size:23px;
   }
 
   .card{
-    padding:20px;
+    padding:18px;
+  }
+
+  .business-top{
+    align-items:flex-start;
+  }
+
+  .business-image{
+    width:70px;
+    height:70px;
+    font-size:23px;
+  }
+
+  .business-name{
+    font-size:20px;
+  }
+
+  .status{
+    margin-left:0;
+    margin-top:6px;
+  }
+
+  .info-row{
+    flex-direction:column;
+    gap:3px;
+  }
+
+  .btn{
+    width:100%;
+    text-align:center;
   }
 }
 </style>
@@ -271,40 +413,19 @@ footer{
 
 <header>
 
-  <div class="logo">
-    🚀 Boostly
-  </div>
+  <div class="logo">Boostly</div>
 
   <div class="header-right">
 
-    <div class="header-right">
+    <a class="explore-btn" href="explore. html">
+      Explore
+    </a>
 
-  <a href="explore. html">
-    Explore
-  </a>
+    <button class="logout-btn" onclick="logoutUser()">
+      Logout
+    </button>
 
-  <button
-    onclick="logoutUser()"
-    style="
-      background:#dc2626;
-      color:white;
-      border:none;
-      padding:10px 16px;
-      border-radius:8px;
-      cursor:pointer;
-      font-size:14px;
-    "
-  >
-    Logout
-  </button>
-
-  <div class="avatar">
-    B
-  </div>
-
-</div>
-
-    <div class="avatar">
+    <div class="avatar" id="avatar">
       B
     </div>
 
@@ -313,97 +434,160 @@ footer{
 </header>
 
 
-<main class="container">
+<div class="container">
 
-  <!-- WELCOME -->
-
-  <section class="welcome">
+  <div class="welcome">
 
     <h1>
-      Welcome, <span data-user-name>Boostly User</span> 👋
+      Welcome, <span id="userName">Boostly User</span> 👋
     </h1>
 
     <p>
-      Manage your Boostly business profile and track your customers.
+      Manage your Boostly account and business profile from one place.
     </p>
 
-  </section>
+  </div>
 
 
   <!-- STATS -->
 
-  <section class="stats">
+  <div class="stats">
 
     <div class="stat">
-      <h3>2,486</h3>
+      <h3>0</h3>
       <p>Profile Views</p>
     </div>
 
     <div class="stat">
-      <h3>186</h3>
+      <h3>0</h3>
       <p>Customer Enquiries</p>
     </div>
 
     <div class="stat">
-      <h3>74</h3>
+      <h3>0</h3>
       <p>Calls</p>
     </div>
 
     <div class="stat">
-      <h3>52</h3>
+      <h3>0</h3>
       <p>WhatsApp Leads</p>
     </div>
 
-  </section>
+  </div>
 
 
-  <section class="grid">
+  <div class="grid">
 
     <div>
 
-      <!-- PROFILE -->
+
+      <!-- BUSINESS PROFILE -->
 
       <div class="card">
 
-        <h2>Your Profile</h2>
+        <h2>My Business Profile</h2>
 
-        <div class="profile">
+        <div id="businessLoading" class="loading">
+          Loading business information...
+        </div>
 
-          <img
-            src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=500&q=80"
-            alt="Business"
-          >
+        <div id="businessContent" style="display:none;">
 
-          <div class="profile-info">
+          <div class="business-top">
 
-            <h3>
-              <span data-user-name>Boostly User</span>
-            </h3>
+            <div class="business-image" id="businessInitial">
+              B
+            </div>
 
-            <p>
-              📧 <span data-user-email>-</span>
-            </p>
+            <div>
 
-            <p>
-              📱 <span data-user-phone>Not added</span>
-            </p>
+              <div class="business-name" id="businessName">
+                Business Name
+              </div>
 
-            <p>
-              📍 <span data-user-city>Not added</span>
-            </p>
+              <span class="category" id="businessCategory">
+                Category
+              </span>
+
+              <span class="status">
+                ✓ Profile Active
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="info">
+
+            <div class="info-row">
+              <strong>📍 City</strong>
+              <span id="businessCity">Not added</span>
+            </div>
+
+            <div class="info-row">
+              <strong>🏠 Address</strong>
+              <span id="businessAddress">Not added</span>
+            </div>
+
+            <div class="info-row">
+              <strong>📞 Phone</strong>
+              <span id="businessPhone">Not added</span>
+            </div>
+
+            <div class="info-row">
+              <strong>💬 WhatsApp</strong>
+              <span id="businessWhatsapp">Not added</span>
+            </div>
+
+          </div>
+
+
+          <p class="description" id="businessDescription">
+            No business description added yet.
+          </p>
+
+
+          <div class="buttons">
+
+            <a
+              href="business-profile.html"
+              class="btn primary"
+            >
+              Edit Business Profile
+            </a>
+
+            <a
+              href="business.html"
+              class="btn secondary"
+            >
+              View Profile
+            </a>
 
           </div>
 
         </div>
 
-        <div class="buttons">
 
-          <a class="btn" href="business-profile.html">
-  Create / Edit Business Profile
-</a>
+        <!-- NO BUSINESS -->
 
-          <a class="btn secondary" href="business.html">
-            Edit Profile
+        <div id="noBusiness" class="empty" style="display:none;">
+
+          <h3>
+            Create Your Business Profile
+          </h3>
+
+          <p>
+            Add your business details so customers can discover you on Boostly.
+          </p>
+
+          <br>
+
+          <a
+            href="business-profile.html"
+            class="btn primary"
+          >
+            Create Business Profile
           </a>
 
         </div>
@@ -411,7 +595,45 @@ footer{
       </div>
 
 
-      <!-- PROFILE VIEWS -->
+      <!-- PROFILE INFORMATION -->
+
+      <div class="card">
+
+        <h2>Account Information</h2>
+
+        <div class="info">
+
+          <div class="info-row">
+            <strong>👤 Name</strong>
+            <span id="accountName">Loading...</span>
+          </div>
+
+          <div class="info-row">
+            <strong>📧 Email</strong>
+            <span id="accountEmail">Loading...</span>
+          </div>
+
+          <div class="info-row">
+            <strong>📱 Phone</strong>
+            <span id="accountPhone">Not added</span>
+          </div>
+
+          <div class="info-row">
+            <strong>📍 City</strong>
+            <span id="accountCity">Not added</span>
+          </div>
+
+          <div class="info-row">
+            <strong>👤 Account</strong>
+            <span id="accountType">Loading...</span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- DEMO ANALYTICS -->
 
       <div class="card">
 
@@ -419,69 +641,43 @@ footer{
 
         <div class="chart">
 
-          <p>Monday</p>
-          <div class="bar">
-            <span style="width:55%"></span>
-          </div>
+          <div class="bar" style="height:35%;"></div>
+          <div class="bar" style="height:50%;"></div>
+          <div class="bar" style="height:45%;"></div>
+          <div class="bar" style="height:65%;"></div>
+          <div class="bar" style="height:55%;"></div>
+          <div class="bar" style="height:80%;"></div>
+          <div class="bar" style="height:70%;"></div>
 
-          <p>Tuesday</p>
-          <div class="bar">
-            <span style="width:70%"></span>
-          </div>
+        </div>
 
-          <p>Wednesday</p>
-          <div class="bar">
-            <span style="width:45%"></span>
-          </div>
-
-          <p>Thursday</p>
-          <div class="bar">
-            <span style="width:85%"></span>
-          </div>
-
-          <p>Friday</p>
-          <div class="bar">
-            <span style="width:65%"></span>
-          </div>
-
+        <div class="chart-labels">
+          <span>Mon</span>
+          <span>Tue</span>
+          <span>Wed</span>
+          <span>Thu</span>
+          <span>Fri</span>
+          <span>Sat</span>
+          <span>Sun</span>
         </div>
 
       </div>
 
 
-      <!-- ENQUIRIES -->
+      <!-- RECENT ENQUIRIES -->
 
       <div class="card">
 
         <h2>Recent Enquiries</h2>
 
-        <div class="enquiry">
+        <div class="list">
 
-          <strong>Rahul</strong>
-
-          <p>
-            Interested in Hair Spa.
-          </p>
-
-        </div>
-
-        <div class="enquiry">
-
-          <strong>Simran</strong>
-
-          <p>
-            Asked about bridal styling.
-          </p>
-
-        </div>
-
-        <div class="enquiry">
-
-          <strong>Arjun</strong>
-
-          <p>
-            Asked about haircut pricing.
-          </p>
+          <div class="list-item">
+            <strong>No enquiries yet</strong>
+            <small>
+              Customer enquiries will appear here.
+            </small>
+          </div>
 
         </div>
 
@@ -490,239 +686,292 @@ footer{
     </div>
 
 
-    <!-- RIGHT SIDE -->
+    <!-- RIGHT SIDEBAR -->
 
     <div>
-
-      <!-- ACCOUNT INFO -->
-
-      <div class="card">
-
-        <h2>Account Information</h2>
-
-        <div class="info-row">
-
-          <span class="label">Name</span>
-
-          <strong data-user-name>
-            Boostly User
-          </strong>
-
-        </div>
-
-        <div class="info-row">
-
-          <span class="label">Email</span>
-
-          <span data-user-email>
-            -
-          </span>
-
-        </div>
-
-        <div class="info-row">
-
-          <span class="label">Phone</span>
-
-          <span data-user-phone>
-            Not added
-          </span>
-
-        </div>
-
-        <div class="info-row">
-
-          <span class="label">City</span>
-
-          <span data-user-city>
-            Not added
-          </span>
-
-        </div>
-
-      </div>
-
-
-      <!-- OFFERS -->
-
-      <div class="card">
-
-        <h2>Active Offers</h2>
-
-        <div class="offer">
-
-          <strong>
-            20% OFF First Visit
-          </strong>
-
-          <p>
-            Special offer for new customers.
-          </p>
-
-        </div>
-
-        <div class="offer">
-
-          <strong>
-            Haircut + Hair Spa Package
-          </strong>
-
-          <p>
-            Special combo package available.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <!-- QUICK ACTIONS -->
 
       <div class="card">
 
         <h2>Quick Actions</h2>
 
-        <div class="buttons">
+        <div class="quick-actions">
 
-          <a class="btn" href="business.html">
-            Edit Profile
+          <a
+            href="business-profile.html"
+            class="action"
+          >
+            ✏️ Edit Business Profile
           </a>
 
-          <a class="btn secondary" href="business.html">
-            Manage Photos
+          <a
+            href="explore. html"
+            class="action"
+          >
+            🔎 Explore Businesses
           </a>
 
-          <a class="btn" href="explore. html">
-            View Explore
+          <a
+            href="index.html"
+            class="action"
+          >
+            🏠 Go to Homepage
           </a>
 
         </div>
 
       </div>
 
+
+      <div class="card">
+
+        <h2>Account</h2>
+
+        <div class="list">
+
+          <div class="list-item">
+            <strong id="sideAccountName">
+              Loading...
+            </strong>
+
+            <small id="sideAccountEmail">
+              Loading...
+            </small>
+          </div>
+
+          <div class="list-item">
+            <strong>Account Type</strong>
+
+            <small id="sideAccountType">
+              Loading...
+            </small>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <h2>Boostly</h2>
+
+        <p class="description">
+          Grow your local presence, connect with customers and manage your
+          business from one simple platform.
+        </p>
+
+        <a
+          href="explore. html"
+          class="btn primary"
+          style="width:100%;text-align:center;"
+        >
+          Explore Boostly
+        </a>
+
+      </div>
+
     </div>
 
-  </section>
+  </div>
 
-</main>
+</div>
 
 
 <footer>
-
   © 2026 Boostly. All rights reserved.
-
 </footer>
 
 
-<!-- REAL USER DATA -->
-
 <script>
 
-async function loadUserData() {
+async function loadDashboard(){
 
-  try {
+  try{
 
-    const response = await fetch("/api/me");
+    /* USER DATA */
 
-    if (!response.ok) {
+    const userResponse = await fetch("/api/me");
+
+    if(!userResponse.ok){
 
       window.location.href = "/login.html";
+      return;
+
+    }
+
+    const user = await userResponse.json();
+
+
+    document.getElementById("userName").textContent =
+      user.full_name || "Boostly User";
+
+    document.getElementById("accountName").textContent =
+      user.full_name || "Not added";
+
+    document.getElementById("accountEmail").textContent =
+      user.email || "Not added";
+
+    document.getElementById("accountPhone").textContent =
+      user.phone || "Not added";
+
+    document.getElementById("accountCity").textContent =
+      user.city || "Not added";
+
+    document.getElementById("accountType").textContent =
+      user.account_type === "business"
+      ? "Business Owner"
+      : "Customer";
+
+
+    document.getElementById("sideAccountName").textContent =
+      user.full_name || "Boostly User";
+
+    document.getElementById("sideAccountEmail").textContent =
+      user.email || "Not added";
+
+    document.getElementById("sideAccountType").textContent =
+      user.account_type === "business"
+      ? "Business Owner"
+      : "Customer";
+
+
+    /* AVATAR */
+
+    const firstLetter =
+      (user.full_name || "B").charAt(0).toUpperCase();
+
+    document.getElementById("avatar").textContent =
+      firstLetter;
+
+
+    /* BUSINESS DATA */
+
+    const businessResponse =
+      await fetch("/api/my-business");
+
+
+    if(businessResponse.status === 404){
+
+      document.getElementById("businessLoading").style.display =
+        "none";
+
+      document.getElementById("noBusiness").style.display =
+        "block";
 
       return;
 
     }
 
-    const user = await response.json();
+
+    if(!businessResponse.ok){
+
+      throw new Error("Business data could not be loaded.");
+
+    }
 
 
-    const nameElements =
-      document.querySelectorAll("[data-user-name]");
-
-    const emailElements =
-      document.querySelectorAll("[data-user-email]");
-
-    const phoneElements =
-      document.querySelectorAll("[data-user-phone]");
-
-    const cityElements =
-      document.querySelectorAll("[data-user-city]");
+    const business =
+      await businessResponse.json();
 
 
-    nameElements.forEach(function(el) {
+    document.getElementById("businessLoading").style.display =
+      "none";
 
-      el.textContent =
-        user.full_name || "Boostly User";
-
-    });
-
-
-    emailElements.forEach(function(el) {
-
-      el.textContent =
-        user.email || "-";
-
-    });
+    document.getElementById("businessContent").style.display =
+      "block";
 
 
-    phoneElements.forEach(function(el) {
-
-      el.textContent =
-        user.phone || "Not added";
-
-    });
+    document.getElementById("businessName").textContent =
+      business.business_name || "Business Name";
 
 
-    cityElements.forEach(function(el) {
+    document.getElementById("businessCategory").textContent =
+      business.category || "Business";
 
-      el.textContent =
-        user.city || "Not added";
 
-    });
+    document.getElementById("businessCity").textContent =
+      business.city || "Not added";
 
-  }
 
-  catch (error) {
+    document.getElementById("businessAddress").textContent =
+      business.address || "Not added";
 
-    console.error(
-      "User loading error:",
-      error
-    );
+
+    document.getElementById("businessPhone").textContent =
+      business.phone || "Not added";
+
+
+    document.getElementById("businessWhatsapp").textContent =
+      business.whatsapp || "Not added";
+
+
+    document.getElementById("businessDescription").textContent =
+      business.description ||
+      "No business description added yet.";
+
+
+    const businessInitial =
+      (business.business_name || "B")
+      .charAt(0)
+      .toUpperCase();
+
+    document.getElementById("businessInitial").textContent =
+      businessInitial;
+
+
+  }catch(error){
+
+    console.error(error);
+
+    document.getElementById("businessLoading").innerHTML =
+      '<span class="error">Unable to load business information.</span>';
 
   }
 
 }
 
 
-loadUserData();
+/* LOGOUT */
 
-</script>
-<script>
+async function logoutUser(){
 
-async function logoutUser() {
+  try{
 
-  try {
+    const response =
+      await fetch("/api/logout", {
+        method:"POST"
+      });
 
-    const response = await fetch("/api/logout", {
-      method: "POST"
-    });
 
-    if (response.redirected) {
-      window.location.href = response.url;
+    if(response.redirected){
+
+      window.location.href =
+        response.url;
+
       return;
+
     }
 
-    window.location.href = "/login.html";
 
-  } catch (error) {
+    window.location.href =
+      "/login.html";
 
-    console.error("Logout error:", error);
 
-    window.location.href = "/login.html";
+  }catch(error){
+
+    console.error(error);
+
+    window.location.href =
+      "/login.html";
 
   }
 
 }
 
+
+loadDashboard();
+
 </script>
+
 </body>
 </html>
