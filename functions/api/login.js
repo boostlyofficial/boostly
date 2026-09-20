@@ -62,9 +62,9 @@ export async function onRequestPost(context) {
       256
     );
 
-    const hashArray = Array.from(new Uint8Array(derivedBits));
-
-    const calculatedHash = hashArray
+    const calculatedHash = Array.from(
+      new Uint8Array(derivedBits)
+    )
       .map(byte => byte.toString(16).padStart(2, "0"))
       .join("");
 
@@ -74,13 +74,34 @@ export async function onRequestPost(context) {
       });
     }
 
-    return Response.redirect(
-      new URL(
-        "/dashboard.html?user=" + encodeURIComponent(user.id),
-        context.request.url
-      ),
-      303
-    );
+    const sessionId = crypto.randomUUID();
+
+    await context.env.DB
+      .prepare(`
+        CREATE TABLE IF NOT EXISTS sessions (
+          id TEXT PRIMARY KEY,
+          user_id INTEGER NOT NULL,
+          expires_at DATETIME NOT NULL
+        )
+      `)
+      .bind()
+      .run();
+
+    await context.env.DB
+      .prepare(`
+        INSERT INTO sessions (id, user_id, expires_at)
+        VALUES (?, ?, datetime('now', '+7 days'))
+      `)
+      .bind(sessionId, user.id)
+      .run();
+
+    return new Response(null, {
+      status: 303,
+      headers: {
+        "Location": "/dashboard.html",
+        "Set-Cookie": `boostly_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=604800`
+      }
+    });
 
   } catch (error) {
     return new Response("Login failed: " + error.message, {
