@@ -309,7 +309,7 @@ select:focus{
       Join Boostly and grow with your local community
     </p>
 
-    <form onsubmit="signupDemo(event)">
+    <form action="login.html" method="get">
 
       <div class="input-group">
 
@@ -493,9 +493,9 @@ function togglePassword(id,button){
 
 }
 
-function signupDemo(event){
 
-  event.preventDefault();
+
+  
 
   const password =
     document.getElementById("password").value;
@@ -510,9 +510,9 @@ function signupDemo(event){
 
   }
 
-  document.getElementById("message").style.display = "block";
+  
 
-}
+
 
 </script>
 
