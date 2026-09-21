@@ -20,7 +20,7 @@ body{
 }
 
 header{
-  background:#ffffff;
+  background:#fff;
   border-bottom:1px solid #e8ebf2;
   padding:16px 6%;
   display:flex;
@@ -52,7 +52,7 @@ header{
 .logout-btn{
   border:none;
   background:#ef4444;
-  color:white;
+  color:#fff;
   padding:10px 17px;
   border-radius:9px;
   font-weight:700;
@@ -64,7 +64,7 @@ header{
   height:42px;
   border-radius:50%;
   background:#2563eb;
-  color:white;
+  color:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -98,7 +98,7 @@ header{
 }
 
 .stat{
-  background:white;
+  background:#fff;
   padding:22px;
   border-radius:15px;
   border:1px solid #e8ebf2;
@@ -121,7 +121,7 @@ header{
 }
 
 .card{
-  background:white;
+  background:#fff;
   border:1px solid #e8ebf2;
   border-radius:16px;
   padding:25px;
@@ -148,7 +148,7 @@ header{
   display:flex;
   align-items:center;
   justify-content:center;
-  color:white;
+  color:#fff;
   font-size:30px;
   font-weight:800;
   flex-shrink:0;
@@ -222,7 +222,7 @@ header{
 
 .primary{
   background:#2563eb;
-  color:white;
+  color:#fff;
 }
 
 .secondary{
@@ -417,7 +417,7 @@ footer{
 
   <div class="header-right">
 
-    <a class="explore-btn" href="explore. html">
+    <a class="explore-btn" href="explore.html">
       Explore
     </a>
 
@@ -433,7 +433,6 @@ footer{
 
 </header>
 
-
 <div class="container">
 
   <div class="welcome">
@@ -447,9 +446,6 @@ footer{
     </p>
 
   </div>
-
-
-  <!-- STATS -->
 
   <div class="stats">
 
@@ -475,13 +471,9 @@ footer{
 
   </div>
 
-
   <div class="grid">
 
     <div>
-
-
-      <!-- BUSINESS PROFILE -->
 
       <div class="card">
 
@@ -517,7 +509,6 @@ footer{
 
           </div>
 
-
           <div class="info">
 
             <div class="info-row">
@@ -542,11 +533,9 @@ footer{
 
           </div>
 
-
           <p class="description" id="businessDescription">
             No business description added yet.
           </p>
-
 
           <div class="buttons">
 
@@ -558,18 +547,16 @@ footer{
             </a>
 
             <a
-              href="business.html"
+              href="#"
+              id="viewProfileBtn"
               class="btn secondary"
             >
-              View Profile
+              View Public Profile
             </a>
 
           </div>
 
         </div>
-
-
-        <!-- NO BUSINESS -->
 
         <div id="noBusiness" class="empty" style="display:none;">
 
@@ -593,9 +580,6 @@ footer{
         </div>
 
       </div>
-
-
-      <!-- PROFILE INFORMATION -->
 
       <div class="card">
 
@@ -632,9 +616,6 @@ footer{
 
       </div>
 
-
-      <!-- DEMO ANALYTICS -->
-
       <div class="card">
 
         <h2>Profile Views</h2>
@@ -663,9 +644,6 @@ footer{
 
       </div>
 
-
-      <!-- RECENT ENQUIRIES -->
-
       <div class="card">
 
         <h2>Recent Enquiries</h2>
@@ -685,9 +663,6 @@ footer{
 
     </div>
 
-
-    <!-- RIGHT SIDEBAR -->
-
     <div>
 
       <div class="card">
@@ -704,7 +679,7 @@ footer{
           </a>
 
           <a
-            href="explore. html"
+            href="explore.html"
             class="action"
           >
             🔎 Explore Businesses
@@ -721,7 +696,6 @@ footer{
 
       </div>
 
-
       <div class="card">
 
         <h2>Account</h2>
@@ -729,6 +703,7 @@ footer{
         <div class="list">
 
           <div class="list-item">
+
             <strong id="sideAccountName">
               Loading...
             </strong>
@@ -736,20 +711,22 @@ footer{
             <small id="sideAccountEmail">
               Loading...
             </small>
+
           </div>
 
           <div class="list-item">
+
             <strong>Account Type</strong>
 
             <small id="sideAccountType">
               Loading...
             </small>
+
           </div>
 
         </div>
 
       </div>
-
 
       <div class="card">
 
@@ -761,7 +738,7 @@ footer{
         </p>
 
         <a
-          href="explore. html"
+          href="explore.html"
           class="btn primary"
           style="width:100%;text-align:center;"
         >
@@ -776,11 +753,9 @@ footer{
 
 </div>
 
-
 <footer>
   © 2026 Boostly. All rights reserved.
 </footer>
-
 
 <script>
 
@@ -790,7 +765,8 @@ async function loadDashboard(){
 
     /* USER DATA */
 
-    const userResponse = await fetch("/api/me");
+    const userResponse =
+      await fetch("/api/me");
 
     if(!userResponse.ok){
 
@@ -799,7 +775,8 @@ async function loadDashboard(){
 
     }
 
-    const user = await userResponse.json();
+    const user =
+      await userResponse.json();
 
 
     document.getElementById("userName").textContent =
@@ -835,10 +812,10 @@ async function loadDashboard(){
       : "Customer";
 
 
-    /* AVATAR */
-
     const firstLetter =
-      (user.full_name || "B").charAt(0).toUpperCase();
+      (user.full_name || "B")
+      .charAt(0)
+      .toUpperCase();
 
     document.getElementById("avatar").textContent =
       firstLetter;
@@ -865,7 +842,9 @@ async function loadDashboard(){
 
     if(!businessResponse.ok){
 
-      throw new Error("Business data could not be loaded.");
+      throw new Error(
+        "Business data could not be loaded."
+      );
 
     }
 
@@ -918,6 +897,11 @@ async function loadDashboard(){
     document.getElementById("businessInitial").textContent =
       businessInitial;
 
+
+    /* PUBLIC PROFILE LINK */
+
+    document.getElementById("viewProfileBtn").href =
+      "business.html?id=" + encodeURIComponent(business.id);
 
   }catch(error){
 
