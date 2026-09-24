@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Boostly Media Studio</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f7fb;
+  color:#172033;
+}
+
+header{
+  background:#fff;
+  border-bottom:1px solid #e7eaf0;
+  padding:16px 20px;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.nav{
+  max-width:900px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:26px;
+  font-weight:800;
+  color:#6c4cff;
+}
+
+.back{
+  text-decoration:none;
+  background:#eef0f7;
+  color:#172033;
+  padding:10px 15px;
+  border-radius:9px;
+  font-weight:700;
+}
+
+.container{
+  max-width:900px;
+  margin:30px auto;
+  padding:0 18px;
+}
+
+.hero{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.hero h1{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.hero p{
+  color:#697287;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #e6e9f0;
+  border-radius:18px;
+  padding:24px;
+  margin-bottom:20px;
+}
+
+.card h2{
+  margin-bottom:8px;
+}
+
+.card p{
+  color:#697287;
+  margin-bottom:18px;
+}
+
+input[type="file"]{
+  width:100%;
+  padding:14px;
+  border:2px dashed #cfd4df;
+  border-radius:12px;
+  background:#fafbfc;
+}
+
+.preview{
+  margin-top:18px;
+}
+
+.preview img,
+.preview video{
+  width:100%;
+  max-height:420px;
+  object-fit:contain;
+  border-radius:14px;
+  background:#111;
+}
+
+.caption{
+  width:100%;
+  padding:13px;
+  border:1px solid #dce0e8;
+  border-radius:10px;
+  margin-top:15px;
+  font-size:16px;
+}
+
+.btn{
+  width:100%;
+  border:0;
+  padding:14px;
+  border-radius:11px;
+  background:#6c4cff;
+  color:#fff;
+  font-size:16px;
+  font-weight:700;
+  margin-top:15px;
+  cursor:pointer;
+}
+
+.btn:disabled{
+  opacity:.6;
+}
+
+.status{
+  margin-top:15px;
+  padding:13px;
+  border-radius:10px;
+  display:none;
+}
+
+.success{
+  display:block;
+  background:#e8f8ee;
+  color:#19733d;
+}
+
+.error{
+  display:block;
+  background:#ffe9e9;
+  color:#a52222;
+}
+
+.info{
+  display:block;
+  background:#eef4ff;
+  color:#315ea8;
+}
+
+.note{
+  font-size:13px;
+  color:#7a8292;
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">Boostly</div>
+    <a href="/dashboard.html" class="back">← Dashboard</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="hero">
+    <h1>🚀 Boostly Media Studio</h1>
+    <p>Create photos and Boosts to show your business to customers.</p>
+  </div>
+
+  <div class="card">
+
+    <h2>📸 Add Photo or 🎬 Boost</h2>
+
+    <p>
+      Upload a business photo or short video.
+    </p>
+
+    <input
+      type="file"
+      id="mediaFile"
+      accept="image/*,video/*"
+    >
+
+    <div id="preview" class="preview"></div>
+
+    <input
+      type="text"
+      id="caption"
+      class="caption"
+      placeholder="Write a caption or offer..."
+      maxlength="300"
+    >
+
+    <button
+      id="uploadBtn"
+      class="btn">
+      Upload to Boostly
+    </button>
+
+    <div id="status" class="status"></div>
+
+    <div class="note">
+      Photos and videos are stored securely through the media service.
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+
+const fileInput =
+  document.getElementById("mediaFile");
+
+const preview =
+  document.getElementById("preview");
+
+const uploadBtn =
+  document.getElementById("uploadBtn");
+
+const statusBox =
+  document.getElementById("status");
+
+let selectedFile = null;
+let business = null;
+
+
+function showStatus(message,type){
+
+  statusBox.className =
+    "status " + type;
+
+  statusBox.textContent =
+    message;
+}
+
+
+fileInput.addEventListener("change",function(){
+
+  selectedFile =
+    this.files[0];
+
+  preview.innerHTML = "";
+
+  if(!selectedFile){
+    return;
+  }
+
+  if(selectedFile.type.startsWith("image/")){
+
+    const img =
+      document.createElement("img");
+
+    img.src =
+      URL.createObjectURL(selectedFile);
+
+    preview.appendChild(img);
+
+  }else if(selectedFile.type.startsWith("video/")){
+
+    const video =
+      document.createElement("video");
+
+    video.src =
+      URL.createObjectURL(selectedFile);
+
+    video.controls = true;
+
+    preview.appendChild(video);
+
+  }
+
+});
+
+
+async function loadBusiness(){
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/my-business",
+        {
+          credentials:"include"
+        }
+      );
+
+    if(response.status === 401){
+
+      window.location.href =
+        "/login.html";
+
+      return;
+
+    }
+
+    if(!response.ok){
+
+      throw new Error(
+        "Business profile not found"
+      );
+
+    }
+
+    business =
+      await response.json();
+
+  }catch(error){
+
+    showStatus(
+      "Business profile load nahi ho raha. Pehle business profile complete karo.",
+      "error"
+    );
+
+    uploadBtn.disabled = true;
+
+  }
+
+}
+
+
+uploadBtn.addEventListener("click",async function(){
+
+  if(!business){
+
+    showStatus(
+      "Business profile load nahi hua.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  if(!selectedFile){
+
+    showStatus(
+      "Pehle photo ya video select karo.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const isVideo =
+    selectedFile.type.startsWith("video/");
+
+  const mediaType =
+    isVideo ? "boost" : "photo";
+
+
+  uploadBtn.disabled = true;
+
+  uploadBtn.textContent =
+    "Uploading...";
+
+
+  try{
+
+    /*
+      STEP 1
+      Upload directly to Cloudinary
+    */
+
+    const cloudinaryData =
+      new FormData();
+
+    cloudinaryData.append(
+      "file",
+      selectedFile
+    );
+
+    cloudinaryData.append(
+      "upload_preset",
+      "boostly_media"
+    );
+
+
+    const cloudinaryResponse =
+      await fetch(
+        "https://api.cloudinary.com/v1_1/boostlyindia/auto/upload",
+        {
+          method:"POST",
+          body:cloudinaryData
+        }
+      );
+
+
+    if(!cloudinaryResponse.ok){
+
+      const errorText =
+        await cloudinaryResponse.text();
+
+      throw new Error(
+        "Cloudinary upload failed: " +
+        errorText
+      );
+
+    }
+
+
+    const uploaded =
+      await cloudinaryResponse.json();
+
+
+    /*
+      STEP 2
+      Save media information in D1
+    */
+
+    const formData =
+      new FormData();
+
+    formData.append(
+      "business_id",
+      business.id
+    );
+
+    formData.append(
+      "media_type",
+      mediaType
+    );
+
+    formData.append(
+      "media_url",
+      uploaded.secure_url
+    );
+
+    formData.append(
+      "public_id",
+      uploaded.public_id
+    );
+
+
+    const caption =
+      document
+        .getElementById("caption")
+        .value
+        .trim();
+
+
+    formData.append(
+      "caption",
+      caption
+    );
+
+
+    const saveResponse =
+      await fetch(
+        "/api/media",
+        {
+          method:"POST",
+          credentials:"include",
+          body:formData
+        }
+      );
+
+
+    const saveResult =
+      await saveResponse.json();
+
+
+    if(!saveResponse.ok){
+
+      throw new Error(
+        saveResult.error ||
+        "Media save failed"
+      );
+
+    }
+
+
+    showStatus(
+      isVideo
+        ? "🎬 Boost successfully uploaded!"
+        : "📸 Photo successfully uploaded!",
+      "success"
+    );
+
+
+    fileInput.value = "";
+
+    preview.innerHTML = "";
+
+    document
+      .getElementById("caption")
+      .value = "";
+
+    selectedFile = null;
+
+
+  }catch(error){
+
+    showStatus(
+      error.message ||
+      "Upload failed.",
+      "error"
+    );
+
+  }
+
+
+  uploadBtn.disabled = false;
+
+  uploadBtn.textContent =
+    "Upload to Boostly";
+
+});
+
+
+loadBusiness();
+
+</script>
+
+</body>
+</html>
