@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Boostly Media Studio</title>
+
+<script src="https://upload-widget.cloudinary.com/global/all.js"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f7fb;
+  color:#172033;
+}
+
+header{
+  background:#fff;
+  border-bottom:1px solid #e7eaf0;
+  padding:16px;
+}
+
+.nav{
+  max-width:900px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:800;
+  color:#6c4cff;
+}
+
+.back{
+  text-decoration:none;
+  background:#eef0f7;
+  color:#172033;
+  padding:12px 16px;
+  border-radius:10px;
+  font-weight:700;
+}
+
+.container{
+  max-width:700px;
+  margin:30px auto;
+  padding:0 18px;
+}
+
+.hero{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.hero h1{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.hero p{
+  color:#687286;
+}
+
+.card{
+  background:#fff;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 5px 25px rgba(0,0,0,.06);
+}
+
+.card h2{
+  margin-bottom:10px;
+}
+
+.card p{
+  color:#687286;
+  margin-bottom:20px;
+}
+
+.caption{
+  width:100%;
+  margin-bottom:16px;
+  padding:15px;
+  border:1px solid #d9dde5;
+  border-radius:11px;
+  font-size:16px;
+}
+
+.upload{
+  width:100%;
+  padding:16px;
+  border:0;
+  border-radius:12px;
+  background:#6c4cff;
+  color:#fff;
+  font-size:18px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.upload:disabled{
+  opacity:.6;
+}
+
+.status{
+  margin-top:16px;
+  padding:15px;
+  border-radius:11px;
+  line-height:1.5;
+  word-break:break-word;
+  display:none;
+}
+
+.info{
+  display:block;
+  background:#edf4ff;
+  color:#28589c;
+}
+
+.success{
+  display:block;
+  background:#e8f8ee;
+  color:#19733d;
+}
+
+.error{
+  display:block;
+  background:#ffe8e8;
+  color:#a32222;
+}
+
+.result{
+  margin-top:18px;
+}
+
+.result img,
+.result video{
+  width:100%;
+  max-height:400px;
+  object-fit:contain;
+  background:#111;
+  border-radius:14px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">Boostly</div>
+
+    <a href="/dashboard.html" class="back">
+      ← Dashboard
+    </a>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>🚀 Boostly Media Studio</h1>
+    <p>
+      Create photos and Boosts to show your business to customers.
+    </p>
+  </div>
+
+  <div class="card">
+
+    <h2>📸 Add Photo or 🎬 Boost</h2>
+
+    <p>
+      Select a photo or short video and add a caption.
+    </p>
+
+    <input
+      id="caption"
+      class="caption"
+      type="text"
+      maxlength="300"
+      placeholder="Write a caption or offer..."
+    >
+
+    <button
+      id="uploadBtn"
+      class="upload"
+      type="button">
+      📤 Select Photo or Video
+    </button>
+
+    <div id="status" class="status"></div>
+
+    <div id="result" class="result"></div>
+
+  </div>
+
+</div>
+
+<script>
+
+let business = null;
+
+const button =
+  document.getElementById("uploadBtn");
+
+const caption =
+  document.getElementById("caption");
+
+const statusBox =
+  document.getElementById("status");
+
+const resultBox =
+  document.getElementById("result");
+
+
+function showStatus(message,type){
+
+  statusBox.className =
+    "status " + type;
+
+  statusBox.innerText =
+    message;
+
+}
+
+
+async function getBusiness(){
+
+  const response =
+    await fetch(
+      "/api/my-business",
+      {
+        method:"GET",
+        credentials:"include"
+      }
+    );
+
+  const text =
+    await response.text();
+
+  if(!response.ok){
+
+    throw new Error(
+      "Business profile error " +
+      response.status +
+      ": " +
+      text
+    );
+
+  }
+
+  business =
+    JSON.parse(text);
+
+  if(!business.id){
+
+    throw new Error(
+      "Business ID nahi mila."
+    );
+
+  }
+
+}
+
+
+async function saveMedia(result){
+
+  try{
+
+    showStatus(
+      "💾 Step 2/2: Boostly database me save ho raha hai...",
+      "info"
+    );
+
+    const form =
+      new FormData();
+
+    form.append(
+      "business_id",
+      String(business.id)
+    );
+
+    form.append(
+      "media_type",
+      result.resource_type === "video"
+        ? "boost"
+        : "photo"
+    );
+
+    form.append(
+      "media_url",
+      result.secure_url
+    );
+
+    form.append(
+      "public_id",
+      result.public_id || ""
+    );
+
+    form.append(
+      "caption",
+      caption.value.trim()
+    );
+
+    const response =
+      await fetch(
+        "/api/media",
+        {
+          method:"POST",
+          credentials:"include",
+          body:form
+        }
+      );
+
+    const responseText =
+      await response.text();
+
+    if(!response.ok){
+
+      throw new Error(
+        "Boostly API error " +
+        response.status +
+        ": " +
+        responseText
+      );
+
+    }
+
+    let data = {};
+
+    try{
+      data = JSON.parse(responseText);
+    }catch(e){}
+
+    if(data.success !== true){
+
+      throw new Error(
+        data.error ||
+        "Media save nahi hua."
+      );
+
+    }
+
+    if(result.resource_type === "video"){
+
+      resultBox.innerHTML =
+        "<video controls src=\"" +
+        result.secure_url +
+        "\"></video>";
+
+      showStatus(
+        "🎬 Boost successfully uploaded!",
+        "success"
+      );
+
+    }else{
+
+      resultBox.innerHTML =
+        "<img src=\"" +
+        result.secure_url +
+        "\" alt=\"Boostly photo\">";
+
+      showStatus(
+        "📸 Photo successfully uploaded!",
+        "success"
+      );
+
+    }
+
+    caption.value = "";
+
+    alert(
+      result.resource_type === "video"
+        ? "🎬 Boost successfully uploaded!"
+        : "📸 Photo successfully uploaded!"
+    );
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    showStatus(
+      "❌ " + error.message,
+      "error"
+    );
+
+    alert(
+      "Save Error:\n\n" +
+      error.message
+    );
+
+  }
+
+  finally{
+
+    button.disabled = false;
+
+    button.innerText =
+      "📤 Select Photo or Video";
+
+  }
+
+}
+
+
+/* CLOUDINARY OFFICIAL UPLOAD WIDGET */
+
+const cloudinaryWidget =
+  cloudinary.createUploadWidget(
+
+    {
+      cloudName: "boostlyindia",
+
+      uploadPreset: "boostly_media",
+
+      sources: [
+        "local"
+      ],
+
+      multiple: false,
+
+      resourceType: "auto",
+
+      maxFileSize: 52428800,
+
+      clientAllowedFormats: [
+        "jpg",
+        "jpeg",
+        "png",
+        "webp",
+        "mp4",
+        "mov",
+        "webm"
+      ],
+
+      folder: "boostly",
+
+      showAdvancedOptions: false,
+
+      cropping: false,
+
+      showSkipCropButton: false,
+
+      showPoweredBy: false
+
+    },
+
+    async function(error,result){
+
+      if(error){
+
+        console.error(error);
+
+        button.disabled = false;
+
+        button.innerText =
+          "📤 Select Photo or Video";
+
+        showStatus(
+          "❌ Cloudinary upload error: " +
+          (
+            error.status ||
+            error.message ||
+            "Upload failed"
+          ),
+          "error"
+        );
+
+        return;
+      }
+
+
+      if(
+        result &&
+        result.event === "upload-added"
+      ){
+
+        showStatus(
+          "☁️ Step 1/2: Media Cloudinary par upload ho raha hai...",
+          "info"
+        );
+
+      }
+
+
+      if(
+        result &&
+        result.event === "success"
+      ){
+
+        await saveMedia(
+          result.info
+        );
+
+      }
+
+    }
+
+  );
+
+
+button.addEventListener(
+  "click",
+  async function(){
+
+    try{
+
+      button.disabled = true;
+
+      button.innerText =
+        "Opening uploader...";
+
+      showStatus(
+        "⏳ Business profile check ho raha hai...",
+        "info"
+      );
+
+      await getBusiness();
+
+      showStatus(
+        "☁️ Cloudinary uploader open ho raha hai...",
+        "info"
+      );
+
+      cloudinaryWidget.open();
+
+    }
+
+    catch(error){
+
+      console.error(error);
+
+      button.disabled = false;
+
+      button.innerText =
+        "📤 Select Photo or Video";
+
+      showStatus(
+        "❌ " + error.message,
+        "error"
+      );
+
+      alert(
+        "Upload Error:\n\n" +
+        error.message
+      );
+
+    }
+
+  }
+
+);
+
+</script>
+
+</body>
+</html>
