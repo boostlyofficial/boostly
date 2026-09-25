@@ -1,15 +1,41 @@
-export async function onRequestPost(context) {
+export async function onRequest(context) {
 
   try {
+
+    // Only POST is allowed
+    if (context.request.method !== "POST") {
+
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: "Only POST method is allowed"
+        }),
+        {
+          status: 405,
+          headers: {
+            "Content-Type": "application/json",
+            "Allow": "POST"
+          }
+        }
+      );
+
+    }
+
+
+    // -----------------------------
+    // CHECK LOGIN SESSION
+    // -----------------------------
 
     const cookieHeader =
       context.request.headers.get("Cookie") || "";
 
-    const match = cookieHeader.match(
-      /(?:^|;\s*)boostly_session=([^;]+)/
-    );
+    const match =
+      cookieHeader.match(
+        /(?:^|;\s*)boostly_session=([^;]+)/
+      );
 
     if (!match) {
+
       return new Response(
         JSON.stringify({
           success: false,
@@ -22,21 +48,31 @@ export async function onRequestPost(context) {
           }
         }
       );
+
     }
+
 
     const sessionId = match[1];
 
-    const session = await context.env.DB
-      .prepare(`
-        SELECT user_id
-        FROM sessions
-        WHERE id = ?
-        AND expires_at > datetime('now')
-      `)
-      .bind(sessionId)
-      .first();
+
+    // -----------------------------
+    // CHECK SESSION IN D1
+    // -----------------------------
+
+    const session =
+      await context.env.DB
+        .prepare(`
+          SELECT user_id
+          FROM sessions
+          WHERE id = ?
+          AND expires_at > datetime('now')
+        `)
+        .bind(sessionId)
+        .first();
+
 
     if (!session) {
+
       return new Response(
         JSON.stringify({
           success: false,
@@ -49,10 +85,17 @@ export async function onRequestPost(context) {
           }
         }
       );
+
     }
+
+
+    // -----------------------------
+    // READ FORM DATA
+    // -----------------------------
 
     const formData =
       await context.request.formData();
+
 
     const businessId =
       formData.get("business_id");
@@ -69,11 +112,22 @@ export async function onRequestPost(context) {
     const caption =
       formData.get("caption") || "";
 
-    if (!businessId || !mediaType || !mediaUrl) {
+
+    // -----------------------------
+    // VALIDATION
+    // -----------------------------
+
+    if (
+      !businessId ||
+      !mediaType ||
+      !mediaUrl
+    ) {
+
       return new Response(
         JSON.stringify({
           success: false,
-          error: "Business ID, media type or media URL missing"
+          error:
+            "Business ID, media type or media URL missing"
         }),
         {
           status: 400,
@@ -82,7 +136,13 @@ export async function onRequestPost(context) {
           }
         }
       );
+
     }
+
+
+    // -----------------------------
+    // CHECK BUSINESS OWNERSHIP
+    // -----------------------------
 
     const business =
       await context.env.DB
@@ -99,7 +159,9 @@ export async function onRequestPost(context) {
         )
         .first();
 
+
     if (!business) {
+
       return new Response(
         JSON.stringify({
           success: false,
@@ -112,7 +174,13 @@ export async function onRequestPost(context) {
           }
         }
       );
+
     }
+
+
+    // -----------------------------
+    // SAVE MEDIA
+    // -----------------------------
 
     await context.env.DB
       .prepare(`
@@ -138,6 +206,11 @@ export async function onRequestPost(context) {
       )
       .run();
 
+
+    // -----------------------------
+    // SUCCESS
+    // -----------------------------
+
     return new Response(
       JSON.stringify({
         success: true,
@@ -151,12 +224,17 @@ export async function onRequestPost(context) {
       }
     );
 
+
   } catch (error) {
+
+    console.error(error);
 
     return new Response(
       JSON.stringify({
         success: false,
-        error: error.message || "Server error"
+        error:
+          error.message ||
+          "Server error"
       }),
       {
         status: 500,
