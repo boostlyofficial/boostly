@@ -444,15 +444,22 @@ async function uploadMedia(){
     );
 
 
-    const cloudinaryResponse =
-      await fetch(
-        "https://api.cloudinary.com/v1_1/boostlyindia/auto/upload",
-        {
-          method:"POST",
-          body:cloudinaryForm
-        }
-      );
+    
+const resourceType =
+  selectedFile.type.startsWith("video/")
+    ? "video"
+    : "image";
 
+const cloudinaryResponse =
+  await fetch(
+    "https://api.cloudinary.com/v1_1/boostlyindia/" +
+    resourceType +
+    "/upload",
+    {
+      method:"POST",
+      body:cloudinaryForm
+    }
+  );
 
     const cloudinaryText =
       await cloudinaryResponse.text();
