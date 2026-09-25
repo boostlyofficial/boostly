@@ -22,10 +22,7 @@ body{
 header{
   background:#fff;
   border-bottom:1px solid #e7eaf0;
-  padding:16px 20px;
-  position:sticky;
-  top:0;
-  z-index:10;
+  padding:16px;
 }
 
 .nav{
@@ -37,7 +34,7 @@ header{
 }
 
 .logo{
-  font-size:26px;
+  font-size:28px;
   font-weight:800;
   color:#6c4cff;
 }
@@ -46,13 +43,13 @@ header{
   text-decoration:none;
   background:#eef0f7;
   color:#172033;
-  padding:10px 15px;
-  border-radius:9px;
+  padding:12px 16px;
+  border-radius:10px;
   font-weight:700;
 }
 
 .container{
-  max-width:900px;
+  max-width:700px;
   margin:30px auto;
   padding:0 18px;
 }
@@ -68,30 +65,29 @@ header{
 }
 
 .hero p{
-  color:#697287;
+  color:#687286;
 }
 
 .card{
-  background:#fff;
-  border:1px solid #e6e9f0;
-  border-radius:18px;
+  background:white;
+  border-radius:20px;
   padding:24px;
-  margin-bottom:20px;
+  box-shadow:0 5px 25px rgba(0,0,0,.06);
 }
 
 .card h2{
-  margin-bottom:8px;
+  margin-bottom:10px;
 }
 
 .card p{
-  color:#697287;
-  margin-bottom:18px;
+  color:#687286;
+  margin-bottom:20px;
 }
 
-input[type="file"]{
+input[type=file]{
   width:100%;
-  padding:14px;
-  border:2px dashed #cfd4df;
+  padding:16px;
+  border:2px dashed #ccd2dd;
   border-radius:12px;
   background:#fafbfc;
 }
@@ -103,45 +99,51 @@ input[type="file"]{
 .preview img,
 .preview video{
   width:100%;
-  max-height:420px;
+  max-height:400px;
   object-fit:contain;
-  border-radius:14px;
   background:#111;
+  border-radius:14px;
 }
 
 .caption{
   width:100%;
-  padding:13px;
-  border:1px solid #dce0e8;
-  border-radius:10px;
-  margin-top:15px;
+  margin-top:16px;
+  padding:15px;
+  border:1px solid #d9dde5;
+  border-radius:11px;
   font-size:16px;
 }
 
-.btn{
+.upload{
   width:100%;
+  margin-top:16px;
+  padding:16px;
   border:0;
-  padding:15px;
-  border-radius:11px;
+  border-radius:12px;
   background:#6c4cff;
-  color:#fff;
-  font-size:17px;
+  color:white;
+  font-size:18px;
   font-weight:700;
-  margin-top:15px;
   cursor:pointer;
 }
 
-.btn:disabled{
+.upload:disabled{
   opacity:.6;
-  cursor:not-allowed;
 }
 
 .status{
-  margin-top:15px;
-  padding:14px;
-  border-radius:10px;
+  margin-top:16px;
+  padding:15px;
+  border-radius:11px;
   display:none;
   line-height:1.5;
+  word-break:break-word;
+}
+
+.info{
+  display:block;
+  background:#edf4ff;
+  color:#28589c;
 }
 
 .success{
@@ -152,30 +154,8 @@ input[type="file"]{
 
 .error{
   display:block;
-  background:#ffe9e9;
-  color:#a52222;
-}
-
-.info{
-  display:block;
-  background:#eef4ff;
-  color:#315ea8;
-}
-
-.note{
-  font-size:13px;
-  color:#7a8292;
-  margin-top:10px;
-}
-
-@media(max-width:600px){
-  .hero h1{
-    font-size:26px;
-  }
-
-  .card{
-    padding:20px;
-  }
+  background:#ffe8e8;
+  color:#a32222;
 }
 </style>
 </head>
@@ -192,11 +172,13 @@ input[type="file"]{
   </div>
 </header>
 
-<main class="container">
+<div class="container">
 
   <div class="hero">
     <h1>🚀 Boostly Media Studio</h1>
-    <p>Create photos and Boosts to show your business to customers.</p>
+    <p>
+      Create photos and Boosts for your business.
+    </p>
   </div>
 
   <div class="card">
@@ -204,43 +186,52 @@ input[type="file"]{
     <h2>📸 Add Photo or 🎬 Boost</h2>
 
     <p>
-      Upload a business photo or short video.
+      Select a photo or short video and add a caption.
     </p>
 
     <input
-      type="file"
       id="mediaFile"
+      type="file"
       accept="image/*,video/*"
     >
 
-    <div id="preview" class="preview"></div>
+    <div
+      id="preview"
+      class="preview">
+    </div>
 
     <input
-      type="text"
       id="caption"
       class="caption"
-      placeholder="Write a caption or offer..."
+      type="text"
       maxlength="300"
+      placeholder="Write a caption or offer..."
     >
 
     <button
-      type="button"
       id="uploadBtn"
-      class="btn">
+      class="upload"
+      type="button"
+      onclick="uploadMedia()">
+
       Upload to Boostly
+
     </button>
 
-    <div id="status" class="status"></div>
-
-    <div class="note">
-      Supported: photos and short videos.
+    <div
+      id="status"
+      class="status">
     </div>
 
   </div>
 
-</main>
+</div>
 
 <script>
+
+let selectedFile = null;
+let business = null;
+
 
 const fileInput =
   document.getElementById("mediaFile");
@@ -248,30 +239,28 @@ const fileInput =
 const preview =
   document.getElementById("preview");
 
-const uploadBtn =
+const button =
   document.getElementById("uploadBtn");
 
 const statusBox =
   document.getElementById("status");
 
-let selectedFile = null;
-let business = null;
 
-
-function showStatus(message, type){
+function status(message,type){
 
   statusBox.className =
     "status " + type;
 
-  statusBox.textContent =
+  statusBox.innerText =
     message;
 
 }
 
 
-fileInput.addEventListener("change", function(){
+fileInput.addEventListener("change",function(){
 
-  selectedFile = this.files[0];
+  selectedFile =
+    this.files[0];
 
   preview.innerHTML = "";
 
@@ -279,10 +268,14 @@ fileInput.addEventListener("change", function(){
     return;
   }
 
-  if(selectedFile.size > 50 * 1024 * 1024){
 
-    showStatus(
-      "File 50 MB se chhoti honi chahiye.",
+  if(
+    selectedFile.size >
+    50 * 1024 * 1024
+  ){
+
+    status(
+      "❌ File 50 MB se chhoti honi chahiye.",
       "error"
     );
 
@@ -292,7 +285,10 @@ fileInput.addEventListener("change", function(){
     return;
   }
 
-  if(selectedFile.type.startsWith("image/")){
+
+  if(
+    selectedFile.type.startsWith("image/")
+  ){
 
     const img =
       document.createElement("img");
@@ -304,7 +300,9 @@ fileInput.addEventListener("change", function(){
 
   }
 
-  else if(selectedFile.type.startsWith("video/")){
+  else if(
+    selectedFile.type.startsWith("video/")
+  ){
 
     const video =
       document.createElement("video");
@@ -321,41 +319,45 @@ fileInput.addEventListener("change", function(){
 });
 
 
-async function loadBusiness(){
-
-  showStatus(
-    "Business profile check ho raha hai...",
-    "info"
-  );
+async function getBusiness(){
 
   try{
+
+    status(
+      "⏳ Business profile check ho raha hai...",
+      "info"
+    );
+
 
     const response =
       await fetch(
         "/api/my-business",
         {
+          method:"GET",
           credentials:"include"
         }
       );
 
-    if(response.status === 401){
 
-      window.location.href =
-        "/login.html";
+    const text =
+      await response.text();
 
-      return;
-    }
 
     if(!response.ok){
 
       throw new Error(
-        "Business profile load nahi hua."
+        "Business API error " +
+        response.status +
+        ": " +
+        text
       );
 
     }
 
+
     business =
-      await response.json();
+      JSON.parse(text);
+
 
     if(!business.id){
 
@@ -365,19 +367,25 @@ async function loadBusiness(){
 
     }
 
-    statusBox.style.display = "none";
+
+    status(
+      "✅ Business ready.",
+      "success"
+    );
+
 
   }
 
   catch(error){
 
-    showStatus(
-      error.message ||
-      "Business profile load nahi ho raha.",
+    console.error(error);
+
+    status(
+      "❌ " + error.message,
       "error"
     );
 
-    uploadBtn.disabled = true;
+    throw error;
 
   }
 
@@ -388,13 +396,11 @@ async function uploadMedia(){
 
   try{
 
-    if(!business){
+    button.disabled = true;
 
-      throw new Error(
-        "Business profile ready nahi hai."
-      );
+    button.innerText =
+      "Uploading...";
 
-    }
 
     if(!selectedFile){
 
@@ -405,38 +411,36 @@ async function uploadMedia(){
     }
 
 
-    uploadBtn.disabled = true;
+    if(!business){
 
-    uploadBtn.textContent =
-      "Uploading...";
+      await getBusiness();
 
-    showStatus(
-      "⏳ Upload start ho raha hai...",
+    }
+
+
+    /*
+      CLOUDINARY
+    */
+
+    status(
+      "☁️ Step 1/2: Media upload ho raha hai...",
       "info"
     );
 
 
-    /*
-      1. Cloudinary upload
-    */
-
-    const cloudinaryData =
+    const cloudinaryForm =
       new FormData();
 
-    cloudinaryData.append(
+
+    cloudinaryForm.append(
       "file",
       selectedFile
     );
 
-    cloudinaryData.append(
+
+    cloudinaryForm.append(
       "upload_preset",
       "boostly_media"
-    );
-
-
-    showStatus(
-      "☁️ Media Cloudinary par upload ho raha hai...",
-      "info"
     );
 
 
@@ -445,7 +449,7 @@ async function uploadMedia(){
         "https://api.cloudinary.com/v1_1/boostlyindia/auto/upload",
         {
           method:"POST",
-          body:cloudinaryData
+          body:cloudinaryForm
         }
       );
 
@@ -464,23 +468,27 @@ async function uploadMedia(){
     }
 
 
-    let uploaded;
+    let cloudinaryResult;
 
     try{
 
-      uploaded =
+      cloudinaryResult =
         JSON.parse(cloudinaryText);
 
-    }catch(e){
+    }
+
+    catch(e){
 
       throw new Error(
-        "Cloudinary ne invalid response diya."
+        "Cloudinary response samajh nahi aaya."
       );
 
     }
 
 
-    if(!uploaded.secure_url){
+    if(
+      !cloudinaryResult.secure_url
+    ){
 
       throw new Error(
         "Cloudinary URL nahi mila."
@@ -490,42 +498,46 @@ async function uploadMedia(){
 
 
     /*
-      2. Save media in Boostly D1
+      BOOSTLY DATABASE
     */
 
-    showStatus(
-      "💾 Boostly database me save ho raha hai...",
+    status(
+      "💾 Step 2/2: Boostly database me save ho raha hai...",
       "info"
     );
 
 
-    const formData =
+    const form =
       new FormData();
 
 
-    formData.append(
+    form.append(
       "business_id",
       String(business.id)
     );
 
-    formData.append(
+
+    form.append(
       "media_type",
       selectedFile.type.startsWith("video/")
         ? "boost"
         : "photo"
     );
 
-    formData.append(
+
+    form.append(
       "media_url",
-      uploaded.secure_url
+      cloudinaryResult.secure_url
     );
 
-    formData.append(
+
+    form.append(
       "public_id",
-      uploaded.public_id || ""
+      cloudinaryResult.public_id || ""
     );
 
-    formData.append(
+
+    form.append(
       "caption",
       document
         .getElementById("caption")
@@ -534,49 +546,71 @@ async function uploadMedia(){
     );
 
 
-    const saveResponse =
+    const response =
       await fetch(
-        "/api/media"
+        "/api/media",
         {
           method:"POST",
           credentials:"include",
-          body:formData
+          body:form
         }
       );
 
 
-    const saveText =
-      await saveResponse.text();
+    const responseText =
+      await response.text();
 
 
-    let saveResult = {};
-
-    try{
-      saveResult =
-        JSON.parse(saveText);
-    }catch(e){}
-
-
-    if(!saveResponse.ok){
+    if(!response.ok){
 
       throw new Error(
-        saveResult.error ||
-        "Boostly database save failed. Server response: " +
-        saveText
+        "Boostly API error " +
+        response.status +
+        ": " +
+        responseText
       );
 
     }
 
 
-    /*
-      SUCCESS
-    */
+    let result;
 
-    showStatus(
+    try{
+
+      result =
+        JSON.parse(responseText);
+
+    }
+
+    catch(e){
+
+      result = {};
+
+    }
+
+
+    if(result.success !== true){
+
+      throw new Error(
+        result.error ||
+        "Media save nahi hua."
+      );
+
+    }
+
+
+    status(
       selectedFile.type.startsWith("video/")
-        ? "🎬 Boost successfully uploaded to Boostly!"
-        : "📸 Photo successfully uploaded to Boostly!",
+        ? "🎬 Boost successfully uploaded!"
+        : "📸 Photo successfully uploaded!",
       "success"
+    );
+
+
+    alert(
+      selectedFile.type.startsWith("video/")
+        ? "🎬 Boost successfully uploaded!"
+        : "📸 Photo successfully uploaded!"
     );
 
 
@@ -597,20 +631,32 @@ async function uploadMedia(){
 
     console.error(error);
 
-    showStatus(
+
+    status(
       "❌ " +
-      (error.message ||
-      "Upload failed. Please try again."),
+      (
+        error.message ||
+        "Upload failed."
+      ),
       "error"
+    );
+
+
+    alert(
+      "Upload Error:\n\n" +
+      (
+        error.message ||
+        "Unknown error"
+      )
     );
 
   }
 
   finally{
 
-    uploadBtn.disabled = false;
+    button.disabled = false;
 
-    uploadBtn.textContent =
+    button.innerText =
       "Upload to Boostly";
 
   }
@@ -618,13 +664,10 @@ async function uploadMedia(){
 }
 
 
-uploadBtn.addEventListener(
-  "click",
-  uploadMedia
-);
-
-
-loadBusiness();
+getBusiness()
+.catch(function(){
+  button.disabled = false;
+});
 
 </script>
 
