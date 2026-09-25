@@ -66,11 +66,14 @@ export async function onRequestPost(context) {
     const publicId =
       formData.get("public_id") || "";
 
+    const caption =
+      formData.get("caption") || "";
+
     if (!businessId || !mediaType || !mediaUrl) {
       return new Response(
         JSON.stringify({
           success: false,
-          error: "Missing media information"
+          error: "Business ID, media type or media URL missing"
         }),
         {
           status: 400,
@@ -100,7 +103,7 @@ export async function onRequestPost(context) {
       return new Response(
         JSON.stringify({
           success: false,
-          error: "Business not found"
+          error: "Business profile not found"
         }),
         {
           status: 403,
@@ -119,15 +122,19 @@ export async function onRequestPost(context) {
           media_type,
           media_url,
           public_id,
+          caption,
+          likes_count,
+          views_count,
           created_at
         )
-        VALUES (?, ?, ?, ?, datetime('now'))
+        VALUES (?, ?, ?, ?, ?, 0, 0, datetime('now'))
       `)
       .bind(
         businessId,
         mediaType,
         mediaUrl,
-        publicId
+        publicId,
+        caption
       )
       .run();
 
@@ -149,8 +156,7 @@ export async function onRequestPost(context) {
     return new Response(
       JSON.stringify({
         success: false,
-        error: "Server error",
-        details: error.message
+        error: error.message || "Server error"
       }),
       {
         status: 500,
