@@ -1,1 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Business Media | Boostly</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f7fb;
+  color:#172033;
+}
+
+header{
+  background:#ffffff;
+  border-bottom:1px solid #e8ebf2;
+  padding:15px 20px;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.nav{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:800;
+  color:#111827;
+  text-decoration:none;
+}
+
+.logo span{
+  color:#2563eb;
+}
+
+.back{
+  text-decoration:none;
+  color:#2563eb;
+  font-weight:600;
+}
+
+.container{
+  max-width:1100px;
+  margin:35px auto;
+  padding:0 18px;
+}
+
+.hero{
+  background:#ffffff;
+  border-radius:18px;
+  padding:28px;
+  margin-bottom:25px;
+  box-shadow:0 8px 30px rgba(0,0,0,.06);
+}
+
+.hero h1{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.hero p{
+  color:#667085;
+  line-height:1.6;
+}
+
+.status{
+  margin-top:15px;
+  padding:12px 15px;
+  border-radius:10px;
+  background:#f1f5f9;
+  color:#475467;
+  font-size:14px;
+}
+
+.media-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.card{
+  background:#ffffff;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 8px 25px rgba(0,0,0,.06);
+  transition:.25s;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+}
+
+.media{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  display:block;
+  background:#e9eef5;
+}
+
+.video{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  display:block;
+  background:#000;
+}
+
+.content{
+  padding:16px;
+}
+
+.caption{
+  font-size:15px;
+  line-height:1.5;
+  color:#344054;
+  margin-bottom:10px;
+}
+
+.date{
+  font-size:12px;
+  color:#98a2b3;
+}
+
+.empty{
+  background:#ffffff;
+  border-radius:16px;
+  padding:45px 20px;
+  text-align:center;
+  color:#667085;
+}
+
+.empty h2{
+  color:#344054;
+  margin-bottom:8px;
+}
+
+.error{
+  background:#fff1f2;
+  color:#be123c;
+  border:1px solid #fecdd3;
+}
+
+.loading{
+  text-align:center;
+  padding:40px;
+  color:#667085;
+}
+
+@media(max-width:800px){
+  .media-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:520px){
+  .hero{
+    padding:22px;
+  }
+
+  .hero h1{
+    font-size:25px;
+  }
+
+  .media-grid{
+    grid-template-columns:1fr;
+  }
+
+  .container{
+    margin:22px auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <a href="index.html" class="logo">Boost<span>ly</span></a>
+    <a href="javascript:history.back()" class="back">← Back</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <h1>Business Media</h1>
+    <p>
+      Photos and videos uploaded to your Boostly business profile.
+    </p>
+
+    <div id="status" class="status">
+      Loading media...
+    </div>
+  </section>
+
+  <section id="mediaContainer">
+    <div class="loading">Loading your media...</div>
+  </section>
+
+</main>
+
+<script>
+
+const businessId = new URLSearchParams(window.location.search).get("business_id") || "1";
+
+const mediaContainer = document.getElementById("mediaContainer");
+const statusBox = document.getElementById("status");
+
+function escapeHTML(value){
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function formatDate(value){
+
+  if(!value){
+    return "";
+  }
+
+  const date = new Date(value);
+
+  if(Number.isNaN(date.getTime())){
+    return escapeHTML(value);
+  }
+
+  return date.toLocaleDateString("en-IN",{
+    day:"numeric",
+    month:"short",
+    year:"numeric"
+  });
+}
+
+function showEmpty(){
+
+  mediaContainer.innerHTML = `
+    <div class="empty">
+      <h2>No media yet</h2>
+      <p>Photos and videos uploaded for this business will appear here.</p>
+    </div>
+  `;
+
+}
+
+function showError(message){
+
+  mediaContainer.innerHTML = `
+    <div class="empty error">
+      <h2>Media could not be loaded</h2>
+      <p>${escapeHTML(message)}</p>
+    </div>
+  `;
+
+}
+
+async function loadMedia(){
+
+  try{
+
+    /*
+      The media read API will be connected to the
+      existing business_media D1 table.
+    */
+
+    const response = await fetch(
+      `/api/media?business_id=${encodeURIComponent(businessId)}`
+    );
+
+    if(!response.ok){
+
+      throw new Error(
+        "Media API returned HTTP " + response.status
+      );
+
+    }
+
+    const data = await response.json();
+
+    const media = Array.isArray(data)
+      ? data
+      : (Array.isArray(data.media) ? data.media : []);
+
+    if(media.length === 0){
+
+      statusBox.textContent = "0 media items";
+      showEmpty();
+      return;
+
+    }
+
+    statusBox.textContent =
+      media.length + (media.length === 1 ? " media item" : " media items");
+
+    mediaContainer.innerHTML = `
+      <div class="media-grid">
+        ${media.map(item => {
+
+          const type = String(item.media_type || "").toLowerCase();
+
+          const url = escapeHTML(item.media_url);
+          const caption = escapeHTML(item.caption || "");
+          const date = formatDate(item.created_at);
+
+          if(type === "video"){
+
+            return `
+              <article class="card">
+                <video
+                  class="video"
+                  src="${url}"
+                  controls
+                  preload="metadata">
+                </video>
+
+                <div class="content">
+                  ${
+                    caption
+                    ? `<div class="caption">${caption}</div>`
+                    : ""
+                  }
+
+                  ${
+                    date
+                    ? `<div class="date">${date}</div>`
+                    : ""
+                  }
+                </div>
+              </article>
+            `;
+
+          }
+
+          return `
+            <article class="card">
+
+              <img
+                class="media"
+                src="${url}"
+                alt="${caption || "Business media"}"
+                loading="lazy"
+                onerror="this.style.display='none';"
+              >
+
+              <div class="content">
+                ${
+                  caption
+                  ? `<div class="caption">${caption}</div>`
+                  : ""
+                }
+
+                ${
+                  date
+                  ? `<div class="date">${date}</div>`
+                  : ""
+                }
+              </div>
+
+            </article>
+          `;
+
+        }).join("")}
+      </div>
+    `;
+
+  }catch(error){
+
+    console.error(error);
+
+    statusBox.textContent = "Media loading error";
+
+    showError(
+      "The media read connection is not ready yet."
+    );
+
+  }
+
+}
+
+loadMedia();
+
+</script>
+
+</body>
+</html>
