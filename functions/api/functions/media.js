@@ -2,19 +2,92 @@ export async function onRequest(context) {
 
   try {
 
-    // Only POST is allowed
-    if (context.request.method !== "POST") {
+    // =====================================================
+    // GET = LOAD MEDIA FOR BUSINESS PROFILE
+    // =====================================================
+
+    if (context.request.method === "GET") {
+
+      const url = new URL(context.request.url);
+
+      const businessId =
+        url.searchParams.get("business_id");
+
+      if (!businessId) {
+
+        return new Response(
+          JSON.stringify({
+            success: false,
+            error: "business_id is required"
+          }),
+          {
+            status: 400,
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        );
+
+      }
+
+      // Make sure business ID is a valid number
+      const businessIdNumber =
+        Number(businessId);
+
+      if (
+        !Number.isInteger(businessIdNumber) ||
+        businessIdNumber <= 0
+      ) {
+
+        return new Response(
+          JSON.stringify({
+            success: false,
+            error: "Invalid business_id"
+          }),
+          {
+            status: 400,
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        );
+
+      }
+
+      // ---------------------------------------------
+      // LOAD MEDIA FROM D1
+      // ---------------------------------------------
+
+      const media =
+        await context.env.DB
+          .prepare(`
+            SELECT
+              id,
+              business_id,
+              media_type,
+              media_url,
+              public_id,
+              caption,
+              likes_count,
+              views_count,
+              created_at
+            FROM business_media
+            WHERE business_id = ?
+            ORDER BY created_at DESC
+          `)
+          .bind(businessIdNumber)
+          .all();
 
       return new Response(
         JSON.stringify({
-          success: false,
-          error: "Only POST method is allowed"
+          success: true,
+          media: media.results || []
         }),
         {
-          status: 405,
+          status: 200,
           headers: {
             "Content-Type": "application/json",
-            "Allow": "POST"
+            "Cache-Control": "no-store"
           }
         }
       );
@@ -22,9 +95,32 @@ export async function onRequest(context) {
     }
 
 
-    // -----------------------------
+    // =====================================================
+    // POST = SAVE MEDIA
+    // =====================================================
+
+    if (context.request.method !== "POST") {
+
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: "Only GET and POST methods are allowed"
+        }),
+        {
+          status: 405,
+          headers: {
+            "Content-Type": "application/json",
+            "Allow": "GET, POST"
+          }
+        }
+      );
+
+    }
+
+
+    // =====================================================
     // CHECK LOGIN SESSION
-    // -----------------------------
+    // =====================================================
 
     const cookieHeader =
       context.request.headers.get("Cookie") || "";
@@ -55,9 +151,9 @@ export async function onRequest(context) {
     const sessionId = match[1];
 
 
-    // -----------------------------
+    // =====================================================
     // CHECK SESSION IN D1
-    // -----------------------------
+    // =====================================================
 
     const session =
       await context.env.DB
@@ -89,9 +185,9 @@ export async function onRequest(context) {
     }
 
 
-    // -----------------------------
+    // =====================================================
     // READ FORM DATA
-    // -----------------------------
+    // =====================================================
 
     const formData =
       await context.request.formData();
@@ -113,9 +209,9 @@ export async function onRequest(context) {
       formData.get("caption") || "";
 
 
-    // -----------------------------
+    // =====================================================
     // VALIDATION
-    // -----------------------------
+    // =====================================================
 
     if (
       !businessId ||
@@ -140,9 +236,9 @@ export async function onRequest(context) {
     }
 
 
-    // -----------------------------
+    // =====================================================
     // CHECK BUSINESS OWNERSHIP
-    // -----------------------------
+    // =====================================================
 
     const business =
       await context.env.DB
@@ -178,9 +274,9 @@ export async function onRequest(context) {
     }
 
 
-    // -----------------------------
+    // =====================================================
     // SAVE MEDIA
-    // -----------------------------
+    // =====================================================
 
     await context.env.DB
       .prepare(`
@@ -207,9 +303,9 @@ export async function onRequest(context) {
       .run();
 
 
-    // -----------------------------
+    // =====================================================
     // SUCCESS
-    // -----------------------------
+    // =====================================================
 
     return new Response(
       JSON.stringify({
