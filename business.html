@@ -269,6 +269,8 @@ header{
     border-radius:12px;
     font-weight:800;
     transition:.25s;
+    border:0;
+    cursor:pointer;
 }
 
 .action-btn:hover{
@@ -290,7 +292,17 @@ header{
     color:white;
 }
 
-/* ================= CONTENT LAYOUT ================= */
+.share-btn{
+    background:#eef2ff;
+    color:#5148d9;
+}
+
+.copy-btn{
+    background:#f2f4f7;
+    color:#344054;
+}
+
+/* ================= CONTENT ================= */
 
 .container{
     max-width:1200px;
@@ -324,7 +336,7 @@ header{
     line-height:1.7;
 }
 
-/* ================= GALLERY ================= */
+/* ================= STATIC GALLERY ================= */
 
 .gallery{
     display:grid;
@@ -352,6 +364,63 @@ header{
 
 .gallery-item:hover img{
     transform:scale(1.08);
+}
+
+/* ================= LIVE MEDIA ================= */
+
+.media-status{
+    padding:12px 14px;
+    border-radius:11px;
+    background:#f2f4f7;
+    color:#667085;
+    font-size:13px;
+    margin-bottom:18px;
+}
+
+.live-media-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+}
+
+.live-media-card{
+    border:1px solid #eaecf0;
+    border-radius:16px;
+    overflow:hidden;
+    background:#fff;
+}
+
+.live-media-card img,
+.live-media-card video{
+    width:100%;
+    height:230px;
+    display:block;
+    object-fit:cover;
+    background:#101828;
+}
+
+.live-media-content{
+    padding:13px;
+}
+
+.live-media-caption{
+    color:#344054;
+    font-size:14px;
+    line-height:1.5;
+    margin-bottom:7px;
+}
+
+.live-media-date{
+    color:#98a2b3;
+    font-size:12px;
+}
+
+.media-empty{
+    padding:30px 15px;
+    text-align:center;
+    border:1px dashed #d0d5dd;
+    border-radius:14px;
+    color:#667085;
 }
 
 /* ================= SERVICES ================= */
@@ -702,15 +771,16 @@ header{
     position:fixed;
     inset:0;
     z-index:3000;
-    background:rgba(0,0,0,.88);
+    background:rgba(0,0,0,.90);
     align-items:center;
     justify-content:center;
     padding:20px;
 }
 
-.lightbox img{
+.lightbox img,
+.lightbox video{
     max-width:95%;
-    max-height:90vh;
+    max-height:88vh;
     border-radius:15px;
 }
 
@@ -721,6 +791,28 @@ header{
     color:white;
     font-size:35px;
     cursor:pointer;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translate(-50%,120px);
+    background:#101828;
+    color:white;
+    padding:13px 18px;
+    border-radius:12px;
+    font-size:14px;
+    font-weight:700;
+    z-index:5000;
+    transition:.3s;
+    box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+
+.toast.show{
+    transform:translate(-50%,0);
 }
 
 /* ================= CTA ================= */
@@ -946,6 +1038,15 @@ footer li a:hover{
         grid-row:auto;
     }
 
+    .live-media-grid{
+        grid-template-columns:1fr;
+    }
+
+    .live-media-card img,
+    .live-media-card video{
+        height:260px;
+    }
+
     .services{
         grid-template-columns:1fr;
     }
@@ -1093,6 +1194,20 @@ class="action-btn enquiry-btn">
 ✉️ Send Enquiry
 </a>
 
+<button
+type="button"
+class="action-btn share-btn"
+onclick="shareBusiness()">
+↗️ Share
+</button>
+
+<button
+type="button"
+class="action-btn copy-btn"
+onclick="copyBusinessLink()">
+🔗 Copy Link
+</button>
+
 </div>
 
 </div>
@@ -1111,7 +1226,7 @@ class="action-btn enquiry-btn">
 <main>
 
 
-<!-- GALLERY -->
+<!-- STATIC GALLERY -->
 
 <section class="section-card">
 
@@ -1121,41 +1236,54 @@ class="action-btn enquiry-btn">
 
 <div class="gallery">
 
-<div class="gallery-item"
-onclick="openLightbox(this)">
+<div class="gallery-item" onclick="openLightbox(this)">
 <img
 src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1000&q=85"
 alt="Salon interior">
 </div>
 
-<div class="gallery-item"
-onclick="openLightbox(this)">
+<div class="gallery-item" onclick="openLightbox(this)">
 <img
 src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=800&q=85"
 alt="Salon service">
 </div>
 
-<div class="gallery-item"
-onclick="openLightbox(this)">
+<div class="gallery-item" onclick="openLightbox(this)">
 <img
 src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=800&q=85"
 alt="Hair styling">
 </div>
 
-<div class="gallery-item"
-onclick="openLightbox(this)">
+<div class="gallery-item" onclick="openLightbox(this)">
 <img
 src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?auto=format&fit=crop&w=800&q=85"
 alt="Beauty salon">
 </div>
 
-<div class="gallery-item"
-onclick="openLightbox(this)">
+<div class="gallery-item" onclick="openLightbox(this)">
 <img
 src="https://images.unsplash.com/photo-1559599101-f09722fb4948?auto=format&fit=crop&w=800&q=85"
 alt="Salon styling">
 </div>
 
+</div>
+
+</section>
+
+
+<!-- LIVE D1 MEDIA -->
+
+<section class="section-card" id="liveMedia">
+
+<h2 class="section-title">
+🎥 Latest Photos & Videos
+</h2>
+
+<div class="media-status" id="mediaStatus">
+Loading business media...
+</div>
+
+<div id="liveMediaContainer">
 </div>
 
 </section>
@@ -1346,7 +1474,6 @@ Ask the business for current package pricing and availability.
 
 </div>
 
-
 <div class="review">
 
 <div class="review-header">
@@ -1362,7 +1489,6 @@ what I asked for.
 </p>
 
 </div>
-
 
 <div class="review">
 
@@ -1453,47 +1579,35 @@ Connect directly with Royal Look Salon.
 </p>
 
 <div class="contact-item">
-
 <div class="contact-icon">📞</div>
-
 <div>
 <strong>Phone</strong>
 <span>+91 98765 43210</span>
 </div>
-
 </div>
 
 <div class="contact-item">
-
 <div class="contact-icon">💬</div>
-
 <div>
 <strong>WhatsApp</strong>
 <span>Available for enquiries</span>
 </div>
-
 </div>
 
 <div class="contact-item">
-
 <div class="contact-icon">🕒</div>
-
 <div>
 <strong>Opening Hours</strong>
 <span>10:00 AM – 8:00 PM</span>
 </div>
-
 </div>
 
 <div class="contact-item">
-
 <div class="contact-icon">📍</div>
-
 <div>
 <strong>Location</strong>
 <span>Model Town, Ludhiana, Punjab</span>
 </div>
-
 </div>
 
 </div>
@@ -1520,6 +1634,7 @@ Model Town, Ludhiana, Punjab
 <a
 href="https://www.google.com/maps/search/?api=1&query=Model+Town+Ludhiana+Punjab"
 target="_blank"
+rel="noopener"
 style="
 display:inline-block;
 margin-top:12px;
@@ -1655,32 +1770,129 @@ connect with customers and grow smarter.
 </div>
 
 
+<!-- ================= TOAST ================= -->
+
+<div class="toast" id="toast"></div>
+
+
 <script>
 
-/* ================= MOBILE MENU ================= */
+/* =====================================================
+   BUSINESS SETTINGS
+===================================================== */
+
+const BUSINESS_ID = 1;
+
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
 
 function toggleMenu(){
 
     const menu =
         document.getElementById("mobileMenu");
 
-    if(menu.style.display === "block"){
-        menu.style.display = "none";
-    }else{
-        menu.style.display = "block";
-    }
-
+    menu.style.display =
+        menu.style.display === "block"
+        ? "none"
+        : "block";
 }
 
 function closeMenu(){
 
     document.getElementById("mobileMenu")
         .style.display = "none";
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(function(){
+
+        toast.classList.remove("show");
+
+    },2500);
+}
+
+
+/* =====================================================
+   SHARE BUSINESS
+===================================================== */
+
+async function shareBusiness(){
+
+    const shareData = {
+        title:"Royal Look Salon | Boostly",
+        text:"Check out Royal Look Salon on Boostly.",
+        url:window.location.href
+    };
+
+    try{
+
+        if(navigator.share){
+
+            await navigator.share(shareData);
+
+        }else{
+
+            await navigator.clipboard.writeText(
+                window.location.href
+            );
+
+            showToast("Business link copied!");
+
+        }
+
+    }catch(error){
+
+        if(error.name !== "AbortError"){
+            showToast("Share cancelled.");
+        }
+
+    }
+}
+
+
+/* =====================================================
+   COPY BUSINESS LINK
+===================================================== */
+
+async function copyBusinessLink(){
+
+    try{
+
+        await navigator.clipboard.writeText(
+            window.location.href
+        );
+
+        showToast("Business link copied!");
+
+    }catch(error){
+
+        showToast(
+            "Copy not available on this browser."
+        );
+
+    }
 
 }
 
 
-/* ================= ENQUIRY ================= */
+/* =====================================================
+   ENQUIRY
+===================================================== */
 
 function submitEnquiry(event){
 
@@ -1707,7 +1919,9 @@ function submitEnquiry(event){
 }
 
 
-/* ================= PHOTO LIGHTBOX ================= */
+/* =====================================================
+   STATIC PHOTO LIGHTBOX
+===================================================== */
 
 function openLightbox(element){
 
@@ -1730,15 +1944,299 @@ function closeLightbox(){
 }
 
 
-/* ================= ESCAPE KEY ================= */
+/* =====================================================
+   LIVE MEDIA
+   D1 -> /api/media -> BUSINESS_ID
+===================================================== */
 
-document.addEventListener("keydown", function(event){
+async function loadBusinessMedia(){
 
-    if(event.key === "Escape"){
-        closeLightbox();
+    const status =
+        document.getElementById("mediaStatus");
+
+    const container =
+        document.getElementById("liveMediaContainer");
+
+    try{
+
+        status.textContent =
+            "Loading latest photos and videos...";
+
+        const response =
+            await fetch(
+                "/api/media?business_id=" +
+                encodeURIComponent(BUSINESS_ID) +
+                "&t=" +
+                Date.now(),
+                {
+                    method:"GET",
+                    cache:"no-store"
+                }
+            );
+
+        if(!response.ok){
+
+            throw new Error(
+                "Media API returned HTTP " +
+                response.status
+            );
+
+        }
+
+        const data =
+            await response.json();
+
+        if(
+            !data ||
+            data.success !== true
+        ){
+
+            throw new Error(
+                data?.error ||
+                "Media could not be loaded"
+            );
+
+        }
+
+        const media =
+            Array.isArray(data.media)
+            ? data.media
+            : [];
+
+        if(media.length === 0){
+
+            status.textContent =
+                "No uploaded photos or videos yet.";
+
+            container.innerHTML = `
+                <div class="media-empty">
+                    📸<br><br>
+                    New business photos and videos
+                    will appear here automatically.
+                </div>
+            `;
+
+            return;
+
+        }
+
+        status.textContent =
+            media.length +
+            (media.length === 1
+            ? " media item"
+            : " media items") +
+            " from this business";
+
+        container.innerHTML = "";
+
+        media.forEach(function(item){
+
+            const card =
+                document.createElement("article");
+
+            card.className =
+                "live-media-card";
+
+            const type =
+                String(
+                    item.media_type || ""
+                ).toLowerCase();
+
+            const url =
+                String(
+                    item.media_url || ""
+                );
+
+            const caption =
+                String(
+                    item.caption || ""
+                );
+
+            const date =
+                formatMediaDate(
+                    item.created_at
+                );
+
+            let mediaElement;
+
+            if(type === "video"){
+
+                mediaElement =
+                    document.createElement("video");
+
+                mediaElement.controls = true;
+                mediaElement.preload = "metadata";
+                mediaElement.src = url;
+
+            }else{
+
+                mediaElement =
+                    document.createElement("img");
+
+                mediaElement.src = url;
+                mediaElement.alt =
+                    caption ||
+                    "Royal Look Salon photo";
+
+                mediaElement.loading =
+                    "lazy";
+
+                mediaElement.onclick =
+                    function(){
+
+                        openLiveImage(
+                            url,
+                            caption ||
+                            "Business photo"
+                        );
+
+                    };
+
+            }
+
+            card.appendChild(mediaElement);
+
+            const content =
+                document.createElement("div");
+
+            content.className =
+                "live-media-content";
+
+            if(caption){
+
+                const captionElement =
+                    document.createElement("div");
+
+                captionElement.className =
+                    "live-media-caption";
+
+                captionElement.textContent =
+                    caption;
+
+                content.appendChild(
+                    captionElement
+                );
+
+            }
+
+            if(date){
+
+                const dateElement =
+                    document.createElement("div");
+
+                dateElement.className =
+                    "live-media-date";
+
+                dateElement.textContent =
+                    date;
+
+                content.appendChild(
+                    dateElement
+                );
+
+            }
+
+            card.appendChild(content);
+
+            container.appendChild(card);
+
+        });
+
+    }catch(error){
+
+        console.error(
+            "Business media error:",
+            error
+        );
+
+        status.textContent =
+            "Latest media is temporarily unavailable.";
+
+        container.innerHTML = `
+            <div class="media-empty">
+                Media could not be loaded right now.<br>
+                The rest of the business profile is still available.
+            </div>
+        `;
+
     }
 
-});
+}
+
+
+/* =====================================================
+   MEDIA DATE
+===================================================== */
+
+function formatMediaDate(value){
+
+    if(!value){
+        return "";
+    }
+
+    const date =
+        new Date(value);
+
+    if(Number.isNaN(
+        date.getTime()
+    )){
+        return "";
+    }
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day:"numeric",
+            month:"short",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   LIVE IMAGE LIGHTBOX
+===================================================== */
+
+function openLiveImage(url,alt){
+
+    const lightbox =
+        document.getElementById("lightbox");
+
+    const image =
+        document.getElementById("lightboxImage");
+
+    image.src = url;
+    image.alt = alt;
+
+    lightbox.style.display =
+        "flex";
+
+}
+
+
+/* =====================================================
+   ESCAPE KEY
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+            closeLightbox();
+        }
+
+    }
+);
+
+
+/* =====================================================
+   LOAD LIVE MEDIA
+===================================================== */
+
+loadBusinessMedia();
 
 </script>
 
