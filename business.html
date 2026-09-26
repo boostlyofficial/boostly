@@ -1,1074 +1,852 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Royal Look Salon | Boostly</title>
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-<meta name="description"
-content="View Royal Look Salon on Boostly — services, photos, ratings, offers and contact details.">
+<meta
+  name="description"
+  content="View business details, services, offers, photos and contact information on Boostly."
+>
+
+<title>Business Profile | Boostly</title>
 
 <style>
+
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
 html{
-    scroll-behavior:smooth;
+  scroll-behavior:smooth;
 }
 
 body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f7f8fc;
-    color:#101828;
-    overflow-x:hidden;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f7fb;
+  color:#172033;
+  line-height:1.6;
 }
 
 a{
-    text-decoration:none;
-    color:inherit;
+  text-decoration:none;
+  color:inherit;
 }
 
 button,
-input,
-textarea{
-    font:inherit;
+a{
+  -webkit-tap-highlight-color:transparent;
+}
+
+img{
+  max-width:100%;
+  display:block;
+}
+
+.container{
+  width:min(1180px,92%);
+  margin:auto;
 }
 
 /* ================= HEADER ================= */
 
 header{
-    position:sticky;
-    top:0;
-    z-index:1000;
-    background:rgba(255,255,255,.96);
-    backdrop-filter:blur(12px);
-    border-bottom:1px solid #e8eaf0;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(255,255,255,.96);
+  border-bottom:1px solid #e8ebf2;
+  backdrop-filter:blur(12px);
 }
 
-.navbar{
-    max-width:1200px;
-    height:78px;
-    margin:auto;
-    padding:0 24px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+.nav{
+  min-height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
 }
 
 .logo{
-    font-size:32px;
-    font-weight:800;
-    letter-spacing:-1.5px;
+  font-size:26px;
+  font-weight:800;
+  color:#2563eb;
 }
 
 .logo span{
-    color:#635bff;
+  color:#111827;
 }
 
 .nav-links{
-    display:flex;
-    align-items:center;
-    gap:28px;
+  display:flex;
+  align-items:center;
+  gap:22px;
 }
 
 .nav-links a{
-    font-size:15px;
-    font-weight:600;
-    color:#475467;
-    transition:.25s;
+  font-size:14px;
+  font-weight:600;
+  color:#4b5563;
 }
 
 .nav-links a:hover{
-    color:#635bff;
+  color:#2563eb;
 }
 
-.nav-actions{
-    display:flex;
-    align-items:center;
-    gap:10px;
+.nav-buttons{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-.nav-login{
-    padding:11px 17px;
-    font-weight:700;
-    color:#475467;
+.btn{
+  border:0;
+  border-radius:12px;
+  padding:12px 18px;
+  font-weight:700;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  transition:.2s;
 }
 
-.nav-start{
-    background:#635bff;
-    color:white;
-    padding:12px 18px;
-    border-radius:10px;
-    font-weight:700;
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.btn-primary{
+  background:#2563eb;
+  color:#fff;
+}
+
+.btn-secondary{
+  background:#eef4ff;
+  color:#2563eb;
+}
+
+.btn-success{
+  background:#16a34a;
+  color:#fff;
+}
+
+.btn-dark{
+  background:#111827;
+  color:#fff;
+}
+
+.btn-outline{
+  background:#fff;
+  color:#2563eb;
+  border:1px solid #dbe4f5;
 }
 
 .menu-btn{
-    display:none;
-    width:44px;
-    height:44px;
-    border:0;
-    border-radius:10px;
-    background:#f1f2f6;
-    font-size:24px;
+  display:none;
+  border:0;
+  background:#eef4ff;
+  color:#2563eb;
+  padding:10px 12px;
+  border-radius:10px;
+  font-size:20px;
 }
 
-.mobile-menu{
-    display:none;
-    background:white;
-    padding:12px 22px 20px;
-    border-top:1px solid #eee;
-}
+/* ================= PAGE ================= */
 
-.mobile-menu a{
-    display:block;
-    padding:14px 0;
-    border-bottom:1px solid #eee;
-    font-weight:700;
+.page{
+  padding:28px 0 70px;
 }
-
-/* ================= BREADCRUMB ================= */
 
 .breadcrumb{
-    max-width:1200px;
-    margin:auto;
-    padding:25px 20px 10px;
-    color:#667085;
-    font-size:14px;
+  font-size:13px;
+  color:#6b7280;
+  margin-bottom:18px;
 }
 
 .breadcrumb a{
-    color:#635bff;
-    font-weight:700;
+  color:#2563eb;
 }
 
-/* ================= BUSINESS HERO ================= */
+/* ================= HERO ================= */
 
-.business-hero{
-    max-width:1200px;
-    margin:15px auto 30px;
-    padding:0 20px;
+.hero{
+  background:#fff;
+  border:1px solid #e7ebf3;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 12px 35px rgba(15,23,42,.06);
 }
 
-.hero-card{
-    background:white;
-    border:1px solid #e4e7ec;
-    border-radius:28px;
-    padding:28px;
-    display:grid;
-    grid-template-columns:1.05fr 1fr;
-    gap:35px;
-    box-shadow:0 15px 45px rgba(16,24,40,.06);
-    animation:fadeUp .7s ease both;
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
 }
 
-.main-photo{
-    height:430px;
-    border-radius:21px;
-    overflow:hidden;
-    position:relative;
+.hero-image{
+  min-height:420px;
+  position:relative;
+  overflow:hidden;
+  background:#e5e7eb;
 }
 
-.main-photo img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:.5s;
+.hero-image img{
+  width:100%;
+  height:100%;
+  min-height:420px;
+  object-fit:cover;
 }
 
-.main-photo:hover img{
-    transform:scale(1.04);
+.verified{
+  position:absolute;
+  top:18px;
+  left:18px;
+  background:#16a34a;
+  color:#fff;
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:700;
 }
 
-.verified-badge{
-    position:absolute;
-    left:16px;
-    top:16px;
-    background:white;
-    color:#087443;
-    padding:9px 13px;
-    border-radius:50px;
-    font-weight:800;
-    font-size:13px;
-    box-shadow:0 5px 18px rgba(0,0,0,.12);
+.hero-content{
+  padding:42px;
 }
 
-.hero-info{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
+.category{
+  color:#2563eb;
+  font-weight:700;
+  font-size:14px;
+  margin-bottom:8px;
 }
 
-.category-label{
-    display:inline-block;
-    width:max-content;
-    background:#eeecff;
-    color:#5148d9;
-    padding:8px 12px;
-    border-radius:50px;
-    font-size:13px;
-    font-weight:800;
-    margin-bottom:15px;
+.hero-content h1{
+  font-size:42px;
+  line-height:1.12;
+  margin-bottom:15px;
 }
 
-.hero-info h1{
-    font-size:clamp(38px,5vw,60px);
-    letter-spacing:-2px;
-    margin-bottom:12px;
-}
-
-.rating-row{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:15px;
+.rating{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:18px;
 }
 
 .stars{
-    color:#f59e0b;
-    font-size:20px;
+  color:#f59e0b;
+  font-size:19px;
+  letter-spacing:1px;
 }
 
-.rating-number{
-    font-size:18px;
-    font-weight:800;
+.rating strong{
+  font-size:17px;
 }
 
-.review-count{
-    color:#667085;
+.rating span{
+  color:#6b7280;
+  font-size:14px;
 }
 
-.location{
-    color:#667085;
-    font-size:16px;
-    margin-bottom:20px;
-    line-height:1.5;
-}
-
-.short-description{
-    color:#667085;
-    font-size:17px;
-    line-height:1.7;
-    margin-bottom:25px;
+.hero-description{
+  color:#5f6b7a;
+  margin-bottom:22px;
 }
 
 .hero-actions{
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
 }
 
-.action-btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    padding:14px 20px;
-    border-radius:12px;
-    font-weight:800;
-    transition:.25s;
-    border:0;
-    cursor:pointer;
+.hero-tools{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:12px;
 }
 
-.action-btn:hover{
-    transform:translateY(-3px);
+.status-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:22px;
 }
 
-.call-btn{
-    background:#635bff;
-    color:white;
+.info-pill{
+  background:#f4f7fb;
+  border:1px solid #e6ebf3;
+  border-radius:999px;
+  padding:8px 12px;
+  color:#536072;
+  font-size:13px;
 }
 
-.whatsapp-btn{
-    background:#e8f8ef;
-    color:#087443;
-}
+/* ================= SECTIONS ================= */
 
-.enquiry-btn{
-    background:#101828;
-    color:white;
-}
-
-.share-btn{
-    background:#eef2ff;
-    color:#5148d9;
-}
-
-.copy-btn{
-    background:#f2f4f7;
-    color:#344054;
-}
-
-/* ================= CONTENT ================= */
-
-.container{
-    max-width:1200px;
-    margin:0 auto;
-    padding:0 20px;
-}
-
-.content-layout{
-    display:grid;
-    grid-template-columns:1.55fr .85fr;
-    gap:25px;
-}
-
-.section-card{
-    background:white;
-    border:1px solid #e4e7ec;
-    border-radius:22px;
-    padding:28px;
-    margin-bottom:25px;
-    animation:fadeUp .8s ease both;
+.section{
+  margin-top:30px;
 }
 
 .section-title{
-    font-size:28px;
-    letter-spacing:-1px;
-    margin-bottom:20px;
+  margin-bottom:16px;
 }
 
-.section-subtitle{
-    color:#667085;
-    line-height:1.7;
+.section-title h2{
+  font-size:28px;
+  margin-bottom:4px;
 }
 
-/* ================= STATIC GALLERY ================= */
+.section-title p{
+  color:#6b7280;
+}
+
+/* ================= CONTENT GRID ================= */
+
+.content-grid{
+  display:grid;
+  grid-template-columns:1.65fr .75fr;
+  gap:24px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #e7ebf3;
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 8px 25px rgba(15,23,42,.04);
+}
+
+.card h3{
+  font-size:20px;
+  margin-bottom:12px;
+}
+
+.muted{
+  color:#6b7280;
+}
+
+/* ================= GALLERY ================= */
 
 .gallery{
-    display:grid;
-    grid-template-columns:2fr 1fr 1fr;
-    grid-template-rows:190px 190px;
-    gap:10px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
 }
 
 .gallery-item{
-    border-radius:15px;
-    overflow:hidden;
-    cursor:pointer;
-}
-
-.gallery-item:first-child{
-    grid-row:span 2;
+  border:0;
+  padding:0;
+  border-radius:15px;
+  overflow:hidden;
+  cursor:pointer;
+  background:#e5e7eb;
+  aspect-ratio:1/1;
 }
 
 .gallery-item img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:.45s;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.3s;
 }
 
 .gallery-item:hover img{
-    transform:scale(1.08);
+  transform:scale(1.05);
 }
 
-/* ================= LIVE MEDIA ================= */
+/* ================= DYNAMIC MEDIA ================= */
 
 .media-status{
-    padding:12px 14px;
-    border-radius:11px;
-    background:#f2f4f7;
-    color:#667085;
-    font-size:13px;
-    margin-bottom:18px;
+  font-size:13px;
+  color:#6b7280;
+  margin-bottom:14px;
 }
 
-.live-media-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:14px;
+.dynamic-media{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
 }
 
-.live-media-card{
-    border:1px solid #eaecf0;
-    border-radius:16px;
-    overflow:hidden;
-    background:#fff;
+.media-card{
+  border:1px solid #e6ebf3;
+  border-radius:16px;
+  overflow:hidden;
+  background:#fff;
 }
 
-.live-media-card img,
-.live-media-card video{
-    width:100%;
-    height:230px;
-    display:block;
-    object-fit:cover;
-    background:#101828;
+.media-preview{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  background:#eef1f6;
 }
 
-.live-media-content{
-    padding:13px;
+button.media-preview{
+  border:0;
+  padding:0;
+  cursor:pointer;
 }
 
-.live-media-caption{
-    color:#344054;
-    font-size:14px;
-    line-height:1.5;
-    margin-bottom:7px;
+.media-card video{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  background:#111827;
 }
 
-.live-media-date{
-    color:#98a2b3;
-    font-size:12px;
+.media-caption{
+  padding:11px 12px;
+  font-size:13px;
+  color:#536072;
 }
 
-.media-empty{
-    padding:30px 15px;
-    text-align:center;
-    border:1px dashed #d0d5dd;
-    border-radius:14px;
-    color:#667085;
+.media-loading{
+  padding:25px;
+  text-align:center;
+  border:1px dashed #cfd7e5;
+  border-radius:16px;
+  color:#6b7280;
 }
 
 /* ================= SERVICES ================= */
 
 .services{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:13px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
 }
 
 .service{
-    border:1px solid #eaecf0;
-    border-radius:15px;
-    padding:18px;
-    transition:.25s;
+  padding:18px;
+  background:#f8faff;
+  border:1px solid #e7edf8;
+  border-radius:16px;
 }
 
-.service:hover{
-    transform:translateY(-4px);
-    border-color:#635bff;
-    box-shadow:0 10px 25px rgba(99,91,255,.08);
-}
-
-.service-top{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:8px;
-}
-
-.service h3{
-    font-size:16px;
-}
-
-.price{
-    color:#635bff;
-    font-weight:800;
-    white-space:nowrap;
+.service h4{
+  margin-bottom:5px;
 }
 
 .service p{
-    color:#667085;
-    font-size:13px;
-    line-height:1.5;
+  color:#6b7280;
+  font-size:14px;
+}
+
+.price{
+  color:#2563eb;
+  font-weight:800;
+  margin-top:8px;
 }
 
 /* ================= OFFERS ================= */
 
+.offers{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
 .offer{
-    border-radius:18px;
-    padding:22px;
-    background:linear-gradient(135deg,#635bff,#7c3aed);
-    color:white;
-    margin-bottom:13px;
-    position:relative;
-    overflow:hidden;
+  border-radius:17px;
+  padding:20px;
+  background:#eff6ff;
+  border:1px solid #dbeafe;
 }
 
-.offer:last-child{
-    margin-bottom:0;
-}
-
-.offer::after{
-    content:"";
-    position:absolute;
-    width:130px;
-    height:130px;
-    border-radius:50%;
-    border:25px solid rgba(255,255,255,.08);
-    right:-35px;
-    top:-35px;
-}
-
-.offer-label{
-    font-size:12px;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    margin-bottom:7px;
-}
-
-.offer h3{
-    font-size:21px;
-    margin-bottom:7px;
+.offer strong{
+  color:#1d4ed8;
+  font-size:20px;
 }
 
 .offer p{
-    color:#eeecff;
-    font-size:14px;
-    line-height:1.5;
-}
-
-/* ================= RATING ================= */
-
-.rating-summary{
-    display:grid;
-    grid-template-columns:180px 1fr;
-    gap:25px;
-    align-items:center;
-}
-
-.big-rating{
-    text-align:center;
-    padding:20px;
-    border-radius:18px;
-    background:#f8f9fc;
-}
-
-.big-rating strong{
-    display:block;
-    font-size:48px;
-}
-
-.big-rating .stars{
-    margin:6px 0;
-}
-
-.rating-bars{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.rating-line{
-    display:grid;
-    grid-template-columns:35px 1fr 40px;
-    gap:8px;
-    align-items:center;
-    font-size:13px;
-    color:#667085;
-}
-
-.bar{
-    height:8px;
-    background:#eaecf0;
-    border-radius:20px;
-    overflow:hidden;
-}
-
-.bar span{
-    display:block;
-    height:100%;
-    background:#f59e0b;
-    border-radius:20px;
-}
-
-/* ================= REVIEW ================= */
-
-.review{
-    border-top:1px solid #eaecf0;
-    padding-top:18px;
-    margin-top:18px;
-}
-
-.review:first-child{
-    border-top:0;
-    padding-top:0;
-    margin-top:0;
-}
-
-.review-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:8px;
-}
-
-.reviewer{
-    font-weight:800;
-}
-
-.review-date{
-    color:#98a2b3;
-    font-size:12px;
-}
-
-.review .stars{
-    font-size:14px;
-    margin-bottom:7px;
-}
-
-.review p{
-    color:#667085;
-    font-size:14px;
-    line-height:1.6;
+  color:#5f6b7a;
+  margin-top:5px;
 }
 
 /* ================= SIDEBAR ================= */
 
-.sticky-side{
-    position:sticky;
-    top:100px;
-}
-
-.contact-card{
-    background:#101828;
-    color:white;
-    border-radius:22px;
-    padding:25px;
-    margin-bottom:25px;
-}
-
-.contact-card h2{
-    margin-bottom:10px;
-}
-
-.contact-card p{
-    color:#98a2b3;
-    line-height:1.6;
-    font-size:14px;
-    margin-bottom:18px;
+.contact-list{
+  display:grid;
+  gap:14px;
 }
 
 .contact-item{
-    display:flex;
-    gap:12px;
-    align-items:flex-start;
-    padding:13px 0;
-    border-bottom:1px solid #263143;
-}
-
-.contact-item:last-child{
-    border-bottom:0;
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
 }
 
 .contact-icon{
-    font-size:20px;
+  width:38px;
+  height:38px;
+  border-radius:10px;
+  background:#eef4ff;
+  color:#2563eb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex:none;
 }
 
-.contact-item strong{
-    display:block;
-    font-size:13px;
-    margin-bottom:3px;
+.contact-item small{
+  display:block;
+  color:#8a94a4;
+  margin-bottom:2px;
 }
 
-.contact-item span{
-    color:#98a2b3;
-    font-size:13px;
-    line-height:1.5;
-}
-
-.map-card{
-    background:white;
-    border:1px solid #e4e7ec;
-    border-radius:22px;
-    overflow:hidden;
-    margin-bottom:25px;
-}
-
-.map-placeholder{
-    height:210px;
-    background:
-    linear-gradient(rgba(99,91,255,.08),rgba(99,91,255,.08)),
-    repeating-linear-gradient(
-        45deg,
-        #eef0f5,
-        #eef0f5 10px,
-        #f8f9fc 10px,
-        #f8f9fc 20px
-    );
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:45px;
-}
-
-.map-info{
-    padding:18px;
-}
-
-.map-info strong{
-    display:block;
-    margin-bottom:5px;
-}
-
-.map-info p{
-    color:#667085;
-    font-size:13px;
-    line-height:1.5;
+.map-box{
+  margin-top:18px;
+  border-radius:15px;
+  min-height:170px;
+  background:
+    linear-gradient(135deg,#e8eef7,#dce5f3);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#526174;
+  text-align:center;
+  padding:20px;
 }
 
 /* ================= ENQUIRY ================= */
 
-.form-group{
-    margin-bottom:16px;
+.form{
+  display:grid;
+  gap:13px;
 }
 
-.form-group label{
-    display:block;
-    font-weight:700;
-    font-size:13px;
-    margin-bottom:7px;
+.form input,
+.form textarea{
+  width:100%;
+  border:1px solid #dce2ec;
+  border-radius:12px;
+  padding:13px 14px;
+  font:inherit;
+  outline:none;
 }
 
-.form-group input,
-.form-group textarea{
-    width:100%;
-    border:1px solid #d0d5dd;
-    border-radius:11px;
-    padding:13px 14px;
-    outline:none;
-    background:white;
+.form input:focus,
+.form textarea:focus{
+  border-color:#2563eb;
+  box-shadow:0 0 0 3px rgba(37,99,235,.1);
 }
 
-.form-group input:focus,
-.form-group textarea:focus{
-    border-color:#635bff;
-    box-shadow:0 0 0 3px rgba(99,91,255,.10);
-}
-
-.form-group textarea{
-    min-height:115px;
-    resize:vertical;
-}
-
-.submit-btn{
-    width:100%;
-    border:0;
-    border-radius:12px;
-    padding:14px;
-    background:#635bff;
-    color:white;
-    font-weight:800;
-    cursor:pointer;
-    transition:.25s;
-}
-
-.submit-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 10px 25px rgba(99,91,255,.20);
+.form textarea{
+  min-height:120px;
+  resize:vertical;
 }
 
 .success-message{
-    display:none;
-    margin-top:15px;
-    padding:13px;
-    border-radius:10px;
-    background:#e8f8ef;
-    color:#087443;
-    font-size:14px;
-    font-weight:700;
+  display:none;
+  padding:13px;
+  background:#ecfdf5;
+  color:#15803d;
+  border:1px solid #bbf7d0;
+  border-radius:12px;
+  margin-top:10px;
 }
 
-/* ================= LIGHTBOX ================= */
+/* ================= RATING ================= */
 
-.lightbox{
-    display:none;
-    position:fixed;
-    inset:0;
-    z-index:3000;
-    background:rgba(0,0,0,.90);
-    align-items:center;
-    justify-content:center;
-    padding:20px;
+.rating-bars{
+  display:grid;
+  gap:10px;
 }
 
-.lightbox img,
-.lightbox video{
-    max-width:95%;
-    max-height:88vh;
-    border-radius:15px;
+.rating-row{
+  display:grid;
+  grid-template-columns:25px 1fr 45px;
+  gap:8px;
+  align-items:center;
+  font-size:13px;
 }
 
-.close-lightbox{
-    position:absolute;
-    right:25px;
-    top:18px;
-    color:white;
-    font-size:35px;
-    cursor:pointer;
+.bar{
+  height:8px;
+  background:#edf0f5;
+  border-radius:20px;
+  overflow:hidden;
 }
 
-/* ================= TOAST ================= */
-
-.toast{
-    position:fixed;
-    left:50%;
-    bottom:25px;
-    transform:translate(-50%,120px);
-    background:#101828;
-    color:white;
-    padding:13px 18px;
-    border-radius:12px;
-    font-size:14px;
-    font-weight:700;
-    z-index:5000;
-    transition:.3s;
-    box-shadow:0 10px 30px rgba(0,0,0,.18);
-}
-
-.toast.show{
-    transform:translate(-50%,0);
+.bar span{
+  display:block;
+  height:100%;
+  background:#f59e0b;
+  border-radius:20px;
 }
 
 /* ================= CTA ================= */
 
-.cta-section{
-    padding:45px 20px 85px;
-}
-
 .cta{
-    max-width:1150px;
-    margin:auto;
-    border-radius:28px;
-    padding:60px 25px;
-    text-align:center;
-    background:linear-gradient(135deg,#635bff,#7c3aed);
-    color:white;
+  margin-top:30px;
+  background:#111827;
+  color:#fff;
+  border-radius:22px;
+  padding:34px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
 }
 
 .cta h2{
-    font-size:clamp(34px,5vw,52px);
-    letter-spacing:-2px;
+  margin-bottom:5px;
 }
 
 .cta p{
-    max-width:620px;
-    margin:16px auto 25px;
-    color:#eeecff;
-    line-height:1.6;
-}
-
-.cta a{
-    display:inline-block;
-    background:white;
-    color:#5148d9;
-    padding:14px 23px;
-    border-radius:11px;
-    font-weight:800;
+  color:#c5cad3;
 }
 
 /* ================= FOOTER ================= */
 
 footer{
-    background:#101828;
-    color:white;
-    padding:50px 20px 25px;
+  background:#111827;
+  color:#c8ced8;
+  padding:30px 0;
+  margin-top:40px;
 }
 
-.footer-inner{
-    max-width:1200px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:2fr 1fr 1fr 1fr;
-    gap:35px;
+.footer-row{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
 }
 
-.footer-brand h2{
-    font-size:29px;
-    margin-bottom:10px;
+.footer-logo{
+  color:#fff;
+  font-size:22px;
+  font-weight:800;
 }
 
-.footer-brand span{
-    color:#8178ff;
+.footer-links{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  font-size:14px;
 }
 
-.footer-brand p{
-    max-width:320px;
-    color:#98a2b3;
-    line-height:1.6;
+/* ================= LIGHTBOX ================= */
+
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.88);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:3000;
+  padding:20px;
 }
 
-footer h4{
-    margin-bottom:14px;
+.lightbox.active{
+  display:flex;
 }
 
-footer ul{
-    list-style:none;
+.lightbox-content{
+  max-width:1000px;
+  width:100%;
+  max-height:90vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-footer li{
-    margin:10px 0;
-    color:#98a2b3;
+.lightbox-content img,
+.lightbox-content video{
+  max-width:100%;
+  max-height:85vh;
+  border-radius:12px;
 }
 
-footer li a:hover{
-    color:white;
+.close-lightbox{
+  position:absolute;
+  top:18px;
+  right:20px;
+  width:45px;
+  height:45px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+  color:#111827;
+  font-size:24px;
+  cursor:pointer;
 }
 
-.copyright{
-    max-width:1200px;
-    margin:35px auto 0;
-    padding-top:20px;
-    border-top:1px solid #263143;
-    color:#98a2b3;
-    font-size:13px;
+/* ================= TOAST ================= */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:90px;
+  transform:translateX(-50%) translateY(20px);
+  background:#111827;
+  color:#fff;
+  padding:12px 17px;
+  border-radius:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:4000;
+  font-size:14px;
 }
 
-/* ================= ANIMATION ================= */
-
-@keyframes fadeUp{
-    from{
-        opacity:0;
-        transform:translateY(25px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
 }
 
-/* ================= TABLET ================= */
+/* ================= MOBILE BAR ================= */
 
-@media(max-width:900px){
-
-    .nav-links,
-    .nav-actions{
-        display:none;
-    }
-
-    .menu-btn{
-        display:block;
-    }
-
-    .hero-card{
-        grid-template-columns:1fr;
-    }
-
-    .main-photo{
-        height:360px;
-    }
-
-    .content-layout{
-        grid-template-columns:1fr;
-    }
-
-    .sticky-side{
-        position:static;
-    }
-
-    .footer-inner{
-        grid-template-columns:1fr 1fr;
-    }
+.mobile-action-bar{
+  display:none;
 }
 
 /* ================= MOBILE ================= */
 
-@media(max-width:600px){
+@media(max-width:900px){
 
-    .navbar{
-        height:68px;
-        padding:0 18px;
-    }
+  .nav-links,
+  .nav-buttons{
+    display:none;
+  }
 
-    .logo{
-        font-size:28px;
-    }
+  .menu-btn{
+    display:block;
+  }
 
-    .breadcrumb{
-        padding:18px 15px 5px;
-    }
+  .hero-grid{
+    grid-template-columns:1fr;
+  }
 
-    .business-hero{
-        padding:0 15px;
-    }
+  .hero-image,
+  .hero-image img{
+    min-height:300px;
+  }
 
-    .hero-card{
-        padding:15px;
-        border-radius:21px;
-        gap:20px;
-    }
+  .hero-content{
+    padding:28px;
+  }
 
-    .main-photo{
-        height:270px;
-        border-radius:16px;
-    }
+  .hero-content h1{
+    font-size:34px;
+  }
 
-    .hero-info{
-        padding:5px 3px 10px;
-    }
+  .content-grid{
+    grid-template-columns:1fr;
+  }
 
-    .hero-info h1{
-        font-size:38px;
-        letter-spacing:-1.5px;
-    }
+  .cta{
+    flex-direction:column;
+    align-items:flex-start;
+  }
 
-    .short-description{
-        font-size:15px;
-    }
-
-    .hero-actions{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-    }
-
-    .action-btn{
-        padding:12px 8px;
-        font-size:13px;
-    }
-
-    .enquiry-btn{
-        grid-column:1 / -1;
-    }
-
-    .container{
-        padding:0 15px;
-    }
-
-    .section-card{
-        padding:20px;
-        border-radius:19px;
-    }
-
-    .section-title{
-        font-size:25px;
-    }
-
-    .gallery{
-        grid-template-columns:1fr 1fr;
-        grid-template-rows:170px 130px 130px;
-    }
-
-    .gallery-item:first-child{
-        grid-column:span 2;
-        grid-row:auto;
-    }
-
-    .live-media-grid{
-        grid-template-columns:1fr;
-    }
-
-    .live-media-card img,
-    .live-media-card video{
-        height:260px;
-    }
-
-    .services{
-        grid-template-columns:1fr;
-    }
-
-    .rating-summary{
-        grid-template-columns:1fr;
-    }
-
-    .cta-section{
-        padding:25px 15px 60px;
-    }
-
-    .cta{
-        padding:45px 18px;
-        border-radius:22px;
-    }
-
-    .footer-inner{
-        grid-template-columns:1fr;
-    }
 }
+
+@media(max-width:650px){
+
+  body{
+    padding-bottom:72px;
+  }
+
+  .page{
+    padding-top:18px;
+  }
+
+  .hero{
+    border-radius:18px;
+  }
+
+  .hero-image,
+  .hero-image img{
+    min-height:260px;
+  }
+
+  .hero-content{
+    padding:22px;
+  }
+
+  .hero-content h1{
+    font-size:30px;
+  }
+
+  .hero-actions .btn{
+    flex:1;
+  }
+
+  .gallery{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .dynamic-media{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .services,
+  .offers{
+    grid-template-columns:1fr;
+  }
+
+  .card{
+    padding:19px;
+  }
+
+  .mobile-action-bar{
+    position:fixed;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:5px;
+    left:0;
+    right:0;
+    bottom:0;
+    padding:8px;
+    background:rgba(255,255,255,.97);
+    border-top:1px solid #dfe4ed;
+    z-index:2000;
+    box-shadow:0 -5px 20px rgba(0,0,0,.08);
+  }
+
+  .mobile-action-bar a,
+  .mobile-action-bar button{
+    border:0;
+    border-radius:10px;
+    padding:9px 3px;
+    font-size:11px;
+    font-weight:700;
+    background:#eef4ff;
+    color:#2563eb;
+    text-align:center;
+    cursor:pointer;
+  }
+
+  .mobile-action-bar .whatsapp{
+    background:#ecfdf5;
+    color:#15803d;
+  }
+
+  .mobile-action-bar .enquiry{
+    background:#2563eb;
+    color:#fff;
+  }
+
+  .mobile-action-bar .share{
+    background:#111827;
+    color:#fff;
+  }
+
+}
+
 </style>
+
 </head>
 
 <body>
@@ -1077,1168 +855,164 @@ footer li a:hover{
 
 <header>
 
-<div class="navbar">
+  <div class="container nav">
 
-<a href="index.html" class="logo">
-Boost<span>ly</span>
-</a>
+    <a href="index.html" class="logo">
+      Boostly<span>.</span>
+    </a>
 
-<nav class="nav-links">
-<a href="index.html">Home</a>
-<a href="explore.html">Explore</a>
-<a href="explore.html#categories">Categories</a>
-<a href="explore.html#businesses">Businesses</a>
-<a href="#contact">Contact</a>
-</nav>
+    <nav class="nav-links">
 
-<div class="nav-actions">
-<a href="#" class="nav-login">Log in</a>
-<a href="index.html#grow" class="nav-start">Get Started</a>
-</div>
+      <a href="index.html">Home</a>
 
-<button class="menu-btn" onclick="toggleMenu()" aria-label="Open menu">
-☰
-</button>
+      <a href="explore.html">Explore</a>
 
-</div>
+      <a href="explore.html#categories">Categories</a>
 
-<div class="mobile-menu" id="mobileMenu">
-<a href="index.html">🏠 Home</a>
-<a href="explore.html">🔎 Explore Businesses</a>
-<a href="explore.html#categories">📂 Categories</a>
-<a href="explore.html#businesses">🏪 Businesses</a>
-<a href="#contact" onclick="closeMenu()">📞 Contact</a>
-</div>
+      <a href="explore.html#businesses">Businesses</a>
+
+      <a href="#contact">Contact</a>
+
+    </nav>
+
+    <div class="nav-buttons">
+
+      <a href="index.html#grow" class="btn btn-primary">
+        Get Started
+      </a>
+
+    </div>
+
+    <button
+      class="menu-btn"
+      id="menuBtn"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+
+  </div>
 
 </header>
 
 
-<!-- ================= BREADCRUMB ================= -->
+<!-- ================= MAIN ================= -->
 
-<div class="breadcrumb">
-<a href="index.html">Home</a>
-&nbsp; / &nbsp;
-<a href="explore.html">Explore</a>
-&nbsp; / &nbsp;
-Royal Look Salon
-</div>
-
-
-<!-- ================= BUSINESS HERO ================= -->
-
-<section class="business-hero">
-
-<div class="hero-card">
-
-<div class="main-photo">
-
-<img
-src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=85"
-alt="Royal Look Salon">
-
-<span class="verified-badge">
-✓ Verified Business
-</span>
-
-</div>
-
-<div class="hero-info">
-
-<span class="category-label">
-💇 Beauty & Hair
-</span>
-
-<h1>
-Royal Look Salon
-</h1>
-
-<div class="rating-row">
-
-<span class="stars">
-★★★★★
-</span>
-
-<span class="rating-number">
-4.8
-</span>
-
-<span class="review-count">
-(126 reviews)
-</span>
-
-</div>
-
-<div class="location">
-📍 Model Town, Ludhiana, Punjab
-</div>
-
-<p class="short-description">
-A modern local salon offering professional hair,
-beauty and styling services for men and women.
-</p>
-
-<div class="hero-actions">
-
-<a href="tel:+919876543210"
-class="action-btn call-btn">
-📞 Call Now
-</a>
-
-<a href="https://wa.me/919876543210"
-class="action-btn whatsapp-btn">
-💬 WhatsApp
-</a>
-
-<a href="#enquiry"
-class="action-btn enquiry-btn">
-✉️ Send Enquiry
-</a>
-
-<button
-type="button"
-class="action-btn share-btn"
-onclick="shareBusiness()">
-↗️ Share
-</button>
-
-<button
-type="button"
-class="action-btn copy-btn"
-onclick="copyBusinessLink()">
-🔗 Copy Link
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ================= MAIN CONTENT ================= -->
+<main class="page">
 
 <div class="container">
 
-<div class="content-layout">
+  <div class="breadcrumb">
 
-<main>
+    <a href="index.html">Home</a>
+    /
+    <a href="explore.html">Explore</a>
+    /
+    <span id="breadcrumbName">Business Profile</span>
 
+  </div>
 
-<!-- STATIC GALLERY -->
 
-<section class="section-card">
+  <!-- ================= HERO ================= -->
 
-<h2 class="section-title">
-📸 Business Photos
-</h2>
+  <section class="hero">
 
-<div class="gallery">
+    <div class="hero-grid">
 
-<div class="gallery-item" onclick="openLightbox(this)">
-<img
-src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1000&q=85"
-alt="Salon interior">
-</div>
+      <div class="hero-image">
 
-<div class="gallery-item" onclick="openLightbox(this)">
-<img
-src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=800&q=85"
-alt="Salon service">
-</div>
+        <img
+          src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=85"
+          alt="Business"
+          id="businessHeroImage"
+          loading="eager"
+        >
 
-<div class="gallery-item" onclick="openLightbox(this)">
-<img
-src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=800&q=85"
-alt="Hair styling">
-</div>
+        <div class="verified">
+          ✓ Verified Business
+        </div>
 
-<div class="gallery-item" onclick="openLightbox(this)">
-<img
-src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?auto=format&fit=crop&w=800&q=85"
-alt="Beauty salon">
-</div>
+      </div>
 
-<div class="gallery-item" onclick="openLightbox(this)">
-<img
-src="https://images.unsplash.com/photo-1559599101-f09722fb4948?auto=format&fit=crop&w=800&q=85"
-alt="Salon styling">
-</div>
 
-</div>
+      <div class="hero-content">
 
-</section>
+        <div
+          class="category"
+          data-business-category
+        >
+          Beauty & Hair
+        </div>
 
+        <h1 data-business-name>
+          Royal Look Salon
+        </h1>
 
-<!-- LIVE D1 MEDIA -->
+        <div class="rating">
 
-<section class="section-card" id="liveMedia">
+          <div class="stars">
+            ★★★★★
+          </div>
 
-<h2 class="section-title">
-🎥 Latest Photos & Videos
-</h2>
+          <strong>4.8</strong>
 
-<div class="media-status" id="mediaStatus">
-Loading business media...
-</div>
+          <span>
+            126 reviews
+          </span>
 
-<div id="liveMediaContainer">
-</div>
+        </div>
 
-</section>
 
+        <p
+          class="hero-description"
+          data-business-description
+        >
+          Professional beauty and hair services for your everyday style and special occasions.
+        </p>
 
-<!-- ABOUT -->
 
-<section class="section-card">
+        <div class="hero-actions">
 
-<h2 class="section-title">
-About This Business
-</h2>
+          <a
+            href="#"
+            class="btn btn-primary"
+            data-business-call
+          >
+            ☎ Call
+          </a>
 
-<p class="section-subtitle">
-Royal Look Salon provides professional beauty and hair
-services with a focus on quality, customer experience
-and modern styling. Customers can contact the salon
-directly for appointments, enquiries and service details.
-</p>
+          <a
+            href="#"
+            class="btn btn-success"
+            data-business-whatsapp
+            target="_blank"
+            rel="noopener"
+          >
+            WhatsApp
+          </a>
 
-</section>
+          <a
+            href="#enquiry"
+            class="btn btn-secondary"
+          >
+            Enquiry
+          </a>
 
+        </div>
 
-<!-- SERVICES -->
 
-<section class="section-card">
+        <div class="hero-tools">
 
-<h2 class="section-title">
-✂️ Services
-</h2>
-
-<div class="services">
-
-<div class="service">
-<div class="service-top">
-<h3>Haircut & Styling</h3>
-<span class="price">₹299+</span>
-</div>
-<p>Professional haircut and styling for everyday and special occasions.</p>
-</div>
-
-<div class="service">
-<div class="service-top">
-<h3>Hair Colour</h3>
-<span class="price">₹999+</span>
-</div>
-<p>Modern hair colouring and styling options.</p>
-</div>
-
-<div class="service">
-<div class="service-top">
-<h3>Hair Spa</h3>
-<span class="price">₹699+</span>
-</div>
-<p>Relaxing hair spa treatment for healthier-looking hair.</p>
-</div>
-
-<div class="service">
-<div class="service-top">
-<h3>Facial</h3>
-<span class="price">₹599+</span>
-</div>
-<p>Beauty facial treatments designed for different skin needs.</p>
-</div>
-
-<div class="service">
-<div class="service-top">
-<h3>Bridal Styling</h3>
-<span class="price">₹2,999+</span>
-</div>
-<p>Complete styling services for weddings and special events.</p>
-</div>
-
-<div class="service">
-<div class="service-top">
-<h3>Manicure & Pedicure</h3>
-<span class="price">₹499+</span>
-</div>
-<p>Professional nail and grooming treatments.</p>
-</div>
-
-</div>
-
-</section>
-
-
-<!-- OFFERS -->
-
-<section class="section-card">
-
-<h2 class="section-title">
-🔥 Current Offers
-</h2>
-
-<div class="offer">
-
-<div class="offer-label">
-Limited Offer
-</div>
-
-<h3>
-20% OFF First Visit
-</h3>
-
-<p>
-New customers can ask the salon about the first-visit
-discount and available appointment slots.
-</p>
-
-</div>
-
-<div class="offer">
-
-<div class="offer-label">
-Popular Package
-</div>
-
-<h3>
-Haircut + Hair Spa Package
-</h3>
-
-<p>
-Ask the business for current package pricing and availability.
-</p>
-
-</div>
-
-</section>
-
-
-<!-- RATINGS -->
-
-<section class="section-card">
-
-<h2 class="section-title">
-⭐ Ratings & Reviews
-</h2>
-
-<div class="rating-summary">
-
-<div class="big-rating">
-
-<strong>4.8</strong>
-
-<div class="stars">
-★★★★★
-</div>
-
-<span>
-126 reviews
-</span>
-
-</div>
-
-<div class="rating-bars">
-
-<div class="rating-line">
-<span>5★</span>
-<div class="bar"><span style="width:88%"></span></div>
-<span>88%</span>
-</div>
-
-<div class="rating-line">
-<span>4★</span>
-<div class="bar"><span style="width:8%"></span></div>
-<span>8%</span>
-</div>
-
-<div class="rating-line">
-<span>3★</span>
-<div class="bar"><span style="width:3%"></span></div>
-<span>3%</span>
-</div>
-
-<div class="rating-line">
-<span>2★</span>
-<div class="bar"><span style="width:1%"></span></div>
-<span>1%</span>
-</div>
-
-<div class="rating-line">
-<span>1★</span>
-<div class="bar"><span style="width:0%"></span></div>
-<span>0%</span>
-</div>
-
-</div>
-
-</div>
-
-<div class="review">
-
-<div class="review-header">
-<span class="reviewer">Aman</span>
-<span class="review-date">2 weeks ago</span>
-</div>
-
-<div class="stars">★★★★★</div>
-
-<p>
-Good service and friendly staff. The haircut was exactly
-what I asked for.
-</p>
-
-</div>
-
-<div class="review">
-
-<div class="review-header">
-<span class="reviewer">Simran</span>
-<span class="review-date">1 month ago</span>
-</div>
-
-<div class="stars">★★★★★</div>
-
-<p>
-Clean salon and professional service. Would visit again.
-</p>
-
-</div>
-
-</section>
-
-
-<!-- ENQUIRY -->
-
-<section class="section-card" id="enquiry">
-
-<h2 class="section-title">
-✉️ Send an Enquiry
-</h2>
-
-<p class="section-subtitle" style="margin-bottom:20px;">
-Have a question or want to ask about an appointment?
-Send an enquiry to this business.
-</p>
-
-<form onsubmit="submitEnquiry(event)">
-
-<div class="form-group">
-<label for="name">Your Name</label>
-<input
-type="text"
-id="name"
-placeholder="Enter your name"
-required>
-</div>
-
-<div class="form-group">
-<label for="phone">Phone Number</label>
-<input
-type="tel"
-id="phone"
-placeholder="Enter your phone number"
-required>
-</div>
-
-<div class="form-group">
-<label for="message">Your Message</label>
-<textarea
-id="message"
-placeholder="What would you like to ask?"
-required></textarea>
-</div>
-
-<button type="submit" class="submit-btn">
-Send Enquiry →
-</button>
-
-<div class="success-message" id="successMessage">
-✓ Enquiry submitted successfully! The business can contact you using the details provided.
-</div>
-
-</form>
-
-</section>
-
-</main>
-
-
-<!-- ================= SIDEBAR ================= -->
-
-<aside class="sticky-side">
-
-<div class="contact-card" id="contact">
-
-<h2>
-Contact Business
-</h2>
-
-<p>
-Connect directly with Royal Look Salon.
-</p>
-
-<div class="contact-item">
-<div class="contact-icon">📞</div>
-<div>
-<strong>Phone</strong>
-<span>+91 98765 43210</span>
-</div>
-</div>
-
-<div class="contact-item">
-<div class="contact-icon">💬</div>
-<div>
-<strong>WhatsApp</strong>
-<span>Available for enquiries</span>
-</div>
-</div>
-
-<div class="contact-item">
-<div class="contact-icon">🕒</div>
-<div>
-<strong>Opening Hours</strong>
-<span>10:00 AM – 8:00 PM</span>
-</div>
-</div>
-
-<div class="contact-item">
-<div class="contact-icon">📍</div>
-<div>
-<strong>Location</strong>
-<span>Model Town, Ludhiana, Punjab</span>
-</div>
-</div>
-
-</div>
-
-
-<!-- MAP -->
-
-<div class="map-card">
-
-<div class="map-placeholder">
-📍
-</div>
-
-<div class="map-info">
-
-<strong>
-Royal Look Salon
-</strong>
-
-<p>
-Model Town, Ludhiana, Punjab
-</p>
-
-<a
-href="https://www.google.com/maps/search/?api=1&query=Model+Town+Ludhiana+Punjab"
-target="_blank"
-rel="noopener"
-style="
-display:inline-block;
-margin-top:12px;
-color:#635bff;
-font-weight:800;
-font-size:13px;">
-Open in Google Maps →
-</a>
-
-</div>
-
-</div>
-
-
-<!-- QUICK ACTION -->
-
-<div class="section-card">
-
-<h3 style="margin-bottom:10px;">
-Ready to visit?
-</h3>
-
-<p class="section-subtitle" style="margin-bottom:15px;">
-Contact the business directly to check availability
-and appointment times.
-</p>
-
-<a
-href="tel:+919876543210"
-class="action-btn call-btn"
-style="width:100%;">
-📞 Call Business
-</a>
-
-</div>
-
-</aside>
-
-</div>
-
-</div>
-
-
-<!-- ================= CTA ================= -->
-
-<section class="cta-section">
-
-<div class="cta">
-
-<h2>
-Own a local business?
-</h2>
-
-<p>
-Create your Boostly profile and help more customers
-discover your business.
-</p>
-
-<a href="index.html#grow">
-Grow My Business →
-</a>
-
-</div>
-
-</section>
-
-
-<!-- ================= FOOTER ================= -->
-
-<footer>
-
-<div class="footer-inner">
-
-<div class="footer-brand">
-
-<h2>
-Boost<span>ly</span>
-</h2>
-
-<p>
-Helping local businesses get discovered,
-connect with customers and grow smarter.
-</p>
-
-</div>
-
-<div>
-<h4>Explore</h4>
-<ul>
-<li><a href="index.html">Home</a></li>
-<li><a href="explore.html">Businesses</a></li>
-<li><a href="explore.html#categories">Categories</a></li>
-</ul>
-</div>
-
-<div>
-<h4>Business</h4>
-<ul>
-<li><a href="index.html#grow">Grow My Business</a></li>
-<li><a href="#">Create Profile</a></li>
-<li><a href="#">Dashboard</a></li>
-</ul>
-</div>
-
-<div>
-<h4>Company</h4>
-<ul>
-<li><a href="#">About</a></li>
-<li><a href="#contact">Contact</a></li>
-<li><a href="#">Privacy</a></li>
-</ul>
-</div>
-
-</div>
-
-<div class="copyright">
-© 2026 Boostly. All rights reserved.
-</div>
-
-</footer>
-
-
-<!-- ================= LIGHTBOX ================= -->
-
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-
-<span class="close-lightbox">
-×
-</span>
-
-<img id="lightboxImage" src="" alt="Business photo">
-
-</div>
-
-
-<!-- ================= TOAST ================= -->
-
-<div class="toast" id="toast"></div>
-
-
-<script>
-
-/* =====================================================
-   BUSINESS SETTINGS
-===================================================== */
-
-const BUSINESS_ID = 1;
-
-
-/* =====================================================
-   MOBILE MENU
-===================================================== */
-
-function toggleMenu(){
-
-    const menu =
-        document.getElementById("mobileMenu");
-
-    menu.style.display =
-        menu.style.display === "block"
-        ? "none"
-        : "block";
-}
-
-function closeMenu(){
-
-    document.getElementById("mobileMenu")
-        .style.display = "none";
-}
-
-
-/* =====================================================
-   TOAST
-===================================================== */
-
-function showToast(message){
-
-    const toast =
-        document.getElementById("toast");
-
-    toast.textContent = message;
-
-    toast.classList.add("show");
-
-    setTimeout(function(){
-
-        toast.classList.remove("show");
-
-    },2500);
-}
-
-
-/* =====================================================
-   SHARE BUSINESS
-===================================================== */
-
-async function shareBusiness(){
-
-    const shareData = {
-        title:"Royal Look Salon | Boostly",
-        text:"Check out Royal Look Salon on Boostly.",
-        url:window.location.href
-    };
-
-    try{
-
-        if(navigator.share){
-
-            await navigator.share(shareData);
-
-        }else{
-
-            await navigator.clipboard.writeText(
-                window.location.href
-            );
-
-            showToast("Business link copied!");
-
-        }
-
-    }catch(error){
-
-        if(error.name !== "AbortError"){
-            showToast("Share cancelled.");
-        }
-
-    }
-}
-
-
-/* =====================================================
-   COPY BUSINESS LINK
-===================================================== */
-
-async function copyBusinessLink(){
-
-    try{
-
-        await navigator.clipboard.writeText(
-            window.location.href
-        );
-
-        showToast("Business link copied!");
-
-    }catch(error){
-
-        showToast(
-            "Copy not available on this browser."
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   ENQUIRY
-===================================================== */
-
-function submitEnquiry(event){
-
-    event.preventDefault();
-
-    const name =
-        document.getElementById("name").value.trim();
-
-    const phone =
-        document.getElementById("phone").value.trim();
-
-    const message =
-        document.getElementById("message").value.trim();
-
-    if(!name || !phone || !message){
-        return;
-    }
-
-    document.getElementById("successMessage")
-        .style.display = "block";
-
-    event.target.reset();
-
-}
-
-
-/* =====================================================
-   STATIC PHOTO LIGHTBOX
-===================================================== */
-
-function openLightbox(element){
-
-    const image =
-        element.querySelector("img");
-
-    document.getElementById("lightboxImage").src =
-        image.src;
-
-    document.getElementById("lightbox")
-        .style.display = "flex";
-
-}
-
-function closeLightbox(){
-
-    document.getElementById("lightbox")
-        .style.display = "none";
-
-}
-
-
-/* =====================================================
-   LIVE MEDIA
-   D1 -> /api/media -> BUSINESS_ID
-===================================================== */
-
-async function loadBusinessMedia(){
-
-    const status =
-        document.getElementById("mediaStatus");
-
-    const container =
-        document.getElementById("liveMediaContainer");
-
-    try{
-
-        status.textContent =
-            "Loading latest photos and videos...";
-
-        const response =
-            await fetch(
-                "/api/media?business_id=" +
-                encodeURIComponent(BUSINESS_ID) +
-                "&t=" +
-                Date.now(),
-                {
-                    method:"GET",
-                    cache:"no-store"
-                }
-            );
-
-        if(!response.ok){
-
-            throw new Error(
-                "Media API returned HTTP " +
-                response.status
-            );
-
-        }
-
-        const data =
-            await response.json();
-
-        if(
-            !data ||
-            data.success !== true
-        ){
-
-            throw new Error(
-                data?.error ||
-                "Media could not be loaded"
-            );
-
-        }
-
-        const media =
-            Array.isArray(data.media)
-            ? data.media
-            : [];
-
-        if(media.length === 0){
-
-            status.textContent =
-                "No uploaded photos or videos yet.";
-
-            container.innerHTML = `
-                <div class="media-empty">
-                    📸<br><br>
-                    New business photos and videos
-                    will appear here automatically.
-                </div>
-            `;
-
-            return;
-
-        }
-
-        status.textContent =
-            media.length +
-            (media.length === 1
-            ? " media item"
-            : " media items") +
-            " from this business";
-
-        container.innerHTML = "";
-
-        media.forEach(function(item){
-
-            const card =
-                document.createElement("article");
-
-            card.className =
-                "live-media-card";
-
-            const type =
-                String(
-                    item.media_type || ""
-                ).toLowerCase();
-
-            const url =
-                String(
-                    item.media_url || ""
-                );
-
-            const caption =
-                String(
-                    item.caption || ""
-                );
-
-            const date =
-                formatMediaDate(
-                    item.created_at
-                );
-
-            let mediaElement;
-
-            if(type === "video"){
-
-                mediaElement =
-                    document.createElement("video");
-
-                mediaElement.controls = true;
-                mediaElement.preload = "metadata";
-                mediaElement.src = url;
-
-            }else{
-
-                mediaElement =
-                    document.createElement("img");
-
-                mediaElement.src = url;
-                mediaElement.alt =
-                    caption ||
-                    "Royal Look Salon photo";
-
-                mediaElement.loading =
-                    "lazy";
-
-                mediaElement.onclick =
-                    function(){
-
-                        openLiveImage(
-                            url,
-                            caption ||
-                            "Business photo"
-                        );
-
-                    };
-
-            }
-
-            card.appendChild(mediaElement);
-
-            const content =
-                document.createElement("div");
-
-            content.className =
-                "live-media-content";
-
-            if(caption){
-
-                const captionElement =
-                    document.createElement("div");
-
-                captionElement.className =
-                    "live-media-caption";
-
-                captionElement.textContent =
-                    caption;
-
-                content.appendChild(
-                    captionElement
-                );
-
-            }
-
-            if(date){
-
-                const dateElement =
-                    document.createElement("div");
-
-                dateElement.className =
-                    "live-media-date";
-
-                dateElement.textContent =
-                    date;
-
-                content.appendChild(
-                    dateElement
-                );
-
-            }
-
-            card.appendChild(content);
-
-            container.appendChild(card);
-
-        });
-
-    }catch(error){
-
-        console.error(
-            "Business media error:",
-            error
-        );
-
-        status.textContent =
-            "Latest media is temporarily unavailable.";
-
-        container.innerHTML = `
-            <div class="media-empty">
-                Media could not be loaded right now.<br>
-                The rest of the business profile is still available.
-            </div>
-        `;
-
-    }
-
-}
-
-
-/* =====================================================
-   MEDIA DATE
-===================================================== */
-
-function formatMediaDate(value){
-
-    if(!value){
-        return "";
-    }
-
-    const date =
-        new Date(value);
-
-    if(Number.isNaN(
-        date.getTime()
-    )){
-        return "";
-    }
-
-    return date.toLocaleDateString(
-        "en-IN",
-        {
-            day:"numeric",
-            month:"short",
-            year:"numeric"
-        }
-    );
-
-}
-
-
-/* =====================================================
-   LIVE IMAGE LIGHTBOX
-===================================================== */
-
-function openLiveImage(url,alt){
-
-    const lightbox =
-        document.getElementById("lightbox");
-
-    const image =
-        document.getElementById("lightboxImage");
-
-    image.src = url;
-    image.alt = alt;
-
-    lightbox.style.display =
-        "flex";
-
-}
-
-
-/* =====================================================
-   ESCAPE KEY
-===================================================== */
-
-document.addEventListener(
-    "keydown",
-    function(event){
-
-        if(event.key === "Escape"){
-            closeLightbox();
-        }
-
-    }
-);
-
-
-/* =====================================================
-   LOAD LIVE MEDIA
-===================================================== */
-
-loadBusinessMedia();
-
-</script>
-
-</body>
-</html>
+          <button
+            class="btn btn-outline"
+            type="button"
+            id="shareBtn"
+          >
+            ↗ Share
+          </button>
+
+          <button
+            class="btn btn-outline"
+            type="button"
+            id="saveBtn"
+          >
