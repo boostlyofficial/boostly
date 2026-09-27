@@ -4,14 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boostly Dashboard</title>
+<title>Boostly Command Center</title>
 
 <style>
-
-/* =========================================================
-   BOOSTLY PREMIUM DESIGN SYSTEM
-========================================================= */
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -19,1036 +14,880 @@
 }
 
 :root{
-  --blue:#2563eb;
-  --blue-dark:#1d4ed8;
-  --purple:#7c3aed;
-  --cyan:#06b6d4;
-  --navy:#172033;
-  --text:#344054;
-  --muted:#667085;
-  --border:#dfe7f3;
-  --soft:#f4f7fc;
-  --card:#ffffff;
-  --green:#16a34a;
+  --bg:#070b16;
+  --panel:#0e1424;
+  --panel2:#11192b;
+  --border:rgba(255,255,255,.08);
+  --text:#f8fafc;
+  --muted:#8d99ad;
+  --blue:#4f8cff;
+  --purple:#8b5cf6;
+  --cyan:#22d3ee;
+  --green:#22c55e;
   --red:#ef4444;
-  --shadow:0 12px 35px rgba(31,55,90,.08);
-  --shadow-hover:0 18px 45px rgba(37,99,235,.14);
-}
-
-html{
-  scroll-behavior:smooth;
 }
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:Inter,Arial,Helvetica,sans-serif;
   background:
-    radial-gradient(circle at 5% 0%,rgba(37,99,235,.07),transparent 25%),
-    radial-gradient(circle at 95% 10%,rgba(124,58,237,.06),transparent 25%),
-    #f4f7fc;
-  color:var(--navy);
+    radial-gradient(circle at 10% 0%,rgba(79,140,255,.16),transparent 30%),
+    radial-gradient(circle at 90% 10%,rgba(139,92,246,.13),transparent 28%),
+    var(--bg);
+  color:var(--text);
   min-height:100vh;
+  overflow-x:hidden;
 }
 
+/* TOP BAR */
 
-/* =========================================================
-   HEADER
-========================================================= */
-
-header{
-  background:rgba(255,255,255,.92);
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
-  padding:14px 6%;
+.topbar{
+  height:72px;
+  padding:0 4%;
   display:flex;
   align-items:center;
   justify-content:space-between;
+  border-bottom:1px solid var(--border);
+  background:rgba(7,11,22,.82);
+  backdrop-filter:blur(18px);
   position:sticky;
   top:0;
   z-index:100;
-  box-shadow:0 4px 20px rgba(20,40,80,.05);
 }
 
 .logo{
-  font-size:26px;
-  font-weight:900;
-  letter-spacing:-.6px;
-  background:linear-gradient(135deg,var(--blue),var(--purple));
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-}
-
-.header-right{
   display:flex;
   align-items:center;
-  gap:15px;
+  gap:10px;
+  font-size:23px;
+  font-weight:900;
+  letter-spacing:-.5px;
 }
 
-.explore-btn{
-  text-decoration:none;
-  color:var(--blue-dark);
-  font-weight:800;
-  padding:10px 13px;
-  border:1px solid #dbe6f7;
-  border-radius:10px;
-  background:#f8fbff;
-  transition:.25s ease;
-}
-
-.explore-btn:hover{
-  transform:translateY(-2px);
-  border-color:#b9cff4;
-  background:#eef5ff;
-}
-
-.logout-btn{
-  border:1px solid #fecaca;
-  background:#fff5f5;
-  color:#dc2626;
-  padding:10px 17px;
-  border-radius:10px;
-  font-weight:800;
-  cursor:pointer;
-  transition:.25s ease;
-}
-
-.logout-btn:hover{
-  transform:translateY(-2px);
-  background:#fee2e2;
-}
-
-.avatar{
-  width:43px;
-  height:43px;
-  border-radius:50%;
-  background:linear-gradient(135deg,var(--blue),var(--purple));
-  color:#fff;
+.logo-mark{
+  width:36px;
+  height:36px;
+  border-radius:11px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:900;
-  border:3px solid #eaf0ff;
-  box-shadow:0 6px 18px rgba(37,99,235,.2);
-}
-
-
-/* =========================================================
-   MAIN CONTAINER
-========================================================= */
-
-.container{
-  width:90%;
-  max-width:1200px;
-  margin:32px auto 45px;
-}
-
-
-/* =========================================================
-   WELCOME HERO
-========================================================= */
-
-.welcome{
-  position:relative;
-  overflow:hidden;
-  margin-bottom:25px;
-  padding:30px;
-  border:1px solid #dce6f4;
-  border-radius:22px;
-  background:
-    linear-gradient(135deg,#ffffff 0%,#f7f9ff 55%,#f2efff 100%);
-  box-shadow:var(--shadow);
-}
-
-.welcome::after{
-  content:"";
-  position:absolute;
-  width:180px;
-  height:180px;
-  right:-70px;
-  top:-90px;
-  border-radius:50%;
   background:linear-gradient(135deg,var(--blue),var(--purple));
-  opacity:.09;
+  box-shadow:0 0 25px rgba(79,140,255,.35);
 }
 
-.welcome::before{
-  content:"";
-  position:absolute;
-  width:100px;
-  height:100px;
-  right:95px;
-  bottom:-65px;
-  border-radius:50%;
-  background:var(--cyan);
-  opacity:.06;
+.logo span{
+  background:linear-gradient(90deg,#fff,#9db9ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-.welcome h1{
-  position:relative;
-  z-index:2;
-  font-size:32px;
-  line-height:1.2;
-  margin-bottom:9px;
-  letter-spacing:-.7px;
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
-.welcome p{
-  position:relative;
-  z-index:2;
+.explore{
+  text-decoration:none;
+  color:#b9c5da;
+  font-size:14px;
+  font-weight:700;
+  padding:10px 14px;
+  border-radius:10px;
+}
+
+.explore:hover{
+  background:rgba(255,255,255,.06);
+  color:#fff;
+}
+
+.logout{
+  border:1px solid rgba(239,68,68,.25);
+  background:rgba(239,68,68,.08);
+  color:#ff8d8d;
+  padding:9px 14px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.logout:hover{
+  background:rgba(239,68,68,.16);
+}
+
+.avatar{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  font-weight:900;
+}
+
+/* MAIN */
+
+.shell{
+  width:92%;
+  max-width:1380px;
+  margin:0 auto;
+  padding:34px 0 80px;
+}
+
+/* HERO */
+
+.hero{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:25px;
+  margin-bottom:30px;
+}
+
+.hero-copy small{
+  color:#6f7d95;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:11px;
+  font-weight:900;
+}
+
+.hero h1{
+  margin-top:8px;
+  font-size:38px;
+  letter-spacing:-1.5px;
+}
+
+.hero h1 span{
+  background:linear-gradient(90deg,#fff,#7ea9ff,#a78bfa);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero p{
   color:var(--muted);
+  margin-top:8px;
   line-height:1.6;
 }
 
-.welcome > *,
-.card > *,
-.stat > *,
-.header-right > *{
-  position:relative;
-  z-index:2;
+.hero-status{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:11px 14px;
+  border:1px solid rgba(34,197,94,.2);
+  background:rgba(34,197,94,.06);
+  border-radius:12px;
+  color:#7ee7a1;
+  font-size:13px;
+  font-weight:800;
+  white-space:nowrap;
 }
 
-header,
-.container,
-footer{
-  position:relative;
-  z-index:1;
+.dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#22c55e;
+  box-shadow:0 0 12px #22c55e;
 }
 
-button,
-a{
-  position:relative;
-  z-index:5;
-  pointer-events:auto;
-}
-/* =========================================================
-   STATS
-========================================================= */
+/* STATS */
 
 .stats{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:15px;
-  margin-bottom:25px;
+  gap:14px;
+  margin-bottom:20px;
 }
 
 .stat{
   position:relative;
   overflow:hidden;
-  background:var(--card);
-  padding:21px;
-  border-radius:17px;
+  padding:20px;
+  min-height:130px;
+  background:linear-gradient(145deg,rgba(17,25,43,.96),rgba(10,15,27,.96));
   border:1px solid var(--border);
-  box-shadow:0 8px 25px rgba(30,50,90,.055);
-  transition:.3s ease;
-}
-
-.stat::before{
-  content:"";
-  position:absolute;
-  width:70px;
-  height:70px;
-  right:-25px;
-  top:-25px;
-  border-radius:50%;
-  background:linear-gradient(135deg,var(--blue),var(--purple));
-  opacity:.07;
+  border-radius:18px;
+  transition:.3s;
 }
 
 .stat:hover{
-  transform:translateY(-4px);
-  box-shadow:var(--shadow-hover);
-  border-color:#c9d9f3;
+  transform:translateY(-3px);
+  border-color:rgba(79,140,255,.3);
+  box-shadow:0 15px 35px rgba(0,0,0,.25);
 }
 
-.stat h3{
-  position:relative;
-  font-size:29px;
-  color:var(--blue);
-  margin-bottom:7px;
+.stat::after{
+  content:"";
+  position:absolute;
+  width:90px;
+  height:90px;
+  right:-30px;
+  bottom:-40px;
+  border-radius:50%;
+  background:rgba(79,140,255,.12);
+  filter:blur(4px);
 }
 
-.stat p{
-  position:relative;
-  color:var(--muted);
+.stat-icon{
+  font-size:19px;
+  margin-bottom:15px;
+}
+
+.stat-value{
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.stat-label{
+  color:#7e8aa0;
   font-size:13px;
-  font-weight:700;
+  margin-top:4px;
 }
 
+.stat-trend{
+  position:absolute;
+  right:16px;
+  top:18px;
+  font-size:11px;
+  color:#69df91;
+  font-weight:800;
+}
 
-/* =========================================================
-   GRID
-========================================================= */
+/* GRID */
 
-.grid{
+.main-grid{
   display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:20px;
+  grid-template-columns:minmax(0,2fr) minmax(280px,1fr);
+  gap:18px;
 }
-
-
-/* =========================================================
-   UNIVERSAL CARD
-========================================================= */
 
 .card{
-  position:relative;
-  background:rgba(255,255,255,.96);
+  background:linear-gradient(145deg,rgba(16,23,39,.97),rgba(9,14,25,.97));
   border:1px solid var(--border);
-  border-radius:19px;
-  padding:24px;
-  margin-bottom:20px;
-  box-shadow:var(--shadow);
-  transition:.3s ease;
+  border-radius:20px;
+  padding:22px;
+  margin-bottom:18px;
+  box-shadow:0 12px 40px rgba(0,0,0,.16);
 }
 
-.card:hover{
-  border-color:#cbdaf0;
-  box-shadow:var(--shadow-hover);
-}
-
-.card h2{
-  margin-bottom:19px;
-  font-size:20px;
-  letter-spacing:-.2px;
-}
-
-
-/* =========================================================
-   BUSINESS PROFILE
-========================================================= */
-
-.business-top{
+.card-head{
   display:flex;
-  gap:18px;
   align-items:center;
+  justify-content:space-between;
+  gap:15px;
   margin-bottom:20px;
-  padding:16px;
-  border:1px solid #e2eaf6;
-  border-radius:15px;
-  background:linear-gradient(135deg,#fbfdff,#f6f8ff);
 }
 
-.business-image{
-  width:88px;
-  height:88px;
-  border-radius:17px;
-  background:linear-gradient(135deg,var(--blue),var(--purple));
+.card-title{
+  font-size:17px;
+  font-weight:900;
+}
+
+.card-sub{
+  color:#68758c;
+  font-size:12px;
+  margin-top:4px;
+}
+
+.view-link{
+  text-decoration:none;
+  color:#79a7ff;
+  font-size:12px;
+  font-weight:800;
+}
+
+/* BUSINESS */
+
+.business-card{
+  position:relative;
+  overflow:hidden;
+}
+
+.business-card::before{
+  content:"";
+  position:absolute;
+  width:250px;
+  height:250px;
+  top:-140px;
+  right:-80px;
+  background:radial-gradient(circle,rgba(79,140,255,.22),transparent 65%);
+  pointer-events:none;
+}
+
+.business-main{
+  display:flex;
+  gap:17px;
+  align-items:center;
+  position:relative;
+}
+
+.business-avatar{
+  width:78px;
+  height:78px;
+  flex-shrink:0;
+  border-radius:20px;
   display:flex;
   align-items:center;
   justify-content:center;
-  color:#fff;
-  font-size:30px;
+  font-size:28px;
   font-weight:900;
-  flex-shrink:0;
-  box-shadow:0 10px 25px rgba(37,99,235,.2);
+  background:linear-gradient(135deg,#315fe8,#8b5cf6);
+  box-shadow:0 10px 30px rgba(79,140,255,.22);
 }
 
 .business-name{
   font-size:24px;
   font-weight:900;
   margin-bottom:7px;
-  letter-spacing:-.4px;
 }
 
-.category{
-  display:inline-block;
-  background:#eef5ff;
-  color:var(--blue-dark);
-  border:1px solid #d6e5fb;
-  padding:6px 10px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:800;
+.badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
 }
 
-.status{
-  display:inline-block;
-  margin-left:6px;
-  background:#ecfdf3;
-  color:#15803d;
-  border:1px solid #bbf7d0;
-  padding:6px 10px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:800;
+.badge{
+  padding:5px 9px;
+  border-radius:8px;
+  font-size:10px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.4px;
 }
 
-.info{
+.badge-category{
+  color:#8eb4ff;
+  background:rgba(79,140,255,.1);
+  border:1px solid rgba(79,140,255,.16);
+}
+
+.badge-active{
+  color:#73e59a;
+  background:rgba(34,197,94,.08);
+  border:1px solid rgba(34,197,94,.14);
+}
+
+.business-info{
   display:grid;
-  gap:11px;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
   margin:20px 0;
 }
 
-.info-row{
-  display:flex;
-  align-items:flex-start;
-  gap:10px;
-  color:var(--text);
-  padding:10px 12px;
-  border:1px solid #e8edf5;
-  border-radius:11px;
-  background:#fbfcfe;
-}
-
-.info-row strong{
-  color:var(--navy);
-  min-width:90px;
-}
-
-.description{
-  color:var(--muted);
-  line-height:1.7;
-  margin-bottom:19px;
-}
-
-.buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-}
-
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-.btn{
-  display:inline-block;
-  text-decoration:none;
-  padding:11px 17px;
-  border-radius:10px;
-  font-weight:800;
-  border:1px solid transparent;
-  cursor:pointer;
-  transition:.25s ease;
-}
-
-.btn:hover{
-  transform:translateY(-2px);
-}
-
-.primary{
-  background:linear-gradient(135deg,var(--blue),var(--purple));
-  color:#fff;
-  box-shadow:0 8px 18px rgba(37,99,235,.18);
-}
-
-.primary:hover{
-  box-shadow:0 12px 25px rgba(37,99,235,.25);
-}
-
-.secondary{
-  background:#f0f4ff;
-  color:#3730a3;
-  border-color:#dbe3fb;
-}
-
-.green{
-  background:#ecfdf3;
-  color:#15803d;
-  border-color:#c8f2d5;
-}
-
-
-/* =========================================================
-   EMPTY STATE
-========================================================= */
-
-.empty{
-  text-align:center;
-  padding:30px 15px;
-  color:var(--muted);
-  border:1px dashed #cbd8ea;
-  border-radius:15px;
-  background:#f9fbff;
-}
-
-.empty h3{
-  color:var(--navy);
-  margin-bottom:8px;
-}
-
-
-/* =========================================================
-   CHART
-========================================================= */
-
-.chart{
-  display:flex;
-  align-items:flex-end;
-  height:190px;
-  gap:14px;
-  padding:20px 8px 0;
-  border-bottom:1px solid #e5eaf2;
-}
-
-.bar{
-  flex:1;
-  background:linear-gradient(180deg,var(--blue),var(--purple));
-  border-radius:8px 8px 2px 2px;
-  min-height:30px;
-  box-shadow:0 6px 15px rgba(37,99,235,.12);
-  transition:.3s ease;
-}
-
-.bar:hover{
-  transform:scaleY(1.04);
-  filter:brightness(1.08);
-}
-
-.chart-labels{
-  display:flex;
-  gap:14px;
-  margin-top:9px;
-}
-
-.chart-labels span{
-  flex:1;
-  text-align:center;
-  font-size:11px;
-  color:var(--muted);
-  font-weight:700;
-}
-
-
-/* =========================================================
-   LIST
-========================================================= */
-
-.list{
-  display:grid;
-  gap:11px;
-}
-
-.list-item{
-  padding:14px;
-  background:#f8faff;
-  border:1px solid #e4eaf4;
+.info-box{
+  padding:13px;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.055);
   border-radius:12px;
-  transition:.25s ease;
 }
 
-.list-item:hover{
-  background:#f2f6ff;
-  border-color:#cedcf1;
-  transform:translateY(-1px);
-}
-
-.list-item strong{
+.info-box small{
   display:block;
+  color:#69768c;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.8px;
   margin-bottom:5px;
 }
 
-.list-item small{
-  color:var(--muted);
+.info-box strong{
+  font-size:13px;
+  color:#dbe3f0;
+  word-break:break-word;
 }
 
-
-/* =========================================================
-   QUICK ACTIONS
-========================================================= */
-
-.quick-actions{
-  display:grid;
-  gap:10px;
-}
-
-.action{
-  display:block;
-  text-decoration:none;
-  padding:14px;
-  background:linear-gradient(135deg,#f9fbff,#f3f6ff);
-  border:1px solid #e0e8f5;
-  border-radius:12px;
-  color:var(--navy);
-  font-weight:800;
-  transition:.25s ease;
-}
-
-.action:hover{
-  background:#eef4ff;
-  border-color:#c8d9f3;
-  transform:translateX(3px);
-}
-
-
-/* =========================================================
-   MEDIA STUDIO
-========================================================= */
-
-.media-studio{
-  position:relative;
-  overflow:hidden;
-  background:
-    linear-gradient(145deg,#ffffff,#f7f8ff);
-}
-
-.media-studio::before{
-  content:"";
-  position:absolute;
-  width:190px;
-  height:190px;
-  right:-75px;
-  top:-75px;
-  border-radius:50%;
-  background:linear-gradient(135deg,var(--blue),var(--purple));
-  opacity:.09;
-  animation:boostlyFloat 5s ease-in-out infinite;
-pointer-events:none;
-}
-.media-header{
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:20px;
-}
-
-.media-heading{
-  flex:1;
-}
-
-.media-premium{
-  display:inline-block;
-  padding:6px 10px;
-  margin-bottom:8px;
-  border-radius:20px;
-  background:#f0edff;
-  color:#5b21b6;
-  border:1px solid #ddd6fe;
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:.7px;
-}
-
-.media-heading h2{
-  margin-bottom:6px;
-}
-
-.media-heading p{
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.5;
-}
-
-.media-count{
-  padding:9px 12px;
-  border-radius:12px;
-  background:#eff6ff;
-  color:var(--blue-dark);
-  border:1px solid #d7e6fb;
-  font-size:12px;
-  font-weight:900;
-  white-space:nowrap;
-}
-
-.media-buttons{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
+.description{
+  color:#8995a9;
+  line-height:1.65;
+  font-size:13px;
   margin-bottom:18px;
 }
 
-.media-btn{
-  border:1px solid transparent;
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  border:none;
   cursor:pointer;
-  padding:11px 16px;
-  border-radius:10px;
-  font-weight:800;
-  transition:.25s ease;
+  padding:11px 15px;
+  border-radius:11px;
+  font-size:12px;
+  font-weight:900;
 }
 
-.media-btn:hover{
-  transform:translateY(-2px);
-}
-
-.media-add{
+.btn-primary{
   color:#fff;
-  background:linear-gradient(135deg,var(--blue),var(--purple));
-  box-shadow:0 8px 20px rgba(37,99,235,.18);
+  background:linear-gradient(135deg,#3975f6,#7054df);
+  box-shadow:0 8px 22px rgba(79,140,255,.2);
 }
 
-.media-view{
-  color:#3730a3;
-  background:#eef2ff;
-  border-color:#dbe2fa;
+.btn-secondary{
+  color:#a9c5ff;
+  background:rgba(79,140,255,.08);
+  border:1px solid rgba(79,140,255,.16);
 }
 
-.media-grid{
+/* ACTIVITY */
+
+.activity{
+  min-height:280px;
+}
+
+.chart{
+  height:190px;
+  display:flex;
+  align-items:flex-end;
+  gap:9px;
+  padding:20px 4px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.bar-wrap{
+  height:100%;
+  flex:1;
+  display:flex;
+  align-items:flex-end;
+}
+
+.bar{
+  width:100%;
+  min-height:18px;
+  border-radius:7px 7px 2px 2px;
+  background:linear-gradient(180deg,#6d9cff,#4f46e5);
+  opacity:.9;
+  transition:.35s;
+}
+
+.bar:hover{
+  opacity:1;
+  transform:scaleY(1.04);
+  box-shadow:0 0 18px rgba(79,140,255,.3);
+}
+
+.labels{
+  display:flex;
+  gap:9px;
+  margin-top:8px;
+}
+
+.labels span{
+  flex:1;
+  text-align:center;
+  color:#59667b;
+  font-size:10px;
+}
+
+/* RIGHT SIDE */
+
+.profile-score{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.score-circle{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at center,#0e1424 57%,transparent 58%),
+    conic-gradient(#4f8cff 0deg 302deg,#1b263b 302deg);
+  font-size:18px;
+  font-weight:900;
+}
+
+.score-text strong{
+  display:block;
+  font-size:15px;
+}
+
+.score-text span{
+  color:#77849a;
+  font-size:11px;
+}
+
+/* QUICK ACTIONS */
+
+.quick{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
 }
 
-.media-box{
+.quick-item{
+  text-decoration:none;
+  color:#d8e0ed;
+  padding:15px 12px;
+  border-radius:13px;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.055);
+  transition:.25s;
+}
+
+.quick-item:hover{
+  transform:translateY(-2px);
+  border-color:rgba(79,140,255,.28);
+  background:rgba(79,140,255,.07);
+}
+
+.quick-icon{
+  font-size:19px;
+  margin-bottom:9px;
+}
+
+.quick-item strong{
+  display:block;
+  font-size:12px;
+}
+
+.quick-item small{
+  color:#68758a;
+  font-size:10px;
+}
+
+/* ACCOUNT */
+
+.account-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:11px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.account-row:last-child{
+  border-bottom:0;
+}
+
+.account-icon{
+  width:32px;
+  height:32px;
+  border-radius:9px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(79,140,255,.08);
+  font-size:14px;
+}
+
+.account-row div:last-child{
+  min-width:0;
+}
+
+.account-row strong{
+  display:block;
+  font-size:12px;
+  color:#dce5f2;
+}
+
+.account-row span{
+  display:block;
+  color:#68758b;
+  font-size:10px;
+  margin-top:2px;
+  word-break:break-word;
+}
+
+/* CTA */
+
+.cta{
   position:relative;
   overflow:hidden;
-  aspect-ratio:1/1;
-  border-radius:14px;
-  background:#eef2f7;
-  border:1px solid #dce5f2;
-  animation:boostlyReveal .55s ease both;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(139,92,246,.3),transparent 45%),
+    radial-gradient(circle at 0% 100%,rgba(34,211,238,.12),transparent 45%),
+    linear-gradient(135deg,#101a35,#111124);
 }
 
-.media-box img,
-.media-box video{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-  transition:.4s ease;
-}
-
-.media-box:hover img,
-.media-box:hover video{
-  transform:scale(1.07);
-}
-
-.media-overlay{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  padding:25px 10px 10px;
-  color:#fff;
-  font-size:11px;
-  font-weight:900;
-  background:linear-gradient(transparent,rgba(0,0,0,.72));
-  opacity:0;
-  transition:.3s ease;
-}
-
-.media-box:hover .media-overlay{
-  opacity:1;
-}
-
-.media-empty{
-  padding:30px 15px;
-  text-align:center;
-  border:1px dashed #c5d4e8;
-  border-radius:14px;
-  background:#f8faff;
-}
-
-.media-empty-icon{
-  font-size:40px;
-  margin-bottom:8px;
-  animation:boostlyFloat 3s ease-in-out infinite;
-}
-
-.media-empty h3{
+.cta h2{
+  font-size:19px;
   margin-bottom:7px;
 }
 
-.media-empty p{
-  color:var(--muted);
-  font-size:14px;
+.cta p{
+  color:#8491a7;
+  font-size:12px;
   line-height:1.6;
-  margin-bottom:16px;
+  margin-bottom:17px;
 }
 
-.media-loading{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-}
+/* EMPTY */
 
-.media-skeleton{
-  aspect-ratio:1/1;
-  border-radius:14px;
-  background:linear-gradient(
-    90deg,
-    #eef2f7,
-    #ffffff,
-    #eef2f7
-  );
-  background-size:200% 100%;
-  animation:boostlyShimmer 1.4s infinite;
-}
-
-.media-toast{
-  position:fixed;
-  left:50%;
-  bottom:22px;
-  transform:translate(-50%,20px);
-  z-index:9999;
-  padding:12px 18px;
-  border-radius:12px;
-  background:#172033;
-  color:#fff;
-  font-size:14px;
-  font-weight:800;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s ease;
-  box-shadow:0 12px 30px rgba(0,0,0,.2);
-}
-
-.media-toast.show{
-  opacity:1;
-  transform:translate(-50%,0);
-}
-
-
-/* =========================================================
-   ANIMATIONS
-========================================================= */
-
-@keyframes boostlyReveal{
-  from{
-    opacity:0;
-    transform:translateY(12px) scale(.96);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
-}
-
-@keyframes boostlyFloat{
-  0%,100%{
-    transform:translateY(0);
-  }
-
-  50%{
-    transform:translateY(-6px);
-  }
-}
-
-@keyframes boostlyShimmer{
-  0%{
-    background-position:200% 0;
-  }
-
-  100%{
-    background-position:-200% 0;
-  }
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-footer{
+.empty{
   text-align:center;
-  color:var(--muted);
-  padding:30px;
+  padding:28px 10px;
+}
+
+.empty-icon{
+  font-size:34px;
+  margin-bottom:10px;
+}
+
+.empty h3{
+  font-size:16px;
+  margin-bottom:6px;
+}
+
+.empty p{
+  color:#77849a;
+  font-size:12px;
+  line-height:1.6;
+}
+
+/* LOADING */
+
+.loading{
+  color:#77849a;
+  padding:25px 0;
   font-size:13px;
 }
 
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-.loading{
-  color:var(--muted);
-}
-
 .error{
-  color:#dc2626;
+  color:#ff7777;
 }
 
+/* FOOTER */
 
-/* =========================================================
-   TABLET
-========================================================= */
+footer{
+  text-align:center;
+  color:#48556a;
+  font-size:10px;
+  padding:20px;
+}
 
-@media(max-width:850px){
+/* MOBILE NAV */
+
+.mobile-nav{
+  display:none;
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(12px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.hero,
+.stat,
+.card{
+  animation:fadeUp .55s ease both;
+}
+
+.stat:nth-child(2){animation-delay:.06s}
+.stat:nth-child(3){animation-delay:.12s}
+.stat:nth-child(4){animation-delay:.18s}
+
+/* RESPONSIVE */
+
+@media(max-width:950px){
 
   .stats{
     grid-template-columns:repeat(2,1fr);
   }
 
-  .grid{
+  .main-grid{
     grid-template-columns:1fr;
   }
 
 }
 
+@media(max-width:650px){
 
-/* =========================================================
-   MOBILE
-========================================================= */
+  body{
+    padding-bottom:65px;
+  }
 
-@media(max-width:600px){
-
-  header{
-    padding:12px 4%;
+  .topbar{
+    height:64px;
+    padding:0 4%;
   }
 
   .logo{
-    font-size:22px;
+    font-size:20px;
   }
 
-  .header-right{
-    gap:7px;
+  .logo-mark{
+    width:32px;
+    height:32px;
+    border-radius:9px;
   }
 
-  .explore-btn{
+  .explore{
     display:none;
   }
 
-  .logout-btn{
-    padding:8px 11px;
-    font-size:12px;
+  .logout{
+    display:none;
   }
 
   .avatar{
-    width:38px;
-    height:38px;
+    width:35px;
+    height:35px;
+    border-radius:10px;
   }
 
-  .container{
+  .shell{
     width:92%;
-    margin:20px auto 35px;
+    padding:25px 0 30px;
   }
 
-  .welcome{
-    padding:23px 19px;
-    border-radius:18px;
+  .hero{
+    align-items:flex-start;
+    flex-direction:column;
+    margin-bottom:22px;
   }
 
-  .welcome h1{
-    font-size:25px;
+  .hero h1{
+    font-size:29px;
   }
 
-  .welcome p{
-    font-size:13px;
+  .hero-status{
+    width:max-content;
   }
 
   .stats{
     grid-template-columns:1fr 1fr;
-    gap:10px;
+    gap:9px;
   }
 
   .stat{
-    padding:16px 14px;
-    border-radius:14px;
+    min-height:112px;
+    padding:16px;
+    border-radius:15px;
   }
 
-  .stat h3{
-    font-size:23px;
+  .stat-value{
+    font-size:25px;
   }
 
-  .stat p{
+  .stat-label{
     font-size:11px;
   }
 
+  .stat-trend{
+    display:none;
+  }
+
   .card{
-    padding:18px;
+    padding:17px;
     border-radius:17px;
-    margin-bottom:15px;
+    margin-bottom:13px;
   }
 
-  .card h2{
-    font-size:18px;
-  }
-
-  .business-top{
+  .business-main{
     align-items:flex-start;
-    padding:13px;
-    gap:12px;
   }
 
-  .business-image{
-    width:68px;
-    height:68px;
-    font-size:23px;
-    border-radius:14px;
+  .business-avatar{
+    width:62px;
+    height:62px;
+    border-radius:16px;
+    font-size:22px;
   }
 
   .business-name{
     font-size:19px;
   }
 
-  .category,
-  .status{
-    font-size:10px;
-    padding:5px 8px;
+  .business-info{
+    grid-template-columns:1fr;
   }
 
-  .status{
-    margin-left:0;
-    margin-top:5px;
-  }
-
-  .info-row{
+  .actions{
     flex-direction:column;
-    gap:3px;
-    padding:10px;
-  }
-
-  .info-row strong{
-    min-width:0;
   }
 
   .btn{
     width:100%;
-    text-align:center;
   }
 
-  .media-header{
-    align-items:flex-start;
+  .quick{
+    grid-template-columns:1fr 1fr;
   }
 
-  .media-count{
-    font-size:10px;
-    padding:8px 9px;
+  .mobile-nav{
+    position:fixed;
+    display:flex;
+    left:0;
+    right:0;
+    bottom:0;
+    height:61px;
+    background:rgba(9,13,24,.94);
+    backdrop-filter:blur(18px);
+    border-top:1px solid rgba(255,255,255,.08);
+    z-index:200;
+    justify-content:space-around;
   }
 
-  .media-buttons{
-    display:grid;
-    grid-template-columns:1fr;
+  .mobile-nav a,
+  .mobile-nav button{
+    flex:1;
+    border:0;
+    background:none;
+    color:#68758a;
+    text-decoration:none;
+    font-size:9px;
+    font-weight:800;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
   }
 
-  .media-btn{
-    width:100%;
+  .mobile-nav a:first-child{
+    color:#78a6ff;
   }
 
-  .media-grid,
-  .media-loading{
-    grid-template-columns:repeat(2,1fr);
+  .mobile-nav span{
+    font-size:18px;
   }
 
   .chart{
-    height:150px;
-    gap:7px;
-  }
-
-  .chart-labels{
-    gap:7px;
-  }
-
-  .chart-labels span{
-    font-size:9px;
-  }
-
-  footer{
-    padding:25px 15px;
+    height:155px;
   }
 
 }
-
 </style>
 </head>
 
 <body>
 
-<header>
+<header class="topbar">
 
-  <div class="logo">Boostly</div>
+  <div class="logo">
+    <div class="logo-mark">B</div>
+    <span>Boostly</span>
+  </div>
 
-  <div class="header-right">
+  <div class="top-actions">
 
-    <a class="explore-btn" href="explore.html">
+    <a href="explore.html" class="explore">
       Explore
     </a>
 
-    <button class="logout-btn" onclick="logoutUser()">
+    <button class="logout" onclick="logoutUser()">
       Logout
     </button>
 
@@ -1061,75 +900,102 @@ footer{
 </header>
 
 
-<div class="container">
+<main class="shell">
 
-  <!-- =====================================================
-       WELCOME
-  ====================================================== -->
+  <section class="hero">
 
-  <div class="welcome">
+    <div class="hero-copy">
 
-    <h1>
-      Welcome, <span id="userName">Boostly User</span> 👋
-    </h1>
+      <small>Business Command Center</small>
 
-    <p>
-      Manage your Boostly account, business profile and customer presence from one place.
-    </p>
+      <h1>
+        Welcome back,
+        <span id="userName">Boostly User</span>
+      </h1>
 
-  </div>
+      <p>
+        Your business, customers and Boostly presence — all in one place.
+      </p>
+
+    </div>
+
+    <div class="hero-status">
+      <span class="dot"></span>
+      Account Active
+    </div>
+
+  </section>
 
 
-  <!-- =====================================================
-       STATS
-  ====================================================== -->
+  <!-- STATS -->
 
-  <div class="stats">
+  <section class="stats">
 
     <div class="stat">
-      <h3>0</h3>
-      <p>Profile Views</p>
+      <div class="stat-icon">👁️</div>
+      <div class="stat-value">0</div>
+      <div class="stat-label">Profile Views</div>
+      <div class="stat-trend">LIVE</div>
     </div>
 
     <div class="stat">
-      <h3>0</h3>
-      <p>Customer Enquiries</p>
+      <div class="stat-icon">💬</div>
+      <div class="stat-value">0</div>
+      <div class="stat-label">Customer Enquiries</div>
+      <div class="stat-trend">NEW</div>
     </div>
 
     <div class="stat">
-      <h3>0</h3>
-      <p>Calls</p>
+      <div class="stat-icon">📞</div>
+      <div class="stat-value">0</div>
+      <div class="stat-label">Calls</div>
+      <div class="stat-trend">TRACKED</div>
     </div>
 
     <div class="stat">
-      <h3>0</h3>
-      <p>WhatsApp Leads</p>
+      <div class="stat-icon">🟢</div>
+      <div class="stat-value">0</div>
+      <div class="stat-label">WhatsApp Leads</div>
+      <div class="stat-trend">READY</div>
     </div>
 
-  </div>
+  </section>
 
 
-  <div class="grid">
+  <div class="main-grid">
 
     <div>
 
-      <!-- =================================================
-           BUSINESS PROFILE
-      ================================================== -->
+      <!-- BUSINESS -->
 
-      <div class="card">
+      <section class="card business-card">
 
-        <h2>🏢 My Business Profile</h2>
+        <div class="card-head">
+
+          <div>
+            <div class="card-title">Your Business</div>
+            <div class="card-sub">
+              Manage your public Boostly presence
+            </div>
+          </div>
+
+          <a href="business-profile.html" class="view-link">
+            EDIT →
+          </a>
+
+        </div>
+
 
         <div id="businessLoading" class="loading">
-          Loading business information...
+          Loading your business...
         </div>
+
 
         <div id="businessContent" style="display:none;">
 
-          <div class="business-top">
+          <div class="business-main">
 
-            <div class="business-image" id="businessInitial">
+            <div class="business-avatar" id="businessInitial">
               B
             </div>
 
@@ -1139,39 +1005,43 @@ footer{
                 Business Name
               </div>
 
-              <span class="category" id="businessCategory">
-                Category
-              </span>
+              <div class="badges">
 
-              <span class="status">
-                ✓ Profile Active
-              </span>
+                <span class="badge badge-category" id="businessCategory">
+                  Business
+                </span>
+
+                <span class="badge badge-active">
+                  ✓ Active
+                </span>
+
+              </div>
 
             </div>
 
           </div>
 
 
-          <div class="info">
+          <div class="business-info">
 
-            <div class="info-row">
-              <strong>📍 City</strong>
-              <span id="businessCity">Not added</span>
+            <div class="info-box">
+              <small>City</small>
+              <strong id="businessCity">Not added</strong>
             </div>
 
-            <div class="info-row">
-              <strong>🏠 Address</strong>
-              <span id="businessAddress">Not added</span>
+            <div class="info-box">
+              <small>Address</small>
+              <strong id="businessAddress">Not added</strong>
             </div>
 
-            <div class="info-row">
-              <strong>📞 Phone</strong>
-              <span id="businessPhone">Not added</span>
+            <div class="info-box">
+              <small>Phone</small>
+              <strong id="businessPhone">Not added</strong>
             </div>
 
-            <div class="info-row">
-              <strong>💬 WhatsApp</strong>
-              <span id="businessWhatsapp">Not added</span>
+            <div class="info-box">
+              <small>WhatsApp</small>
+              <strong id="businessWhatsapp">Not added</strong>
             </div>
 
           </div>
@@ -1182,19 +1052,19 @@ footer{
           </p>
 
 
-          <div class="buttons">
+          <div class="actions">
 
             <a
               href="business-profile.html"
-              class="btn primary"
+              class="btn btn-primary"
             >
-              ✏️ Edit Business Profile
+              ✏️ Edit Profile
             </a>
 
             <a
               href="#"
               id="viewProfileBtn"
-              class="btn secondary"
+              class="btn btn-secondary"
             >
               👁️ View Public Profile
             </a>
@@ -1206,200 +1076,79 @@ footer{
 
         <div id="noBusiness" class="empty" style="display:none;">
 
-          <h3>
-            Create Your Business Profile
-          </h3>
+          <div class="empty-icon">🚀</div>
+
+          <h3>Launch your Boostly profile</h3>
 
           <p>
-            Add your business details so customers can discover you on Boostly.
+            Create your business profile and start building your local presence.
           </p>
 
           <br>
 
           <a
             href="business-profile.html"
-            class="btn primary"
+            class="btn btn-primary"
           >
-            ✨ Create Business Profile
+            Create Business Profile
           </a>
 
         </div>
 
-      </div>
+      </section>
 
 
-      <!-- =================================================
-           MEDIA STUDIO
-      ================================================== -->
+      <!-- ACTIVITY -->
 
-      <div class="card media-studio">
+      <section class="card activity">
 
-        <div class="media-header">
+        <div class="card-head">
 
-          <div class="media-heading">
-
-            <span class="media-premium">
-              ✨ PREMIUM MEDIA STUDIO
-            </span>
-
-            <h2>
-              Business Photos & Videos
-            </h2>
-
-            <p>
-              Make your business profile more attractive with professional photos and videos.
-            </p>
-
+          <div>
+            <div class="card-title">Profile Activity</div>
+            <div class="card-sub">
+              Your weekly profile activity
+            </div>
           </div>
 
-          <div class="media-count" id="mediaCount">
-            0 Media
-          </div>
+          <span class="view-link">7 DAYS</span>
 
         </div>
 
-
-        <div class="media-buttons">
-
-          <button
-            type="button"
-            class="media-btn media-add"
-            onclick="openMediaUploader()"
-          >
-            📸 Add Photos / Videos
-          </button>
-
-          <button
-            type="button"
-            class="media-btn media-view"
-            onclick="openMyProfile()"
-          >
-            👁️ View Public Profile
-          </button>
-
-        </div>
-
-
-        <input
-          type="file"
-          id="mediaInput"
-          accept="image/*,video/*"
-          multiple
-          hidden
-        >
-
-
-        <div
-          id="mediaLoading"
-          class="media-loading"
-        >
-
-          <div class="media-skeleton"></div>
-          <div class="media-skeleton"></div>
-          <div class="media-skeleton"></div>
-
-        </div>
-
-
-        <div
-          id="mediaGrid"
-          class="media-grid"
-          style="display:none;"
-        ></div>
-
-
-        <div
-          id="mediaEmpty"
-          class="media-empty"
-          style="display:none;"
-        >
-
-          <div class="media-empty-icon">
-            📸
-          </div>
-
-          <h3>
-            Show customers what makes you special
-          </h3>
-
-          <p>
-            Add your best business photos and videos to create a stronger first impression.
-          </p>
-
-          <button
-            type="button"
-            class="media-btn media-add"
-            onclick="openMediaUploader()"
-          >
-            ✨ Add Your First Media
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- =================================================
-           ACCOUNT INFORMATION
-      ================================================== -->
-
-      <div class="card">
-
-        <h2>👤 Account Information</h2>
-
-        <div class="info">
-
-          <div class="info-row">
-            <strong>👤 Name</strong>
-            <span id="accountName">Loading...</span>
-          </div>
-
-          <div class="info-row">
-            <strong>📧 Email</strong>
-            <span id="accountEmail">Loading...</span>
-          </div>
-
-          <div class="info-row">
-            <strong>📱 Phone</strong>
-            <span id="accountPhone">Not added</span>
-          </div>
-
-          <div class="info-row">
-            <strong>📍 City</strong>
-            <span id="accountCity">Not added</span>
-          </div>
-
-          <div class="info-row">
-            <strong>👤 Account</strong>
-            <span id="accountType">Loading...</span>
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- =================================================
-           PROFILE VIEWS
-      ================================================== -->
-
-      <div class="card">
-
-        <h2>📊 Profile Views</h2>
 
         <div class="chart">
 
-          <div class="bar" style="height:35%;"></div>
-          <div class="bar" style="height:50%;"></div>
-          <div class="bar" style="height:45%;"></div>
-          <div class="bar" style="height:65%;"></div>
-          <div class="bar" style="height:55%;"></div>
-          <div class="bar" style="height:80%;"></div>
-          <div class="bar" style="height:70%;"></div>
+          <div class="bar-wrap">
+            <div class="bar" style="height:35%;"></div>
+          </div>
+
+          <div class="bar-wrap">
+            <div class="bar" style="height:52%;"></div>
+          </div>
+
+          <div class="bar-wrap">
+            <div class="bar" style="height:42%;"></div>
+          </div>
+
+          <div class="bar-wrap">
+            <div class="bar" style="height:66%;"></div>
+          </div>
+
+          <div class="bar-wrap">
+            <div class="bar" style="height:55%;"></div>
+          </div>
+
+          <div class="bar-wrap">
+            <div class="bar" style="height:82%;"></div>
+          </div>
+
+          <div class="bar-wrap">
+            <div class="bar" style="height:70%;"></div>
+          </div>
 
         </div>
 
-        <div class="chart-labels">
+        <div class="labels">
           <span>Mon</span>
           <span>Tue</span>
           <span>Wed</span>
@@ -1409,163 +1158,347 @@ footer{
           <span>Sun</span>
         </div>
 
-      </div>
+      </section>
 
 
-      <!-- =================================================
-           ENQUIRIES
-      ================================================== -->
+      <!-- ACCOUNT -->
 
-      <div class="card">
+      <section class="card">
 
-        <h2>💬 Recent Enquiries</h2>
+        <div class="card-head">
 
-        <div class="list">
+          <div>
+            <div class="card-title">Account Details</div>
+            <div class="card-sub">
+              Your Boostly account information
+            </div>
+          </div>
 
-          <div class="list-item">
+        </div>
 
-            <strong>
-              No enquiries yet
-            </strong>
 
-            <small>
-              Customer enquiries will appear here.
-            </small>
+        <div class="account-row">
+
+          <div class="account-icon">👤</div>
+
+          <div>
+            <strong id="accountName">Loading...</strong>
+            <span>Name</span>
+          </div>
+
+        </div>
+
+
+        <div class="account-row">
+
+          <div class="account-icon">📧</div>
+
+          <div>
+            <strong id="accountEmail">Loading...</strong>
+            <span>Email</span>
+          </div>
+
+        </div>
+
+
+        <div class="account-row">
+
+          <div class="account-icon">📱</div>
+
+          <div>
+            <strong id="accountPhone">Not added</strong>
+            <span>Phone</span>
+          </div>
+
+        </div>
+
+
+        <div class="account-row">
+
+          <div class="account-icon">📍</div>
+
+          <div>
+            <strong id="accountCity">Not added</strong>
+            <span>City</span>
+          </div>
+
+        </div>
+
+
+        <div class="account-row">
+
+          <div class="account-icon">⭐</div>
+
+          <div>
+            <strong id="accountType">Loading...</strong>
+            <span>Account Type</span>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ENQUIRIES -->
+
+      <section class="card">
+
+        <div class="card-head">
+
+          <div>
+            <div class="card-title">Recent Enquiries</div>
+            <div class="card-sub">
+              Customer activity will appear here
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="empty">
+
+          <div class="empty-icon">📭</div>
+
+          <h3>No enquiries yet</h3>
+
+          <p>
+            When customers contact your business through Boostly,
+            their enquiries will appear here.
+          </p>
+
+        </div>
+
+      </section>
+
+    </div>
+
+
+    <!-- RIGHT COLUMN -->
+
+    <aside>
+
+
+      <!-- PROFILE SCORE -->
+
+      <section class="card">
+
+        <div class="card-head">
+
+          <div>
+            <div class="card-title">Profile Health</div>
+            <div class="card-sub">
+              Keep your profile complete
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="profile-score">
+
+          <div class="score-circle">
+            84%
+          </div>
+
+          <div class="score-text">
+
+            <strong>Good progress</strong>
+
+            <span>
+              Complete more details to improve your profile.
+            </span>
 
           </div>
 
         </div>
 
-      </div>
-
-    </div>
+      </section>
 
 
-    <!-- =====================================================
-         RIGHT SIDEBAR
-    ====================================================== -->
+      <!-- QUICK ACTIONS -->
 
-    <div>
+      <section class="card">
 
-      <div class="card">
+        <div class="card-head">
 
-        <h2>⚡ Quick Actions</h2>
+          <div>
+            <div class="card-title">Quick Actions</div>
+            <div class="card-sub">
+              Jump where you need to go
+            </div>
+          </div>
 
-        <div class="quick-actions">
+        </div>
+
+
+        <div class="quick">
 
           <a
             href="business-profile.html"
-            class="action"
+            class="quick-item"
           >
-            ✏️ Edit Business Profile
+            <div class="quick-icon">✏️</div>
+            <strong>Edit Profile</strong>
+            <small>Update details</small>
           </a>
+
 
           <a
             href="explore.html"
-            class="action"
+            class="quick-item"
           >
-            🔎 Explore Businesses
+            <div class="quick-icon">🔎</div>
+            <strong>Explore</strong>
+            <small>Find businesses</small>
           </a>
+
+
+          <a
+            href="business.html?business_id=1"
+            id="quickPublicProfile"
+            class="quick-item"
+          >
+            <div class="quick-icon">🌐</div>
+            <strong>Public Profile</strong>
+            <small>View your page</small>
+          </a>
+
 
           <a
             href="index.html"
-            class="action"
+            class="quick-item"
           >
-            🏠 Go to Homepage
+            <div class="quick-icon">🏠</div>
+            <strong>Homepage</strong>
+            <small>Go to Boostly</small>
           </a>
 
         </div>
 
-      </div>
+      </section>
 
 
-      <div class="card">
+      <!-- ACCOUNT SUMMARY -->
 
-        <h2>👤 Account</h2>
+      <section class="card">
 
-        <div class="list">
+        <div class="card-head">
 
-          <div class="list-item">
+          <div>
+            <div class="card-title">Account</div>
+            <div class="card-sub">
+              Signed in account
+            </div>
+          </div>
 
+        </div>
+
+
+        <div class="account-row">
+
+          <div class="account-icon">👤</div>
+
+          <div>
             <strong id="sideAccountName">
               Loading...
             </strong>
 
-            <small id="sideAccountEmail">
+            <span id="sideAccountEmail">
               Loading...
-            </small>
-
-          </div>
-
-          <div class="list-item">
-
-            <strong>
-              Account Type
-            </strong>
-
-            <small id="sideAccountType">
-              Loading...
-            </small>
-
+            </span>
           </div>
 
         </div>
 
-      </div>
+
+        <div class="account-row">
+
+          <div class="account-icon">💼</div>
+
+          <div>
+            <strong id="sideAccountType">
+              Loading...
+            </strong>
+
+            <span>
+              Account Type
+            </span>
+          </div>
+
+        </div>
+
+      </section>
 
 
-      <div class="card">
+      <!-- CTA -->
 
-        <h2>🚀 Boostly</h2>
+      <section class="card cta">
 
-        <p class="description">
-          Grow your local presence, connect with customers and manage your business from one simple platform.
+        <h2>Grow with Boostly 🚀</h2>
+
+        <p>
+          Build your local presence, connect with customers and
+          manage your business from one powerful platform.
         </p>
 
         <a
           href="explore.html"
-          class="btn primary"
-          style="width:100%;text-align:center;"
+          class="btn btn-primary"
+          style="width:100%;"
         >
           Explore Boostly
         </a>
 
-      </div>
+      </section>
 
-    </div>
+
+    </aside>
 
   </div>
 
-</div>
+</main>
 
 
 <footer>
-  © 2026 Boostly. All rights reserved.
+  © 2026 Boostly · Business Command Center
 </footer>
 
 
+<!-- MOBILE NAV -->
+
+<nav class="mobile-nav">
+
+  <a href="dashboard.html">
+    <span>⌂</span>
+    Dashboard
+  </a>
+
+  <a href="business-profile.html">
+    <span>✎</span>
+    Profile
+  </a>
+
+  <a href="explore.html">
+    <span>⌕</span>
+    Explore
+  </a>
+
+  <button onclick="logoutUser()">
+    <span>↪</span>
+    Logout
+  </button>
+
+</nav>
+
+
 <script>
-
-/* =========================================================
-   MEDIA STATE
-========================================================= */
-
-let currentBusinessId = null;
-
-
-/* =========================================================
-   DASHBOARD
-========================================================= */
 
 async function loadDashboard(){
 
   try{
 
-    /* USER DATA */
-
     const userResponse =
       await fetch("/api/me");
-
 
     if(!userResponse.ok){
 
@@ -1581,44 +1514,41 @@ async function loadDashboard(){
       await userResponse.json();
 
 
+    /* USER */
+
     document.getElementById("userName").textContent =
       user.full_name || "Boostly User";
-
 
     document.getElementById("accountName").textContent =
       user.full_name || "Not added";
 
-
     document.getElementById("accountEmail").textContent =
       user.email || "Not added";
 
-
     document.getElementById("accountPhone").textContent =
       user.phone || "Not added";
-
 
     document.getElementById("accountCity").textContent =
       user.city || "Not added";
 
 
-    document.getElementById("accountType").textContent =
+    const accountType =
       user.account_type === "business"
       ? "Business Owner"
       : "Customer";
 
+
+    document.getElementById("accountType").textContent =
+      accountType;
 
     document.getElementById("sideAccountName").textContent =
       user.full_name || "Boostly User";
 
-
     document.getElementById("sideAccountEmail").textContent =
       user.email || "Not added";
 
-
     document.getElementById("sideAccountType").textContent =
-      user.account_type === "business"
-      ? "Business Owner"
-      : "Customer";
+      accountType;
 
 
     const firstLetter =
@@ -1631,7 +1561,7 @@ async function loadDashboard(){
       firstLetter;
 
 
-    /* BUSINESS DATA */
+    /* BUSINESS */
 
     const businessResponse =
       await fetch("/api/my-business");
@@ -1639,15 +1569,11 @@ async function loadDashboard(){
 
     if(businessResponse.status === 404){
 
-      document.getElementById(
-        "businessLoading"
-      ).style.display = "none";
+      document.getElementById("businessLoading").style.display =
+        "none";
 
-
-      document.getElementById(
-        "noBusiness"
-      ).style.display = "block";
-
+      document.getElementById("noBusiness").style.display =
+        "block";
 
       return;
 
@@ -1657,7 +1583,7 @@ async function loadDashboard(){
     if(!businessResponse.ok){
 
       throw new Error(
-        "Business data could not be loaded."
+        "Business information could not be loaded."
       );
 
     }
@@ -1667,68 +1593,38 @@ async function loadDashboard(){
       await businessResponse.json();
 
 
-    currentBusinessId =
-      business.id;
+    document.getElementById("businessLoading").style.display =
+      "none";
+
+    document.getElementById("businessContent").style.display =
+      "block";
 
 
-    loadBusinessMedia();
+    document.getElementById("businessName").textContent =
+      business.business_name || "Business Name";
 
 
-    document.getElementById(
-      "businessLoading"
-    ).style.display = "none";
+    document.getElementById("businessCategory").textContent =
+      business.category || "Business";
 
 
-    document.getElementById(
-      "businessContent"
-    ).style.display = "block";
+    document.getElementById("businessCity").textContent =
+      business.city || "Not added";
 
 
-    document.getElementById(
-      "businessName"
-    ).textContent =
-      business.business_name ||
-      "Business Name";
+    document.getElementById("businessAddress").textContent =
+      business.address || "Not added";
 
 
-    document.getElementById(
-      "businessCategory"
-    ).textContent =
-      business.category ||
-      "Business";
+    document.getElementById("businessPhone").textContent =
+      business.phone || "Not added";
 
 
-    document.getElementById(
-      "businessCity"
-    ).textContent =
-      business.city ||
-      "Not added";
+    document.getElementById("businessWhatsapp").textContent =
+      business.whatsapp || "Not added";
 
 
-    document.getElementById(
-      "businessAddress"
-    ).textContent =
-      business.address ||
-      "Not added";
-
-
-    document.getElementById(
-      "businessPhone"
-    ).textContent =
-      business.phone ||
-      "Not added";
-
-
-    document.getElementById(
-      "businessWhatsapp"
-    ).textContent =
-      business.whatsapp ||
-      "Not added";
-
-
-    document.getElementById(
-      "businessDescription"
-    ).textContent =
+    document.getElementById("businessDescription").textContent =
       business.description ||
       "No business description added yet.";
 
@@ -1739,30 +1635,28 @@ async function loadDashboard(){
       .toUpperCase();
 
 
-    document.getElementById(
-      "businessInitial"
-    ).textContent =
+    document.getElementById("businessInitial").textContent =
       businessInitial;
 
 
-    /* PUBLIC PROFILE LINK */
-
-    document.getElementById(
-      "viewProfileBtn"
-    ).href =
+    const publicProfile =
       "business.html?business_id=" +
-      encodeURIComponent(
-        business.id
-      );
+      encodeURIComponent(business.id);
+
+
+    document.getElementById("viewProfileBtn").href =
+      publicProfile;
+
+
+    document.getElementById("quickPublicProfile").href =
+      publicProfile;
+
 
   }catch(error){
 
     console.error(error);
 
-
-    document.getElementById(
-      "businessLoading"
-    ).innerHTML =
+    document.getElementById("businessLoading").innerHTML =
       '<span class="error">Unable to load business information.</span>';
 
   }
@@ -1770,21 +1664,14 @@ async function loadDashboard(){
 }
 
 
-/* =========================================================
-   LOGOUT
-========================================================= */
-
 async function logoutUser(){
 
   try{
 
     const response =
-      await fetch(
-        "/api/logout",
-        {
-          method:"POST"
-        }
-      );
+      await fetch("/api/logout",{
+        method:"POST"
+      });
 
 
     if(response.redirected){
@@ -1800,6 +1687,7 @@ async function logoutUser(){
     window.location.href =
       "/login.html";
 
+
   }catch(error){
 
     console.error(error);
@@ -1812,215 +1700,9 @@ async function logoutUser(){
 }
 
 
-/* =========================================================
-   OPEN MEDIA UPLOADER
-========================================================= */
+loadDashboard();
 
-function openMediaUploader(){
+</script>
 
-  if(!currentBusinessId){
-
-    showMediaToast(
-      "Please create your business profile first."
-    );
-
-    return;
-
-  }
-
-
-  document
-    .getElementById("mediaInput")
-    .click();
-
-}
-
-
-/* =========================================================
-   OPEN PUBLIC PROFILE
-========================================================= */
-
-function openMyProfile(){
-
-  if(!currentBusinessId){
-
-    showMediaToast(
-      "Business profile not found."
-    );
-
-    return;
-
-  }
-
-
-  window.location.href =
-    "business.html?business_id=" +
-    encodeURIComponent(
-      currentBusinessId
-    );
-
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-function showMediaToast(message){
-
-  let toast =
-    document.getElementById(
-      "mediaToast"
-    );
-
-
-  if(!toast){
-
-    toast =
-      document.createElement(
-        "div"
-      );
-
-    toast.id =
-      "mediaToast";
-
-    toast.className =
-      "media-toast";
-
-    document.body.appendChild(
-      toast
-    );
-
-  }
-
-
-  toast.textContent =
-    message;
-
-
-  toast.classList.add(
-    "show"
-  );
-
-
-  setTimeout(function(){
-
-    toast.classList.remove(
-      "show"
-    );
-
-  },2500);
-
-}
-
-
-/* =========================================================
-   LOAD BUSINESS MEDIA
-========================================================= */
-
-async function loadBusinessMedia(){
-
-  if(!currentBusinessId){
-    return;
-  }
-
-
-  try{
-
-    const response =
-      await fetch(
-        "/api/media?business_id=" +
-        encodeURIComponent(
-          currentBusinessId
-        )
-      );
-
-
-    if(!response.ok){
-
-      throw new Error(
-        "Media loading failed"
-      );
-
-    }
-
-
-    const data =
-      await response.json();
-
-
-    const media =
-      Array.isArray(data)
-      ? data
-      : (
-          data.media ||
-          data.results ||
-          []
-        );
-
-
-    document.getElementById(
-      "mediaLoading"
-    ).style.display =
-      "none";
-
-
-    document.getElementById(
-      "mediaCount"
-    ).textContent =
-      media.length +
-      " Media";
-
-
-    if(media.length === 0){
-
-      document.getElementById(
-        "mediaEmpty"
-      ).style.display =
-        "block";
-
-      return;
-
-    }
-
-
-    const grid =
-      document.getElementById(
-        "mediaGrid"
-      );
-
-
-    grid.style.display =
-      "grid";
-
-
-    grid.innerHTML =
-      media.map(
-        function(item,index){
-
-          const url =
-            item.url ||
-            item.media_url ||
-            item.image_url ||
-            item.file_url ||
-            item.src ||
-            "";
-
-
-          if(!url){
-            return "";
-          }
-
-
-          const type =
-            String(
-              item.media_type ||
-              item.type ||
-              ""
-            ).toLowerCase();
-
-
-          const isVideo =
-            type.includes("video") ||
-            /\.(mp4|webm|mov|ogg)(\?|$)/i
-            .test(url
+</body>
+</html>
