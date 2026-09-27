@@ -405,7 +405,273 @@ footer{
     width:100%;
     text-align:center;
   }
+}/* ===== BOOSTLY MEDIA STUDIO START ===== */
+
+.media-studio{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(145deg,#ffffff,#f7f8ff);
 }
+
+.media-studio::before{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  right:-70px;
+  top:-70px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#2563eb,#7c3aed);
+  opacity:.10;
+  animation:boostlyFloat 5s ease-in-out infinite;
+}
+
+.media-header{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.media-heading{
+  flex:1;
+}
+
+.media-premium{
+  display:inline-block;
+  padding:6px 10px;
+  margin-bottom:8px;
+  border-radius:20px;
+  background:#eef2ff;
+  color:#4f46e5;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.5px;
+}
+
+.media-heading h2{
+  margin-bottom:6px;
+}
+
+.media-heading p{
+  color:#667085;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.media-count{
+  padding:9px 12px;
+  border-radius:12px;
+  background:#eff6ff;
+  color:#2563eb;
+  font-size:13px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.media-buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:18px;
+}
+
+.media-btn{
+  border:none;
+  cursor:pointer;
+  padding:11px 16px;
+  border-radius:10px;
+  font-weight:800;
+  transition:.25s ease;
+}
+
+.media-btn:hover{
+  transform:translateY(-2px);
+}
+
+.media-add{
+  color:#fff;
+  background:linear-gradient(135deg,#2563eb,#7c3aed);
+  box-shadow:0 8px 20px rgba(37,99,235,.18);
+}
+
+.media-view{
+  color:#3730a3;
+  background:#eef2ff;
+}
+
+.media-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.media-box{
+  position:relative;
+  overflow:hidden;
+  aspect-ratio:1/1;
+  border-radius:14px;
+  background:#eef2f7;
+  animation:boostlyReveal .55s ease both;
+}
+
+.media-box img,
+.media-box video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:.4s ease;
+}
+
+.media-box:hover img,
+.media-box:hover video{
+  transform:scale(1.07);
+}
+
+.media-overlay{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:25px 10px 10px;
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
+  background:linear-gradient(transparent,rgba(0,0,0,.7));
+  opacity:0;
+  transition:.3s ease;
+}
+
+.media-box:hover .media-overlay{
+  opacity:1;
+}
+
+.media-empty{
+  padding:30px 15px;
+  text-align:center;
+  border:1px dashed #cbd5e1;
+  border-radius:14px;
+  background:#f8fafc;
+}
+
+.media-empty-icon{
+  font-size:40px;
+  margin-bottom:8px;
+  animation:boostlyFloat 3s ease-in-out infinite;
+}
+
+.media-empty h3{
+  margin-bottom:7px;
+}
+
+.media-empty p{
+  color:#667085;
+  font-size:14px;
+  line-height:1.6;
+  margin-bottom:16px;
+}
+
+.media-loading{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.media-skeleton{
+  aspect-ratio:1/1;
+  border-radius:14px;
+  background:linear-gradient(
+    90deg,
+    #eef2f7,
+    #ffffff,
+    #eef2f7
+  );
+  background-size:200% 100%;
+  animation:boostlyShimmer 1.4s infinite;
+}
+
+@keyframes boostlyReveal{
+  from{
+    opacity:0;
+    transform:translateY(12px) scale(.96);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+@keyframes boostlyFloat{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-6px);
+  }
+}
+
+@keyframes boostlyShimmer{
+  0%{
+    background-position:200% 0;
+  }
+  100%{
+    background-position:-200% 0;
+  }
+}
+
+.media-toast{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  transform:translate(-50%,20px);
+  z-index:9999;
+  padding:12px 18px;
+  border-radius:12px;
+  background:#172033;
+  color:#fff;
+  font-size:14px;
+  font-weight:700;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s ease;
+  box-shadow:0 12px 30px rgba(0,0,0,.2);
+}
+
+.media-toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+@media(max-width:600px){
+
+  .media-header{
+    align-items:flex-start;
+  }
+
+  .media-count{
+    font-size:12px;
+  }
+
+  .media-buttons{
+    display:grid;
+    grid-template-columns:1fr;
+  }
+
+  .media-btn{
+    width:100%;
+  }
+
+  .media-grid,
+  .media-loading{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+/* ===== BOOSTLY MEDIA STUDIO END ===== */
 </style>
 </head>
 
@@ -580,7 +846,117 @@ footer{
         </div>
 
       </div>
+<!-- ===== BOOSTLY MEDIA STUDIO START ===== -->
 
+<div class="card media-studio">
+
+  <div class="media-header">
+
+    <div class="media-heading">
+
+      <span class="media-premium">
+        ✨ PREMIUM MEDIA STUDIO
+      </span>
+
+      <h2>
+        Business Photos & Videos
+      </h2>
+
+      <p>
+        Make your business profile more attractive with professional
+        photos and videos.
+      </p>
+
+    </div>
+
+    <div class="media-count" id="mediaCount">
+      0 Media
+    </div>
+
+  </div>
+
+
+  <div class="media-buttons">
+
+    <button
+      type="button"
+      class="media-btn media-add"
+      onclick="openMediaUploader()"
+    >
+      📸 Add Photos / Videos
+    </button>
+
+    <button
+      type="button"
+      class="media-btn media-view"
+      onclick="openMyProfile()"
+    >
+      👁️ View Public Profile
+    </button>
+
+  </div>
+
+
+  <input
+    type="file"
+    id="mediaInput"
+    accept="image/*,video/*"
+    multiple
+    hidden
+  >
+
+
+  <div
+    id="mediaLoading"
+    class="media-loading"
+  >
+
+    <div class="media-skeleton"></div>
+    <div class="media-skeleton"></div>
+    <div class="media-skeleton"></div>
+
+  </div>
+
+
+  <div
+    id="mediaGrid"
+    class="media-grid"
+    style="display:none;"
+  ></div>
+
+
+  <div
+    id="mediaEmpty"
+    class="media-empty"
+    style="display:none;"
+  >
+
+    <div class="media-empty-icon">
+      📸
+    </div>
+
+    <h3>
+      Show customers what makes you special
+    </h3>
+
+    <p>
+      Add your best business photos and videos to create a stronger
+      first impression.
+    </p>
+
+    <button
+      type="button"
+      class="media-btn media-add"
+      onclick="openMediaUploader()"
+    >
+      ✨ Add Your First Media
+    </button>
+
+  </div>
+
+</div>
+
+<!-- ===== BOOSTLY MEDIA STUDIO END ===== -->
       <div class="card">
 
         <h2>Account Information</h2>
@@ -852,7 +1228,9 @@ async function loadDashboard(){
     const business =
       await businessResponse.json();
 
+currentBusinessId = business.id;
 
+loadBusinessMedia();
     document.getElementById("businessLoading").style.display =
       "none";
 
@@ -952,7 +1330,292 @@ async function logoutUser(){
 
 }
 
+/* ===== BOOSTLY MEDIA STUDIO JS START ===== */
 
+let currentBusinessId = null;
+
+
+/* Open file picker */
+
+function openMediaUploader(){
+
+  if(!currentBusinessId){
+
+    showMediaToast(
+      "Please create your business profile first."
+    );
+
+    return;
+  }
+
+  document
+    .getElementById("mediaInput")
+    .click();
+
+}
+
+
+/* Open public profile */
+
+function openMyProfile(){
+
+  if(!currentBusinessId){
+
+    showMediaToast(
+      "Business profile not found."
+    );
+
+    return;
+  }
+
+  window.location.href =
+    "business.html?business_id=" +
+    encodeURIComponent(currentBusinessId);
+
+}
+
+
+/* Toast */
+
+function showMediaToast(message){
+
+  let toast =
+    document.getElementById("mediaToast");
+
+  if(!toast){
+
+    toast =
+      document.createElement("div");
+
+    toast.id =
+      "mediaToast";
+
+    toast.className =
+      "media-toast";
+
+    document.body.appendChild(toast);
+
+  }
+
+  toast.textContent =
+    message;
+
+  toast.classList.add("show");
+
+  setTimeout(function(){
+
+    toast.classList.remove("show");
+
+  },2500);
+
+}
+
+
+/* Load business media */
+
+async function loadBusinessMedia(){
+
+  if(!currentBusinessId){
+    return;
+  }
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/media?business_id=" +
+        encodeURIComponent(currentBusinessId)
+      );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        "Media loading failed"
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    const media =
+      Array.isArray(data)
+      ? data
+      : (
+          data.media ||
+          data.results ||
+          []
+        );
+
+
+    document.getElementById(
+      "mediaLoading"
+    ).style.display =
+      "none";
+
+
+    document.getElementById(
+      "mediaCount"
+    ).textContent =
+      media.length + " Media";
+
+
+    if(media.length === 0){
+
+      document.getElementById(
+        "mediaEmpty"
+      ).style.display =
+        "block";
+
+      return;
+    }
+
+
+    const grid =
+      document.getElementById(
+        "mediaGrid"
+      );
+
+
+    grid.style.display =
+      "grid";
+
+
+    grid.innerHTML =
+      media.map(function(item,index){
+
+        const url =
+          item.url ||
+          item.media_url ||
+          item.image_url ||
+          item.file_url ||
+          item.src ||
+          "";
+
+
+        if(!url){
+          return "";
+        }
+
+
+        const type =
+          String(
+            item.media_type ||
+            item.type ||
+            ""
+          ).toLowerCase();
+
+
+        const isVideo =
+          type.includes("video") ||
+          /\.(mp4|webm|mov|ogg)(\?|$)/i
+          .test(url);
+
+
+        if(isVideo){
+
+          return `
+            <div
+              class="media-box"
+              style="animation-delay:${index * 80}ms"
+            >
+
+              <video
+                src="${url}"
+                muted
+                controls
+                preload="metadata"
+              ></video>
+
+              <div class="media-overlay">
+                🎬 VIDEO
+              </div>
+
+            </div>
+          `;
+
+        }
+
+
+        return `
+          <div
+            class="media-box"
+            style="animation-delay:${index * 80}ms"
+            onclick="window.open('${url}','_blank')"
+          >
+
+            <img
+              src="${url}"
+              alt="Business photo"
+              loading="lazy"
+            >
+
+            <div class="media-overlay">
+              📸 PHOTO • OPEN
+            </div>
+
+          </div>
+        `;
+
+      }).join("");
+
+
+  }catch(error){
+
+    console.error(
+      "Media error:",
+      error
+    );
+
+    document.getElementById(
+      "mediaLoading"
+    ).style.display =
+      "none";
+
+    document.getElementById(
+      "mediaEmpty"
+    ).style.display =
+      "block";
+
+  }
+
+}
+
+
+/* File selection feedback */
+
+document
+  .getElementById("mediaInput")
+  .addEventListener(
+    "change",
+    function(){
+
+      const files =
+        Array.from(
+          this.files || []
+        );
+
+
+      if(!files.length){
+        return;
+      }
+
+
+      showMediaToast(
+        files.length +
+        (files.length === 1
+          ? " file selected"
+          : " files selected")
+      );
+
+    }
+  );
+
+
+/* ===== BOOSTLY MEDIA STUDIO JS END ===== */
 loadDashboard();
 
 </script>
