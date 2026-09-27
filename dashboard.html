@@ -901,8 +901,8 @@ async function loadDashboard(){
     /* PUBLIC PROFILE LINK */
 
     document.getElementById("viewProfileBtn").href =
-      "business.html?id=" + encodeURIComponent(business.id);
-
+      
+"business.html?business_id=" + encodeURIComponent(business.id);
   }catch(error){
 
     console.error(error);
