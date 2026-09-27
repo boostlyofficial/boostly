@@ -1,61 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
-
-<meta
-  name="description"
-  content="View business details, services, offers, photos and contact information on Boostly."
->
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="View business details, services, offers, photos and contact information on Boostly.">
 <title>Business Profile | Boostly</title>
 
 <style>
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
   font-family:Arial,Helvetica,sans-serif;
   background:#f5f7fb;
   color:#172033;
-  line-height:1.6;
+  line-height:1.6
 }
+a{text-decoration:none;color:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+img{max-width:100%;display:block}
 
-a{
-  text-decoration:none;
-  color:inherit;
-}
-
-button,
-a{
-  -webkit-tap-highlight-color:transparent;
-}
-
-img{
-  max-width:100%;
-  display:block;
-}
-
-.container{
-  width:min(1180px,92%);
-  margin:auto;
-}
-
-/* ================= HEADER ================= */
+.container{width:min(1180px,92%);margin:auto}
 
 header{
   position:sticky;
@@ -63,7 +27,7 @@ header{
   z-index:1000;
   background:rgba(255,255,255,.96);
   border-bottom:1px solid #e8ebf2;
-  backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px)
 }
 
 .nav{
@@ -71,39 +35,32 @@ header{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:20px;
+  gap:20px
 }
 
 .logo{
   font-size:26px;
   font-weight:800;
-  color:#2563eb;
+  color:#2563eb
 }
-
-.logo span{
-  color:#111827;
-}
+.logo span{color:#111827}
 
 .nav-links{
   display:flex;
   align-items:center;
-  gap:22px;
+  gap:22px
 }
-
 .nav-links a{
   font-size:14px;
   font-weight:600;
-  color:#4b5563;
+  color:#4b5563
 }
-
-.nav-links a:hover{
-  color:#2563eb;
-}
+.nav-links a:hover{color:#2563eb}
 
 .nav-buttons{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:10px
 }
 
 .btn{
@@ -116,37 +73,18 @@ header{
   align-items:center;
   justify-content:center;
   gap:7px;
-  transition:.2s;
+  transition:.2s
 }
+.btn:hover{transform:translateY(-2px)}
 
-.btn:hover{
-  transform:translateY(-2px);
-}
-
-.btn-primary{
-  background:#2563eb;
-  color:#fff;
-}
-
-.btn-secondary{
-  background:#eef4ff;
-  color:#2563eb;
-}
-
-.btn-success{
-  background:#16a34a;
-  color:#fff;
-}
-
-.btn-dark{
-  background:#111827;
-  color:#fff;
-}
-
+.btn-primary{background:#2563eb;color:#fff}
+.btn-secondary{background:#eef4ff;color:#2563eb}
+.btn-success{background:#16a34a;color:#fff}
+.btn-dark{background:#111827;color:#fff}
 .btn-outline{
   background:#fff;
   color:#2563eb;
-  border:1px solid #dbe4f5;
+  border:1px solid #dbe4f5
 }
 
 .menu-btn{
@@ -157,51 +95,43 @@ header{
   padding:10px 12px;
   border-radius:10px;
   font-size:20px;
+  cursor:pointer
 }
 
-/* ================= PAGE ================= */
-
-.page{
-  padding:28px 0 70px;
-}
+.page{padding:28px 0 70px}
 
 .breadcrumb{
   font-size:13px;
   color:#6b7280;
-  margin-bottom:18px;
+  margin-bottom:18px
 }
-
-.breadcrumb a{
-  color:#2563eb;
-}
-
-/* ================= HERO ================= */
+.breadcrumb a{color:#2563eb}
 
 .hero{
   background:#fff;
   border:1px solid #e7ebf3;
   border-radius:24px;
   overflow:hidden;
-  box-shadow:0 12px 35px rgba(15,23,42,.06);
+  box-shadow:0 12px 35px rgba(15,23,42,.06)
 }
 
 .hero-grid{
   display:grid;
-  grid-template-columns:1.05fr .95fr;
+  grid-template-columns:1.05fr .95fr
 }
 
 .hero-image{
   min-height:420px;
   position:relative;
   overflow:hidden;
-  background:#e5e7eb;
+  background:#e5e7eb
 }
 
 .hero-image img{
   width:100%;
   height:100%;
   min-height:420px;
-  object-fit:cover;
+  object-fit:cover
 }
 
 .verified{
@@ -213,71 +143,66 @@ header{
   padding:8px 12px;
   border-radius:999px;
   font-size:13px;
-  font-weight:700;
+  font-weight:700
 }
 
-.hero-content{
-  padding:42px;
-}
+.hero-content{padding:42px}
 
 .category{
   color:#2563eb;
   font-weight:700;
   font-size:14px;
-  margin-bottom:8px;
+  margin-bottom:8px
 }
 
 .hero-content h1{
   font-size:42px;
   line-height:1.12;
-  margin-bottom:15px;
+  margin-bottom:15px
 }
 
 .rating{
   display:flex;
   align-items:center;
   gap:8px;
-  margin-bottom:18px;
+  margin-bottom:18px
 }
 
 .stars{
   color:#f59e0b;
   font-size:19px;
-  letter-spacing:1px;
+  letter-spacing:1px
 }
 
-.rating strong{
-  font-size:17px;
-}
-
+.rating strong{font-size:17px}
 .rating span{
   color:#6b7280;
-  font-size:14px;
+  font-size:14px
 }
 
 .hero-description{
   color:#5f6b7a;
-  margin-bottom:22px;
+  margin-bottom:22px
 }
 
 .hero-actions{
   display:flex;
   flex-wrap:wrap;
-  gap:10px;
+  gap:10px
 }
 
 .hero-tools{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
-  margin-top:12px;
+  margin-top:12px
 }
 
 .status-row{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
-  margin-top:22px;
+  margin-top:22px
 }
 
 .info-pill{
@@ -286,34 +211,22 @@ header{
   border-radius:999px;
   padding:8px 12px;
   color:#536072;
-  font-size:13px;
+  font-size:13px
 }
 
-/* ================= SECTIONS ================= */
+.section{margin-top:30px}
 
-.section{
-  margin-top:30px;
-}
-
-.section-title{
-  margin-bottom:16px;
-}
-
+.section-title{margin-bottom:16px}
 .section-title h2{
   font-size:28px;
-  margin-bottom:4px;
+  margin-bottom:4px
 }
-
-.section-title p{
-  color:#6b7280;
-}
-
-/* ================= CONTENT GRID ================= */
+.section-title p{color:#6b7280}
 
 .content-grid{
   display:grid;
   grid-template-columns:1.65fr .75fr;
-  gap:24px;
+  gap:24px
 }
 
 .card{
@@ -321,24 +234,20 @@ header{
   border:1px solid #e7ebf3;
   border-radius:20px;
   padding:25px;
-  box-shadow:0 8px 25px rgba(15,23,42,.04);
+  box-shadow:0 8px 25px rgba(15,23,42,.04)
 }
 
 .card h3{
   font-size:20px;
-  margin-bottom:12px;
+  margin-bottom:12px
 }
 
-.muted{
-  color:#6b7280;
-}
-
-/* ================= GALLERY ================= */
+.muted{color:#6b7280}
 
 .gallery{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:12px;
+  gap:12px
 }
 
 .gallery-item{
@@ -348,65 +257,55 @@ header{
   overflow:hidden;
   cursor:pointer;
   background:#e5e7eb;
-  aspect-ratio:1/1;
+  aspect-ratio:1/1
 }
 
 .gallery-item img{
   width:100%;
   height:100%;
   object-fit:cover;
-  transition:.3s;
+  transition:.3s
 }
 
-.gallery-item:hover img{
-  transform:scale(1.05);
-}
-
-/* ================= DYNAMIC MEDIA ================= */
-
-.media-status{
-  font-size:13px;
-  color:#6b7280;
-  margin-bottom:14px;
-}
+.gallery-item:hover img{transform:scale(1.05)}
 
 .dynamic-media{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:14px;
+  gap:14px
 }
 
 .media-card{
   border:1px solid #e6ebf3;
   border-radius:16px;
   overflow:hidden;
-  background:#fff;
+  background:#fff
 }
 
 .media-preview{
   width:100%;
   aspect-ratio:1/1;
   object-fit:cover;
-  background:#eef1f6;
+  background:#eef1f6
 }
 
 button.media-preview{
   border:0;
   padding:0;
-  cursor:pointer;
+  cursor:pointer
 }
 
 .media-card video{
   width:100%;
   aspect-ratio:1/1;
   object-fit:cover;
-  background:#111827;
+  background:#111827
 }
 
 .media-caption{
   padding:11px 12px;
   font-size:13px;
-  color:#536072;
+  color:#536072
 }
 
 .media-loading{
@@ -414,75 +313,66 @@ button.media-preview{
   text-align:center;
   border:1px dashed #cfd7e5;
   border-radius:16px;
-  color:#6b7280;
+  color:#6b7280
 }
-
-/* ================= SERVICES ================= */
 
 .services{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:14px;
+  gap:14px
 }
 
 .service{
   padding:18px;
   background:#f8faff;
   border:1px solid #e7edf8;
-  border-radius:16px;
+  border-radius:16px
 }
 
-.service h4{
-  margin-bottom:5px;
-}
-
+.service h4{margin-bottom:5px}
 .service p{
   color:#6b7280;
-  font-size:14px;
+  font-size:14px
 }
 
 .price{
   color:#2563eb;
   font-weight:800;
-  margin-top:8px;
+  margin-top:8px
 }
-
-/* ================= OFFERS ================= */
 
 .offers{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:14px;
+  gap:14px
 }
 
 .offer{
   border-radius:17px;
   padding:20px;
   background:#eff6ff;
-  border:1px solid #dbeafe;
+  border:1px solid #dbeafe
 }
 
 .offer strong{
   color:#1d4ed8;
-  font-size:20px;
+  font-size:20px
 }
 
 .offer p{
   color:#5f6b7a;
-  margin-top:5px;
+  margin-top:5px
 }
-
-/* ================= SIDEBAR ================= */
 
 .contact-list{
   display:grid;
-  gap:14px;
+  gap:14px
 }
 
 .contact-item{
   display:flex;
   gap:12px;
-  align-items:flex-start;
+  align-items:flex-start
 }
 
 .contact-icon{
@@ -494,34 +384,36 @@ button.media-preview{
   display:flex;
   align-items:center;
   justify-content:center;
-  flex:none;
+  flex:none
 }
 
 .contact-item small{
   display:block;
   color:#8a94a4;
-  margin-bottom:2px;
+  margin-bottom:2px
 }
 
 .map-box{
   margin-top:18px;
   border-radius:15px;
   min-height:170px;
-  background:
-    linear-gradient(135deg,#e8eef7,#dce5f3);
+  background:linear-gradient(135deg,#e8eef7,#dce5f3);
   display:flex;
   align-items:center;
   justify-content:center;
   color:#526174;
   text-align:center;
-  padding:20px;
+  padding:20px
 }
 
-/* ================= ENQUIRY ================= */
+.map-box a{
+  color:#2563eb;
+  font-weight:700
+}
 
 .form{
   display:grid;
-  gap:13px;
+  gap:13px
 }
 
 .form input,
@@ -531,18 +423,18 @@ button.media-preview{
   border-radius:12px;
   padding:13px 14px;
   font:inherit;
-  outline:none;
+  outline:none
 }
 
 .form input:focus,
 .form textarea:focus{
   border-color:#2563eb;
-  box-shadow:0 0 0 3px rgba(37,99,235,.1);
+  box-shadow:0 0 0 3px rgba(37,99,235,.1)
 }
 
 .form textarea{
   min-height:120px;
-  resize:vertical;
+  resize:vertical
 }
 
 .success-message{
@@ -552,14 +444,12 @@ button.media-preview{
   color:#15803d;
   border:1px solid #bbf7d0;
   border-radius:12px;
-  margin-top:10px;
+  margin-top:10px
 }
-
-/* ================= RATING ================= */
 
 .rating-bars{
   display:grid;
-  gap:10px;
+  gap:10px
 }
 
 .rating-row{
@@ -567,24 +457,22 @@ button.media-preview{
   grid-template-columns:25px 1fr 45px;
   gap:8px;
   align-items:center;
-  font-size:13px;
+  font-size:13px
 }
 
 .bar{
   height:8px;
   background:#edf0f5;
   border-radius:20px;
-  overflow:hidden;
+  overflow:hidden
 }
 
 .bar span{
   display:block;
   height:100%;
   background:#f59e0b;
-  border-radius:20px;
+  border-radius:20px
 }
-
-/* ================= CTA ================= */
 
 .cta{
   margin-top:30px;
@@ -595,47 +483,38 @@ button.media-preview{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:20px;
+  gap:20px
 }
 
-.cta h2{
-  margin-bottom:5px;
-}
-
-.cta p{
-  color:#c5cad3;
-}
-
-/* ================= FOOTER ================= */
+.cta h2{margin-bottom:5px}
+.cta p{color:#c5cad3}
 
 footer{
   background:#111827;
   color:#c8ced8;
   padding:30px 0;
-  margin-top:40px;
+  margin-top:40px
 }
 
 .footer-row{
   display:flex;
   justify-content:space-between;
   gap:20px;
-  flex-wrap:wrap;
+  flex-wrap:wrap
 }
 
 .footer-logo{
   color:#fff;
   font-size:22px;
-  font-weight:800;
+  font-weight:800
 }
 
 .footer-links{
   display:flex;
   gap:18px;
   flex-wrap:wrap;
-  font-size:14px;
+  font-size:14px
 }
-
-/* ================= LIGHTBOX ================= */
 
 .lightbox{
   position:fixed;
@@ -645,12 +524,10 @@ footer{
   align-items:center;
   justify-content:center;
   z-index:3000;
-  padding:20px;
+  padding:20px
 }
 
-.lightbox.active{
-  display:flex;
-}
+.lightbox.active{display:flex}
 
 .lightbox-content{
   max-width:1000px;
@@ -658,14 +535,14 @@ footer{
   max-height:90vh;
   display:flex;
   align-items:center;
-  justify-content:center;
+  justify-content:center
 }
 
 .lightbox-content img,
 .lightbox-content video{
   max-width:100%;
   max-height:85vh;
-  border-radius:12px;
+  border-radius:12px
 }
 
 .close-lightbox{
@@ -679,10 +556,8 @@ footer{
   background:#fff;
   color:#111827;
   font-size:24px;
-  cursor:pointer;
+  cursor:pointer
 }
-
-/* ================= TOAST ================= */
 
 .toast{
   position:fixed;
@@ -697,108 +572,42 @@ footer{
   pointer-events:none;
   transition:.25s;
   z-index:4000;
-  font-size:14px;
+  font-size:14px
 }
 
 .toast.show{
   opacity:1;
-  transform:translateX(-50%) translateY(0);
+  transform:translateX(-50%) translateY(0)
 }
 
-/* ================= MOBILE BAR ================= */
-
-.mobile-action-bar{
-  display:none;
-}
-
-/* ================= MOBILE ================= */
+.mobile-action-bar{display:none}
 
 @media(max-width:900px){
-
-  .nav-links,
-  .nav-buttons{
-    display:none;
-  }
-
-  .menu-btn{
-    display:block;
-  }
-
-  .hero-grid{
-    grid-template-columns:1fr;
-  }
-
-  .hero-image,
-  .hero-image img{
-    min-height:300px;
-  }
-
-  .hero-content{
-    padding:28px;
-  }
-
-  .hero-content h1{
-    font-size:34px;
-  }
-
-  .content-grid{
-    grid-template-columns:1fr;
-  }
-
+  .nav-links,.nav-buttons{display:none}
+  .menu-btn{display:block}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-image,.hero-image img{min-height:300px}
+  .hero-content{padding:28px}
+  .hero-content h1{font-size:34px}
+  .content-grid{grid-template-columns:1fr}
   .cta{
     flex-direction:column;
-    align-items:flex-start;
+    align-items:flex-start
   }
-
 }
 
 @media(max-width:650px){
-
-  body{
-    padding-bottom:72px;
-  }
-
-  .page{
-    padding-top:18px;
-  }
-
-  .hero{
-    border-radius:18px;
-  }
-
-  .hero-image,
-  .hero-image img{
-    min-height:260px;
-  }
-
-  .hero-content{
-    padding:22px;
-  }
-
-  .hero-content h1{
-    font-size:30px;
-  }
-
-  .hero-actions .btn{
-    flex:1;
-  }
-
-  .gallery{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .dynamic-media{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .services,
-  .offers{
-    grid-template-columns:1fr;
-  }
-
-  .card{
-    padding:19px;
-  }
+  body{padding-bottom:72px}
+  .page{padding-top:18px}
+  .hero{border-radius:18px}
+  .hero-image,.hero-image img{min-height:260px}
+  .hero-content{padding:22px}
+  .hero-content h1{font-size:30px}
+  .hero-actions .btn{flex:1}
+  .gallery{grid-template-columns:repeat(2,1fr)}
+  .dynamic-media{grid-template-columns:repeat(2,1fr)}
+  .services,.offers{grid-template-columns:1fr}
+  .card{padding:19px}
 
   .mobile-action-bar{
     position:fixed;
@@ -812,7 +621,7 @@ footer{
     background:rgba(255,255,255,.97);
     border-top:1px solid #dfe4ed;
     z-index:2000;
-    box-shadow:0 -5px 20px rgba(0,0,0,.08);
+    box-shadow:0 -5px 20px rgba(0,0,0,.08)
   }
 
   .mobile-action-bar a,
@@ -825,102 +634,75 @@ footer{
     background:#eef4ff;
     color:#2563eb;
     text-align:center;
-    cursor:pointer;
+    cursor:pointer
   }
 
   .mobile-action-bar .whatsapp{
     background:#ecfdf5;
-    color:#15803d;
+    color:#15803d
   }
 
   .mobile-action-bar .enquiry{
     background:#2563eb;
-    color:#fff;
+    color:#fff
   }
 
   .mobile-action-bar .share{
     background:#111827;
-    color:#fff;
+    color:#fff
   }
-
 }
-
 </style>
-
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
-
 <header>
-
   <div class="container nav">
 
     <a href="index.html" class="logo">
       Boostly<span>.</span>
     </a>
 
-    <nav class="nav-links">
-
+    <nav class="nav-links" id="mainNav">
       <a href="index.html">Home</a>
-
       <a href="explore.html">Explore</a>
-
       <a href="explore.html#categories">Categories</a>
-
       <a href="explore.html#businesses">Businesses</a>
-
       <a href="#contact">Contact</a>
-
     </nav>
 
     <div class="nav-buttons">
-
       <a href="index.html#grow" class="btn btn-primary">
         Get Started
       </a>
-
     </div>
 
     <button
       class="menu-btn"
       id="menuBtn"
+      type="button"
       aria-label="Open menu"
-    >
-      ☰
-    </button>
+    >☰</button>
 
   </div>
-
 </header>
-
-
-<!-- ================= MAIN ================= -->
 
 <main class="page">
 
 <div class="container">
 
   <div class="breadcrumb">
-
-    <a href="index.html">Home</a>
-    /
-    <a href="explore.html">Explore</a>
-    /
+    <a href="index.html">Home</a> /
+    <a href="explore.html">Explore</a> /
     <span id="breadcrumbName">Business Profile</span>
-
   </div>
-
-
-  <!-- ================= HERO ================= -->
 
   <section class="hero">
 
     <div class="hero-grid">
 
       <div class="hero-image">
-
         <img
           src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=85"
           alt="Business"
@@ -931,18 +713,14 @@ footer{
         <div class="verified">
           ✓ Verified Business
         </div>
-
       </div>
-
 
       <div class="hero-content">
 
         <div
           class="category"
           data-business-category
-        >
-          Beauty & Hair
-        </div>
+        >Beauty & Hair</div>
 
         <h1 data-business-name>
           Royal Look Salon
@@ -950,18 +728,13 @@ footer{
 
         <div class="rating">
 
-          <div class="stars">
-            ★★★★★
-          </div>
+          <div class="stars">★★★★★</div>
 
           <strong>4.8</strong>
 
-          <span>
-            126 reviews
-          </span>
+          <span>126 reviews</span>
 
         </div>
-
 
         <p
           class="hero-description"
@@ -970,13 +743,13 @@ footer{
           Professional beauty and hair services for your everyday style and special occasions.
         </p>
 
-
         <div class="hero-actions">
 
           <a
             href="#"
             class="btn btn-primary"
             data-business-call
+            id="callBtn"
           >
             ☎ Call
           </a>
@@ -985,6 +758,7 @@ footer{
             href="#"
             class="btn btn-success"
             data-business-whatsapp
+            id="whatsappBtn"
             target="_blank"
             rel="noopener"
           >
@@ -993,13 +767,12 @@ footer{
 
           <a
             href="#enquiry"
-            class="btn btn-secondary"
+            class="btn btn-secondary enquiry-link"
           >
             Enquiry
           </a>
 
         </div>
-
 
         <div class="hero-tools">
 
@@ -1016,3 +789,1712 @@ footer{
             type="button"
             id="saveBtn"
           >
+            ♡ Save
+          </button>
+
+        </div>
+
+        <div class="status-row">
+
+          <div class="info-pill" id="cityPill">
+            📍 Loading city...
+          </div>
+
+          <div class="info-pill">
+            ✓ Boostly Listed
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ABOUT -->
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>About This Business</h2>
+      <p>Everything you need to know about this local business.</p>
+    </div>
+
+    <div class="card">
+
+      <h3>Business Description</h3>
+
+      <p
+        class="muted"
+        id="aboutDescription"
+      >
+        Professional beauty and hair services for your everyday style and special occasions.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- MEDIA -->
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>Photos & Media</h2>
+      <p>Latest photos and media uploaded by this business.</p>
+    </div>
+
+    <div class="card">
+
+      <div
+        class="media-status"
+        id="mediaStatus"
+      >
+        Loading business media...
+      </div>
+
+      <div
+        class="dynamic-media"
+        id="dynamicMedia"
+      ></div>
+
+      <div
+        class="media-loading"
+        id="mediaEmpty"
+        style="display:none"
+      >
+        No additional business media available yet.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SERVICES + SIDEBAR -->
+
+  <section class="section">
+
+    <div class="content-grid">
+
+      <div>
+
+        <div class="section-title">
+          <h2>Services</h2>
+          <p>Popular services offered by this business.</p>
+        </div>
+
+        <div class="card">
+
+          <div class="services">
+
+            <div class="service">
+              <h4>Haircut & Styling</h4>
+              <p>Professional haircut and modern styling.</p>
+              <div class="price">Contact for price</div>
+            </div>
+
+            <div class="service">
+              <h4>Hair Coloring</h4>
+              <p>Hair coloring and styling for your look.</p>
+              <div class="price">Contact for price</div>
+            </div>
+
+            <div class="service">
+              <h4>Facial</h4>
+              <p>Beauty facial and skin care service.</p>
+              <div class="price">Contact for price</div>
+            </div>
+
+            <div class="service">
+              <h4>Makeup</h4>
+              <p>Makeup services for events and special occasions.</p>
+              <div class="price">Contact for price</div>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="section">
+
+          <div class="section-title">
+            <h2>Special Offers</h2>
+            <p>Deals available from this business.</p>
+          </div>
+
+          <div class="card">
+
+            <div class="offers">
+
+              <div class="offer">
+                <strong>10% OFF</strong>
+                <p>Selected salon services.</p>
+              </div>
+
+              <div class="offer">
+                <strong>New Customer</strong>
+                <p>Ask the business about current offers.</p>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- SIDEBAR -->
+
+      <aside>
+
+        <div class="card" id="contact">
+
+          <h3>Contact Business</h3>
+
+          <div class="contact-list">
+
+            <div class="contact-item">
+
+              <div class="contact-icon">☎</div>
+
+              <div>
+                <small>Phone</small>
+                <a
+                  href="#"
+                  id="contactPhone"
+                  data-business-call
+                >Loading...</a>
+              </div>
+
+            </div>
+
+
+            <div class="contact-item">
+
+              <div class="contact-icon">💬</div>
+
+              <div>
+                <small>WhatsApp</small>
+                <a
+                  href="#"
+                  id="contactWhatsapp"
+                  data-business-whatsapp
+                  target="_blank"
+                  rel="noopener"
+                >Open WhatsApp</a>
+              </div>
+
+            </div>
+
+
+            <div class="contact-item">
+
+              <div class="contact-icon">📍</div>
+
+              <div>
+                <small>Address</small>
+                <span id="contactAddress">Loading...</span>
+              </div>
+
+            </div>
+
+
+            <div class="contact-item">
+
+              <div class="contact-icon">🏙️</div>
+
+              <div>
+                <small>City</small>
+                <span id="contactCity">Loading...</span>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="map-box"
+            id="mapBox"
+          >
+            📍 Business location will appear here.
+          </div>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+  </section>
+
+
+  <!-- ENQUIRY -->
+
+  <section
+    class="section"
+    id="enquiry"
+  >
+
+    <div class="section-title">
+      <h2>Send an Enquiry</h2>
+      <p>Contact this business directly through Boostly.</p>
+    </div>
+
+    <div class="card">
+
+      <form
+        class="form"
+        id="enquiryForm"
+      >
+
+        <input
+          type="text"
+          id="enquiryName"
+          placeholder="Your Name"
+          required
+        >
+
+        <input
+          type="tel"
+          id="enquiryPhone"
+          placeholder="Your Phone Number"
+          required
+        >
+
+        <input
+          type="email"
+          id="enquiryEmail"
+          placeholder="Your Email (optional)"
+        >
+
+        <textarea
+          id="enquiryMessage"
+          placeholder="Write your enquiry..."
+          required
+        ></textarea>
+
+        <button
+          class="btn btn-primary"
+          type="submit"
+        >
+          Send Enquiry
+        </button>
+
+      </form>
+
+      <div
+        class="success-message"
+        id="enquirySuccess"
+      >
+        ✓ Your enquiry has been prepared successfully. The business can be contacted using the information above.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- RATINGS -->
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>Customer Ratings</h2>
+      <p>Rating overview for this business.</p>
+    </div>
+
+    <div class="card">
+
+      <div class="rating">
+
+        <div class="stars">★★★★★</div>
+
+        <strong>4.8</strong>
+
+        <span>Based on 126 reviews</span>
+
+      </div>
+
+      <div class="rating-bars">
+
+        <div class="rating-row">
+          <span>5</span>
+          <div class="bar"><span style="width:88%"></span></div>
+          <span>88%</span>
+        </div>
+
+        <div class="rating-row">
+          <span>4</span>
+          <div class="bar"><span style="width:8%"></span></div>
+          <span>8%</span>
+        </div>
+
+        <div class="rating-row">
+          <span>3</span>
+          <div class="bar"><span style="width:3%"></span></div>
+          <span>3%</span>
+        </div>
+
+        <div class="rating-row">
+          <span>2</span>
+          <div class="bar"><span style="width:1%"></span></div>
+          <span>1%</span>
+        </div>
+
+        <div class="rating-row">
+          <span>1</span>
+          <div class="bar"><span style="width:0%"></span></div>
+          <span>0%</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+
+  <section class="cta">
+
+    <div>
+      <h2>Want more customers?</h2>
+      <p>Grow your local business with Boostly.</p>
+    </div>
+
+    <a
+      href="index.html#grow"
+      class="btn btn-primary"
+    >
+      Get Started
+    </a>
+
+  </section>
+
+</div>
+
+</main>
+
+
+<footer>
+
+  <div class="container footer-row">
+
+    <div>
+      <div class="footer-logo">Boostly.</div>
+      <div>Helping local businesses grow online.</div>
+    </div>
+
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="index.html#grow">Get Started</a>
+    </div>
+
+  </div>
+
+</footer>
+
+
+<!-- LIGHTBOX -->
+
+<div
+  class="lightbox"
+  id="lightbox"
+>
+
+  <button
+    class="close-lightbox"
+    id="closeLightbox"
+    type="button"
+    aria-label="Close"
+  >×</button>
+
+  <div
+    class="lightbox-content"
+    id="lightboxContent"
+  ></div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+  class="toast"
+  id="toast"
+></div>
+
+
+<!-- MOBILE ACTION BAR -->
+
+<div class="mobile-action-bar">
+
+  <a
+    href="#"
+    id="mobileCallBtn"
+  >☎ Call</a>
+
+  <a
+    href="#"
+    class="whatsapp"
+    id="mobileWhatsappBtn"
+    target="_blank"
+    rel="noopener"
+  >WhatsApp</a>
+
+  <a
+    href="#enquiry"
+    class="enquiry enquiry-link"
+  >Enquiry</a>
+
+  <button
+    class="share"
+    id="mobileShareBtn"
+    type="button"
+  >↗ Share</button>
+
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+  "use strict";
+
+  /* =========================================
+     BUSINESS ID
+  ========================================= */
+
+  const params = new URLSearchParams(window.location.search);
+
+  const businessId =
+    params.get("business_id") ||
+    params.get("id") ||
+    "1";
+
+
+  /* =========================================
+     ELEMENTS
+  ========================================= */
+
+  const toast = document.getElementById("toast");
+
+  const businessNameElements =
+    document.querySelectorAll("[data-business-name]");
+
+  const categoryElements =
+    document.querySelectorAll("[data-business-category]");
+
+  const descriptionElements =
+    document.querySelectorAll("[data-business-description]");
+
+  const callButtons =
+    document.querySelectorAll("[data-business-call]");
+
+  const whatsappButtons =
+    document.querySelectorAll("[data-business-whatsapp]");
+
+
+  /* =========================================
+     TOAST
+  ========================================= */
+
+  function showToast(message){
+
+    if(!toast) return;
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(window.boostlyToastTimer);
+
+    window.boostlyToastTimer =
+      setTimeout(function(){
+        toast.classList.remove("show");
+      },2500);
+  }
+
+
+  /* =========================================
+     PHONE
+  ========================================= */
+
+  function cleanPhone(value){
+
+    return String(value || "")
+      .trim()
+      .replace(/[^\d+]/g,"");
+  }
+
+
+  /* =========================================
+     WHATSAPP
+  ========================================= */
+
+  function whatsappNumber(value){
+
+    let number =
+      String(value || "")
+        .replace(/\D/g,"");
+
+    /*
+      If Indian number has only 10 digits,
+      automatically add India country code.
+    */
+
+    if(number.length === 10){
+      number = "91" + number;
+    }
+
+    return number;
+  }
+
+
+  /* =========================================
+     SET PHONE BUTTONS
+  ========================================= */
+
+  function setPhone(phone){
+
+    const clean = cleanPhone(phone);
+
+    callButtons.forEach(function(button){
+
+      if(clean){
+
+        button.href = "tel:" + clean;
+        button.removeAttribute("aria-disabled");
+
+      }else{
+
+        button.href = "#";
+        button.setAttribute("aria-disabled","true");
+
+      }
+
+    });
+
+    const contactPhone =
+      document.getElementById("contactPhone");
+
+    if(contactPhone){
+
+      if(clean){
+
+        contactPhone.href = "tel:" + clean;
+        contactPhone.textContent = phone;
+
+      }else{
+
+        contactPhone.href = "#";
+        contactPhone.textContent =
+          "Phone number not available";
+
+      }
+
+    }
+
+    const mobileCall =
+      document.getElementById("mobileCallBtn");
+
+    if(mobileCall){
+
+      if(clean){
+        mobileCall.href = "tel:" + clean;
+      }else{
+        mobileCall.href = "#";
+      }
+
+    }
+
+  }
+
+
+  /* =========================================
+     SET WHATSAPP
+  ========================================= */
+
+  function setWhatsapp(value){
+
+    const number = whatsappNumber(value);
+
+    whatsappButtons.forEach(function(button){
+
+      if(number){
+
+        button.href =
+          "https://wa.me/" + number;
+
+        button.target = "_blank";
+        button.rel = "noopener";
+
+      }else{
+
+        button.href = "#";
+
+      }
+
+    });
+
+    const contactWhatsapp =
+      document.getElementById("contactWhatsapp");
+
+    if(contactWhatsapp){
+
+      if(number){
+
+        contactWhatsapp.href =
+          "https://wa.me/" + number;
+
+        contactWhatsapp.target = "_blank";
+        contactWhatsapp.rel = "noopener";
+
+      }else{
+
+        contactWhatsapp.href = "#";
+        contactWhatsapp.textContent =
+          "WhatsApp not available";
+
+      }
+
+    }
+
+    const mobileWhatsapp =
+      document.getElementById("mobileWhatsappBtn");
+
+    if(mobileWhatsapp){
+
+      if(number){
+
+        mobileWhatsapp.href =
+          "https://wa.me/" + number;
+
+      }else{
+
+        mobileWhatsapp.href = "#";
+
+      }
+
+    }
+
+  }
+
+
+  /* =========================================
+     LOAD BUSINESS
+  ========================================= */
+
+  async function loadBusiness(){
+
+    try{
+
+      const response =
+        await fetch(
+          "/api/business?id=" +
+          encodeURIComponent(businessId),
+          {
+            method:"GET",
+            cache:"no-store"
+          }
+        );
+
+      if(!response.ok){
+        throw new Error(
+          "Business API returned " +
+          response.status
+        );
+      }
+
+      const data =
+        await response.json();
+
+      if(!data.success || !data.business){
+
+        throw new Error(
+          data.error ||
+          "Business data not found."
+        );
+
+      }
+
+      const business = data.business;
+
+
+      /* NAME */
+
+      const name =
+        business.business_name ||
+        "Business Profile";
+
+      businessNameElements.forEach(function(element){
+        element.textContent = name;
+      });
+
+      const breadcrumb =
+        document.getElementById("breadcrumbName");
+
+      if(breadcrumb){
+        breadcrumb.textContent = name;
+      }
+
+      document.title =
+        name + " | Boostly";
+
+
+      /* CATEGORY */
+
+      if(business.category){
+
+        categoryElements.forEach(function(element){
+          element.textContent =
+            business.category;
+        });
+
+      }
+
+
+      /* DESCRIPTION */
+
+      const description =
+        business.description ||
+        "Discover this local business on Boostly.";
+
+      descriptionElements.forEach(function(element){
+        element.textContent =
+          description;
+      });
+
+      const aboutDescription =
+        document.getElementById(
+          "aboutDescription"
+        );
+
+      if(aboutDescription){
+        aboutDescription.textContent =
+          description;
+      }
+
+
+      /* PHONE */
+
+      setPhone(business.phone);
+
+
+      /* WHATSAPP */
+
+      setWhatsapp(
+        business.whatsapp ||
+        business.phone
+      );
+
+
+      /* CITY */
+
+      const city =
+        business.city ||
+        "Location not available";
+
+      const cityPill =
+        document.getElementById("cityPill");
+
+      if(cityPill){
+        cityPill.textContent =
+          "📍 " + city;
+      }
+
+      const contactCity =
+        document.getElementById("contactCity");
+
+      if(contactCity){
+        contactCity.textContent =
+          city;
+      }
+
+
+      /* ADDRESS */
+
+      const address =
+        business.address ||
+        "Address not available";
+
+      const contactAddress =
+        document.getElementById(
+          "contactAddress"
+        );
+
+      if(contactAddress){
+        contactAddress.textContent =
+          address;
+      }
+
+
+      /* MAP */
+
+      const mapBox =
+        document.getElementById("mapBox");
+
+      if(mapBox){
+
+        const mapQuery =
+          encodeURIComponent(
+            (business.address || "") +
+            " " +
+            (business.city || "")
+          );
+
+        if(business.address || business.city){
+
+          mapBox.innerHTML =
+            '<a href="https://www.google.com/maps/search/?api=1&query=' +
+            mapQuery +
+            '" target="_blank" rel="noopener">' +
+            '📍 Open Business Location in Google Maps' +
+            '</a>';
+
+        }
+
+      }
+
+
+      /* HERO IMAGE */
+
+      if(business.image){
+
+        const heroImage =
+          document.getElementById(
+            "businessHeroImage"
+          );
+
+        if(heroImage){
+          heroImage.src =
+            business.image;
+        }
+
+      }
+
+      window.boostlyBusiness =
+        business;
+
+      updateSaveButton();
+
+    }catch(error){
+
+      console.error(
+        "Business loading error:",
+        error
+      );
+
+      showToast(
+        "Business details could not be loaded."
+      );
+
+    }
+
+  }
+
+
+  /* =========================================
+     LOAD MEDIA
+  ========================================= */
+
+  async function loadMedia(){
+
+    const mediaContainer =
+      document.getElementById(
+        "dynamicMedia"
+      );
+
+    const mediaStatus =
+      document.getElementById(
+        "mediaStatus"
+      );
+
+    const mediaEmpty =
+      document.getElementById(
+        "mediaEmpty"
+      );
+
+    if(!mediaContainer) return;
+
+    try{
+
+      const response =
+        await fetch(
+          "/api/media?business_id=" +
+          encodeURIComponent(businessId),
+          {
+            method:"GET",
+            cache:"no-store"
+          }
+        );
+
+      if(!response.ok){
+        throw new Error(
+          "Media API returned " +
+          response.status
+        );
+      }
+
+      const data =
+        await response.json();
+
+      mediaContainer.innerHTML = "";
+
+      let mediaList = [];
+
+      if(Array.isArray(data)){
+        mediaList = data;
+      }else if(Array.isArray(data.media)){
+        mediaList = data.media;
+      }else if(Array.isArray(data.data)){
+        mediaList = data.data;
+      }else if(
+        data.success &&
+        Array.isArray(data.results)
+      ){
+        mediaList = data.results;
+      }
+
+
+      if(!mediaList.length){
+
+        if(mediaStatus){
+          mediaStatus.textContent =
+            "No additional media uploaded yet.";
+        }
+
+        if(mediaEmpty){
+          mediaEmpty.style.display =
+            "block";
+        }
+
+        return;
+
+      }
+
+
+      if(mediaStatus){
+        mediaStatus.textContent =
+          mediaList.length +
+          " media item" +
+          (mediaList.length === 1 ? "" : "s") +
+          " available.";
+      }
+
+
+      if(mediaEmpty){
+        mediaEmpty.style.display =
+          "none";
+      }
+
+
+      mediaList.forEach(function(media){
+
+        const url =
+          media.url ||
+          media.media_url ||
+          media.secure_url ||
+          media.file_url ||
+          media.src;
+
+        if(!url) return;
+
+        const type =
+          String(
+            media.type ||
+            media.media_type ||
+            media.resource_type ||
+            ""
+          ).toLowerCase();
+
+        const card =
+          document.createElement("div");
+
+        card.className =
+          "media-card";
+
+
+        const caption =
+          document.createElement("div");
+
+        caption.className =
+          "media-caption";
+
+        caption.textContent =
+          media.caption ||
+          media.title ||
+          (
+            type.includes("video")
+              ? "Business video"
+              : "Business photo"
+          );
+
+
+        if(
+          type.includes("video") ||
+          /\.(mp4|webm|mov|m4v)(\?|$)/i.test(url)
+        ){
+
+          const video =
+            document.createElement("video");
+
+          video.src = url;
+          video.controls = true;
+          video.preload = "metadata";
+
+          card.appendChild(video);
+
+        }else{
+
+          const button =
+            document.createElement("button");
+
+          button.type = "button";
+          button.className =
+            "media-preview";
+
+          const image =
+            document.createElement("img");
+
+          image.src = url;
+          image.alt =
+            media.caption ||
+            "Business photo";
+
+          image.loading = "lazy";
+
+          button.appendChild(image);
+
+          button.addEventListener(
+            "click",
+            function(){
+              openLightbox(
+                url,
+                "image"
+              );
+            }
+          );
+
+          card.appendChild(button);
+
+        }
+
+        card.appendChild(caption);
+
+        mediaContainer.appendChild(card);
+
+      });
+
+
+    }catch(error){
+
+      console.error(
+        "Media loading error:",
+        error
+      );
+
+      if(mediaStatus){
+        mediaStatus.textContent =
+          "Business media is currently unavailable.";
+      }
+
+      if(mediaEmpty){
+        mediaEmpty.style.display =
+          "block";
+        mediaEmpty.textContent =
+          "No additional business media available yet.";
+      }
+
+    }
+
+  }
+
+
+  /* =========================================
+     LIGHTBOX
+  ========================================= */
+
+  function openLightbox(url,type){
+
+    const lightbox =
+      document.getElementById(
+        "lightbox"
+      );
+
+    const content =
+      document.getElementById(
+        "lightboxContent"
+      );
+
+    if(!lightbox || !content) return;
+
+    content.innerHTML = "";
+
+    if(type === "video"){
+
+      const video =
+        document.createElement("video");
+
+      video.src = url;
+      video.controls = true;
+      video.autoplay = true;
+
+      content.appendChild(video);
+
+    }else{
+
+      const image =
+        document.createElement("img");
+
+      image.src = url;
+      image.alt =
+        "Business image";
+
+      content.appendChild(image);
+
+    }
+
+    lightbox.classList.add("active");
+
+  }
+
+
+  function closeLightbox(){
+
+    const lightbox =
+      document.getElementById(
+        "lightbox"
+      );
+
+    const content =
+      document.getElementById(
+        "lightboxContent"
+      );
+
+    if(lightbox){
+      lightbox.classList.remove(
+        "active"
+      );
+    }
+
+    if(content){
+      content.innerHTML = "";
+    }
+
+  }
+
+
+  const closeLightboxButton =
+    document.getElementById(
+      "closeLightbox"
+    );
+
+  if(closeLightboxButton){
+
+    closeLightboxButton.addEventListener(
+      "click",
+      closeLightbox
+    );
+
+  }
+
+
+  const lightbox =
+    document.getElementById(
+      "lightbox"
+    );
+
+  if(lightbox){
+
+    lightbox.addEventListener(
+      "click",
+      function(event){
+
+        if(event.target === lightbox){
+          closeLightbox();
+        }
+
+      }
+    );
+
+  }
+
+
+  document.addEventListener(
+    "keydown",
+    function(event){
+
+      if(event.key === "Escape"){
+        closeLightbox();
+      }
+
+    }
+  );
+
+
+  /* =========================================
+     SHARE
+  ========================================= */
+
+  async function shareProfile(){
+
+    const url =
+      window.location.href;
+
+    const business =
+      window.boostlyBusiness;
+
+    const name =
+      business &&
+      business.business_name
+        ? business.business_name
+        : "this business";
+
+    try{
+
+      if(
+        navigator.share &&
+        typeof navigator.share === "function"
+      ){
+
+        await navigator.share({
+          title:
+            name + " | Boostly",
+          text:
+            "Check out " +
+            name +
+            " on Boostly.",
+          url:url
+        });
+
+        return;
+
+      }
+
+
+      if(
+        navigator.clipboard &&
+        window.isSecureContext
+      ){
+
+        await navigator.clipboard.writeText(
+          url
+        );
+
+        showToast(
+          "Profile link copied!"
+        );
+
+        return;
+
+      }
+
+
+      const textArea =
+        document.createElement(
+          "textarea"
+        );
+
+      textArea.value = url;
+
+      textArea.style.position =
+        "fixed";
+
+      textArea.style.opacity = "0";
+
+      document.body.appendChild(
+        textArea
+      );
+
+      textArea.focus();
+      textArea.select();
+
+      document.execCommand(
+        "copy"
+      );
+
+      document.body.removeChild(
+        textArea
+      );
+
+      showToast(
+        "Profile link copied!"
+      );
+
+    }catch(error){
+
+      console.log(
+        "Share cancelled:",
+        error
+      );
+
+    }
+
+  }
+
+
+  const shareButtons =
+    document.querySelectorAll(
+      "#shareBtn,#mobileShareBtn"
+    );
+
+  shareButtons.forEach(function(button){
+
+    button.addEventListener(
+      "click",
+      shareProfile
+    );
+
+  });
+
+
+  /* =========================================
+     SAVE
+  ========================================= */
+
+  const saveKey =
+    "boostly_saved_business_" +
+    businessId;
+
+
+  function isSaved(){
+
+    try{
+      return localStorage.getItem(
+        saveKey
+      ) === "true";
+    }catch(error){
+      return false;
+    }
+
+  }
+
+
+  function updateSaveButton(){
+
+    const saved =
+      isSaved();
+
+    const saveButton =
+      document.getElementById(
+        "saveBtn"
+      );
+
+    if(saveButton){
+
+      saveButton.textContent =
+        saved
+          ? "♥ Saved"
+          : "♡ Save";
+
+    }
+
+  }
+
+
+  function toggleSave(){
+
+    try{
+
+      const saved =
+        isSaved();
+
+      if(saved){
+
+        localStorage.removeItem(
+          saveKey
+        );
+
+        showToast(
+          "Business removed from saved."
+        );
+
+      }else{
+
+        localStorage.setItem(
+          saveKey,
+          "true"
+        );
+
+        showToast(
+          "Business saved!"
+        );
+
+      }
+
+      updateSaveButton();
+
+    }catch(error){
+
+      showToast(
+        "Save feature is unavailable."
+      );
+
+    }
+
+  }
+
+
+  const saveButton =
+    document.getElementById(
+      "saveBtn"
+    );
+
+  if(saveButton){
+
+    saveButton.addEventListener(
+      "click",
+      toggleSave
+    );
+
+  }
+
+
+  /* =========================================
+     ENQUIRY SCROLL
+  ========================================= */
+
+  document
+    .querySelectorAll(".enquiry-link")
+    .forEach(function(button){
+
+      button.addEventListener(
+        "click",
+        function(event){
+
+          event.preventDefault();
+
+          const section =
+            document.getElementById(
+              "enquiry"
+            );
+
+          if(section){
+
+            section.scrollIntoView({
+              behavior:"smooth",
+              block:"start"
+            });
+
+          }
+
+        }
+      );
+
+    });
+
+
+  /* =========================================
+     ENQUIRY FORM
+  ========================================= */
+
+  const enquiryForm =
+    document.getElementById(
+      "enquiryForm"
+    );
+
+  if(enquiryForm){
+
+    enquiryForm.addEventListener(
+      "submit",
+      function(event){
+
+        event.preventDefault();
+
+        const success =
+          document.getElementById(
+            "enquirySuccess"
+          );
+
+        if(success){
+
+          success.style.display =
+            "block";
+
+          success.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+          });
+
+        }
+
+        showToast(
+          "Enquiry submitted!"
+        );
+
+        enquiryForm.reset();
+
+      }
+    );
+
+  }
+
+
+  /* =========================================
+     MOBILE MENU
+  ========================================= */
+
+  const menuButton =
+    document.getElementById(
+      "menuBtn"
+    );
+
+  const mainNav =
+    document.getElementById(
+      "mainNav"
+    );
+
+  if(menuButton && mainNav){
+
+    menuButton.addEventListener(
+      "click",
+      function(){
+
+        const isOpen =
+          mainNav.style.display === "flex";
+
+        if(isOpen){
+
+          mainNav.style.display = "";
+
+        }else{
+
+          mainNav.style.display =
+            "flex";
+
+          mainNav.style.position =
+            "absolute";
+
+          mainNav.style.top =
+            "72px";
+
+          mainNav.style.left = "0";
+          mainNav.style.right = "0";
+
+          mainNav.style.background =
+            "#fff";
+
+          mainNav.style.padding =
+            "20px";
+
+          mainNav.style.flexDirection =
+            "column";
+
+          mainNav.style.alignItems =
+            "flex-start";
+
+          mainNav.style.borderBottom =
+            "1px solid #e7ebf3";
+
+          mainNav.style.boxShadow =
+            "0 10px 25px rgba(0,0,0,.08)";
+
+        }
+
+      }
+    );
+
+
+    mainNav
+      .querySelectorAll("a")
+      .forEach(function(link){
+
+        link.addEventListener(
+          "click",
+          function(){
+
+            if(
+              window.innerWidth <= 900
+            ){
+
+              mainNav.style.display =
+                "";
+
+            }
+
+          }
+        );
+
+      });
+
+  }
+
+
+  /* =========================================
+     HANDLE EMPTY PHONE/WHATSAPP CLICKS
+  ========================================= */
+
+  callButtons.forEach(function(button){
+
+    button.addEventListener(
+      "click",
+      function(event){
+
+        if(
+          button.getAttribute(
+            "href"
+          ) === "#"
+        ){
+
+          event.preventDefault();
+
+          showToast(
+            "Phone number not available."
+          );
+
+        }
+
+      }
+    );
+
+  });
+
+
+  whatsappButtons.forEach(function(button){
+
+    button.addEventListener(
+      "click",
+      function(event){
+
+        if(
+          button.getAttribute(
+            "href"
+          ) === "#"
+        ){
+
+          event.preventDefault();
+
+          showToast(
+            "WhatsApp number not available."
+          );
+
+        }
+
+      }
+    );
+
+  });
+
+
+  /* =========================================
+     START
+  ========================================= */
+
+  loadBusiness();
+  loadMedia();
+
+});
+</script>
+
+</body>
+</html>
