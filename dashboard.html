@@ -200,7 +200,27 @@ header{
   line-height:1.6;
 }
 
+.welcome > *,
+.card > *,
+.stat > *,
+.header-right > *{
+  position:relative;
+  z-index:2;
+}
 
+header,
+.container,
+footer{
+  position:relative;
+  z-index:1;
+}
+
+button,
+a{
+  position:relative;
+  z-index:5;
+  pointer-events:auto;
+}
 /* =========================================================
    STATS
 ========================================================= */
@@ -575,8 +595,8 @@ header{
   background:linear-gradient(135deg,var(--blue),var(--purple));
   opacity:.09;
   animation:boostlyFloat 5s ease-in-out infinite;
+pointer-events:none;
 }
-
 .media-header{
   position:relative;
   display:flex;
