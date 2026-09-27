@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boostly Command Center</title>
+<title>Boostly | Business Command Center</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -14,696 +15,1354 @@
 }
 
 :root{
-  --bg:#070b16;
-  --panel:#0e1424;
-  --panel2:#11192b;
-  --border:rgba(255,255,255,.08);
-  --text:#f8fafc;
-  --muted:#8d99ad;
-  --blue:#4f8cff;
-  --purple:#8b5cf6;
-  --cyan:#22d3ee;
-  --green:#22c55e;
-  --red:#ef4444;
+  --royal:#4c1d95;
+  --royal2:#6d28d9;
+  --sapphire:#1d4ed8;
+  --blue:#2563eb;
+  --gold:#c59b45;
+  --gold2:#e5c477;
+
+  --bg:#f7f5f1;
+  --surface:#ffffff;
+  --surface2:#fbf9f5;
+
+  --text:#18152a;
+  --muted:#716d7d;
+
+  --border:#ebe5da;
+
+  --shadow:
+    0 14px 40px rgba(42,27,75,.09);
 }
 
+
+/* =========================
+   BODY
+========================= */
+
 body{
-  font-family:Inter,Arial,Helvetica,sans-serif;
+  font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+
   background:
-    radial-gradient(circle at 10% 0%,rgba(79,140,255,.16),transparent 30%),
-    radial-gradient(circle at 90% 10%,rgba(139,92,246,.13),transparent 28%),
-    var(--bg);
+    radial-gradient(
+      circle at 0% 0%,
+      rgba(109,40,217,.09),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(37,99,235,.07),
+      transparent 25%
+    ),
+    linear-gradient(
+      135deg,
+      #faf9f6,
+      #f4f1eb
+    );
+
   color:var(--text);
+
   min-height:100vh;
+
   overflow-x:hidden;
 }
 
-/* TOP BAR */
+
+/* =========================
+   TOP BAR
+========================= */
 
 .topbar{
   height:72px;
+
   padding:0 4%;
+
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
-  border-bottom:1px solid var(--border);
-  background:rgba(7,11,22,.82);
-  backdrop-filter:blur(18px);
+
+  background:
+    rgba(255,255,255,.92);
+
+  backdrop-filter:
+    blur(18px);
+
+  border-bottom:
+    1px solid
+    rgba(197,155,69,.18);
+
   position:sticky;
+
   top:0;
+
   z-index:100;
+
+  box-shadow:
+    0 4px 25px
+    rgba(45,31,80,.05);
 }
+
 
 .logo{
   display:flex;
+
   align-items:center;
+
   gap:10px;
+
   font-size:23px;
+
   font-weight:900;
+
   letter-spacing:-.5px;
 }
 
+
 .logo-mark{
-  width:36px;
-  height:36px;
-  border-radius:11px;
+  width:37px;
+  height:37px;
+
+  border-radius:12px;
+
   display:flex;
+
   align-items:center;
   justify-content:center;
-  background:linear-gradient(135deg,var(--blue),var(--purple));
-  box-shadow:0 0 25px rgba(79,140,255,.35);
+
+  color:#fff;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--royal),
+      var(--sapphire)
+    );
+
+  box-shadow:
+    0 7px 20px
+    rgba(76,29,149,.22),
+
+    inset 0 1px 1px
+    rgba(255,255,255,.3);
 }
 
+
 .logo span{
-  background:linear-gradient(90deg,#fff,#9db9ff);
+  background:
+    linear-gradient(
+      90deg,
+      #25164b,
+      #5b21b6,
+      #9a742d
+    );
+
   -webkit-background-clip:text;
+
   -webkit-text-fill-color:transparent;
 }
 
+
 .top-actions{
   display:flex;
+
   align-items:center;
-  gap:12px;
+
+  gap:10px;
 }
+
 
 .explore{
   text-decoration:none;
-  color:#b9c5da;
+
+  color:#574f67;
+
   font-size:14px;
-  font-weight:700;
+
+  font-weight:800;
+
   padding:10px 14px;
+
   border-radius:10px;
+
+  transition:.2s;
 }
+
 
 .explore:hover{
-  background:rgba(255,255,255,.06);
-  color:#fff;
+  background:#f4effa;
+
+  color:var(--royal);
 }
+
 
 .logout{
-  border:1px solid rgba(239,68,68,.25);
-  background:rgba(239,68,68,.08);
-  color:#ff8d8d;
+  border:
+    1px solid
+    rgba(185,28,28,.14);
+
+  background:#fff6f6;
+
+  color:#b42323;
+
   padding:9px 14px;
+
   border-radius:10px;
+
   font-weight:800;
+
   cursor:pointer;
+
+  transition:.2s;
 }
 
+
 .logout:hover{
-  background:rgba(239,68,68,.16);
+  background:#fff0f0;
 }
+
 
 .avatar{
   width:40px;
   height:40px;
+
   border-radius:12px;
+
   display:flex;
+
   align-items:center;
   justify-content:center;
-  background:linear-gradient(135deg,var(--blue),var(--purple));
+
+  color:#fff;
+
   font-weight:900;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--royal),
+      var(--sapphire)
+    );
+
+  box-shadow:
+    0 7px 20px
+    rgba(76,29,149,.18);
 }
 
-/* MAIN */
+
+/* =========================
+   MAIN
+========================= */
 
 .shell{
   width:92%;
+
   max-width:1380px;
+
   margin:0 auto;
+
   padding:34px 0 80px;
 }
 
-/* HERO */
+
+/* =========================
+   HERO
+========================= */
 
 .hero{
   display:flex;
+
   justify-content:space-between;
+
   align-items:flex-end;
+
   gap:25px;
+
   margin-bottom:30px;
 }
 
+
 .hero-copy small{
-  color:#6f7d95;
+  color:#9a742d;
+
   text-transform:uppercase;
+
   letter-spacing:2px;
+
   font-size:11px;
+
   font-weight:900;
 }
 
+
 .hero h1{
   margin-top:8px;
+
   font-size:38px;
+
   letter-spacing:-1.5px;
+
+  color:#211b31;
 }
 
+
 .hero h1 span{
-  background:linear-gradient(90deg,#fff,#7ea9ff,#a78bfa);
+  background:
+    linear-gradient(
+      90deg,
+      #4c1d95,
+      #6d28d9,
+      #a67c32
+    );
+
   -webkit-background-clip:text;
+
   -webkit-text-fill-color:transparent;
 }
 
+
 .hero p{
   color:var(--muted);
+
   margin-top:8px;
+
   line-height:1.6;
 }
 
+
 .hero-status{
   display:flex;
+
   align-items:center;
+
   gap:8px;
+
   padding:11px 14px;
-  border:1px solid rgba(34,197,94,.2);
-  background:rgba(34,197,94,.06);
+
+  border:
+    1px solid
+    rgba(197,155,69,.25);
+
+  background:
+    linear-gradient(
+      135deg,
+      #fffdf7,
+      #f9f3e7
+    );
+
   border-radius:12px;
-  color:#7ee7a1;
+
+  color:#806329;
+
   font-size:13px;
+
   font-weight:800;
+
   white-space:nowrap;
+
+  box-shadow:
+    0 5px 18px
+    rgba(88,63,20,.06);
 }
+
 
 .dot{
   width:7px;
   height:7px;
+
   border-radius:50%;
-  background:#22c55e;
-  box-shadow:0 0 12px #22c55e;
+
+  background:#22a05a;
+
+  box-shadow:
+    0 0 10px
+    rgba(34,160,90,.45);
 }
 
-/* STATS */
+
+/* =========================
+   STATS
+========================= */
 
 .stats{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+
+  grid-template-columns:
+    repeat(4,1fr);
+
   gap:14px;
+
   margin-bottom:20px;
 }
+
 
 .stat{
   position:relative;
+
   overflow:hidden;
+
   padding:20px;
+
   min-height:130px;
-  background:linear-gradient(145deg,rgba(17,25,43,.96),rgba(10,15,27,.96));
-  border:1px solid var(--border);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.98),
+      rgba(250,247,241,.98)
+    );
+
+  border:
+    1px solid
+    var(--border);
+
   border-radius:18px;
+
+  box-shadow:
+    var(--shadow);
+
   transition:.3s;
 }
 
+
 .stat:hover{
-  transform:translateY(-3px);
-  border-color:rgba(79,140,255,.3);
-  box-shadow:0 15px 35px rgba(0,0,0,.25);
+  transform:translateY(-4px);
+
+  border-color:
+    rgba(109,40,217,.22);
+
+  box-shadow:
+    0 20px 45px
+    rgba(52,32,91,.12);
 }
+
 
 .stat::after{
   content:"";
+
   position:absolute;
-  width:90px;
-  height:90px;
-  right:-30px;
-  bottom:-40px;
+
+  width:100px;
+  height:100px;
+
+  right:-35px;
+  bottom:-45px;
+
   border-radius:50%;
-  background:rgba(79,140,255,.12);
-  filter:blur(4px);
-}
 
-.stat-icon{
-  font-size:19px;
-  margin-bottom:15px;
-}
+  background:
+    radial-gradient(
+      circle,
+      rgba(109,40,217,.11),
+      transparent 68%
+    );
 
-.stat-value{
-  font-size:30px;
-  font-weight:900;
-  letter-spacing:-1px;
-}
-
-.stat-label{
-  color:#7e8aa0;
-  font-size:13px;
-  margin-top:4px;
-}
-
-.stat-trend{
-  position:absolute;
-  right:16px;
-  top:18px;
-  font-size:11px;
-  color:#69df91;
-  font-weight:800;
-}
-
-/* GRID */
-
-.main-grid{
-  display:grid;
-  grid-template-columns:minmax(0,2fr) minmax(280px,1fr);
-  gap:18px;
-}
-
-.card{
-  background:linear-gradient(145deg,rgba(16,23,39,.97),rgba(9,14,25,.97));
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:22px;
-  margin-bottom:18px;
-  box-shadow:0 12px 40px rgba(0,0,0,.16);
-}
-
-.card-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:20px;
-}
-
-.card-title{
-  font-size:17px;
-  font-weight:900;
-}
-
-.card-sub{
-  color:#68758c;
-  font-size:12px;
-  margin-top:4px;
-}
-
-.view-link{
-  text-decoration:none;
-  color:#79a7ff;
-  font-size:12px;
-  font-weight:800;
-}
-
-/* BUSINESS */
-
-.business-card{
-  position:relative;
-  overflow:hidden;
-}
-
-.business-card::before{
-  content:"";
-  position:absolute;
-  width:250px;
-  height:250px;
-  top:-140px;
-  right:-80px;
-  background:radial-gradient(circle,rgba(79,140,255,.22),transparent 65%);
   pointer-events:none;
 }
 
+
+.stat-icon{
+  font-size:19px;
+
+  margin-bottom:15px;
+}
+
+
+.stat-value{
+  font-size:30px;
+
+  font-weight:900;
+
+  letter-spacing:-1px;
+
+  color:#2c2148;
+}
+
+
+.stat-label{
+  color:#777182;
+
+  font-size:13px;
+
+  margin-top:4px;
+}
+
+
+.stat-trend{
+  position:absolute;
+
+  right:16px;
+  top:18px;
+
+  font-size:10px;
+
+  color:#8b6a2c;
+
+  font-weight:900;
+
+  letter-spacing:.5px;
+}
+
+
+/* =========================
+   MAIN GRID
+========================= */
+
+.main-grid{
+  display:grid;
+
+  grid-template-columns:
+    minmax(0,2fr)
+    minmax(280px,1fr);
+
+  gap:18px;
+}
+
+
+.card{
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.98),
+      rgba(251,249,245,.98)
+    );
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:20px;
+
+  padding:22px;
+
+  margin-bottom:18px;
+
+  box-shadow:
+    var(--shadow);
+
+  transition:.3s;
+}
+
+
+.card:hover{
+  box-shadow:
+    0 18px 45px
+    rgba(51,34,82,.11);
+}
+
+
+.card-head{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:15px;
+
+  margin-bottom:20px;
+}
+
+
+.card-title{
+  font-size:17px;
+
+  font-weight:900;
+
+  color:#251c39;
+}
+
+
+.card-sub{
+  color:#8a8493;
+
+  font-size:12px;
+
+  margin-top:4px;
+}
+
+
+.view-link{
+  text-decoration:none;
+
+  color:#6340b5;
+
+  font-size:12px;
+
+  font-weight:900;
+}
+
+
+/* =========================
+   BUSINESS
+========================= */
+
+.business-card{
+  position:relative;
+
+  overflow:hidden;
+}
+
+
+.business-card::before{
+  content:"";
+
+  position:absolute;
+
+  width:300px;
+  height:300px;
+
+  top:-180px;
+  right:-100px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(109,40,217,.12),
+      transparent 67%
+    );
+
+  pointer-events:none;
+}
+
+
 .business-main{
   display:flex;
+
   gap:17px;
+
   align-items:center;
+
   position:relative;
 }
+
 
 .business-avatar{
   width:78px;
   height:78px;
+
   flex-shrink:0;
+
   border-radius:20px;
+
   display:flex;
+
   align-items:center;
   justify-content:center;
+
   font-size:28px;
+
   font-weight:900;
-  background:linear-gradient(135deg,#315fe8,#8b5cf6);
-  box-shadow:0 10px 30px rgba(79,140,255,.22);
+
+  color:#fff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #4c1d95,
+      #2563eb
+    );
+
+  box-shadow:
+    0 12px 28px
+    rgba(76,29,149,.2);
 }
+
 
 .business-name{
   font-size:24px;
+
   font-weight:900;
+
   margin-bottom:7px;
+
+  color:#21192f;
 }
+
 
 .badges{
   display:flex;
+
   flex-wrap:wrap;
+
   gap:7px;
 }
 
+
 .badge{
   padding:5px 9px;
+
   border-radius:8px;
+
   font-size:10px;
+
   font-weight:900;
+
   text-transform:uppercase;
+
   letter-spacing:.4px;
 }
 
+
 .badge-category{
-  color:#8eb4ff;
-  background:rgba(79,140,255,.1);
-  border:1px solid rgba(79,140,255,.16);
+  color:#5b21b6;
+
+  background:#f2eafe;
+
+  border:
+    1px solid
+    #e5d8fa;
 }
 
+
 .badge-active{
-  color:#73e59a;
-  background:rgba(34,197,94,.08);
-  border:1px solid rgba(34,197,94,.14);
+  color:#187743;
+
+  background:#eefaf2;
+
+  border:
+    1px solid
+    #d6f0df;
 }
+
 
 .business-info{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+
+  grid-template-columns:
+    repeat(2,1fr);
+
   gap:10px;
+
   margin:20px 0;
 }
 
+
 .info-box{
   padding:13px;
-  background:rgba(255,255,255,.025);
-  border:1px solid rgba(255,255,255,.055);
+
+  background:
+    linear-gradient(
+      145deg,
+      #fff,
+      #faf8f3
+    );
+
+  border:
+    1px solid
+    #eee8dd;
+
   border-radius:12px;
 }
 
+
 .info-box small{
   display:block;
-  color:#69768c;
+
+  color:#968f9d;
+
   font-size:10px;
+
   text-transform:uppercase;
+
   letter-spacing:.8px;
+
   margin-bottom:5px;
 }
 
+
 .info-box strong{
   font-size:13px;
-  color:#dbe3f0;
+
+  color:#40384c;
+
   word-break:break-word;
 }
 
+
 .description{
-  color:#8995a9;
+  color:#777182;
+
   line-height:1.65;
+
   font-size:13px;
+
   margin-bottom:18px;
 }
 
+
 .actions{
   display:flex;
+
   flex-wrap:wrap;
+
   gap:9px;
 }
 
+
 .btn{
   display:inline-flex;
+
   align-items:center;
+
   justify-content:center;
+
   text-decoration:none;
+
   border:none;
+
   cursor:pointer;
+
   padding:11px 15px;
+
   border-radius:11px;
+
   font-size:12px;
+
   font-weight:900;
+
+  transition:.25s;
 }
+
 
 .btn-primary{
   color:#fff;
-  background:linear-gradient(135deg,#3975f6,#7054df);
-  box-shadow:0 8px 22px rgba(79,140,255,.2);
+
+  background:
+    linear-gradient(
+      135deg,
+      #4c1d95,
+      #2563eb
+    );
+
+  box-shadow:
+    0 9px 22px
+    rgba(76,29,149,.18);
 }
+
+
+.btn-primary:hover{
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 13px 28px
+    rgba(76,29,149,.25);
+}
+
 
 .btn-secondary{
-  color:#a9c5ff;
-  background:rgba(79,140,255,.08);
-  border:1px solid rgba(79,140,255,.16);
+  color:#5b21b6;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f5effd,
+      #edf3ff
+    );
+
+  border:
+    1px solid
+    #e2d8f3;
 }
 
-/* ACTIVITY */
+
+.btn-secondary:hover{
+  transform:translateY(-2px);
+
+  background:#eee6fa;
+}
+
+
+/* =========================
+   ACTIVITY
+========================= */
 
 .activity{
   min-height:280px;
 }
 
+
 .chart{
   height:190px;
+
   display:flex;
+
   align-items:flex-end;
+
   gap:9px;
+
   padding:20px 4px 0;
-  border-bottom:1px solid rgba(255,255,255,.06);
+
+  border-bottom:
+    1px solid
+    #eee9e1;
 }
+
 
 .bar-wrap{
   height:100%;
+
   flex:1;
+
   display:flex;
+
   align-items:flex-end;
 }
 
+
 .bar{
   width:100%;
+
   min-height:18px;
-  border-radius:7px 7px 2px 2px;
-  background:linear-gradient(180deg,#6d9cff,#4f46e5);
-  opacity:.9;
+
+  border-radius:
+    7px 7px 2px 2px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #7c3aed,
+      #2563eb
+    );
+
+  opacity:.82;
+
   transition:.35s;
 }
 
+
 .bar:hover{
   opacity:1;
+
   transform:scaleY(1.04);
-  box-shadow:0 0 18px rgba(79,140,255,.3);
+
+  box-shadow:
+    0 0 18px
+    rgba(109,40,217,.22);
 }
+
 
 .labels{
   display:flex;
+
   gap:9px;
+
   margin-top:8px;
 }
 
+
 .labels span{
   flex:1;
+
   text-align:center;
-  color:#59667b;
+
+  color:#918a99;
+
   font-size:10px;
 }
 
-/* RIGHT SIDE */
+
+/* =========================
+   PROFILE SCORE
+========================= */
 
 .profile-score{
   display:flex;
+
   align-items:center;
+
   gap:15px;
 }
+
 
 .score-circle{
   width:72px;
   height:72px;
+
   border-radius:50%;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
+
   background:
-    radial-gradient(circle at center,#0e1424 57%,transparent 58%),
-    conic-gradient(#4f8cff 0deg 302deg,#1b263b 302deg);
+    radial-gradient(
+      circle at center,
+      #fff 57%,
+      transparent 58%
+    ),
+    conic-gradient(
+      #6d28d9 0deg 302deg,
+      #eee9e2 302deg
+    );
+
   font-size:18px;
+
   font-weight:900;
+
+  color:#4c1d95;
+
+  box-shadow:
+    0 5px 18px
+    rgba(76,29,149,.08);
 }
+
 
 .score-text strong{
   display:block;
+
   font-size:15px;
+
+  color:#332942;
 }
 
+
 .score-text span{
-  color:#77849a;
+  color:#85808e;
+
   font-size:11px;
 }
 
-/* QUICK ACTIONS */
+
+/* =========================
+   QUICK ACTIONS
+========================= */
 
 .quick{
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    1fr 1fr;
+
   gap:9px;
 }
 
+
 .quick-item{
   text-decoration:none;
-  color:#d8e0ed;
+
+  color:#433b4f;
+
   padding:15px 12px;
+
   border-radius:13px;
-  background:rgba(255,255,255,.025);
-  border:1px solid rgba(255,255,255,.055);
+
+  background:
+    linear-gradient(
+      145deg,
+      #fff,
+      #faf7f2
+    );
+
+  border:
+    1px solid
+    #eee8de;
+
   transition:.25s;
 }
 
+
 .quick-item:hover{
-  transform:translateY(-2px);
-  border-color:rgba(79,140,255,.28);
-  background:rgba(79,140,255,.07);
+  transform:translateY(-3px);
+
+  border-color:#d8c8ed;
+
+  background:#faf6ff;
+
+  box-shadow:
+    0 10px 25px
+    rgba(70,43,100,.08);
 }
+
 
 .quick-icon{
   font-size:19px;
+
   margin-bottom:9px;
 }
 
+
 .quick-item strong{
   display:block;
+
   font-size:12px;
 }
 
+
 .quick-item small{
-  color:#68758a;
+  color:#918a99;
+
   font-size:10px;
 }
 
-/* ACCOUNT */
+
+/* =========================
+   ACCOUNT
+========================= */
 
 .account-row{
   display:flex;
+
   align-items:center;
+
   gap:12px;
+
   padding:11px 0;
-  border-bottom:1px solid rgba(255,255,255,.05);
+
+  border-bottom:
+    1px solid
+    #eee9e1;
 }
+
 
 .account-row:last-child{
   border-bottom:0;
 }
 
+
 .account-icon{
   width:32px;
   height:32px;
+
   border-radius:9px;
+
   display:flex;
+
   align-items:center;
   justify-content:center;
-  background:rgba(79,140,255,.08);
+
+  background:
+    linear-gradient(
+      135deg,
+      #f1eafe,
+      #edf3ff
+    );
+
+  color:#5b21b6;
+
   font-size:14px;
 }
+
 
 .account-row div:last-child{
   min-width:0;
 }
 
+
 .account-row strong{
   display:block;
+
   font-size:12px;
-  color:#dce5f2;
+
+  color:#433b4f;
 }
+
 
 .account-row span{
   display:block;
-  color:#68758b;
+
+  color:#918a99;
+
   font-size:10px;
+
   margin-top:2px;
+
   word-break:break-word;
 }
 
-/* CTA */
+
+/* =========================
+   CTA
+========================= */
 
 .cta{
   position:relative;
+
   overflow:hidden;
+
   background:
-    radial-gradient(circle at 100% 0%,rgba(139,92,246,.3),transparent 45%),
-    radial-gradient(circle at 0% 100%,rgba(34,211,238,.12),transparent 45%),
-    linear-gradient(135deg,#101a35,#111124);
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(197,155,69,.18),
+      transparent 42%
+    ),
+
+    radial-gradient(
+      circle at 0% 100%,
+      rgba(109,40,217,.12),
+      transparent 45%
+    ),
+
+    linear-gradient(
+      135deg,
+      #fbf7ff,
+      #f4f1ff
+    );
+
+  border-color:#e4d8f2;
 }
+
 
 .cta h2{
   font-size:19px;
+
   margin-bottom:7px;
+
+  color:#332044;
 }
 
+
 .cta p{
-  color:#8491a7;
+  color:#777182;
+
   font-size:12px;
+
   line-height:1.6;
+
   margin-bottom:17px;
 }
 
-/* EMPTY */
+
+/* =========================
+   EMPTY
+========================= */
 
 .empty{
   text-align:center;
+
   padding:28px 10px;
 }
 
+
 .empty-icon{
   font-size:34px;
+
   margin-bottom:10px;
 }
 
+
 .empty h3{
   font-size:16px;
+
   margin-bottom:6px;
+
+  color:#342a40;
 }
 
+
 .empty p{
-  color:#77849a;
+  color:#817b89;
+
   font-size:12px;
+
   line-height:1.6;
 }
 
-/* LOADING */
+
+/* =========================
+   LOADING
+========================= */
 
 .loading{
-  color:#77849a;
+  color:#817b89;
+
   padding:25px 0;
+
   font-size:13px;
 }
 
+
 .error{
-  color:#ff7777;
+  color:#c62828;
 }
 
-/* FOOTER */
+
+/* =========================
+   FOOTER
+========================= */
 
 footer{
   text-align:center;
-  color:#48556a;
+
+  color:#9a94a1;
+
   font-size:10px;
+
   padding:20px;
 }
 
-/* MOBILE NAV */
+
+/* =========================
+   MOBILE NAV
+========================= */
 
 .mobile-nav{
   display:none;
 }
 
-/* ANIMATIONS */
 
-@keyframes fadeUp{
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes royalFade{
+
   from{
     opacity:0;
-    transform:translateY(12px);
+
+    transform:
+      translateY(12px);
   }
+
   to{
     opacity:1;
-    transform:translateY(0);
+
+    transform:
+      translateY(0);
   }
+
 }
+
 
 .hero,
 .stat,
 .card{
-  animation:fadeUp .55s ease both;
+  animation:
+    royalFade .55s ease both;
 }
 
-.stat:nth-child(2){animation-delay:.06s}
-.stat:nth-child(3){animation-delay:.12s}
-.stat:nth-child(4){animation-delay:.18s}
 
-/* RESPONSIVE */
+.stat:nth-child(2){
+  animation-delay:.06s;
+}
+
+
+.stat:nth-child(3){
+  animation-delay:.12s;
+}
+
+
+.stat:nth-child(4){
+  animation-delay:.18s;
+}
+
+
+/* =========================
+   TABLET
+========================= */
 
 @media(max-width:950px){
 
   .stats{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
   .main-grid{
@@ -711,6 +1370,11 @@ footer{
   }
 
 }
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:650px){
 
@@ -720,6 +1384,7 @@ footer{
 
   .topbar{
     height:64px;
+
     padding:0 4%;
   }
 
@@ -730,6 +1395,7 @@ footer{
   .logo-mark{
     width:32px;
     height:32px;
+
     border-radius:9px;
   }
 
@@ -744,17 +1410,21 @@ footer{
   .avatar{
     width:35px;
     height:35px;
+
     border-radius:10px;
   }
 
   .shell{
     width:92%;
+
     padding:25px 0 30px;
   }
 
   .hero{
     align-items:flex-start;
+
     flex-direction:column;
+
     margin-bottom:22px;
   }
 
@@ -767,13 +1437,17 @@ footer{
   }
 
   .stats{
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:
+      1fr 1fr;
+
     gap:9px;
   }
 
   .stat{
     min-height:112px;
+
     padding:16px;
+
     border-radius:15px;
   }
 
@@ -791,7 +1465,9 @@ footer{
 
   .card{
     padding:17px;
+
     border-radius:17px;
+
     margin-bottom:13px;
   }
 
@@ -800,909 +1476,4 @@ footer{
   }
 
   .business-avatar{
-    width:62px;
-    height:62px;
-    border-radius:16px;
-    font-size:22px;
-  }
-
-  .business-name{
-    font-size:19px;
-  }
-
-  .business-info{
-    grid-template-columns:1fr;
-  }
-
-  .actions{
-    flex-direction:column;
-  }
-
-  .btn{
-    width:100%;
-  }
-
-  .quick{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .mobile-nav{
-    position:fixed;
-    display:flex;
-    left:0;
-    right:0;
-    bottom:0;
-    height:61px;
-    background:rgba(9,13,24,.94);
-    backdrop-filter:blur(18px);
-    border-top:1px solid rgba(255,255,255,.08);
-    z-index:200;
-    justify-content:space-around;
-  }
-
-  .mobile-nav a,
-  .mobile-nav button{
-    flex:1;
-    border:0;
-    background:none;
-    color:#68758a;
-    text-decoration:none;
-    font-size:9px;
-    font-weight:800;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:4px;
-  }
-
-  .mobile-nav a:first-child{
-    color:#78a6ff;
-  }
-
-  .mobile-nav span{
-    font-size:18px;
-  }
-
-  .chart{
-    height:155px;
-  }
-
-}
-</style>
-</head>
-
-<body>
-
-<header class="topbar">
-
-  <div class="logo">
-    <div class="logo-mark">B</div>
-    <span>Boostly</span>
-  </div>
-
-  <div class="top-actions">
-
-    <a href="explore.html" class="explore">
-      Explore
-    </a>
-
-    <button class="logout" onclick="logoutUser()">
-      Logout
-    </button>
-
-    <div class="avatar" id="avatar">
-      B
-    </div>
-
-  </div>
-
-</header>
-
-
-<main class="shell">
-
-  <section class="hero">
-
-    <div class="hero-copy">
-
-      <small>Business Command Center</small>
-
-      <h1>
-        Welcome back,
-        <span id="userName">Boostly User</span>
-      </h1>
-
-      <p>
-        Your business, customers and Boostly presence — all in one place.
-      </p>
-
-    </div>
-
-    <div class="hero-status">
-      <span class="dot"></span>
-      Account Active
-    </div>
-
-  </section>
-
-
-  <!-- STATS -->
-
-  <section class="stats">
-
-    <div class="stat">
-      <div class="stat-icon">👁️</div>
-      <div class="stat-value">0</div>
-      <div class="stat-label">Profile Views</div>
-      <div class="stat-trend">LIVE</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-icon">💬</div>
-      <div class="stat-value">0</div>
-      <div class="stat-label">Customer Enquiries</div>
-      <div class="stat-trend">NEW</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-icon">📞</div>
-      <div class="stat-value">0</div>
-      <div class="stat-label">Calls</div>
-      <div class="stat-trend">TRACKED</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-icon">🟢</div>
-      <div class="stat-value">0</div>
-      <div class="stat-label">WhatsApp Leads</div>
-      <div class="stat-trend">READY</div>
-    </div>
-
-  </section>
-
-
-  <div class="main-grid">
-
-    <div>
-
-      <!-- BUSINESS -->
-
-      <section class="card business-card">
-
-        <div class="card-head">
-
-          <div>
-            <div class="card-title">Your Business</div>
-            <div class="card-sub">
-              Manage your public Boostly presence
-            </div>
-          </div>
-
-          <a href="business-profile.html" class="view-link">
-            EDIT →
-          </a>
-
-        </div>
-
-
-        <div id="businessLoading" class="loading">
-          Loading your business...
-        </div>
-
-
-        <div id="businessContent" style="display:none;">
-
-          <div class="business-main">
-
-            <div class="business-avatar" id="businessInitial">
-              B
-            </div>
-
-            <div>
-
-              <div class="business-name" id="businessName">
-                Business Name
-              </div>
-
-              <div class="badges">
-
-                <span class="badge badge-category" id="businessCategory">
-                  Business
-                </span>
-
-                <span class="badge badge-active">
-                  ✓ Active
-                </span>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="business-info">
-
-            <div class="info-box">
-              <small>City</small>
-              <strong id="businessCity">Not added</strong>
-            </div>
-
-            <div class="info-box">
-              <small>Address</small>
-              <strong id="businessAddress">Not added</strong>
-            </div>
-
-            <div class="info-box">
-              <small>Phone</small>
-              <strong id="businessPhone">Not added</strong>
-            </div>
-
-            <div class="info-box">
-              <small>WhatsApp</small>
-              <strong id="businessWhatsapp">Not added</strong>
-            </div>
-
-          </div>
-
-
-          <p class="description" id="businessDescription">
-            No business description added yet.
-          </p>
-
-
-          <div class="actions">
-
-            <a
-              href="business-profile.html"
-              class="btn btn-primary"
-            >
-              ✏️ Edit Profile
-            </a>
-
-            <a
-              href="#"
-              id="viewProfileBtn"
-              class="btn btn-secondary"
-            >
-              👁️ View Public Profile
-            </a>
-
-          </div>
-
-        </div>
-
-
-        <div id="noBusiness" class="empty" style="display:none;">
-
-          <div class="empty-icon">🚀</div>
-
-          <h3>Launch your Boostly profile</h3>
-
-          <p>
-            Create your business profile and start building your local presence.
-          </p>
-
-          <br>
-
-          <a
-            href="business-profile.html"
-            class="btn btn-primary"
-          >
-            Create Business Profile
-          </a>
-
-        </div>
-
-      </section>
-
-
-      <!-- ACTIVITY -->
-
-      <section class="card activity">
-
-        <div class="card-head">
-
-          <div>
-            <div class="card-title">Profile Activity</div>
-            <div class="card-sub">
-              Your weekly profile activity
-            </div>
-          </div>
-
-          <span class="view-link">7 DAYS</span>
-
-        </div>
-
-
-        <div class="chart">
-
-          <div class="bar-wrap">
-            <div class="bar" style="height:35%;"></div>
-          </div>
-
-          <div class="bar-wrap">
-            <div class="bar" style="height:52%;"></div>
-          </div>
-
-          <div class="bar-wrap">
-            <div class="bar" style="height:42%;"></div>
-          </div>
-
-          <div class="bar-wrap">
-            <div class="bar" style="height:66%;"></div>
-          </div>
-
-          <div class="bar-wrap">
-            <div class="bar" style="height:55%;"></div>
-          </div>
-
-          <div class="bar-wrap">
-            <div class="bar" style="height:82%;"></div>
-          </div>
-
-          <div class="bar-wrap">
-            <div class="bar" style="height:70%;"></div>
-          </div>
-
-        </div>
-
-        <div class="labels">
-          <span>Mon</span>
-          <span>Tue</span>
-          <span>Wed</span>
-          <span>Thu</span>
-          <span>Fri</span>
-          <span>Sat</span>
-          <span>Sun</span>
-        </div>
-
-      </section>
-
-
-      <!-- ACCOUNT -->
-
-      <section class="card">
-
-        <div class="card-head">
-
-          <div>
-            <div class="card-title">Account Details</div>
-            <div class="card-sub">
-              Your Boostly account information
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="account-row">
-
-          <div class="account-icon">👤</div>
-
-          <div>
-            <strong id="accountName">Loading...</strong>
-            <span>Name</span>
-          </div>
-
-        </div>
-
-
-        <div class="account-row">
-
-          <div class="account-icon">📧</div>
-
-          <div>
-            <strong id="accountEmail">Loading...</strong>
-            <span>Email</span>
-          </div>
-
-        </div>
-
-
-        <div class="account-row">
-
-          <div class="account-icon">📱</div>
-
-          <div>
-            <strong id="accountPhone">Not added</strong>
-            <span>Phone</span>
-          </div>
-
-        </div>
-
-
-        <div class="account-row">
-
-          <div class="account-icon">📍</div>
-
-          <div>
-            <strong id="accountCity">Not added</strong>
-            <span>City</span>
-          </div>
-
-        </div>
-
-
-        <div class="account-row">
-
-          <div class="account-icon">⭐</div>
-
-          <div>
-            <strong id="accountType">Loading...</strong>
-            <span>Account Type</span>
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- ENQUIRIES -->
-
-      <section class="card">
-
-        <div class="card-head">
-
-          <div>
-            <div class="card-title">Recent Enquiries</div>
-            <div class="card-sub">
-              Customer activity will appear here
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="empty">
-
-          <div class="empty-icon">📭</div>
-
-          <h3>No enquiries yet</h3>
-
-          <p>
-            When customers contact your business through Boostly,
-            their enquiries will appear here.
-          </p>
-
-        </div>
-
-      </section>
-
-    </div>
-
-
-    <!-- RIGHT COLUMN -->
-
-    <aside>
-
-
-      <!-- PROFILE SCORE -->
-
-      <section class="card">
-
-        <div class="card-head">
-
-          <div>
-            <div class="card-title">Profile Health</div>
-            <div class="card-sub">
-              Keep your profile complete
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="profile-score">
-
-          <div class="score-circle">
-            84%
-          </div>
-
-          <div class="score-text">
-
-            <strong>Good progress</strong>
-
-            <span>
-              Complete more details to improve your profile.
-            </span>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- QUICK ACTIONS -->
-
-      <section class="card">
-
-        <div class="card-head">
-
-          <div>
-            <div class="card-title">Quick Actions</div>
-            <div class="card-sub">
-              Jump where you need to go
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="quick">
-
-          <a
-            href="business-profile.html"
-            class="quick-item"
-          >
-            <div class="quick-icon">✏️</div>
-            <strong>Edit Profile</strong>
-            <small>Update details</small>
-          </a>
-
-
-          <a
-            href="explore.html"
-            class="quick-item"
-          >
-            <div class="quick-icon">🔎</div>
-            <strong>Explore</strong>
-            <small>Find businesses</small>
-          </a>
-
-
-          <a
-            href="business.html?business_id=1"
-            id="quickPublicProfile"
-            class="quick-item"
-          >
-            <div class="quick-icon">🌐</div>
-            <strong>Public Profile</strong>
-            <small>View your page</small>
-          </a>
-
-
-          <a
-            href="index.html"
-            class="quick-item"
-          >
-            <div class="quick-icon">🏠</div>
-            <strong>Homepage</strong>
-            <small>Go to Boostly</small>
-          </a>
-
-        </div>
-
-      </section>
-
-
-      <!-- ACCOUNT SUMMARY -->
-
-      <section class="card">
-
-        <div class="card-head">
-
-          <div>
-            <div class="card-title">Account</div>
-            <div class="card-sub">
-              Signed in account
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="account-row">
-
-          <div class="account-icon">👤</div>
-
-          <div>
-            <strong id="sideAccountName">
-              Loading...
-            </strong>
-
-            <span id="sideAccountEmail">
-              Loading...
-            </span>
-          </div>
-
-        </div>
-
-
-        <div class="account-row">
-
-          <div class="account-icon">💼</div>
-
-          <div>
-            <strong id="sideAccountType">
-              Loading...
-            </strong>
-
-            <span>
-              Account Type
-            </span>
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- CTA -->
-
-      <section class="card cta">
-
-        <h2>Grow with Boostly 🚀</h2>
-
-        <p>
-          Build your local presence, connect with customers and
-          manage your business from one powerful platform.
-        </p>
-
-        <a
-          href="explore.html"
-          class="btn btn-primary"
-          style="width:100%;"
-        >
-          Explore Boostly
-        </a>
-
-      </section>
-
-
-    </aside>
-
-  </div>
-
-</main>
-
-
-<footer>
-  © 2026 Boostly · Business Command Center
-</footer>
-
-
-<!-- MOBILE NAV -->
-
-<nav class="mobile-nav">
-
-  <a href="dashboard.html">
-    <span>⌂</span>
-    Dashboard
-  </a>
-
-  <a href="business-profile.html">
-    <span>✎</span>
-    Profile
-  </a>
-
-  <a href="explore.html">
-    <span>⌕</span>
-    Explore
-  </a>
-
-  <button onclick="logoutUser()">
-    <span>↪</span>
-    Logout
-  </button>
-
-</nav>
-
-
-<script>
-
-async function loadDashboard(){
-
-  try{
-
-    const userResponse =
-      await fetch("/api/me");
-
-    if(!userResponse.ok){
-
-      window.location.href =
-        "/login.html";
-
-      return;
-
-    }
-
-
-    const user =
-      await userResponse.json();
-
-
-    /* USER */
-
-    document.getElementById("userName").textContent =
-      user.full_name || "Boostly User";
-
-    document.getElementById("accountName").textContent =
-      user.full_name || "Not added";
-
-    document.getElementById("accountEmail").textContent =
-      user.email || "Not added";
-
-    document.getElementById("accountPhone").textContent =
-      user.phone || "Not added";
-
-    document.getElementById("accountCity").textContent =
-      user.city || "Not added";
-
-
-    const accountType =
-      user.account_type === "business"
-      ? "Business Owner"
-      : "Customer";
-
-
-    document.getElementById("accountType").textContent =
-      accountType;
-
-    document.getElementById("sideAccountName").textContent =
-      user.full_name || "Boostly User";
-
-    document.getElementById("sideAccountEmail").textContent =
-      user.email || "Not added";
-
-    document.getElementById("sideAccountType").textContent =
-      accountType;
-
-
-    const firstLetter =
-      (user.full_name || "B")
-      .charAt(0)
-      .toUpperCase();
-
-
-    document.getElementById("avatar").textContent =
-      firstLetter;
-
-
-    /* BUSINESS */
-
-    const businessResponse =
-      await fetch("/api/my-business");
-
-
-    if(businessResponse.status === 404){
-
-      document.getElementById("businessLoading").style.display =
-        "none";
-
-      document.getElementById("noBusiness").style.display =
-        "block";
-
-      return;
-
-    }
-
-
-    if(!businessResponse.ok){
-
-      throw new Error(
-        "Business information could not be loaded."
-      );
-
-    }
-
-
-    const business =
-      await businessResponse.json();
-
-
-    document.getElementById("businessLoading").style.display =
-      "none";
-
-    document.getElementById("businessContent").style.display =
-      "block";
-
-
-    document.getElementById("businessName").textContent =
-      business.business_name || "Business Name";
-
-
-    document.getElementById("businessCategory").textContent =
-      business.category || "Business";
-
-
-    document.getElementById("businessCity").textContent =
-      business.city || "Not added";
-
-
-    document.getElementById("businessAddress").textContent =
-      business.address || "Not added";
-
-
-    document.getElementById("businessPhone").textContent =
-      business.phone || "Not added";
-
-
-    document.getElementById("businessWhatsapp").textContent =
-      business.whatsapp || "Not added";
-
-
-    document.getElementById("businessDescription").textContent =
-      business.description ||
-      "No business description added yet.";
-
-
-    const businessInitial =
-      (business.business_name || "B")
-      .charAt(0)
-      .toUpperCase();
-
-
-    document.getElementById("businessInitial").textContent =
-      businessInitial;
-
-
-    const publicProfile =
-      "business.html?business_id=" +
-      encodeURIComponent(business.id);
-
-
-    document.getElementById("viewProfileBtn").href =
-      publicProfile;
-
-
-    document.getElementById("quickPublicProfile").href =
-      publicProfile;
-
-
-  }catch(error){
-
-    console.error(error);
-
-    document.getElementById("businessLoading").innerHTML =
-      '<span class="error">Unable to load business information.</span>';
-
-  }
-
-}
-
-
-async function logoutUser(){
-
-  try{
-
-    const response =
-      await fetch("/api/logout",{
-        method:"POST"
-      });
-
-
-    if(response.redirected){
-
-      window.location.href =
-        response.url;
-
-      return;
-
-    }
-
-
-    window.location.href =
-      "/login.html";
-
-
-  }catch(error){
-
-    console.error(error);
-
-    window.location.href =
-      "/login.html";
-
-  }
-
-}
-
-
-loadDashboard();
-
-</script>
-
-</body>
-</html>
+    width:62
