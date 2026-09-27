@@ -94,7 +94,7 @@ body{padding-bottom:65px}.topbar{height:64px;padding:0 4%}.logo{font-size:20px}.
 <section class="card">
   <div class="card-head"><div><div class="card-title">Quick Actions</div><div class="card-sub">Manage Boostly</div></div></div>
   <div class="quick">
-    <a class="quick-item" href="create-business.html"><div class="quick-icon">✏️</div><strong>Edit Business</strong><small>Update details</small></a>
+    <a class="quick-item" href="business-profile.html"><div class="quick-icon">✏️</div><strong>Edit Business</strong><small>Update details</small></a>
     <a class="quick-item" id="quickPublicProfile" href="#"><div class="quick-icon">🌐</div><strong>Public Profile</strong><small>View profile</small></a>
     <a class="quick-item" href="/explore.html"><div class="quick-icon">🔎</div><strong>Explore</strong><small>Discover businesses</small></a>
     <a class="quick-item" href="index.html"><div class="quick-icon">🏠</div><strong>Home</strong><small>Boostly home</small></a>
@@ -168,7 +168,7 @@ async function loadDashboard(){
     const businessArea=document.getElementById("businessArea");
 
     if(businessResponse.status===404){
-      businessArea.innerHTML='<div class="empty"><div class="empty-icon">🏢</div><h3>Create your business profile</h3><p>Add your business details to start building your Boostly presence.</p><br><a href="create-business.html" class="btn btn-primary">Create Business Profile</a></div>';
+      businessArea.innerHTML='<div class="empty"><div class="empty-icon">🏢</div><h3>Create your business profile</h3><p>Add your business details to start building your Boostly presence.</p><br><a href="business-profile.html" class="btn btn-primary">Create Business Profile</a></div>';
       return;
     }
 
@@ -177,7 +177,7 @@ async function loadDashboard(){
     const business=await businessResponse.json();
 
     if(!business||!business.id){
-      businessArea.innerHTML='<div class="empty"><div class="empty-icon">🏢</div><h3>No business profile found</h3><p>Create your business profile to continue.</p><br><a href="create-business.html" class="btn btn-primary">Create Profile</a></div>';
+      businessArea.innerHTML='<div class="empty"><div class="empty-icon">🏢</div><h3>No business profile found</h3><p>Create your business profile to continue.</p><br><a href="business-profile.html" class="btn btn-primary">Create Profile</a></div>';
       return;
     }
 
@@ -218,7 +218,7 @@ async function loadDashboard(){
 
       <div class="actions">
         <a href="${publicProfile}" class="btn btn-primary">View Public Profile</a>
-        <a href="create-business.html" class="btn btn-secondary">Edit Business</a>
+        <a href="business-profile.html" class="btn btn-secondary">Edit Business</a>
       </div>`;
   }catch(error){
     console.error("Dashboard error:",error);
