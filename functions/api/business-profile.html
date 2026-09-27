@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Profile | Boostly</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f5f7fb;color:#1f2937}
+header{background:linear-gradient(135deg,#111827,#312e81);color:#fff;padding:16px 6%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:24px;font-weight:bold}header a{color:#fff;text-decoration:none;background:#2563eb;padding:10px 16px;border-radius:8px}
+.container{width:92%;max-width:850px;margin:32px auto}.card{background:#fff;padding:30px;border-radius:18px;box-shadow:0 5px 25px rgba(0,0,0,.07);margin-bottom:20px}
+h1{font-size:30px;margin-bottom:8px}.subtitle{color:#6b7280;margin-bottom:28px;line-height:1.5}
+.form-group{margin-bottom:20px}label{display:block;font-weight:bold;margin-bottom:8px}
+input,select,textarea{width:100%;padding:13px;border:1px solid #d1d5db;border-radius:8px;font-size:16px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:#2563eb}textarea{min-height:130px;resize:vertical}
+button{width:100%;padding:14px;background:#2563eb;color:#fff;border:none;border-radius:8px;font-size:17px;font-weight:bold;cursor:pointer}
+button:hover{background:#1d4ed8}.secondary{background:#111827}.secondary:hover{background:#1f2937}
+.note{margin-top:15px;padding:12px;background:#eff6ff;border-radius:8px;color:#1e40af;font-size:14px}
+.success,.error{display:none;margin-top:20px;padding:14px;border-radius:8px}.success{background:#dcfce7;color:#166534}.error{background:#fee2e2;color:#991b1b}
+.section-title{font-size:22px;margin-bottom:6px}.section-sub{color:#6b7280;font-size:14px;margin-bottom:20px}
+.media-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.media-item{border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;background:#fafafa}
+.media-item img{width:100%;height:150px;object-fit:cover;display:block}
+.media-caption{padding:10px;font-size:12px;color:#4b5563;min-height:34px}
+.empty-media{padding:25px;text-align:center;background:#f9fafb;border:1px dashed #d1d5db;border-radius:12px;color:#6b7280}
+.preview{display:none;margin-top:12px;border:1px solid #e5e7eb;border-radius:12px;padding:8px}.preview img{width:100%;max-height:260px;object-fit:cover;border-radius:8px}
+.status{margin-top:12px;font-size:14px;font-weight:bold}
+@media(max-width:600px){.container{margin:22px auto}.card{padding:22px}h1{font-size:25px}.media-list{grid-template-columns:1fr 1fr}.media-item img{height:120px}header{padding:14px 5%}}
+@media(max-width:400px){.media-list{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">🚀 Boostly</div>
+<a href="dashboard.html">Dashboard</a>
+</header>
+
+<main class="container">
+<div class="card">
+<h1>Edit Your Business Profile</h1>
+<p class="subtitle">Update your business information and manage the photos shown on your Boostly profile.</p>
+
+<form id="businessForm" action="/api/business" method="POST">
+<input type="hidden" id="businessId" name="business_id">
+
+<div class="form-group"><label for="businessName">Business Name *</label>
+<input type="text" id="businessName" name="businessName" placeholder="Enter your business name" required></div>
+
+<div class="form-group"><label for="category">Business Category *</label>
+<select id="category" name="category" required>
+<option value="">Select Category</option><option value="Salon">Salon</option><option value="Cafe">Cafe</option><option value="Gym">Gym</option><option value="Fashion">Fashion</option><option value="Hotel">Hotel</option><option value="Restaurant">Restaurant</option><option value="Services">Services</option><option value="Other">Other</option>
+</select></div>
+
+<div class="form-group"><label for="phone">Business Phone</label>
+<input type="tel" id="phone" name="phone" placeholder="Enter business phone number" inputmode="numeric"></div>
+
+<div class="form-group"><label for="whatsapp">WhatsApp Number</label>
+<input type="tel" id="whatsapp" name="whatsapp" placeholder="Enter WhatsApp number" inputmode="numeric"></div>
+
+<div class="form-group"><label for="city">City *</label>
+<input type="text" id="city" name="city" placeholder="Enter your city" required></div>
+
+<div class="form-group"><label for="address">Business Address</label>
+<textarea id="address" name="address" placeholder="Enter your complete business address"></textarea></div>
+
+<div class="form-group"><label for="description">Business Description</label>
+<textarea id="description" name="description" placeholder="Tell customers about your business"></textarea></div>
+
+<button type="submit">Save Business Profile</button>
+</form>
+
+<div class="note">* Required fields. Your information will be used to create or update your Boostly business listing.</div>
+<div id="businessSuccess" class="success">Business profile saved successfully!</div>
+<div id="businessError" class="error">Something went wrong. Please try again.</div>
+</div>
+
+<div class="card">
+<h2 class="section-title">📸 Business Photos</h2>
+<p class="section-sub">Add a public image URL. The photo will be saved to your business media and can appear on your public profile.</p>
+
+<form id="mediaForm">
+<input type="hidden" id="mediaBusinessId" name="business_id">
+
+<div class="form-group">
+<label for="mediaUrl">Photo URL *</label>
+<input type="url" id="mediaUrl" name="media_url" placeholder="https://..." required>
+</div>
+
+<div class="form-group">
+<label for="caption">Photo Caption</label>
+<input type="text" id="caption" name="caption" placeholder="Example: Our salon interior">
+</div>
+
+<input type="hidden" name="media_type" value="image">
+<input type="hidden" name="public_id" value="">
+
+<div class="preview" id="preview"><img id="previewImg" src="" alt="Photo preview"></div>
+
+<button type="submit">Save Photo</button>
+<div id="mediaStatus" class="status"></div>
+</form>
+
+<div id="mediaList" class="media-list"></div>
+</div>
+</main>
+
+<footer style="text-align:center;padding:30px;color:#6b7280">© 2026 Boostly. All rights reserved.</footer>
+
+<script>
+let currentBusinessId=null;
+
+function setValue(id,value){
+ const el=document.getElementById(id);
+ if(el) el.value=value??"";
+}
+
+async function loadBusiness(){
+ try{
+  const r=await fetch("/api/my-business");
+  if(!r.ok){
+   document.getElementById("businessError").style.display="block";
+   document.getElementById("businessError").textContent="Business profile could not be loaded. Please log in again.";
+   return;
+  }
+  const b=await r.json();
+  if(!b||!b.id) return;
+  currentBusinessId=b.id;
+  setValue("businessId",b.id);
+  setValue("mediaBusinessId",b.id);
+  setValue("businessName",b.business_name);
+  setValue("category",b.category);
+  setValue("phone",b.phone);
+  setValue("whatsapp",b.whatsapp);
+  setValue("city",b.city);
+  setValue("address",b.address);
+  setValue("description",b.description);
+  loadMedia();
+ }catch(e){
+  console.error(e);
+ }
+}
+
+document.getElementById("businessForm").addEventListener("submit",async function(e){
+ e.preventDefault();
+ const success=document.getElementById("businessSuccess");
+ const error=document.getElementById("businessError");
+ success.style.display="none";error.style.display="none";
+ try{
+  const r=await fetch("/api/business",{method:"POST",body:new FormData(this)});
+  const data=await r.json().catch(()=>({}));
+  if(!r.ok||data.success===false) throw new Error(data.error||"Save failed");
+  success.textContent="Business profile saved successfully!";
+  success.style.display="block";
+  await loadBusiness();
+ }catch(err){
+  error.textContent=err.message||"Something went wrong. Please try again.";
+  error.style.display="block";
+ }
+});
+
+document.getElementById("mediaUrl").addEventListener("input",function(){
+ const url=this.value.trim();
+ const preview=document.getElementById("preview");
+ const img=document.getElementById("previewImg");
+ if(url){
+  img.src=url;preview.style.display="block";
+ }else{
+  preview.style.display="none";img.src="";
+ }
+});
+
+document.getElementById("mediaForm").addEventListener("submit",async function(e){
+ e.preventDefault();
+ const status=document.getElementById("mediaStatus");
+ status.style.color="#374151";status.textContent="Saving photo...";
+ try{
+  if(!currentBusinessId){
+   throw new Error("Business profile not loaded yet.");
+  }
+  const form=new FormData(this);
+  form.set("business_id",String(currentBusinessId));
+  const r=await fetch("/api/save-media",{method:"POST",body:form});
+  const data=await r.json().catch(()=>({}));
+  if(!r.ok||data.success===false) throw new Error(data.error||"Media save failed");
+  status.style.color="#166534";status.textContent="Photo saved successfully!";
+  document.getElementById("mediaUrl").value="";
+  document.getElementById("caption").value="";
+  document.getElementById("preview").style.display="none";
+  document.getElementById("previewImg").src="";
+  loadMedia();
+ }catch(err){
+  status.style.color="#991b1b";status.textContent=err.message||"Could not save photo.";
+ }
+});
+
+async function loadMedia(){
+ if(!currentBusinessId)return;
+ const list=document.getElementById("mediaList");
+ list.innerHTML='<div class="empty-media">Loading photos...</div>';
+ try{
+  const r=await fetch("/api/media?business_id="+encodeURIComponent(currentBusinessId));
+  const data=await r.json();
+  let items=Array.isArray(data)?data:(data.media||data.results||[]);
+  if(!Array.isArray(items))items=[];
+  if(!items.length){
+   list.innerHTML='<div class="empty-media" style="grid-column:1/-1">No photos added yet.</div>';
+   return;
+  }
+  list.innerHTML=items.map(item=>{
+   const url=item.media_url||item.url||"";
+   const caption=item.caption||"";
+   if(!url)return "";
+   return '<div class="media-item"><img src="'+escapeHtml(url)+'" alt="Business photo" onerror="this.style.opacity=.35"><div class="media-caption">'+escapeHtml(caption||"Business photo")+'</div></div>';
+  }).join("");
+ }catch(e){
+  list.innerHTML='<div class="empty-media" style="grid-column:1/-1">Photos could not be loaded.</div>';
+ }
+}
+
+function escapeHtml(value){
+ return String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+
+loadBusiness();
+</script>
+</body>
+</html>
