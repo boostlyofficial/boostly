@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create Business Profile - Boostly</title>
+<title>Business Profile - Boostly</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -17,6 +19,7 @@ body{
   font-family:Arial,sans-serif;
   background:#f5f7fb;
   color:#1f2937;
+  line-height:1.5;
 }
 
 header{
@@ -26,6 +29,7 @@ header{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:15px;
 }
 
 .logo{
@@ -39,6 +43,7 @@ header a{
   background:#2563eb;
   padding:10px 16px;
   border-radius:8px;
+  font-weight:bold;
 }
 
 .container{
@@ -52,6 +57,7 @@ header a{
   padding:30px;
   border-radius:16px;
   box-shadow:0 5px 25px rgba(0,0,0,.07);
+  margin-bottom:22px;
 }
 
 h1{
@@ -83,12 +89,14 @@ textarea{
   border-radius:8px;
   font-size:16px;
   outline:none;
+  font-family:inherit;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
   border-color:#2563eb;
+  box-shadow:0 0 0 3px rgba(37,99,235,.08);
 }
 
 textarea{
@@ -110,6 +118,11 @@ button{
 
 button:hover{
   background:#1d4ed8;
+}
+
+button:disabled{
+  opacity:.65;
+  cursor:not-allowed;
 }
 
 .note{
@@ -139,6 +152,308 @@ button:hover{
   border-radius:8px;
 }
 
+
+/* =====================================================
+   PREMIUM PLAN CARD
+===================================================== */
+
+.premium-card{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(197,155,69,.14),
+      transparent 38%
+    ),
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #faf7f2
+    );
+}
+
+.premium-card::after{
+  content:"";
+  position:absolute;
+  width:150px;
+  height:150px;
+  right:-75px;
+  bottom:-75px;
+  border-radius:50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(109,40,217,.10),
+      transparent 70%
+    );
+  pointer-events:none;
+}
+
+.card-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.card-title{
+  font-size:21px;
+  font-weight:800;
+  color:#332942;
+}
+
+.card-sub{
+  color:#8a8493;
+  font-size:12px;
+  margin-top:4px;
+}
+
+.plan-badge{
+  padding:7px 11px;
+  border-radius:8px;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.8px;
+  color:#374151;
+  background:#f3f4f6;
+  border:1px solid #e5e7eb;
+  white-space:nowrap;
+}
+
+.plan-main{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:18px;
+}
+
+.plan-icon{
+  width:52px;
+  height:52px;
+  flex-shrink:0;
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+  background:linear-gradient(
+    135deg,
+    #f2eafe,
+    #edf3ff
+  );
+  border:1px solid #e3daf1;
+}
+
+.plan-info strong{
+  display:block;
+  font-size:17px;
+  color:#332942;
+  margin-bottom:3px;
+}
+
+.plan-info span{
+  display:block;
+  color:#8a8493;
+  font-size:11px;
+}
+
+.plan-features{
+  display:grid;
+  gap:8px;
+  margin-bottom:18px;
+}
+
+.plan-feature{
+  color:#514a5d;
+  font-size:11px;
+  padding:9px 11px;
+  border-radius:9px;
+  background:#faf8f4;
+  border:1px solid #eee8df;
+}
+
+.plan-feature.locked{
+  color:#8a8493;
+  background:#f7f5f1;
+}
+
+.plan-feature b{
+  float:right;
+  font-size:8px;
+  color:#6d28d9;
+  letter-spacing:.5px;
+}
+
+.premium-button{
+  display:block;
+  width:100%;
+  text-align:center;
+  text-decoration:none;
+  padding:13px;
+  border-radius:9px;
+  background:#6d28d9;
+  color:white;
+  font-weight:bold;
+  font-size:14px;
+}
+
+.premium-button:hover{
+  background:#5b21b6;
+}
+
+
+/* =====================================================
+   VERIFICATION CARD
+===================================================== */
+
+.verification-card{
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #f9fbff
+    );
+}
+
+.verification-status{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:15px;
+  border-radius:12px;
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  margin-bottom:15px;
+}
+
+.verification-icon{
+  width:46px;
+  height:46px;
+  flex-shrink:0;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#eef2ff;
+  font-size:22px;
+}
+
+.verification-info strong{
+  display:block;
+  font-size:15px;
+  color:#1f2937;
+}
+
+.verification-info span{
+  display:block;
+  margin-top:3px;
+  color:#6b7280;
+  font-size:11px;
+}
+
+.status-pill{
+  display:inline-block;
+  margin-top:8px;
+  padding:5px 9px;
+  border-radius:7px;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.5px;
+}
+
+.status-not-requested{
+  color:#475569;
+  background:#e2e8f0;
+}
+
+.status-pending{
+  color:#92400e;
+  background:#fef3c7;
+}
+
+.status-verified{
+  color:#075985;
+  background:#e0f2fe;
+}
+
+.status-rejected{
+  color:#991b1b;
+  background:#fee2e2;
+}
+
+.verification-note{
+  padding:12px;
+  border-radius:9px;
+  background:#f8fafc;
+  color:#64748b;
+  font-size:11px;
+  margin-bottom:15px;
+}
+
+.verify-button{
+  background:#2563eb;
+}
+
+.verify-button:hover{
+  background:#1d4ed8;
+}
+
+.upgrade-button{
+  display:block;
+  width:100%;
+  text-align:center;
+  text-decoration:none;
+  padding:14px;
+  border-radius:8px;
+  background:#6d28d9;
+  color:white;
+  font-size:15px;
+  font-weight:bold;
+}
+
+.upgrade-button:hover{
+  background:#5b21b6;
+}
+
+.verification-message{
+  display:none;
+  margin-top:14px;
+  padding:12px;
+  border-radius:8px;
+  font-size:13px;
+}
+
+.verification-message.success-message{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.verification-message.error-message{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading-box{
+  padding:15px;
+  border-radius:10px;
+  background:#f8fafc;
+  color:#64748b;
+  font-size:12px;
+  text-align:center;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
 @media(max-width:600px){
 
   .container{
@@ -156,11 +471,37 @@ button:hover{
   header{
     padding:14px 5%;
   }
+
+  .logo{
+    font-size:20px;
+  }
+
+  header a{
+    padding:9px 12px;
+    font-size:13px;
+  }
+
+  .card-head{
+    align-items:flex-start;
+  }
+
+  .card-title{
+    font-size:18px;
+  }
+
+  .plan-main{
+    align-items:flex-start;
+  }
+
 }
+
 </style>
+
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -175,208 +516,442 @@ button:hover{
 </header>
 
 
+
 <main class="container">
 
-  <div class="card">
 
-    <h1>Create Your Business Profile</h1>
+<!-- =====================================================
+     PREMIUM PLAN CARD
+===================================================== -->
 
-    <p class="subtitle">
-      Add your business information so customers can discover you on Boostly.
-    </p>
+<section class="card premium-card">
 
+  <div class="card-head">
 
-    <form action="/api/business" method="POST">
+    <div>
 
-      <!-- BUSINESS NAME -->
-
-      <div class="form-group">
-
-        <label for="businessName">
-          Business Name *
-        </label>
-
-        <input
-          type="text"
-          id="businessName"
-          name="businessName"
-          placeholder="Enter your business name"
-          required
-        >
-
+      <div class="card-title">
+        Boostly Plan
       </div>
 
-
-      <!-- CATEGORY -->
-
-      <div class="form-group">
-
-        <label for="category">
-          Business Category *
-        </label>
-
-        <select
-          id="category"
-          name="category"
-          required
-        >
-
-          <option value="">
-            Select Category
-          </option>
-
-          <option value="Salon">
-            Salon
-          </option>
-
-          <option value="Cafe">
-            Cafe
-          </option>
-
-          <option value="Gym">
-            Gym
-          </option>
-
-          <option value="Fashion">
-            Fashion
-          </option>
-
-          <option value="Hotel">
-            Hotel
-          </option>
-
-          <option value="Restaurant">
-            Restaurant
-          </option>
-
-          <option value="Services">
-            Services
-          </option>
-
-          <option value="Other">
-            Other
-          </option>
-
-        </select>
-
+      <div class="card-sub">
+        Your current membership & premium access
       </div>
 
+    </div>
 
-      <!-- PHONE -->
+    <span
+      class="plan-badge"
+      id="planBadge"
+    >
+      FREE
+    </span>
 
-      <div class="form-group">
-
-        <label for="phone">
-          Business Phone
-        </label>
-
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          placeholder="Enter business phone number"
-          inputmode="numeric"
-        >
-
-      </div>
+  </div>
 
 
-      <!-- WHATSAPP -->
+  <div class="plan-main">
 
-      <div class="form-group">
-
-        <label for="whatsapp">
-          WhatsApp Number
-        </label>
-
-        <input
-          type="tel"
-          id="whatsapp"
-          name="whatsapp"
-          placeholder="Enter WhatsApp number"
-          inputmode="numeric"
-        >
-
-      </div>
-
-
-      <!-- CITY -->
-
-      <div class="form-group">
-
-        <label for="city">
-          City *
-        </label>
-
-        <input
-          type="text"
-          id="city"
-          name="city"
-          placeholder="Enter your city"
-          required
-        >
-
-      </div>
-
-
-      <!-- ADDRESS -->
-
-      <div class="form-group">
-
-        <label for="address">
-          Business Address
-        </label>
-
-        <textarea
-          id="address"
-          name="address"
-          placeholder="Enter your complete business address"
-        ></textarea>
-
-      </div>
-
-
-      <!-- DESCRIPTION -->
-
-      <div class="form-group">
-
-        <label for="description">
-          Business Description
-        </label>
-
-        <textarea
-          id="description"
-          name="description"
-          placeholder="Tell customers about your business"
-        ></textarea>
-
-      </div>
-
-
-      <button type="submit">
-        Save Business Profile
-      </button>
-
-    </form>
-
-
-    <div class="note">
-      * Required fields. Your information will be used to create your Boostly business listing.
+    <div
+      class="plan-icon"
+      id="planIcon"
+    >
+      🆓
     </div>
 
 
-    <div class="success">
-      Business profile saved successfully!
-    </div>
+    <div class="plan-info">
 
+      <strong id="planName">
+        Free Plan
+      </strong>
 
-    <div class="error">
-      Something went wrong. Please try again.
+      <span id="planDescription">
+        Loading your Boostly plan...
+      </span>
+
     </div>
 
   </div>
 
+
+  <div class="plan-features">
+
+    <div class="plan-feature">
+      ✓ Basic Business Profile
+    </div>
+
+    <div class="plan-feature">
+      ✓ Basic Boost Posts
+    </div>
+
+    <div class="plan-feature">
+      ✓ Basic Analytics
+    </div>
+
+    <div class="plan-feature locked">
+      🔒 Advanced Editor
+      <b>PRO</b>
+    </div>
+
+    <div class="plan-feature locked">
+      🔒 Creator Marketplace
+      <b>BUSINESS</b>
+    </div>
+
+    <div class="plan-feature locked">
+      🔒 AI Growth Tools
+      <b>ELITE</b>
+    </div>
+
+  </div>
+
+
+  <a
+    href="premium.html"
+    class="premium-button"
+  >
+    View Premium Plans →
+  </a>
+
+</section>
+
+
+
+<!-- =====================================================
+     VERIFICATION CARD
+===================================================== -->
+
+<section class="card verification-card">
+
+  <div class="card-head">
+
+    <div>
+
+      <div class="card-title">
+        🔵 Boostly Verification
+      </div>
+
+      <div class="card-sub">
+        Build trust with customers
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div
+    id="verificationLoading"
+    class="loading-box"
+  >
+    Checking verification status...
+  </div>
+
+
+  <div
+    id="verificationContent"
+    style="display:none;"
+  >
+
+    <div class="verification-status">
+
+      <div
+        class="verification-icon"
+        id="verificationIcon"
+      >
+        🔵
+      </div>
+
+
+      <div class="verification-info">
+
+        <strong id="verificationTitle">
+          Verification
+        </strong>
+
+        <span id="verificationDescription">
+          Checking your verification status...
+        </span>
+
+        <span
+          id="verificationStatus"
+          class="status-pill status-not-requested"
+        >
+          NOT REQUESTED
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="verification-note"
+      id="verificationNote"
+    >
+      Paid plans can unlock eligibility to request Boostly verification.
+      Verification is reviewed by Boostly and is not automatically granted.
+    </div>
+
+
+    <div id="verificationAction">
+
+      <a
+        href="premium.html"
+        class="upgrade-button"
+      >
+        Upgrade to Request Verification →
+      </a>
+
+    </div>
+
+
+    <div
+      id="verificationMessage"
+      class="verification-message"
+    ></div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     BUSINESS PROFILE FORM
+===================================================== -->
+
+<div class="card">
+
+  <h1>
+    Create Your Business Profile
+  </h1>
+
+
+  <p class="subtitle">
+    Add your business information so customers can discover you on Boostly.
+  </p>
+
+
+  <form
+    action="/api/business"
+    method="POST"
+  >
+
+
+    <!-- BUSINESS NAME -->
+
+    <div class="form-group">
+
+      <label for="businessName">
+        Business Name *
+      </label>
+
+      <input
+        type="text"
+        id="businessName"
+        name="businessName"
+        placeholder="Enter your business name"
+        required
+      >
+
+    </div>
+
+
+
+    <!-- CATEGORY -->
+
+    <div class="form-group">
+
+      <label for="category">
+        Business Category *
+      </label>
+
+      <select
+        id="category"
+        name="category"
+        required
+      >
+
+        <option value="">
+          Select Category
+        </option>
+
+        <option value="Salon">
+          Salon
+        </option>
+
+        <option value="Cafe">
+          Cafe
+        </option>
+
+        <option value="Gym">
+          Gym
+        </option>
+
+        <option value="Fashion">
+          Fashion
+        </option>
+
+        <option value="Hotel">
+          Hotel
+        </option>
+
+        <option value="Restaurant">
+          Restaurant
+        </option>
+
+        <option value="Services">
+          Services
+        </option>
+
+        <option value="Other">
+          Other
+        </option>
+
+      </select>
+
+    </div>
+
+
+
+    <!-- PHONE -->
+
+    <div class="form-group">
+
+      <label for="phone">
+        Business Phone
+      </label>
+
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        placeholder="Enter business phone number"
+        inputmode="numeric"
+      >
+
+    </div>
+
+
+
+    <!-- WHATSAPP -->
+
+    <div class="form-group">
+
+      <label for="whatsapp">
+        WhatsApp Number
+      </label>
+
+      <input
+        type="tel"
+        id="whatsapp"
+        name="whatsapp"
+        placeholder="Enter WhatsApp number"
+        inputmode="numeric"
+      >
+
+    </div>
+
+
+
+    <!-- CITY -->
+
+    <div class="form-group">
+
+      <label for="city">
+        City *
+      </label>
+
+      <input
+        type="text"
+        id="city"
+        name="city"
+        placeholder="Enter your city"
+        required
+      >
+
+    </div>
+
+
+
+    <!-- ADDRESS -->
+
+    <div class="form-group">
+
+      <label for="address">
+        Business Address
+      </label>
+
+      <textarea
+        id="address"
+        name="address"
+        placeholder="Enter your complete business address"
+      ></textarea>
+
+    </div>
+
+
+
+    <!-- DESCRIPTION -->
+
+    <div class="form-group">
+
+      <label for="description">
+        Business Description
+      </label>
+
+      <textarea
+        id="description"
+        name="description"
+        placeholder="Tell customers about your business"
+      ></textarea>
+
+    </div>
+
+
+
+    <button type="submit">
+      Save Business Profile
+    </button>
+
+
+  </form>
+
+
+
+  <div class="note">
+
+    * Required fields. Your information will be used to create your Boostly business listing.
+
+  </div>
+
+
+
+  <div
+    class="success"
+    id="profileSuccess"
+  >
+    Business profile saved successfully!
+  </div>
+
+
+
+  <div
+    class="error"
+    id="profileError"
+  >
+    Something went wrong. Please try again.
+  </div>
+
+
+</div>
+
+
+
 </main>
+
 
 
 <footer style="
@@ -388,6 +963,843 @@ button:hover{
   © 2026 Boostly. All rights reserved.
 
 </footer>
+
+
+
+<script>
+
+/* =====================================================
+   BOOSTLY PLAN
+===================================================== */
+
+async function loadBoostlyPlan(businessId){
+
+  try{
+
+    const response = await fetch(
+      "/api/plan?business_id=" +
+      encodeURIComponent(businessId)
+    );
+
+    if(!response.ok){
+      throw new Error("Plan request failed");
+    }
+
+    const data = await response.json();
+
+
+    /*
+      Supports both possible API response formats:
+      plan: "free"
+      OR
+      plan: { plan_code:"free" }
+    */
+
+    let plan = data.plan || "free";
+
+
+    if(typeof plan === "object"){
+
+      plan =
+        plan.plan_code ||
+        plan.code ||
+        "free";
+
+    }
+
+
+    plan =
+      String(plan)
+      .toLowerCase();
+
+
+    const planNames = {
+
+      free:"Free Plan",
+
+      pro:"Pro Plan",
+
+      business:"Business Plan",
+
+      elite:"Elite Plan"
+
+    };
+
+
+    const planDescriptions = {
+
+      free:
+        "Basic Boostly business tools",
+
+      pro:
+        "Advanced growth tools for your business",
+
+      business:
+        "Advanced business & creator tools",
+
+      elite:
+        "Maximum Boostly growth access"
+
+    };
+
+
+    const planIcons = {
+
+      free:"🆓",
+
+      pro:"✨",
+
+      business:"👑",
+
+      elite:"💎"
+
+    };
+
+
+    const planLabels = {
+
+      free:"FREE",
+
+      pro:"PRO",
+
+      business:"BUSINESS",
+
+      elite:"ELITE"
+
+    };
+
+
+    document.getElementById(
+      "planName"
+    ).textContent =
+      planNames[plan] ||
+      "Free Plan";
+
+
+    document.getElementById(
+      "planDescription"
+    ).textContent =
+      planDescriptions[plan] ||
+      "Boostly business tools";
+
+
+    document.getElementById(
+      "planIcon"
+    ).textContent =
+      planIcons[plan] ||
+      "🆓";
+
+
+    document.getElementById(
+      "planBadge"
+    ).textContent =
+      planLabels[plan] ||
+      "FREE";
+
+
+    const badge =
+      document.getElementById(
+        "planBadge"
+      );
+
+
+    if(plan === "free"){
+
+      badge.style.color =
+        "#374151";
+
+      badge.style.background =
+        "#f3f4f6";
+
+    }
+
+
+    if(plan === "pro"){
+
+      badge.style.color =
+        "#5b21b6";
+
+      badge.style.background =
+        "#f2eafe";
+
+    }
+
+
+    if(plan === "business"){
+
+      badge.style.color =
+        "#8b5e00";
+
+      badge.style.background =
+        "#fff5d9";
+
+    }
+
+
+    if(plan === "elite"){
+
+      badge.style.color =
+        "#7c2d12";
+
+      badge.style.background =
+        "#fff0e8";
+
+    }
+
+
+    return plan;
+
+
+  }catch(error){
+
+    console.error(
+      "Plan loading error:",
+      error
+    );
+
+    return "free";
+
+  }
+
+}
+
+
+
+/* =====================================================
+   FIND CURRENT BUSINESS
+===================================================== */
+
+async function loadCurrentBusiness(){
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/my-business",
+        {
+          cache:"no-store"
+        }
+      );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        "Business request failed"
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    /*
+      Supports common response formats.
+    */
+
+    const business =
+      data.business ||
+      data.data ||
+      data;
+
+
+    const businessId =
+      business.id ||
+      business.business_id ||
+      data.business_id;
+
+
+    if(!businessId){
+
+      throw new Error(
+        "Business ID not found"
+      );
+
+    }
+
+
+    return {
+
+      id:businessId,
+
+      name:
+        business.business_name ||
+        business.name ||
+        ""
+
+    };
+
+
+  }catch(error){
+
+    console.error(
+      "Business loading error:",
+      error
+    );
+
+    return null;
+
+  }
+
+}
+
+
+
+/* =====================================================
+   VERIFICATION
+===================================================== */
+
+async function loadVerification(
+  businessId,
+  plan
+){
+
+  const loading =
+    document.getElementById(
+      "verificationLoading"
+    );
+
+  const content =
+    document.getElementById(
+      "verificationContent"
+    );
+
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/verification?business_id=" +
+        encodeURIComponent(
+          businessId
+        ),
+        {
+          cache:"no-store"
+        }
+      );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        "Verification request failed"
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    /*
+      Supports:
+      data.status
+      data.verification.status
+      data.data.status
+    */
+
+    const verification =
+      data.verification ||
+      data.data ||
+      data;
+
+
+    const status =
+      String(
+        verification.status ||
+        "not_requested"
+      ).toLowerCase();
+
+
+    const title =
+      document.getElementById(
+        "verificationTitle"
+      );
+
+    const description =
+      document.getElementById(
+        "verificationDescription"
+      );
+
+    const statusElement =
+      document.getElementById(
+        "verificationStatus"
+      );
+
+    const icon =
+      document.getElementById(
+        "verificationIcon"
+      );
+
+    const action =
+      document.getElementById(
+        "verificationAction"
+      );
+
+    const note =
+      document.getElementById(
+        "verificationNote"
+      );
+
+
+    /*
+      RESET STATUS CLASSES
+    */
+
+    statusElement.className =
+      "status-pill";
+
+
+    /* =================================================
+       VERIFIED
+    ================================================= */
+
+    if(status === "verified"){
+
+      icon.textContent = "🔵";
+
+      title.textContent =
+        "Boostly Verified Business";
+
+      description.textContent =
+        "Your business has been verified by Boostly.";
+
+      statusElement.textContent =
+        "✓ VERIFIED";
+
+      statusElement.classList.add(
+        "status-verified"
+      );
+
+
+      note.textContent =
+        "Your verified status can help customers recognize your official Boostly business profile.";
+
+
+      action.innerHTML = "";
+
+
+      return;
+
+    }
+
+
+
+    /* =================================================
+       PENDING
+    ================================================= */
+
+    if(status === "pending"){
+
+      icon.textContent = "⏳";
+
+      title.textContent =
+        "Verification Under Review";
+
+      description.textContent =
+        "Your verification request has been submitted.";
+
+      statusElement.textContent =
+        "UNDER REVIEW";
+
+      statusElement.classList.add(
+        "status-pending"
+      );
+
+
+      note.textContent =
+        "Boostly is reviewing your verification request. You do not need to submit another request while it is under review.";
+
+
+      action.innerHTML = "";
+
+
+      return;
+
+    }
+
+
+
+    /* =================================================
+       REJECTED
+    ================================================= */
+
+    if(status === "rejected"){
+
+      icon.textContent = "⚠️";
+
+      title.textContent =
+        "Verification Not Approved";
+
+      description.textContent =
+        "Your previous verification request was not approved.";
+
+      statusElement.textContent =
+        "NOT APPROVED";
+
+      statusElement.classList.add(
+        "status-rejected"
+      );
+
+
+      note.textContent =
+        verification.review_note ||
+        "You may review your business information and submit another request when eligible.";
+
+
+      if(
+        plan === "pro" ||
+        plan === "business" ||
+        plan === "elite"
+      ){
+
+        action.innerHTML = `
+          <button
+            class="verify-button"
+            onclick="requestVerification()"
+          >
+            Request Verification Again
+          </button>
+        `;
+
+      }else{
+
+        action.innerHTML = `
+          <a
+            href="premium.html"
+            class="upgrade-button"
+          >
+            Upgrade to Request Verification →
+          </a>
+        `;
+
+      }
+
+
+      return;
+
+    }
+
+
+
+    /* =================================================
+       NOT REQUESTED
+    ================================================= */
+
+    icon.textContent = "🔵";
+
+    title.textContent =
+      "Boostly Verification";
+
+    description.textContent =
+      "Verification helps establish your official Boostly business identity.";
+
+    statusElement.textContent =
+      "NOT REQUESTED";
+
+    statusElement.classList.add(
+      "status-not-requested"
+    );
+
+
+    if(
+      plan === "pro" ||
+      plan === "business" ||
+      plan === "elite"
+    ){
+
+      note.textContent =
+        "Your plan is eligible to request Boostly verification. Verification is reviewed by Boostly and is not automatically granted.";
+
+
+      action.innerHTML = `
+        <button
+          class="verify-button"
+          id="requestVerificationButton"
+          onclick="requestVerification()"
+        >
+          🔵 Request Verification
+        </button>
+      `;
+
+    }else{
+
+      note.textContent =
+        "Verification request is available for Pro, Business and Elite plans. Upgrade your plan to unlock verification eligibility.";
+
+
+      action.innerHTML = `
+        <a
+          href="premium.html"
+          class="upgrade-button"
+        >
+          ✨ Upgrade to Request Verification →
+        </a>
+      `;
+
+    }
+
+
+  }catch(error){
+
+    console.error(
+      "Verification loading error:",
+      error
+    );
+
+
+    loading.textContent =
+      "Verification status could not be loaded.";
+
+  }
+
+
+  loading.style.display =
+    "none";
+
+  content.style.display =
+    "block";
+
+}
+
+
+
+/* =====================================================
+   REQUEST VERIFICATION
+===================================================== */
+
+async function requestVerification(){
+
+  const business =
+    await loadCurrentBusiness();
+
+
+  if(!business || !business.id){
+
+    showVerificationMessage(
+      "Business profile could not be found. Please make sure your business profile is saved.",
+      true
+    );
+
+    return;
+
+  }
+
+
+  const button =
+    document.getElementById(
+      "requestVerificationButton"
+    );
+
+
+  if(button){
+
+    button.disabled = true;
+
+    button.textContent =
+      "Submitting Request...";
+
+  }
+
+
+  try{
+
+    const formData =
+      new FormData();
+
+
+    formData.append(
+      "business_id",
+      business.id
+    );
+
+
+    const response =
+      await fetch(
+        "/api/verification",
+        {
+          method:"POST",
+          body:formData
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if(!response.ok){
+
+      throw new Error(
+        data.error ||
+        "Verification request failed"
+      );
+
+    }
+
+
+    showVerificationMessage(
+      data.message ||
+      "Verification request submitted successfully.",
+      false
+    );
+
+
+    /*
+      Reload status after successful request.
+    */
+
+    setTimeout(
+      async function(){
+
+        const plan =
+          await loadBoostlyPlan(
+            business.id
+          );
+
+        await loadVerification(
+          business.id,
+          plan
+        );
+
+      },
+      500
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "Verification submit error:",
+      error
+    );
+
+
+    showVerificationMessage(
+      error.message ||
+      "Unable to submit verification request.",
+      true
+    );
+
+
+    if(button){
+
+      button.disabled = false;
+
+      button.textContent =
+        "🔵 Request Verification";
+
+    }
+
+  }
+
+}
+
+
+
+/* =====================================================
+   VERIFICATION MESSAGE
+===================================================== */
+
+function showVerificationMessage(
+  message,
+  isError
+){
+
+  const element =
+    document.getElementById(
+      "verificationMessage"
+    );
+
+
+  element.textContent =
+    message;
+
+
+  element.className =
+    "verification-message " +
+    (
+      isError
+      ?
+      "error-message"
+      :
+      "success-message"
+    );
+
+
+  element.style.display =
+    "block";
+
+}
+
+
+
+/* =====================================================
+   PAGE START
+===================================================== */
+
+async function initializeBusinessProfile(){
+
+  const business =
+    await loadCurrentBusiness();
+
+
+  /*
+    If business is not available,
+    keep profile form completely usable.
+  */
+
+  if(!business){
+
+    document.getElementById(
+      "verificationLoading"
+    ).textContent =
+      "Save your business profile first to use Premium and Verification features.";
+
+    document.getElementById(
+      "verificationContent"
+    ).style.display =
+      "none";
+
+    return;
+
+  }
+
+
+  /*
+    Load current Boostly plan.
+  */
+
+  const plan =
+    await loadBoostlyPlan(
+      business.id
+    );
+
+
+  /*
+    Load verification status.
+  */
+
+  await loadVerification(
+    business.id,
+    plan
+  );
+
+}
+
+
+
+/* =====================================================
+   RUN
+===================================================== */
+
+initializeBusinessProfile();
+
+</script>
+
 
 </body>
 </html>
