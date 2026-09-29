@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>Boost Feed | Boostly</title>
 
-<meta name="description"
-content="Discover local business posts, reels, offers and updates on Boostly.">
+<meta
+  name="description"
+  content="Discover local business posts, reels, offers and updates on Boostly."
+>
 
 <style>
 
@@ -167,8 +174,6 @@ header{
   box-shadow:0 8px 25px rgba(0,0,0,.04);
 }
 
-/* Business */
-
 .post-header{
   display:flex;
   align-items:center;
@@ -215,7 +220,9 @@ header{
   font-weight:700;
 }
 
-/* Media */
+/* =========================
+   MEDIA
+========================= */
 
 .media-wrap{
   width:100%;
@@ -234,7 +241,9 @@ header{
   background:#000;
 }
 
-/* Content */
+/* =========================
+   CONTENT
+========================= */
 
 .post-content{
   padding:15px;
@@ -259,7 +268,9 @@ header{
   font-size:12px;
 }
 
-/* Stats */
+/* =========================
+   STATS
+========================= */
 
 .stats{
   display:flex;
@@ -267,9 +278,12 @@ header{
   padding:0 15px 10px;
   color:#6b7280;
   font-size:12px;
+  flex-wrap:wrap;
 }
 
-/* Actions */
+/* =========================
+   ACTIONS
+========================= */
 
 .actions{
   border-top:1px solid #e5e7eb;
@@ -291,6 +305,11 @@ header{
   background:#f9fafb;
 }
 
+.action-btn:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
 .action-btn.like-active{
   color:#dc2626;
 }
@@ -301,7 +320,24 @@ header{
   margin-bottom:3px;
 }
 
-/* Footer */
+/* =========================
+   LOGIN MESSAGE
+========================= */
+
+.login-message{
+  display:none;
+  margin:0 15px 15px;
+  padding:12px;
+  border-radius:10px;
+  background:#eff6ff;
+  color:#1d4ed8;
+  font-size:13px;
+  text-align:center;
+}
+
+/* =========================
+   FOOTER
+========================= */
 
 .footer{
   text-align:center;
@@ -396,6 +432,7 @@ header{
 }
 
 </style>
+
 </head>
 
 <body>
@@ -413,26 +450,41 @@ header{
     </a>
 
     <button
+      type="button"
       class="menu-btn"
-      onclick="toggleMenu()"
+      id="menuButton"
       aria-label="Open menu">
+
       ☰
+
     </button>
 
-    <nav class="nav-links" id="navLinks">
+    <nav
+      class="nav-links"
+      id="navLinks">
 
-      <a href="index.html">Home</a>
+      <a href="index.html">
+        Home
+      </a>
 
-      <a href="explore.html">Explore</a>
+      <a href="explore.html">
+        Explore
+      </a>
 
-      <a href="boost-feed.html">Boost Feed</a>
+      <a href="boost-feed.html">
+        Boost Feed
+      </a>
 
-      <a href="dashboard.html">Dashboard</a>
+      <a href="dashboard.html">
+        Dashboard
+      </a>
 
       <a
         href="create-post.html"
         class="nav-btn">
+
         Create Post
+
       </a>
 
     </nav>
@@ -450,7 +502,9 @@ header{
 
   <div class="hero-box">
 
-    <h1>Boost Feed</h1>
+    <h1>
+      Boost Feed
+    </h1>
 
     <p>
       Discover local businesses, posts, reels,
@@ -460,7 +514,9 @@ header{
     <a
       href="create-post.html"
       class="create-btn">
+
       + Create Post
+
     </a>
 
   </div>
@@ -477,7 +533,9 @@ header{
   <div
     id="feedStatus"
     class="status">
+
     Loading Boost Feed...
+
   </div>
 
   <div id="feed"></div>
@@ -486,7 +544,9 @@ header{
 
 
 <footer class="footer">
+
   © 2026 Boostly. All rights reserved.
+
 </footer>
 
 
@@ -496,14 +556,19 @@ header{
    MOBILE MENU
 ===================================================== */
 
-function toggleMenu(){
+document
+  .getElementById("menuButton")
+  .addEventListener(
+    "click",
+    function(){
 
-  const nav =
-    document.getElementById("navLinks");
+      document
+        .getElementById("navLinks")
+        .classList
+        .toggle("show");
 
-  nav.classList.toggle("show");
-
-}
+    }
+  );
 
 
 /* =====================================================
@@ -512,8 +577,13 @@ function toggleMenu(){
 
 function escapeHtml(value){
 
-  if(value === null || value === undefined){
+  if(
+    value === null ||
+    value === undefined
+  ){
+
     return "";
+
   }
 
   return String(value)
@@ -527,13 +597,15 @@ function escapeHtml(value){
 
 
 /* =====================================================
-   GET BUSINESS INITIAL
+   BUSINESS INITIAL
 ===================================================== */
 
 function getInitial(name){
 
   if(!name){
+
     return "B";
+
   }
 
   return name
@@ -554,21 +626,25 @@ function formatNumber(number){
     Number(number || 0);
 
   if(number >= 1000000){
+
     return (
       (number / 1000000)
         .toFixed(1)
         .replace(".0","")
       + "M"
     );
+
   }
 
   if(number >= 1000){
+
     return (
       (number / 1000)
         .toFixed(1)
         .replace(".0","")
       + "K"
     );
+
   }
 
   return String(number);
@@ -588,7 +664,9 @@ async function loadFeed(){
   const status =
     document.getElementById("feedStatus");
 
-  status.style.display = "block";
+
+  status.style.display =
+    "block";
 
   status.textContent =
     "Loading Boost Feed...";
@@ -598,8 +676,10 @@ async function loadFeed(){
 
     const response =
       await fetch(
-        "/api/boost-post?business_id=1",
+        "/api/boost-post?business_id=1&_=" +
+        Date.now(),
         {
+          method:"GET",
           cache:"no-store"
         }
       );
@@ -609,7 +689,10 @@ async function loadFeed(){
       await response.json();
 
 
-    if(!response.ok || !data.success){
+    if(
+      !response.ok ||
+      !data.success
+    ){
 
       throw new Error(
         data.error ||
@@ -623,19 +706,19 @@ async function loadFeed(){
       data.posts || [];
 
 
-    status.style.display = "none";
+    status.style.display =
+      "none";
 
 
     if(posts.length === 0){
 
-      status.style.display = "block";
+      status.style.display =
+        "block";
 
       status.innerHTML = `
-        <div>
-          <strong>No posts yet.</strong>
-          <br><br>
-          Be the first business to create a Boost Post.
-        </div>
+        <strong>No posts yet.</strong>
+        <br><br>
+        Be the first business to create a Boost Post.
       `;
 
       return;
@@ -649,11 +732,15 @@ async function loadFeed(){
         .join("");
 
 
+    attachPostButtons();
+
+
   }catch(error){
 
     console.error(error);
 
-    status.style.display = "block";
+    status.style.display =
+      "block";
 
     status.innerHTML = `
       <div class="error">
@@ -679,41 +766,53 @@ function renderPost(post){
     post.business_name ||
     "Boostly Business";
 
+
   const category =
     post.category ||
     "Local Business";
+
 
   const city =
     post.city ||
     "";
 
+
   const initial =
-    getInitial(businessName);
+    getInitial(
+      businessName
+    );
+
 
   const postType =
     post.post_type === "reel"
       ? "REEL"
       : "POST";
 
+
   const liked =
     post.liked === true;
+
 
   let media = "";
 
 
-  /* ---------------------------------------------
-     VIDEO
-  --------------------------------------------- */
+  /* VIDEO */
 
-  if(post.media_type === "video"){
+  if(
+    post.media_type === "video"
+  ){
 
     const videoUrl =
-      escapeHtml(post.media_url);
+      escapeHtml(
+        post.media_url
+      );
+
 
     const poster =
       post.thumbnail_url
         ? `poster="${escapeHtml(post.thumbnail_url)}"`
         : "";
+
 
     media = `
       <div class="media-wrap">
@@ -738,9 +837,7 @@ function renderPost(post){
   }
 
 
-  /* ---------------------------------------------
-     IMAGE
-  --------------------------------------------- */
+  /* IMAGE */
 
   else{
 
@@ -765,44 +862,55 @@ function renderPost(post){
       class="post-card"
       data-post-id="${post.id}">
 
-      <!-- BUSINESS HEADER -->
-
       <div class="post-header">
 
         <div class="business-info">
 
           <div class="avatar">
+
             ${escapeHtml(initial)}
+
           </div>
 
           <div>
 
             <div class="business-name">
-              ${escapeHtml(businessName)}
+
+              ${escapeHtml(
+                businessName
+              )}
+
             </div>
 
             <div class="business-meta">
+
               ${escapeHtml(category)}
-              ${city ? " • " + escapeHtml(city) : ""}
+
+              ${
+                city
+                  ? " • " +
+                    escapeHtml(city)
+                  : ""
+              }
+
             </div>
 
           </div>
 
         </div>
 
+
         <div class="post-type">
+
           ${postType}
+
         </div>
 
       </div>
 
 
-      <!-- MEDIA -->
-
       ${media}
 
-
-      <!-- CONTENT -->
 
       <div class="post-content">
 
@@ -810,7 +918,9 @@ function renderPost(post){
           post.caption
             ? `
               <div class="caption">
-                ${escapeHtml(post.caption)}
+                ${escapeHtml(
+                  post.caption
+                )}
               </div>
             `
             : ""
@@ -821,7 +931,9 @@ function renderPost(post){
           post.hashtags
             ? `
               <div class="hashtags">
-                ${escapeHtml(post.hashtags)}
+                ${escapeHtml(
+                  post.hashtags
+                )}
               </div>
             `
             : ""
@@ -832,7 +944,9 @@ function renderPost(post){
           post.location
             ? `
               <div class="location">
-                📍 ${escapeHtml(post.location)}
+                📍 ${escapeHtml(
+                  post.location
+                )}
               </div>
             `
             : ""
@@ -841,47 +955,90 @@ function renderPost(post){
       </div>
 
 
-      <!-- STATS -->
-
       <div class="stats">
 
         <span class="like-count">
-          ❤️ ${formatNumber(post.likes_count)} likes
+
+          ❤️
+          ${formatNumber(
+            post.likes_count
+          )}
+          likes
+
         </span>
 
-        <span>
-          💬 ${formatNumber(post.comments_count)} comments
-        </span>
 
         <span>
-          👁 ${formatNumber(post.views_count)} views
+
+          💬
+          ${formatNumber(
+            post.comments_count
+          )}
+          comments
+
+        </span>
+
+
+        <span>
+
+          👁
+          ${formatNumber(
+            post.views_count
+          )}
+          views
+
         </span>
 
       </div>
 
 
-      <!-- ACTIONS -->
+      <div
+        class="login-message">
+
+        Please login to like this post.
+
+      </div>
+
 
       <div class="actions">
 
         <button
-          class="action-btn like-button ${liked ? "like-active" : ""}"
-          onclick="toggleLike(${post.id}, this)">
+          type="button"
+          class="action-btn like-button ${
+            liked
+              ? "like-active"
+              : ""
+          }"
+          data-action="like"
+          data-post-id="${post.id}">
 
           <span class="action-icon">
-            ${liked ? "❤️" : "♡"}
+
+            ${
+              liked
+                ? "❤️"
+                : "♡"
+            }
+
           </span>
 
           <span class="like-text">
-            ${liked ? "Liked" : "Like"}
+
+            ${
+              liked
+                ? "Liked"
+                : "Like"
+            }
+
           </span>
 
         </button>
 
 
         <button
-          class="action-btn"
-          onclick="commentPost(${post.id})">
+          type="button"
+          class="action-btn comment-button"
+          data-post-id="${post.id}">
 
           <span class="action-icon">
             💬
@@ -893,8 +1050,9 @@ function renderPost(post){
 
 
         <button
-          class="action-btn"
-          onclick="savePost(${post.id})">
+          type="button"
+          class="action-btn save-button"
+          data-post-id="${post.id}">
 
           <span class="action-icon">
             🔖
@@ -906,8 +1064,9 @@ function renderPost(post){
 
 
         <button
-          class="action-btn"
-          onclick="sharePost(${post.id})">
+          type="button"
+          class="action-btn share-button"
+          data-post-id="${post.id}">
 
           <span class="action-icon">
             ↗️
@@ -927,6 +1086,90 @@ function renderPost(post){
 
 
 /* =====================================================
+   ATTACH BUTTON EVENTS
+===================================================== */
+
+function attachPostButtons(){
+
+  document
+    .querySelectorAll(".like-button")
+    .forEach(function(button){
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          const postId =
+            button.dataset.postId;
+
+          toggleLike(
+            postId,
+            button
+          );
+
+        }
+      );
+
+    });
+
+
+  document
+    .querySelectorAll(".comment-button")
+    .forEach(function(button){
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          alert(
+            "Comment system next step mein connect hoga."
+          );
+
+        }
+      );
+
+    });
+
+
+  document
+    .querySelectorAll(".save-button")
+    .forEach(function(button){
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          alert(
+            "Save system next step mein connect hoga."
+          );
+
+        }
+      );
+
+    });
+
+
+  document
+    .querySelectorAll(".share-button")
+    .forEach(function(button){
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          sharePost(
+            button.dataset.postId
+          );
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =====================================================
    LIKE / UNLIKE
 ===================================================== */
 
@@ -938,11 +1181,17 @@ async function toggleLike(
   if(
     button.dataset.loading === "true"
   ){
+
     return;
+
   }
 
 
-  button.dataset.loading = "true";
+  button.dataset.loading =
+    "true";
+
+  button.disabled =
+    true;
 
 
   const wasLiked =
@@ -962,10 +1211,12 @@ async function toggleLike(
     const formData =
       new FormData();
 
+
     formData.append(
       "action",
       action
     );
+
 
     formData.append(
       "post_id",
@@ -978,7 +1229,9 @@ async function toggleLike(
         "/api/boost-post",
         {
           method:"POST",
-          body:formData
+          body:formData,
+          credentials:"include",
+          cache:"no-store"
         }
       );
 
@@ -987,13 +1240,30 @@ async function toggleLike(
       await response.json();
 
 
+    /* LOGIN REQUIRED */
+
     if(
       response.status === 401
     ){
 
-      alert(
-        "Please login first to like this post."
-      );
+      const card =
+        button.closest(
+          ".post-card"
+        );
+
+
+      const message =
+        card.querySelector(
+          ".login-message"
+        );
+
+
+      if(message){
+
+        message.style.display =
+          "block";
+
+      }
 
       return;
 
@@ -1013,9 +1283,29 @@ async function toggleLike(
     }
 
 
-    /* ---------------------------------------------
-       UPDATE BUTTON
-    --------------------------------------------- */
+    /* HIDE LOGIN MESSAGE */
+
+    const card =
+      button.closest(
+        ".post-card"
+      );
+
+
+    const message =
+      card.querySelector(
+        ".login-message"
+      );
+
+
+    if(message){
+
+      message.style.display =
+        "none";
+
+    }
+
+
+    /* UPDATE BUTTON */
 
     if(data.liked){
 
@@ -1023,13 +1313,22 @@ async function toggleLike(
         "like-active"
       );
 
-      button.querySelector(
-        ".action-icon"
-      ).textContent = "❤️";
 
-      button.querySelector(
-        ".like-text"
-      ).textContent = "Liked";
+      button
+        .querySelector(
+          ".action-icon"
+        )
+        .textContent =
+        "❤️";
+
+
+      button
+        .querySelector(
+          ".like-text"
+        )
+        .textContent =
+        "Liked";
+
 
     }else{
 
@@ -1037,25 +1336,26 @@ async function toggleLike(
         "like-active"
       );
 
-      button.querySelector(
-        ".action-icon"
-      ).textContent = "♡";
 
-      button.querySelector(
-        ".like-text"
-      ).textContent = "Like";
+      button
+        .querySelector(
+          ".action-icon"
+        )
+        .textContent =
+        "♡";
+
+
+      button
+        .querySelector(
+          ".like-text"
+        )
+        .textContent =
+        "Like";
 
     }
 
 
-    /* ---------------------------------------------
-       UPDATE COUNT
-    --------------------------------------------- */
-
-    const card =
-      button.closest(
-        ".post-card"
-      );
+    /* UPDATE COUNT */
 
     const countElement =
       card.querySelector(
@@ -1077,45 +1377,27 @@ async function toggleLike(
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Like error:",
+      error
+    );
+
 
     alert(
       error.message ||
-      "Unable to like post"
+      "Unable to like post."
     );
+
 
   }finally{
 
     button.dataset.loading =
       "false";
 
+    button.disabled =
+      false;
+
   }
-
-}
-
-
-/* =====================================================
-   COMMENT
-===================================================== */
-
-function commentPost(postId){
-
-  alert(
-    "Comment system next step mein connect hoga."
-  );
-
-}
-
-
-/* =====================================================
-   SAVE
-===================================================== */
-
-function savePost(postId){
-
-  alert(
-    "Save system next step mein connect hoga."
-  );
 
 }
 
@@ -1124,7 +1406,9 @@ function savePost(postId){
    SHARE
 ===================================================== */
 
-async function sharePost(postId){
+async function sharePost(
+  postId
+){
 
   const shareUrl =
     window.location.origin +
@@ -1140,12 +1424,14 @@ async function sharePost(postId){
 
       await navigator.share({
 
-        title:"Boostly Post",
+        title:
+          "Boostly Post",
 
         text:
           "Check this business post on Boostly.",
 
-        url:shareUrl
+        url:
+          shareUrl
 
       });
 
@@ -1160,6 +1446,7 @@ async function sharePost(postId){
       );
 
     }
+
 
   }catch(error){
 
