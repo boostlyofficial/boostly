@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Boost Post | Boostly</title>
+
+<meta name="description"
+content="Create and publish a professional Boost Post on Boostly.">
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f7f5fb;
+  color:#17131f;
+}
+
+.header{
+  background:#ffffff;
+  border-bottom:1px solid #eee8f5;
+  padding:15px 20px;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+
+.header-inner{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  text-decoration:none;
+  font-size:24px;
+  font-weight:800;
+  color:#6d3df5;
+}
+
+.back{
+  text-decoration:none;
+  color:#555;
+  font-size:14px;
+  font-weight:600;
+}
+
+.container{
+  max-width:850px;
+  margin:30px auto;
+  padding:0 16px;
+}
+
+.title{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.title h1{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.title p{
+  color:#777;
+  font-size:15px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #ebe5f2;
+  border-radius:20px;
+  padding:22px;
+  margin-bottom:20px;
+  box-shadow:0 10px 30px rgba(40,20,70,.06);
+}
+
+.card h2{
+  font-size:19px;
+  margin-bottom:17px;
+}
+
+.type-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.type-btn{
+  border:1px solid #ddd5eb;
+  background:#fff;
+  border-radius:14px;
+  padding:17px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:700;
+  text-align:center;
+}
+
+.type-btn.active{
+  border:2px solid #6d3df5;
+  background:#f4efff;
+  color:#6d3df5;
+}
+
+.upload-box{
+  border:2px dashed #d9d0e8;
+  border-radius:18px;
+  padding:30px 18px;
+  text-align:center;
+  margin-top:18px;
+  background:#faf9fd;
+}
+
+.upload-box input{
+  width:100%;
+  margin-top:15px;
+}
+
+.preview{
+  display:none;
+  margin-top:18px;
+}
+
+.preview img,
+.preview video{
+  width:100%;
+  max-height:400px;
+  object-fit:contain;
+  border-radius:14px;
+  background:#111;
+}
+
+.field{
+  margin-bottom:18px;
+}
+
+.field label{
+  display:block;
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.field textarea,
+.field input{
+  width:100%;
+  border:1px solid #ddd6e8;
+  border-radius:12px;
+  padding:13px;
+  font-size:15px;
+  outline:none;
+  font-family:inherit;
+}
+
+.field textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+.field input:focus,
+.field textarea:focus{
+  border-color:#6d3df5;
+}
+
+.counter{
+  text-align:right;
+  color:#888;
+  font-size:12px;
+  margin-top:5px;
+}
+
+.publish-btn{
+  width:100%;
+  border:0;
+  border-radius:14px;
+  padding:16px;
+  background:#6d3df5;
+  color:white;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.publish-btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.status{
+  display:none;
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:18px;
+  font-size:14px;
+  font-weight:600;
+}
+
+.status.success{
+  display:block;
+  background:#eaf9ef;
+  color:#18743a;
+}
+
+.status.error{
+  display:block;
+  background:#fff0f0;
+  color:#b42323;
+}
+
+.note{
+  background:#f6f2ff;
+  border-radius:12px;
+  padding:13px;
+  color:#5d4a78;
+  font-size:13px;
+  line-height:1.5;
+  margin-top:15px;
+}
+
+@media(max-width:600px){
+
+  .container{
+    margin-top:20px;
+  }
+
+  .title h1{
+    font-size:25px;
+  }
+
+  .card{
+    padding:17px;
+    border-radius:16px;
+  }
+
+  .type-buttons{
+    gap:8px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+  <div class="header-inner">
+
+    <a href="index.html" class="logo">
+      Boostly
+    </a>
+
+    <a href="dashboard.html" class="back">
+      ← Dashboard
+    </a>
+
+  </div>
+
+</header>
+
+
+<main class="container">
+
+  <div class="title">
+
+    <h1>Create Boost Post</h1>
+
+    <p>
+      Share photos and videos with your customers on Boostly.
+    </p>
+
+  </div>
+
+
+  <div id="status" class="status"></div>
+
+
+  <!-- POST TYPE -->
+
+  <section class="card">
+
+    <h2>1. Choose Post Type</h2>
+
+    <div class="type-buttons">
+
+      <button
+        type="button"
+        class="type-btn active"
+        data-type="post">
+
+        📸 Boost Post
+
+      </button>
+
+      <button
+        type="button"
+        class="type-btn"
+        data-type="reel">
+
+        🎬 Boost Reel
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- MEDIA -->
+
+  <section class="card">
+
+    <h2>2. Add Photo or Video</h2>
+
+    <div class="upload-box">
+
+      <div style="font-size:38px;">
+        📷
+      </div>
+
+      <p style="margin-top:8px;font-weight:700;">
+        Choose your media
+      </p>
+
+      <p style="font-size:13px;color:#888;margin-top:5px;">
+        Select an image or video from your phone.
+      </p>
+
+      <input
+        type="file"
+        id="mediaFile"
+        accept="image/*,video/*">
+
+    </div>
+
+    <div id="preview" class="preview"></div>
+
+    <div class="note">
+      Media upload to Cloudinary will be connected in the next step.
+      For now this page prepares the post information.
+    </div>
+
+  </section>
+
+
+  <!-- DETAILS -->
+
+  <section class="card">
+
+    <h2>3. Post Details</h2>
+
+    <div class="field">
+
+      <label for="caption">
+        Caption
+      </label>
+
+      <textarea
+        id="caption"
+        maxlength="2200"
+        placeholder="Write something about your business, product or offer..."></textarea>
+
+      <div class="counter">
+        <span id="captionCount">0</span>/2200
+      </div>
+
+    </div>
+
+
+    <div class="field">
+
+      <label for="location">
+        Location
+      </label>
+
+      <input
+        type="text"
+        id="location"
+        placeholder="Example: Ludhiana, Punjab">
+
+    </div>
+
+
+    <div class="field">
+
+      <label for="hashtags">
+        Hashtags
+      </label>
+
+      <input
+        type="text"
+        id="hashtags"
+        placeholder="#Boostly #Business #Ludhiana">
+
+    </div>
+
+  </section>
+
+
+  <!-- PUBLISH -->
+
+  <section class="card">
+
+    <h2>4. Publish</h2>
+
+    <button
+      type="button"
+      class="publish-btn"
+      id="publishBtn">
+
+      🚀 Publish Boost Post
+
+    </button>
+
+    <div class="note">
+      Your post will be published to Boostly after the media upload
+      and post API are connected.
+    </div>
+
+  </section>
+
+</main>
+
+
+<script>
+
+let selectedPostType = "post";
+
+let selectedMediaFile = null;
+
+
+/* =====================================================
+   POST TYPE
+===================================================== */
+
+document.querySelectorAll(".type-btn")
+.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    document.querySelectorAll(".type-btn")
+    .forEach(btn => {
+      btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    selectedPostType =
+      button.dataset.type;
+
+  });
+
+});
+
+
+/* =====================================================
+   MEDIA PREVIEW
+===================================================== */
+
+const mediaFile =
+  document.getElementById("mediaFile");
+
+const preview =
+  document.getElementById("preview");
+
+
+mediaFile.addEventListener("change", () => {
+
+  const file =
+    mediaFile.files[0];
+
+  if (!file) {
+    return;
+  }
+
+  selectedMediaFile = file;
+
+  preview.innerHTML = "";
+
+  preview.style.display = "block";
+
+
+  if (file.type.startsWith("image/")) {
+
+    const img =
+      document.createElement("img");
+
+    img.src =
+      URL.createObjectURL(file);
+
+    preview.appendChild(img);
+
+  }
+
+  else if (file.type.startsWith("video/")) {
+
+    const video =
+      document.createElement("video");
+
+    video.src =
+      URL.createObjectURL(file);
+
+    video.controls = true;
+
+    preview.appendChild(video);
+
+  }
+
+});
+
+
+/* =====================================================
+   CAPTION COUNTER
+===================================================== */
+
+const caption =
+  document.getElementById("caption");
+
+const captionCount =
+  document.getElementById("captionCount");
+
+
+caption.addEventListener("input", () => {
+
+  captionCount.textContent =
+    caption.value.length;
+
+});
+
+
+/* =====================================================
+   PUBLISH BUTTON
+===================================================== */
+
+document
+.getElementById("publishBtn")
+.addEventListener("click", () => {
+
+  const status =
+    document.getElementById("status");
+
+  status.className = "status";
+
+  status.textContent = "";
+
+
+  if (!selectedMediaFile) {
+
+    status.className =
+      "status error";
+
+    status.textContent =
+      "Please select a photo or video first.";
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+    return;
+
+  }
+
+
+  status.className =
+    "status success";
+
+  status.textContent =
+    "Media selected successfully. Upload connection will be added next.";
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+});
+
+</script>
+
+</body>
+</html>
