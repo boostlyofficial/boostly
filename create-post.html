@@ -6,8 +6,7 @@
 
 <title>Create Boost Post | Boostly</title>
 
-<meta name="description"
-content="Create and publish a professional Boost Post on Boostly.">
+<script src="https://upload-widget.cloudinary.com/global/all.js"></script>
 
 <style>
 
@@ -24,7 +23,7 @@ body{
 }
 
 .header{
-  background:#ffffff;
+  background:#fff;
   border-bottom:1px solid #eee8f5;
   padding:15px 20px;
   position:sticky;
@@ -103,7 +102,6 @@ body{
   cursor:pointer;
   font-size:15px;
   font-weight:700;
-  text-align:center;
 }
 
 .type-btn.active{
@@ -112,32 +110,20 @@ body{
   color:#6d3df5;
 }
 
-.upload-box{
-  border:2px dashed #d9d0e8;
-  border-radius:18px;
-  padding:30px 18px;
-  text-align:center;
-  margin-top:18px;
-  background:#faf9fd;
-}
-
-.upload-box input{
+.upload-btn{
   width:100%;
-  margin-top:15px;
-}
-
-.preview{
-  display:none;
-  margin-top:18px;
-}
-
-.preview img,
-.preview video{
-  width:100%;
-  max-height:400px;
-  object-fit:contain;
+  border:0;
   border-radius:14px;
-  background:#111;
+  padding:17px;
+  background:#6d3df5;
+  color:#fff;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.upload-btn:disabled{
+  opacity:.6;
 }
 
 .field{
@@ -167,11 +153,6 @@ body{
   resize:vertical;
 }
 
-.field input:focus,
-.field textarea:focus{
-  border-color:#6d3df5;
-}
-
 .counter{
   text-align:right;
   color:#888;
@@ -193,7 +174,6 @@ body{
 
 .publish-btn:disabled{
   opacity:.6;
-  cursor:not-allowed;
 }
 
 .status{
@@ -203,6 +183,12 @@ body{
   margin-bottom:18px;
   font-size:14px;
   font-weight:600;
+}
+
+.status.info{
+  display:block;
+  background:#f0ebff;
+  color:#5732bb;
 }
 
 .status.success{
@@ -217,6 +203,20 @@ body{
   color:#b42323;
 }
 
+.preview{
+  display:none;
+  margin-top:18px;
+}
+
+.preview img,
+.preview video{
+  width:100%;
+  max-height:400px;
+  object-fit:contain;
+  border-radius:14px;
+  background:#111;
+}
+
 .note{
   background:#f6f2ff;
   border-radius:12px;
@@ -229,10 +229,6 @@ body{
 
 @media(max-width:600px){
 
-  .container{
-    margin-top:20px;
-  }
-
   .title h1{
     font-size:25px;
   }
@@ -240,10 +236,6 @@ body{
   .card{
     padding:17px;
     border-radius:16px;
-  }
-
-  .type-buttons{
-    gap:8px;
   }
 
 }
@@ -277,7 +269,7 @@ body{
     <h1>Create Boost Post</h1>
 
     <p>
-      Share photos and videos with your customers on Boostly.
+      Create and publish content for your Boostly business profile.
     </p>
 
   </div>
@@ -323,32 +315,20 @@ body{
 
     <h2>2. Add Photo or Video</h2>
 
-    <div class="upload-box">
+    <button
+      type="button"
+      id="uploadBtn"
+      class="upload-btn">
 
-      <div style="font-size:38px;">
-        📷
-      </div>
+      ☁️ Select Photo or Video
 
-      <p style="margin-top:8px;font-weight:700;">
-        Choose your media
-      </p>
-
-      <p style="font-size:13px;color:#888;margin-top:5px;">
-        Select an image or video from your phone.
-      </p>
-
-      <input
-        type="file"
-        id="mediaFile"
-        accept="image/*,video/*">
-
-    </div>
+    </button>
 
     <div id="preview" class="preview"></div>
 
     <div class="note">
-      Media upload to Cloudinary will be connected in the next step.
-      For now this page prepares the post information.
+      Your selected photo or video will be securely uploaded
+      to Cloudinary before publishing.
     </div>
 
   </section>
@@ -387,6 +367,7 @@ body{
       <input
         type="text"
         id="location"
+        maxlength="200"
         placeholder="Example: Ludhiana, Punjab">
 
     </div>
@@ -401,6 +382,7 @@ body{
       <input
         type="text"
         id="hashtags"
+        maxlength="500"
         placeholder="#Boostly #Business #Ludhiana">
 
     </div>
@@ -423,11 +405,6 @@ body{
 
     </button>
 
-    <div class="note">
-      Your post will be published to Boostly after the media upload
-      and post API are connected.
-    </div>
-
   </section>
 
 </main>
@@ -435,21 +412,68 @@ body{
 
 <script>
 
+let business = null;
 let selectedPostType = "post";
+let uploadedMedia = null;
+let widget = null;
 
-let selectedMediaFile = null;
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const statusBox =
+  document.getElementById("status");
+
+const uploadBtn =
+  document.getElementById("uploadBtn");
+
+const publishBtn =
+  document.getElementById("publishBtn");
+
+const preview =
+  document.getElementById("preview");
+
+const caption =
+  document.getElementById("caption");
+
+const locationInput =
+  document.getElementById("location");
+
+const hashtags =
+  document.getElementById("hashtags");
+
+const captionCount =
+  document.getElementById("captionCount");
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function showStatus(message,type){
+
+  statusBox.className =
+    "status " + type;
+
+  statusBox.textContent =
+    message;
+
+}
 
 
 /* =====================================================
    POST TYPE
 ===================================================== */
 
-document.querySelectorAll(".type-btn")
+document
+.querySelectorAll(".type-btn")
 .forEach(button => {
 
   button.addEventListener("click", () => {
 
-    document.querySelectorAll(".type-btn")
+    document
+    .querySelectorAll(".type-btn")
     .forEach(btn => {
       btn.classList.remove("active");
     });
@@ -459,63 +483,14 @@ document.querySelectorAll(".type-btn")
     selectedPostType =
       button.dataset.type;
 
+    uploadedMedia = null;
+
+    preview.style.display =
+      "none";
+
+    preview.innerHTML = "";
+
   });
-
-});
-
-
-/* =====================================================
-   MEDIA PREVIEW
-===================================================== */
-
-const mediaFile =
-  document.getElementById("mediaFile");
-
-const preview =
-  document.getElementById("preview");
-
-
-mediaFile.addEventListener("change", () => {
-
-  const file =
-    mediaFile.files[0];
-
-  if (!file) {
-    return;
-  }
-
-  selectedMediaFile = file;
-
-  preview.innerHTML = "";
-
-  preview.style.display = "block";
-
-
-  if (file.type.startsWith("image/")) {
-
-    const img =
-      document.createElement("img");
-
-    img.src =
-      URL.createObjectURL(file);
-
-    preview.appendChild(img);
-
-  }
-
-  else if (file.type.startsWith("video/")) {
-
-    const video =
-      document.createElement("video");
-
-    video.src =
-      URL.createObjectURL(file);
-
-    video.controls = true;
-
-    preview.appendChild(video);
-
-  }
 
 });
 
@@ -523,13 +498,6 @@ mediaFile.addEventListener("change", () => {
 /* =====================================================
    CAPTION COUNTER
 ===================================================== */
-
-const caption =
-  document.getElementById("caption");
-
-const captionCount =
-  document.getElementById("captionCount");
-
 
 caption.addEventListener("input", () => {
 
@@ -540,52 +508,476 @@ caption.addEventListener("input", () => {
 
 
 /* =====================================================
-   PUBLISH BUTTON
+   LOAD BUSINESS
 ===================================================== */
 
-document
-.getElementById("publishBtn")
-.addEventListener("click", () => {
+async function loadBusiness(){
 
-  const status =
-    document.getElementById("status");
+  const response =
+    await fetch(
+      "/api/my-business",
+      {
+        credentials:"include"
+      }
+    );
 
-  status.className = "status";
+  const text =
+    await response.text();
 
-  status.textContent = "";
+  if(!response.ok){
 
-
-  if (!selectedMediaFile) {
-
-    status.className =
-      "status error";
-
-    status.textContent =
-      "Please select a photo or video first.";
-
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
-
-    return;
+    throw new Error(
+      "Business profile error " +
+      response.status
+    );
 
   }
 
+  business =
+    JSON.parse(text);
 
-  status.className =
-    "status success";
+  if(!business.id){
 
-  status.textContent =
-    "Media selected successfully. Upload connection will be added next.";
+    throw new Error(
+      "Business profile ID nahi mila."
+    );
+
+  }
+
+}
 
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+/* =====================================================
+   CLOUDINARY WIDGET
+===================================================== */
 
-});
+function createWidget(){
+
+  widget =
+    cloudinary.createUploadWidget(
+
+      {
+
+        cloudName:"zszjccck",
+
+        uploadPreset:"boostly_upload",
+
+        sources:[
+          "local"
+        ],
+
+        multiple:false,
+
+        resourceType:"auto",
+
+        maxFileSize:52428800,
+
+        clientAllowedFormats:[
+          "jpg",
+          "jpeg",
+          "png",
+          "webp",
+          "mp4",
+          "mov",
+          "webm"
+        ],
+
+        folder:"boostly",
+
+        cropping:false,
+
+        showAdvancedOptions:false,
+
+        showSkipCropButton:false
+
+      },
+
+      async function(error,result){
+
+        if(error){
+
+          console.error(error);
+
+          uploadBtn.disabled =
+            false;
+
+          uploadBtn.textContent =
+            "☁️ Select Photo or Video";
+
+          showStatus(
+            "Cloudinary upload error: " +
+            (
+              error.message ||
+              "Upload failed"
+            ),
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        if(
+          result &&
+          result.event === "upload-added"
+        ){
+
+          showStatus(
+            "☁️ Uploading media to Cloudinary...",
+            "info"
+          );
+
+        }
+
+
+        if(
+          result &&
+          result.event === "success"
+        ){
+
+          const info =
+            result.info;
+
+          /* REEL MUST BE VIDEO */
+
+          if(
+            selectedPostType === "reel" &&
+            info.resource_type !== "video"
+          ){
+
+            uploadedMedia = null;
+
+            showStatus(
+              "Boost Reel ke liye video select karo.",
+              "error"
+            );
+
+            uploadBtn.disabled =
+              false;
+
+            uploadBtn.textContent =
+              "☁️ Select Photo or Video";
+
+            return;
+
+          }
+
+
+          uploadedMedia = info;
+
+
+          if(
+            info.resource_type === "video"
+          ){
+
+            preview.innerHTML =
+              "<video controls src=\"" +
+              info.secure_url +
+              "\"></video>";
+
+          }else{
+
+            preview.innerHTML =
+              "<img src=\"" +
+              info.secure_url +
+              "\" alt=\"Boostly post\">";
+
+          }
+
+          preview.style.display =
+            "block";
+
+
+          uploadBtn.disabled =
+            false;
+
+          uploadBtn.textContent =
+            "✅ Media Selected";
+
+
+          showStatus(
+            "Media upload successful. Ab Publish par tap karo.",
+            "success"
+          );
+
+        }
+
+      }
+
+    );
+
+}
+
+
+/* =====================================================
+   OPEN CLOUDINARY
+===================================================== */
+
+uploadBtn.addEventListener(
+  "click",
+  async function(){
+
+    try{
+
+      uploadBtn.disabled =
+        true;
+
+      uploadBtn.textContent =
+        "Opening uploader...";
+
+
+      showStatus(
+        "Business profile check ho raha hai...",
+        "info"
+      );
+
+
+      await loadBusiness();
+
+
+      if(!widget){
+
+        createWidget();
+
+      }
+
+
+      uploadBtn.disabled =
+        false;
+
+      widget.open();
+
+
+    }catch(error){
+
+      console.error(error);
+
+      uploadBtn.disabled =
+        false;
+
+      uploadBtn.textContent =
+        "☁️ Select Photo or Video";
+
+      showStatus(
+        "❌ " + error.message,
+        "error"
+      );
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   PUBLISH BOOST POST
+===================================================== */
+
+publishBtn.addEventListener(
+  "click",
+  async function(){
+
+    try{
+
+      if(!business){
+
+        await loadBusiness();
+
+      }
+
+
+      if(!uploadedMedia){
+
+        showStatus(
+          "Please pehle photo ya video select karo.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      if(
+        selectedPostType === "reel" &&
+        uploadedMedia.resource_type !== "video"
+      ){
+
+        showStatus(
+          "Boost Reel ke liye video required hai.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      publishBtn.disabled =
+        true;
+
+      publishBtn.textContent =
+        "Publishing...";
+
+
+      showStatus(
+        "🚀 Boost Post publish ho raha hai...",
+        "info"
+      );
+
+
+      const form =
+        new FormData();
+
+
+      form.append(
+        "business_id",
+        String(business.id)
+      );
+
+
+      form.append(
+        "post_type",
+        selectedPostType
+      );
+
+
+      form.append(
+        "media_type",
+        uploadedMedia.resource_type === "video"
+          ? "video"
+          : "image"
+      );
+
+
+      form.append(
+        "media_url",
+        uploadedMedia.secure_url
+      );
+
+
+      form.append(
+        "thumbnail_url",
+        uploadedMedia.thumbnail_url || ""
+      );
+
+
+      form.append(
+        "public_id",
+        uploadedMedia.public_id || ""
+      );
+
+
+      form.append(
+        "caption",
+        caption.value.trim()
+      );
+
+
+      form.append(
+        "location",
+        locationInput.value.trim()
+      );
+
+
+      form.append(
+        "hashtags",
+        hashtags.value.trim()
+      );
+
+
+      const response =
+        await fetch(
+          "/api/boost-post",
+          {
+            method:"POST",
+            credentials:"include",
+            body:form
+          }
+        );
+
+
+      const text =
+        await response.text();
+
+
+      let data = {};
+
+      try{
+
+        data =
+          JSON.parse(text);
+
+      }catch{
+
+        throw new Error(
+          "Invalid server response"
+        );
+
+      }
+
+
+      if(!response.ok){
+
+        throw new Error(
+          data.error ||
+          "Boost Post publish failed"
+        );
+
+      }
+
+
+      if(data.success !== true){
+
+        throw new Error(
+          data.error ||
+          "Boost Post publish failed"
+        );
+
+      }
+
+
+      showStatus(
+        "🎉 Boost Post successfully published! Post ID: " +
+        data.post_id,
+        "success"
+      );
+
+
+      publishBtn.textContent =
+        "✅ Published";
+
+
+      caption.value = "";
+      locationInput.value = "";
+      hashtags.value = "";
+
+      captionCount.textContent =
+        "0";
+
+      uploadedMedia = null;
+
+
+    }catch(error){
+
+      console.error(error);
+
+      publishBtn.disabled =
+        false;
+
+      publishBtn.textContent =
+        "🚀 Publish Boost Post";
+
+      showStatus(
+        "❌ " + error.message,
+        "error"
+      );
+
+    }
+
+  }
+);
 
 </script>
 
