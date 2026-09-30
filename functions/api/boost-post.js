@@ -13,7 +13,6 @@ export async function onRequest(context) {
       const businessId =
         url.searchParams.get("business_id");
 
-
       // ===================================================
       // CHECK CURRENT LOGIN SESSION
       // ===================================================
@@ -30,7 +29,6 @@ export async function onRequest(context) {
         sessionMatch
           ? sessionMatch[1]
           : "";
-
 
       // ===================================================
       // LOAD PUBLISHED POSTS
@@ -86,9 +84,7 @@ export async function onRequest(context) {
         WHERE p.status = 'published'
       `;
 
-
       const params = [];
-
 
       // ===================================================
       // BUSINESS FILTER
@@ -98,7 +94,6 @@ export async function onRequest(context) {
 
         const businessIdNumber =
           Number(businessId);
-
 
         if (
           !Number.isInteger(businessIdNumber) ||
@@ -113,13 +108,13 @@ export async function onRequest(context) {
             {
               status: 400,
               headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Cache-Control": "no-store"
               }
             }
           );
 
         }
-
 
         query += `
           AND p.business_id = ?
@@ -131,7 +126,6 @@ export async function onRequest(context) {
 
       }
 
-
       // ===================================================
       // ORDER
       // ===================================================
@@ -140,7 +134,6 @@ export async function onRequest(context) {
         ORDER BY p.created_at DESC
         LIMIT 100
       `;
-
 
       // ===================================================
       // RUN QUERY
@@ -155,6 +148,38 @@ export async function onRequest(context) {
           )
           .all();
 
+      // ===================================================
+      // NORMALIZE LIKED VALUE
+      // ===================================================
+
+      const posts =
+        (result.results || []).map(
+          function(post) {
+
+            return {
+              ...post,
+
+              liked:
+                Number(post.liked) === 1,
+
+              likes_count:
+                Number(post.likes_count || 0),
+
+              comments_count:
+                Number(post.comments_count || 0),
+
+              shares_count:
+                Number(post.shares_count || 0),
+
+              saves_count:
+                Number(post.saves_count || 0),
+
+              views_count:
+                Number(post.views_count || 0)
+            };
+
+          }
+        );
 
       // ===================================================
       // RETURN POSTS
@@ -163,7 +188,7 @@ export async function onRequest(context) {
       return new Response(
         JSON.stringify({
           success: true,
-          posts: result.results || []
+          posts: posts
         }),
         {
           status: 200,
@@ -175,7 +200,6 @@ export async function onRequest(context) {
       );
 
     }
-
 
     // =====================================================
     // ONLY POST AFTER THIS POINT
@@ -193,13 +217,13 @@ export async function onRequest(context) {
           status: 405,
           headers: {
             "Content-Type": "application/json",
-            "Allow": "GET, POST"
+            "Allow": "GET, POST",
+            "Cache-Control": "no-store"
           }
         }
       );
 
     }
-
 
     // =====================================================
     // CHECK LOGIN SESSION
@@ -213,7 +237,6 @@ export async function onRequest(context) {
         /(?:^|;\s*)boostly_session=([^;]+)/
       );
 
-
     if (!match) {
 
       return new Response(
@@ -224,17 +247,16 @@ export async function onRequest(context) {
         {
           status: 401,
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store"
           }
         }
       );
 
     }
 
-
     const sessionId =
       match[1];
-
 
     // =====================================================
     // CHECK SESSION IN D1
@@ -251,7 +273,6 @@ export async function onRequest(context) {
         .bind(sessionId)
         .first();
 
-
     if (!session) {
 
       return new Response(
@@ -262,13 +283,13 @@ export async function onRequest(context) {
         {
           status: 401,
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store"
           }
         }
       );
 
     }
-
 
     // =====================================================
     // READ FORM DATA
@@ -277,10 +298,8 @@ export async function onRequest(context) {
     const formData =
       await context.request.formData();
 
-
     const action =
       formData.get("action") || "create";
-
 
     // =====================================================
     // LIKE / UNLIKE SYSTEM
@@ -294,10 +313,8 @@ export async function onRequest(context) {
       const postIdValue =
         formData.get("post_id");
 
-
       const postId =
         Number(postIdValue);
-
 
       // ===================================================
       // VALIDATE POST ID
@@ -316,13 +333,13 @@ export async function onRequest(context) {
           {
             status: 400,
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
+              "Cache-Control": "no-store"
             }
           }
         );
 
       }
-
 
       // ===================================================
       // CHECK POST EXISTS
@@ -342,7 +359,6 @@ export async function onRequest(context) {
           .bind(postId)
           .first();
 
-
       if (!post) {
 
         return new Response(
@@ -353,13 +369,13 @@ export async function onRequest(context) {
           {
             status: 404,
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
+              "Cache-Control": "no-store"
             }
           }
         );
 
       }
-
 
       // ===================================================
       // LIKE
@@ -383,7 +399,6 @@ export async function onRequest(context) {
             )
             .first();
 
-
         // Already liked
         if (existingLike) {
 
@@ -401,13 +416,13 @@ export async function onRequest(context) {
             {
               status: 200,
               headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Cache-Control": "no-store"
               }
             }
           );
 
         }
-
 
         // =================================================
         // INSERT LIKE
@@ -428,7 +443,6 @@ export async function onRequest(context) {
           )
           .run();
 
-
         // =================================================
         // INCREASE LIKE COUNT
         // =================================================
@@ -446,7 +460,6 @@ export async function onRequest(context) {
           .bind(postId)
           .run();
 
-
         // =================================================
         // GET UPDATED COUNT
         // =================================================
@@ -462,7 +475,6 @@ export async function onRequest(context) {
             .bind(postId)
             .first();
 
-
         return new Response(
           JSON.stringify({
             success: true,
@@ -477,13 +489,13 @@ export async function onRequest(context) {
           {
             status: 200,
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
+              "Cache-Control": "no-store"
             }
           }
         );
 
       }
-
 
       // ===================================================
       // UNLIKE
@@ -507,7 +519,6 @@ export async function onRequest(context) {
             )
             .first();
 
-
         // Already not liked
         if (!existingLike) {
 
@@ -525,13 +536,13 @@ export async function onRequest(context) {
             {
               status: 200,
               headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Cache-Control": "no-store"
               }
             }
           );
 
         }
-
 
         // =================================================
         // DELETE LIKE
@@ -548,7 +559,6 @@ export async function onRequest(context) {
             session.user_id
           )
           .run();
-
 
         // =================================================
         // DECREASE LIKE COUNT SAFELY
@@ -571,7 +581,6 @@ export async function onRequest(context) {
           .bind(postId)
           .run();
 
-
         // =================================================
         // GET UPDATED COUNT
         // =================================================
@@ -587,7 +596,6 @@ export async function onRequest(context) {
             .bind(postId)
             .first();
 
-
         return new Response(
           JSON.stringify({
             success: true,
@@ -602,7 +610,8 @@ export async function onRequest(context) {
           {
             status: 200,
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
+              "Cache-Control": "no-store"
             }
           }
         );
@@ -610,7 +619,6 @@ export async function onRequest(context) {
       }
 
     }
-
 
     // =====================================================
     // CREATE BOOST POST
@@ -626,13 +634,13 @@ export async function onRequest(context) {
         {
           status: 400,
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store"
           }
         }
       );
 
     }
-
 
     // =====================================================
     // READ CREATE POST DATA
@@ -641,38 +649,29 @@ export async function onRequest(context) {
     const businessId =
       formData.get("business_id");
 
-
     const postType =
       formData.get("post_type") || "post";
-
 
     const mediaType =
       formData.get("media_type");
 
-
     const mediaUrl =
       formData.get("media_url");
-
 
     const thumbnailUrl =
       formData.get("thumbnail_url") || "";
 
-
     const publicId =
       formData.get("public_id") || "";
-
 
     const caption =
       formData.get("caption") || "";
 
-
     const location =
       formData.get("location") || "";
 
-
     const hashtags =
       formData.get("hashtags") || "";
-
 
     // =====================================================
     // VALIDATION
@@ -693,13 +692,13 @@ export async function onRequest(context) {
         {
           status: 400,
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store"
           }
         }
       );
 
     }
-
 
     // =====================================================
     // VALID POST TYPE
@@ -718,13 +717,13 @@ export async function onRequest(context) {
         {
           status: 400,
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store"
           }
         }
       );
 
     }
-
 
     // =====================================================
     // VALID MEDIA TYPE
@@ -743,13 +742,13 @@ export async function onRequest(context) {
         {
           status: 400,
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store"
           }
         }
       );
 
     }
-
 
     // =====================================================
     // BUSINESS ID VALIDATION
@@ -757,7 +756,6 @@ export async function onRequest(context) {
 
     const businessIdNumber =
       Number(businessId);
-
 
     if (
       !Number.isInteger(businessIdNumber) ||
@@ -772,13 +770,13 @@ export async function onRequest(context) {
         {
           status: 400,
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store"
           }
         }
       );
 
     }
-
 
     // =====================================================
     // CHECK BUSINESS OWNERSHIP
@@ -801,7 +799,6 @@ export async function onRequest(context) {
         )
         .first();
 
-
     if (!business) {
 
       return new Response(
@@ -813,13 +810,13 @@ export async function onRequest(context) {
         {
           status: 403,
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store"
           }
         }
       );
 
     }
-
 
     // =====================================================
     // CREATE BOOST POST
@@ -882,7 +879,6 @@ export async function onRequest(context) {
         )
         .run();
 
-
     // =====================================================
     // SUCCESS
     // =====================================================
@@ -898,16 +894,15 @@ export async function onRequest(context) {
       {
         status: 201,
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Cache-Control": "no-store"
         }
       }
     );
 
-
   } catch (error) {
 
     console.error(error);
-
 
     return new Response(
       JSON.stringify({
@@ -919,7 +914,8 @@ export async function onRequest(context) {
       {
         status: 500,
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Cache-Control": "no-store"
         }
       }
     );
