@@ -2,19 +2,42 @@ export async function onRequest(context) {
 
   try {
 
+    const DB = context.env.DB;
+    const method = context.request.method;
+
+    // =====================================================
+    // HELPER
+    // =====================================================
+
+    function json(data, status = 200) {
+
+      return new Response(
+        JSON.stringify(data),
+        {
+          status,
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store"
+          }
+        }
+      );
+
+    }
+
     // =====================================================
     // GET = LOAD POSTS
     // =====================================================
 
-    if (context.request.method === "GET") {
+    if (method === "GET") {
 
-      const url = new URL(context.request.url);
+      const url =
+        new URL(context.request.url);
 
       const businessId =
         url.searchParams.get("business_id");
 
       // ===================================================
-      // CHECK CURRENT LOGIN SESSION
+      // CURRENT SESSION
       // ===================================================
 
       const cookieHeader =
@@ -84,7 +107,9 @@ export async function onRequest(context) {
         WHERE p.status = 'published'
       `;
 
-      const params = [];
+      const params = [
+        currentSessionId
+      ];
 
       // ===================================================
       // BUSINESS FILTER
@@ -100,18 +125,12 @@ export async function onRequest(context) {
           businessIdNumber <= 0
         ) {
 
-          return new Response(
-            JSON.stringify({
+          return json(
+            {
               success: false,
               error: "Invalid business_id"
-            }),
-            {
-              status: 400,
-              headers: {
-                "Content-Type": "application/json",
-                "Cache-Control": "no-store"
-              }
-            }
+            },
+            400
           );
 
         }
@@ -136,25 +155,22 @@ export async function onRequest(context) {
       `;
 
       // ===================================================
-      // RUN QUERY
+      // RUN
       // ===================================================
 
       const result =
-        await context.env.DB
+        await DB
           .prepare(query)
-          .bind(
-            currentSessionId,
-            ...params
-          )
+          .bind(...params)
           .all();
 
       // ===================================================
-      // NORMALIZE LIKED VALUE
+      // NORMALIZE
       // ===================================================
 
       const posts =
-        (result.results || []).map(
-          function(post) {
+        (result.results || [])
+          .map(function(post) {
 
             return {
               ...post,
@@ -176,133 +192,104 @@ export async function onRequest(context) {
 
               views_count:
                 Number(post.views_count || 0)
+
             };
 
-          }
-        );
+          });
 
-      // ===================================================
-      // RETURN POSTS
-      // ===================================================
-
-      return new Response(
-        JSON.stringify({
-          success: true,
-          posts: posts
-        }),
-        {
-          status: 200,
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store"
-          }
-        }
-      );
+      return json({
+        success: true,
+        posts
+      });
 
     }
 
     // =====================================================
-    // ONLY POST AFTER THIS POINT
+    // ONLY POST AFTER THIS
     // =====================================================
 
-    if (context.request.method !== "POST") {
+    if (method !== "POST") {
 
-      return new Response(
-        JSON.stringify({
+      return json(
+        {
           success: false,
           error:
             "Only GET and POST methods are allowed"
-        }),
-        {
-          status: 405,
-          headers: {
-            "Content-Type": "application/json",
-            "Allow": "GET, POST",
-            "Cache-Control": "no-store"
-          }
-        }
+        },
+        405
       );
 
     }
 
     // =====================================================
-    // CHECK LOGIN SESSION
+    // CHECK LOGIN
     // =====================================================
 
     const cookieHeader =
       context.request.headers.get("Cookie") || "";
 
-    const match =
+    const sessionMatch =
       cookieHeader.match(
         /(?:^|;\s*)boostly_session=([^;]+)/
       );
 
-    if (!match) {
+    if (!sessionMatch) {
 
-      return new Response(
-        JSON.stringify({
+      return json(
+        {
           success: false,
           error: "Not logged in"
-        }),
-        {
-          status: 401,
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store"
-          }
-        }
+        },
+        401
       );
 
     }
 
     const sessionId =
-      match[1];
+      sessionMatch[1];
 
     // =====================================================
-    // CHECK SESSION IN D1
+    // CHECK SESSION
     // =====================================================
 
     const session =
-      await context.env.DB
+      await DB
         .prepare(`
           SELECT user_id
           FROM sessions
           WHERE id = ?
           AND expires_at > datetime('now')
+          LIMIT 1
         `)
         .bind(sessionId)
         .first();
 
     if (!session) {
 
-      return new Response(
-        JSON.stringify({
+      return json(
+        {
           success: false,
           error: "Session expired"
-        }),
-        {
-          status: 401,
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store"
-          }
-        }
+        },
+        401
       );
 
     }
 
     // =====================================================
-    // READ FORM DATA
+    // FORM DATA
     // =====================================================
 
     const formData =
       await context.request.formData();
 
     const action =
-      formData.get("action") || "create";
+      String(
+        formData.get("action") || "create"
+      );
 
     // =====================================================
-    // LIKE / UNLIKE SYSTEM
+    // LIKE / UNLIKE
     // =====================================================
 
     if (
@@ -310,11 +297,10 @@ export async function onRequest(context) {
       action === "unlike"
     ) {
 
-      const postIdValue =
-        formData.get("post_id");
-
       const postId =
-        Number(postIdValue);
+        Number(
+          formData.get("post_id")
+        );
 
       // ===================================================
       // VALIDATE POST ID
@@ -325,28 +311,22 @@ export async function onRequest(context) {
         postId <= 0
       ) {
 
-        return new Response(
-          JSON.stringify({
+        return json(
+          {
             success: false,
             error: "Invalid post_id"
-          }),
-          {
-            status: 400,
-            headers: {
-              "Content-Type": "application/json",
-              "Cache-Control": "no-store"
-            }
-          }
+          },
+          400
         );
 
       }
 
       // ===================================================
-      // CHECK POST EXISTS
+      // CHECK POST
       // ===================================================
 
       const post =
-        await context.env.DB
+        await DB
           .prepare(`
             SELECT
               id,
@@ -361,18 +341,12 @@ export async function onRequest(context) {
 
       if (!post) {
 
-        return new Response(
-          JSON.stringify({
+        return json(
+          {
             success: false,
             error: "Post not found"
-          }),
-          {
-            status: 404,
-            headers: {
-              "Content-Type": "application/json",
-              "Cache-Control": "no-store"
-            }
-          }
+          },
+          404
         );
 
       }
@@ -384,10 +358,9 @@ export async function onRequest(context) {
       if (action === "like") {
 
         const existingLike =
-          await context.env.DB
+          await DB
             .prepare(`
-              SELECT
-                post_id
+              SELECT post_id
               FROM boost_post_likes
               WHERE post_id = ?
               AND user_id = ?
@@ -399,101 +372,104 @@ export async function onRequest(context) {
             )
             .first();
 
-        // Already liked
+        // -------------------------------------------------
+        // ALREADY LIKED
+        // -------------------------------------------------
+
         if (existingLike) {
 
-          return new Response(
-            JSON.stringify({
-              success: true,
-              liked: true,
-              likes_count:
-                Number(
-                  post.likes_count || 0
-                ),
-              message:
-                "Post already liked"
-            }),
-            {
-              status: 200,
-              headers: {
-                "Content-Type": "application/json",
-                "Cache-Control": "no-store"
-              }
-            }
-          );
+          const currentPost =
+            await DB
+              .prepare(`
+                SELECT likes_count
+                FROM boost_posts
+                WHERE id = ?
+                LIMIT 1
+              `)
+              .bind(postId)
+              .first();
 
-        }
-
-        // =================================================
-        // INSERT LIKE
-        // =================================================
-
-        await context.env.DB
-          .prepare(`
-            INSERT INTO boost_post_likes
-            (
-              post_id,
-              user_id
-            )
-            VALUES (?, ?)
-          `)
-          .bind(
-            postId,
-            session.user_id
-          )
-          .run();
-
-        // =================================================
-        // INCREASE LIKE COUNT
-        // =================================================
-
-        await context.env.DB
-          .prepare(`
-            UPDATE boost_posts
-            SET
-              likes_count =
-                likes_count + 1,
-              updated_at =
-                datetime('now')
-            WHERE id = ?
-          `)
-          .bind(postId)
-          .run();
-
-        // =================================================
-        // GET UPDATED COUNT
-        // =================================================
-
-        const updatedPost =
-          await context.env.DB
-            .prepare(`
-              SELECT
-                likes_count
-              FROM boost_posts
-              WHERE id = ?
-            `)
-            .bind(postId)
-            .first();
-
-        return new Response(
-          JSON.stringify({
+          return json({
             success: true,
             liked: true,
             likes_count:
               Number(
-                updatedPost?.likes_count || 0
-              ),
-            message:
-              "Post liked successfully"
-          }),
-          {
-            status: 200,
-            headers: {
-              "Content-Type": "application/json",
-              "Cache-Control": "no-store"
-            }
-          }
-        );
+                currentPost?.likes_count || 0
+              )
+          });
+
+        }
+
+        // -------------------------------------------------
+        // INSERT LIKE
+        // -------------------------------------------------
+
+        const insertLike =
+          await DB
+            .prepare(`
+              INSERT OR IGNORE INTO boost_post_likes
+              (
+                post_id,
+                user_id
+              )
+              VALUES (?, ?)
+            `)
+            .bind(
+              postId,
+              session.user_id
+            )
+            .run();
+
+        // -------------------------------------------------
+        // ONLY INCREASE COUNT IF INSERT HAPPENED
+        // -------------------------------------------------
+
+        if (
+          Number(
+            insertLike?.meta?.changes || 0
+          ) > 0
+        ) {
+
+          await DB
+            .prepare(`
+              UPDATE boost_posts
+              SET
+                likes_count =
+                  COALESCE(likes_count, 0) + 1,
+                updated_at =
+                  datetime('now')
+              WHERE id = ?
+            `)
+            .bind(postId)
+            .run();
+
+        }
+
+        // -------------------------------------------------
+        // UPDATED COUNT
+        // -------------------------------------------------
+
+        const updatedPost =
+          await DB
+            .prepare(`
+              SELECT likes_count
+              FROM boost_posts
+              WHERE id = ?
+              LIMIT 1
+            `)
+            .bind(postId)
+            .first();
+
+        return json({
+          success: true,
+          liked: true,
+          likes_count:
+            Number(
+              updatedPost?.likes_count || 0
+            ),
+          message:
+            "Post liked successfully"
+        });
 
       }
 
@@ -504,10 +480,9 @@ export async function onRequest(context) {
       if (action === "unlike") {
 
         const existingLike =
-          await context.env.DB
+          await DB
             .prepare(`
-              SELECT
-                post_id
+              SELECT post_id
               FROM boost_post_likes
               WHERE post_id = ?
               AND user_id = ?
@@ -519,36 +494,39 @@ export async function onRequest(context) {
             )
             .first();
 
-        // Already not liked
+        // -------------------------------------------------
+        // NOT LIKED
+        // -------------------------------------------------
+
         if (!existingLike) {
 
-          return new Response(
-            JSON.stringify({
-              success: true,
-              liked: false,
-              likes_count:
-                Number(
-                  post.likes_count || 0
-                ),
-              message:
-                "Post is not liked"
-            }),
-            {
-              status: 200,
-              headers: {
-                "Content-Type": "application/json",
-                "Cache-Control": "no-store"
-              }
-            }
-          );
+          const currentPost =
+            await DB
+              .prepare(`
+                SELECT likes_count
+                FROM boost_posts
+                WHERE id = ?
+                LIMIT 1
+              `)
+              .bind(postId)
+              .first();
+
+          return json({
+            success: true,
+            liked: false,
+            likes_count:
+              Number(
+                currentPost?.likes_count || 0
+              )
+          });
 
         }
 
-        // =================================================
+        // -------------------------------------------------
         // DELETE LIKE
-        // =================================================
+        // -------------------------------------------------
 
-        await context.env.DB
+        await DB
           .prepare(`
             DELETE FROM boost_post_likes
             WHERE post_id = ?
@@ -560,17 +538,17 @@ export async function onRequest(context) {
           )
           .run();
 
-        // =================================================
-        // DECREASE LIKE COUNT SAFELY
-        // =================================================
+        // -------------------------------------------------
+        // DECREASE COUNT
+        // -------------------------------------------------
 
-        await context.env.DB
+        await DB
           .prepare(`
             UPDATE boost_posts
             SET
               likes_count =
                 CASE
-                  WHEN likes_count > 0
+                  WHEN COALESCE(likes_count, 0) > 0
                   THEN likes_count - 1
                   ELSE 0
                 END,
@@ -581,69 +559,54 @@ export async function onRequest(context) {
           .bind(postId)
           .run();
 
-        // =================================================
-        // GET UPDATED COUNT
-        // =================================================
+        // -------------------------------------------------
+        // UPDATED COUNT
+        // -------------------------------------------------
 
         const updatedPost =
-          await context.env.DB
+          await DB
             .prepare(`
-              SELECT
-                likes_count
+              SELECT likes_count
               FROM boost_posts
               WHERE id = ?
+              LIMIT 1
             `)
             .bind(postId)
             .first();
 
-        return new Response(
-          JSON.stringify({
-            success: true,
-            liked: false,
-            likes_count:
-              Number(
-                updatedPost?.likes_count || 0
-              ),
-            message:
-              "Post unliked successfully"
-          }),
-          {
-            status: 200,
-            headers: {
-              "Content-Type": "application/json",
-              "Cache-Control": "no-store"
-            }
-          }
-        );
+        return json({
+          success: true,
+          liked: false,
+          likes_count:
+            Number(
+              updatedPost?.likes_count || 0
+            ),
+          message:
+            "Post unliked successfully"
+        });
 
       }
 
     }
 
     // =====================================================
-    // CREATE BOOST POST
+    // CREATE POST
     // =====================================================
 
     if (action !== "create") {
 
-      return new Response(
-        JSON.stringify({
+      return json(
+        {
           success: false,
           error: "Invalid action"
-        }),
-        {
-          status: 400,
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store"
-          }
-        }
+        },
+        400
       );
 
     }
 
     // =====================================================
-    // READ CREATE POST DATA
+    // CREATE POST DATA
     // =====================================================
 
     const businessId =
@@ -674,7 +637,7 @@ export async function onRequest(context) {
       formData.get("hashtags") || "";
 
     // =====================================================
-    // VALIDATION
+    // BASIC VALIDATION
     // =====================================================
 
     if (
@@ -683,25 +646,19 @@ export async function onRequest(context) {
       !mediaUrl
     ) {
 
-      return new Response(
-        JSON.stringify({
+      return json(
+        {
           success: false,
           error:
             "Business ID, media type or media URL missing"
-        }),
-        {
-          status: 400,
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store"
-          }
-        }
+        },
+        400
       );
 
     }
 
     // =====================================================
-    // VALID POST TYPE
+    // POST TYPE
     // =====================================================
 
     if (
@@ -709,24 +666,18 @@ export async function onRequest(context) {
       postType !== "reel"
     ) {
 
-      return new Response(
-        JSON.stringify({
+      return json(
+        {
           success: false,
           error: "Invalid post type"
-        }),
-        {
-          status: 400,
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store"
-          }
-        }
+        },
+        400
       );
 
     }
 
     // =====================================================
-    // VALID MEDIA TYPE
+    // MEDIA TYPE
     // =====================================================
 
     if (
@@ -734,24 +685,18 @@ export async function onRequest(context) {
       mediaType !== "video"
     ) {
 
-      return new Response(
-        JSON.stringify({
+      return json(
+        {
           success: false,
           error: "Invalid media type"
-        }),
-        {
-          status: 400,
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store"
-          }
-        }
+        },
+        400
       );
 
     }
 
     // =====================================================
-    // BUSINESS ID VALIDATION
+    // BUSINESS ID
     // =====================================================
 
     const businessIdNumber =
@@ -762,28 +707,22 @@ export async function onRequest(context) {
       businessIdNumber <= 0
     ) {
 
-      return new Response(
-        JSON.stringify({
+      return json(
+        {
           success: false,
           error: "Invalid business_id"
-        }),
-        {
-          status: 400,
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store"
-          }
-        }
+        },
+        400
       );
 
     }
 
     // =====================================================
-    // CHECK BUSINESS OWNERSHIP
+    // BUSINESS OWNERSHIP
     // =====================================================
 
     const business =
-      await context.env.DB
+      await DB
         .prepare(`
           SELECT
             id,
@@ -801,29 +740,23 @@ export async function onRequest(context) {
 
     if (!business) {
 
-      return new Response(
-        JSON.stringify({
+      return json(
+        {
           success: false,
           error:
             "Business profile not found"
-        }),
-        {
-          status: 403,
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store"
-          }
-        }
+        },
+        403
       );
 
     }
 
     // =====================================================
-    // CREATE BOOST POST
+    // INSERT POST
     // =====================================================
 
     const insertResult =
-      await context.env.DB
+      await DB
         .prepare(`
           INSERT INTO boost_posts
           (
@@ -883,41 +816,32 @@ export async function onRequest(context) {
     // SUCCESS
     // =====================================================
 
-    return new Response(
-      JSON.stringify({
+    return json(
+      {
         success: true,
         message:
           "Boost Post published successfully",
         post_id:
           insertResult.meta.last_row_id
-      }),
-      {
-        status: 201,
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store"
-        }
-      }
+      },
+      201
     );
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      "boost-post API error:",
+      error
+    );
 
-    return new Response(
-      JSON.stringify({
+    return json(
+      {
         success: false,
         error:
-          error.message ||
+          error?.message ||
           "Server error"
-      }),
-      {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store"
-        }
-      }
+      },
+      500
     );
 
   }
