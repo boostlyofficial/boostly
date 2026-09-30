@@ -13,6 +13,29 @@ export async function onRequest(context) {
       const businessId =
         url.searchParams.get("business_id");
 
+
+      // ===================================================
+      // CHECK CURRENT LOGIN SESSION
+      // ===================================================
+
+      const cookieHeader =
+        context.request.headers.get("Cookie") || "";
+
+      const sessionMatch =
+        cookieHeader.match(
+          /(?:^|;\s*)boostly_session=([^;]+)/
+        );
+
+      const currentSessionId =
+        sessionMatch
+          ? sessionMatch[1]
+          : "";
+
+
+      // ===================================================
+      // LOAD PUBLISHED POSTS
+      // ===================================================
+
       let query = `
         SELECT
           p.id,
@@ -33,21 +56,49 @@ export async function onRequest(context) {
           p.status,
           p.created_at,
           p.updated_at,
+
+          CASE
+            WHEN EXISTS (
+              SELECT 1
+              FROM boost_post_likes l
+              WHERE l.post_id = p.id
+              AND l.user_id = (
+                SELECT user_id
+                FROM sessions
+                WHERE id = ?
+                AND expires_at > datetime('now')
+                LIMIT 1
+              )
+            )
+            THEN 1
+            ELSE 0
+          END AS liked,
+
           b.business_name,
           b.category,
           b.city
+
         FROM boost_posts p
+
         LEFT JOIN businesses b
           ON b.id = p.business_id
+
         WHERE p.status = 'published'
       `;
 
+
       const params = [];
+
+
+      // ===================================================
+      // BUSINESS FILTER
+      // ===================================================
 
       if (businessId) {
 
         const businessIdNumber =
           Number(businessId);
+
 
         if (
           !Number.isInteger(businessIdNumber) ||
@@ -69,24 +120,45 @@ export async function onRequest(context) {
 
         }
 
+
         query += `
           AND p.business_id = ?
         `;
 
-        params.push(businessIdNumber);
+        params.push(
+          businessIdNumber
+        );
 
       }
+
+
+      // ===================================================
+      // ORDER
+      // ===================================================
 
       query += `
         ORDER BY p.created_at DESC
         LIMIT 100
       `;
 
+
+      // ===================================================
+      // RUN QUERY
+      // ===================================================
+
       const result =
         await context.env.DB
           .prepare(query)
-          .bind(...params)
+          .bind(
+            currentSessionId,
+            ...params
+          )
           .all();
+
+
+      // ===================================================
+      // RETURN POSTS
+      // ===================================================
 
       return new Response(
         JSON.stringify({
@@ -114,7 +186,8 @@ export async function onRequest(context) {
       return new Response(
         JSON.stringify({
           success: false,
-          error: "Only GET and POST methods are allowed"
+          error:
+            "Only GET and POST methods are allowed"
         }),
         {
           status: 405,
@@ -140,6 +213,7 @@ export async function onRequest(context) {
         /(?:^|;\s*)boostly_session=([^;]+)/
       );
 
+
     if (!match) {
 
       return new Response(
@@ -157,7 +231,9 @@ export async function onRequest(context) {
 
     }
 
-    const sessionId = match[1];
+
+    const sessionId =
+      match[1];
 
 
     // =====================================================
@@ -174,6 +250,7 @@ export async function onRequest(context) {
         `)
         .bind(sessionId)
         .first();
+
 
     if (!session) {
 
@@ -200,12 +277,13 @@ export async function onRequest(context) {
     const formData =
       await context.request.formData();
 
+
     const action =
       formData.get("action") || "create";
 
 
     // =====================================================
-    // LIKE / UNLIKE
+    // LIKE / UNLIKE SYSTEM
     // =====================================================
 
     if (
@@ -216,8 +294,14 @@ export async function onRequest(context) {
       const postIdValue =
         formData.get("post_id");
 
+
       const postId =
         Number(postIdValue);
+
+
+      // ===================================================
+      // VALIDATE POST ID
+      // ===================================================
 
       if (
         !Number.isInteger(postId) ||
@@ -258,6 +342,7 @@ export async function onRequest(context) {
           .bind(postId)
           .first();
 
+
       if (!post) {
 
         return new Response(
@@ -285,7 +370,8 @@ export async function onRequest(context) {
         const existingLike =
           await context.env.DB
             .prepare(`
-              SELECT post_id
+              SELECT
+                post_id
               FROM boost_post_likes
               WHERE post_id = ?
               AND user_id = ?
@@ -305,8 +391,12 @@ export async function onRequest(context) {
             JSON.stringify({
               success: true,
               liked: true,
-              likes_count: Number(post.likes_count || 0),
-              message: "Post already liked"
+              likes_count:
+                Number(
+                  post.likes_count || 0
+                ),
+              message:
+                "Post already liked"
             }),
             {
               status: 200,
@@ -319,7 +409,10 @@ export async function onRequest(context) {
         }
 
 
-        // Add like
+        // =================================================
+        // INSERT LIKE
+        // =================================================
+
         await context.env.DB
           .prepare(`
             INSERT INTO boost_post_likes
@@ -336,23 +429,33 @@ export async function onRequest(context) {
           .run();
 
 
-        // Update count
+        // =================================================
+        // INCREASE LIKE COUNT
+        // =================================================
+
         await context.env.DB
           .prepare(`
             UPDATE boost_posts
             SET
-              likes_count = likes_count + 1,
-              updated_at = datetime('now')
+              likes_count =
+                likes_count + 1,
+              updated_at =
+                datetime('now')
             WHERE id = ?
           `)
           .bind(postId)
           .run();
 
 
+        // =================================================
+        // GET UPDATED COUNT
+        // =================================================
+
         const updatedPost =
           await context.env.DB
             .prepare(`
-              SELECT likes_count
+              SELECT
+                likes_count
               FROM boost_posts
               WHERE id = ?
             `)
@@ -368,7 +471,8 @@ export async function onRequest(context) {
               Number(
                 updatedPost?.likes_count || 0
               ),
-            message: "Post liked successfully"
+            message:
+              "Post liked successfully"
           }),
           {
             status: 200,
@@ -390,7 +494,8 @@ export async function onRequest(context) {
         const existingLike =
           await context.env.DB
             .prepare(`
-              SELECT post_id
+              SELECT
+                post_id
               FROM boost_post_likes
               WHERE post_id = ?
               AND user_id = ?
@@ -410,8 +515,12 @@ export async function onRequest(context) {
             JSON.stringify({
               success: true,
               liked: false,
-              likes_count: Number(post.likes_count || 0),
-              message: "Post is not liked"
+              likes_count:
+                Number(
+                  post.likes_count || 0
+                ),
+              message:
+                "Post is not liked"
             }),
             {
               status: 200,
@@ -424,7 +533,10 @@ export async function onRequest(context) {
         }
 
 
-        // Remove like
+        // =================================================
+        // DELETE LIKE
+        // =================================================
+
         await context.env.DB
           .prepare(`
             DELETE FROM boost_post_likes
@@ -438,7 +550,10 @@ export async function onRequest(context) {
           .run();
 
 
-        // Decrease count safely
+        // =================================================
+        // DECREASE LIKE COUNT SAFELY
+        // =================================================
+
         await context.env.DB
           .prepare(`
             UPDATE boost_posts
@@ -449,17 +564,23 @@ export async function onRequest(context) {
                   THEN likes_count - 1
                   ELSE 0
                 END,
-              updated_at = datetime('now')
+              updated_at =
+                datetime('now')
             WHERE id = ?
           `)
           .bind(postId)
           .run();
 
 
+        // =================================================
+        // GET UPDATED COUNT
+        // =================================================
+
         const updatedPost =
           await context.env.DB
             .prepare(`
-              SELECT likes_count
+              SELECT
+                likes_count
               FROM boost_posts
               WHERE id = ?
             `)
@@ -475,7 +596,8 @@ export async function onRequest(context) {
               Number(
                 updatedPost?.likes_count || 0
               ),
-            message: "Post unliked successfully"
+            message:
+              "Post unliked successfully"
           }),
           {
             status: 200,
@@ -519,26 +641,34 @@ export async function onRequest(context) {
     const businessId =
       formData.get("business_id");
 
+
     const postType =
       formData.get("post_type") || "post";
+
 
     const mediaType =
       formData.get("media_type");
 
+
     const mediaUrl =
       formData.get("media_url");
+
 
     const thumbnailUrl =
       formData.get("thumbnail_url") || "";
 
+
     const publicId =
       formData.get("public_id") || "";
+
 
     const caption =
       formData.get("caption") || "";
 
+
     const location =
       formData.get("location") || "";
+
 
     const hashtags =
       formData.get("hashtags") || "";
@@ -628,6 +758,7 @@ export async function onRequest(context) {
     const businessIdNumber =
       Number(businessId);
 
+
     if (
       !Number.isInteger(businessIdNumber) ||
       businessIdNumber <= 0
@@ -670,12 +801,14 @@ export async function onRequest(context) {
         )
         .first();
 
+
     if (!business) {
 
       return new Response(
         JSON.stringify({
           success: false,
-          error: "Business profile not found"
+          error:
+            "Business profile not found"
         }),
         {
           status: 403,
@@ -716,7 +849,25 @@ export async function onRequest(context) {
             updated_at
           )
           VALUES
-          (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0, 0, 0, 'published', datetime('now'), datetime('now'))
+          (
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            0,
+            0,
+            0,
+            0,
+            0,
+            'published',
+            datetime('now'),
+            datetime('now')
+          )
         `)
         .bind(
           businessIdNumber,
@@ -739,8 +890,10 @@ export async function onRequest(context) {
     return new Response(
       JSON.stringify({
         success: true,
-        message: "Boost Post published successfully",
-        post_id: insertResult.meta.last_row_id
+        message:
+          "Boost Post published successfully",
+        post_id:
+          insertResult.meta.last_row_id
       }),
       {
         status: 201,
@@ -754,6 +907,7 @@ export async function onRequest(context) {
   } catch (error) {
 
     console.error(error);
+
 
     return new Response(
       JSON.stringify({
