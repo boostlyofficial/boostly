@@ -9,8 +9,8 @@
   content="width=device-width, initial-scale=1.0"
 >
 
+<title>Boost Feed | Boostly</title>
 
-<title>Boost Feed | Boostly - Like Test</title>
 <meta
   name="description"
   content="Discover local business posts, reels, offers and updates on Boostly."
@@ -437,10 +437,6 @@ header{
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header>
 
   <div class="nav">
@@ -493,11 +489,6 @@ header{
 
 </header>
 
-
-<!-- =========================
-     HERO
-========================= -->
-
 <section class="hero">
 
   <div class="hero-box">
@@ -523,11 +514,6 @@ header{
 
 </section>
 
-
-<!-- =========================
-     FEED
-========================= -->
-
 <main class="feed">
 
   <div
@@ -542,13 +528,11 @@ header{
 
 </main>
 
-
 <footer class="footer">
 
   © 2026 Boostly. All rights reserved.
 
 </footer>
-
 
 <script>
 
@@ -664,13 +648,11 @@ async function loadFeed(){
   const status =
     document.getElementById("feedStatus");
 
-
   status.style.display =
     "block";
 
   status.textContent =
     "Loading Boost Feed...";
-
 
   try{
 
@@ -680,14 +662,13 @@ async function loadFeed(){
         Date.now(),
         {
           method:"GET",
-          cache:"no-store"
+          cache:"no-store",
+          credentials:"include"
         }
       );
 
-
     const data =
       await response.json();
-
 
     if(
       !response.ok ||
@@ -701,14 +682,11 @@ async function loadFeed(){
 
     }
 
-
     const posts =
       data.posts || [];
 
-
     status.style.display =
       "none";
-
 
     if(posts.length === 0){
 
@@ -725,15 +703,12 @@ async function loadFeed(){
 
     }
 
-
     feed.innerHTML =
       posts
         .map(renderPost)
         .join("");
 
-
     attachPostButtons();
-
 
   }catch(error){
 
@@ -766,35 +741,36 @@ function renderPost(post){
     post.business_name ||
     "Boostly Business";
 
-
   const category =
     post.category ||
     "Local Business";
 
-
   const city =
     post.city ||
     "";
-
 
   const initial =
     getInitial(
       businessName
     );
 
-
   const postType =
     post.post_type === "reel"
       ? "REEL"
       : "POST";
 
+  /*
+    IMPORTANT:
+    D1 can return liked as 1/0.
+    API now converts it to true/false,
+    but frontend also accepts both safely.
+  */
 
   const liked =
-    post.liked === true;
-
+    post.liked === true ||
+    Number(post.liked) === 1;
 
   let media = "";
-
 
   /* VIDEO */
 
@@ -807,12 +783,10 @@ function renderPost(post){
         post.media_url
       );
 
-
     const poster =
       post.thumbnail_url
         ? `poster="${escapeHtml(post.thumbnail_url)}"`
         : "";
-
 
     media = `
       <div class="media-wrap">
@@ -836,7 +810,6 @@ function renderPost(post){
 
   }
 
-
   /* IMAGE */
 
   else{
@@ -855,7 +828,6 @@ function renderPost(post){
 
   }
 
-
   return `
 
     <article
@@ -867,19 +839,15 @@ function renderPost(post){
         <div class="business-info">
 
           <div class="avatar">
-
             ${escapeHtml(initial)}
-
           </div>
 
           <div>
 
             <div class="business-name">
-
               ${escapeHtml(
                 businessName
               )}
-
             </div>
 
             <div class="business-meta">
@@ -899,18 +867,13 @@ function renderPost(post){
 
         </div>
 
-
         <div class="post-type">
-
           ${postType}
-
         </div>
 
       </div>
 
-
       ${media}
-
 
       <div class="post-content">
 
@@ -926,7 +889,6 @@ function renderPost(post){
             : ""
         }
 
-
         ${
           post.hashtags
             ? `
@@ -938,7 +900,6 @@ function renderPost(post){
             `
             : ""
         }
-
 
         ${
           post.location
@@ -954,51 +915,37 @@ function renderPost(post){
 
       </div>
 
-
       <div class="stats">
 
         <span class="like-count">
-
           ❤️
           ${formatNumber(
             post.likes_count
           )}
           likes
-
         </span>
 
-
         <span>
-
           💬
           ${formatNumber(
             post.comments_count
           )}
           comments
-
         </span>
 
-
         <span>
-
           👁
           ${formatNumber(
             post.views_count
           )}
           views
-
         </span>
 
       </div>
 
-
-      <div
-        class="login-message">
-
+      <div class="login-message">
         Please login to like this post.
-
       </div>
-
 
       <div class="actions">
 
@@ -1034,7 +981,6 @@ function renderPost(post){
 
         </button>
 
-
         <button
           type="button"
           class="action-btn comment-button"
@@ -1048,7 +994,6 @@ function renderPost(post){
 
         </button>
 
-
         <button
           type="button"
           class="action-btn save-button"
@@ -1061,7 +1006,6 @@ function renderPost(post){
           Save
 
         </button>
-
 
         <button
           type="button"
@@ -1112,7 +1056,6 @@ function attachPostButtons(){
 
     });
 
-
   document
     .querySelectorAll(".comment-button")
     .forEach(function(button){
@@ -1130,7 +1073,6 @@ function attachPostButtons(){
 
     });
 
-
   document
     .querySelectorAll(".save-button")
     .forEach(function(button){
@@ -1147,7 +1089,6 @@ function attachPostButtons(){
       );
 
     });
-
 
   document
     .querySelectorAll(".share-button")
@@ -1186,43 +1127,36 @@ async function toggleLike(
 
   }
 
-
   button.dataset.loading =
     "true";
 
   button.disabled =
     true;
 
-
   const wasLiked =
     button.classList.contains(
       "like-active"
     );
-
 
   const action =
     wasLiked
       ? "unlike"
       : "like";
 
-
   try{
 
     const formData =
       new FormData();
-
 
     formData.append(
       "action",
       action
     );
 
-
     formData.append(
       "post_id",
       postId
     );
-
 
     const response =
       await fetch(
@@ -1235,10 +1169,8 @@ async function toggleLike(
         }
       );
 
-
     const data =
       await response.json();
-
 
     /* LOGIN REQUIRED */
 
@@ -1251,12 +1183,10 @@ async function toggleLike(
           ".post-card"
         );
 
-
       const message =
         card.querySelector(
           ".login-message"
         );
-
 
       if(message){
 
@@ -1268,7 +1198,6 @@ async function toggleLike(
       return;
 
     }
-
 
     if(
       !response.ok ||
@@ -1282,7 +1211,6 @@ async function toggleLike(
 
     }
 
-
     /* HIDE LOGIN MESSAGE */
 
     const card =
@@ -1290,12 +1218,10 @@ async function toggleLike(
         ".post-card"
       );
 
-
     const message =
       card.querySelector(
         ".login-message"
       );
-
 
     if(message){
 
@@ -1304,15 +1230,16 @@ async function toggleLike(
 
     }
 
-
     /* UPDATE BUTTON */
 
-    if(data.liked){
+    if(
+      data.liked === true ||
+      Number(data.liked) === 1
+    ){
 
       button.classList.add(
         "like-active"
       );
-
 
       button
         .querySelector(
@@ -1321,7 +1248,6 @@ async function toggleLike(
         .textContent =
         "❤️";
 
-
       button
         .querySelector(
           ".like-text"
@@ -1329,13 +1255,11 @@ async function toggleLike(
         .textContent =
         "Liked";
 
-
     }else{
 
       button.classList.remove(
         "like-active"
       );
-
 
       button
         .querySelector(
@@ -1343,7 +1267,6 @@ async function toggleLike(
         )
         .textContent =
         "♡";
-
 
       button
         .querySelector(
@@ -1354,14 +1277,12 @@ async function toggleLike(
 
     }
 
-
     /* UPDATE COUNT */
 
     const countElement =
       card.querySelector(
         ".like-count"
       );
-
 
     if(countElement){
 
@@ -1374,7 +1295,6 @@ async function toggleLike(
 
     }
 
-
   }catch(error){
 
     console.error(
@@ -1382,12 +1302,10 @@ async function toggleLike(
       error
     );
 
-
     alert(
       error.message ||
       "Unable to like post."
     );
-
 
   }finally{
 
@@ -1414,7 +1332,6 @@ async function sharePost(
     window.location.origin +
     "/boost-feed.html#post-" +
     postId;
-
 
   try{
 
@@ -1446,7 +1363,6 @@ async function sharePost(
       );
 
     }
-
 
   }catch(error){
 
