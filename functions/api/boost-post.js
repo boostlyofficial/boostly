@@ -106,7 +106,7 @@ export async function onRequest(context) {
 
 
     // =====================================================
-    // POST = CREATE BOOST POST
+    // ONLY POST AFTER THIS POINT
     // =====================================================
 
     if (context.request.method !== "POST") {
@@ -199,6 +199,322 @@ export async function onRequest(context) {
 
     const formData =
       await context.request.formData();
+
+    const action =
+      formData.get("action") || "create";
+
+
+    // =====================================================
+    // LIKE / UNLIKE
+    // =====================================================
+
+    if (
+      action === "like" ||
+      action === "unlike"
+    ) {
+
+      const postIdValue =
+        formData.get("post_id");
+
+      const postId =
+        Number(postIdValue);
+
+      if (
+        !Number.isInteger(postId) ||
+        postId <= 0
+      ) {
+
+        return new Response(
+          JSON.stringify({
+            success: false,
+            error: "Invalid post_id"
+          }),
+          {
+            status: 400,
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        );
+
+      }
+
+
+      // ===================================================
+      // CHECK POST EXISTS
+      // ===================================================
+
+      const post =
+        await context.env.DB
+          .prepare(`
+            SELECT
+              id,
+              likes_count
+            FROM boost_posts
+            WHERE id = ?
+            AND status = 'published'
+            LIMIT 1
+          `)
+          .bind(postId)
+          .first();
+
+      if (!post) {
+
+        return new Response(
+          JSON.stringify({
+            success: false,
+            error: "Post not found"
+          }),
+          {
+            status: 404,
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        );
+
+      }
+
+
+      // ===================================================
+      // LIKE
+      // ===================================================
+
+      if (action === "like") {
+
+        const existingLike =
+          await context.env.DB
+            .prepare(`
+              SELECT post_id
+              FROM boost_post_likes
+              WHERE post_id = ?
+              AND user_id = ?
+              LIMIT 1
+            `)
+            .bind(
+              postId,
+              session.user_id
+            )
+            .first();
+
+
+        // Already liked
+        if (existingLike) {
+
+          return new Response(
+            JSON.stringify({
+              success: true,
+              liked: true,
+              likes_count: Number(post.likes_count || 0),
+              message: "Post already liked"
+            }),
+            {
+              status: 200,
+              headers: {
+                "Content-Type": "application/json"
+              }
+            }
+          );
+
+        }
+
+
+        // Add like
+        await context.env.DB
+          .prepare(`
+            INSERT INTO boost_post_likes
+            (
+              post_id,
+              user_id
+            )
+            VALUES (?, ?)
+          `)
+          .bind(
+            postId,
+            session.user_id
+          )
+          .run();
+
+
+        // Update count
+        await context.env.DB
+          .prepare(`
+            UPDATE boost_posts
+            SET
+              likes_count = likes_count + 1,
+              updated_at = datetime('now')
+            WHERE id = ?
+          `)
+          .bind(postId)
+          .run();
+
+
+        const updatedPost =
+          await context.env.DB
+            .prepare(`
+              SELECT likes_count
+              FROM boost_posts
+              WHERE id = ?
+            `)
+            .bind(postId)
+            .first();
+
+
+        return new Response(
+          JSON.stringify({
+            success: true,
+            liked: true,
+            likes_count:
+              Number(
+                updatedPost?.likes_count || 0
+              ),
+            message: "Post liked successfully"
+          }),
+          {
+            status: 200,
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        );
+
+      }
+
+
+      // ===================================================
+      // UNLIKE
+      // ===================================================
+
+      if (action === "unlike") {
+
+        const existingLike =
+          await context.env.DB
+            .prepare(`
+              SELECT post_id
+              FROM boost_post_likes
+              WHERE post_id = ?
+              AND user_id = ?
+              LIMIT 1
+            `)
+            .bind(
+              postId,
+              session.user_id
+            )
+            .first();
+
+
+        // Already not liked
+        if (!existingLike) {
+
+          return new Response(
+            JSON.stringify({
+              success: true,
+              liked: false,
+              likes_count: Number(post.likes_count || 0),
+              message: "Post is not liked"
+            }),
+            {
+              status: 200,
+              headers: {
+                "Content-Type": "application/json"
+              }
+            }
+          );
+
+        }
+
+
+        // Remove like
+        await context.env.DB
+          .prepare(`
+            DELETE FROM boost_post_likes
+            WHERE post_id = ?
+            AND user_id = ?
+          `)
+          .bind(
+            postId,
+            session.user_id
+          )
+          .run();
+
+
+        // Decrease count safely
+        await context.env.DB
+          .prepare(`
+            UPDATE boost_posts
+            SET
+              likes_count =
+                CASE
+                  WHEN likes_count > 0
+                  THEN likes_count - 1
+                  ELSE 0
+                END,
+              updated_at = datetime('now')
+            WHERE id = ?
+          `)
+          .bind(postId)
+          .run();
+
+
+        const updatedPost =
+          await context.env.DB
+            .prepare(`
+              SELECT likes_count
+              FROM boost_posts
+              WHERE id = ?
+            `)
+            .bind(postId)
+            .first();
+
+
+        return new Response(
+          JSON.stringify({
+            success: true,
+            liked: false,
+            likes_count:
+              Number(
+                updatedPost?.likes_count || 0
+              ),
+            message: "Post unliked successfully"
+          }),
+          {
+            status: 200,
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        );
+
+      }
+
+    }
+
+
+    // =====================================================
+    // CREATE BOOST POST
+    // =====================================================
+
+    if (action !== "create") {
+
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: "Invalid action"
+        }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+    }
+
+
+    // =====================================================
+    // READ CREATE POST DATA
+    // =====================================================
 
     const businessId =
       formData.get("business_id");
