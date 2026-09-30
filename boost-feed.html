@@ -1,23 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Boost Feed | Boostly</title>
 
-<meta
-  name="description"
-  content="Discover local business posts, reels, offers and updates on Boostly."
->
-
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -27,20 +16,11 @@
 body{
   font-family:Arial,Helvetica,sans-serif;
   background:#f5f7fb;
-  color:#111827;
+  color:#222;
 }
-
-a{
-  text-decoration:none;
-  color:inherit;
-}
-
-/* =========================
-   HEADER
-========================= */
 
 header{
-  background:#ffffff;
+  background:#fff;
   border-bottom:1px solid #e5e7eb;
   position:sticky;
   top:0;
@@ -50,245 +30,180 @@ header{
 .nav{
   max-width:1100px;
   margin:auto;
-  min-height:70px;
+  min-height:64px;
+  padding:0 18px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 18px;
+  gap:15px;
 }
 
 .logo{
-  font-size:25px;
+  text-decoration:none;
+  font-size:24px;
   font-weight:800;
   color:#111827;
-}
-
-.logo span{
-  color:#2563eb;
 }
 
 .nav-links{
   display:flex;
   align-items:center;
-  gap:22px;
+  gap:18px;
 }
 
 .nav-links a{
+  text-decoration:none;
+  color:#4b5563;
   font-size:14px;
   font-weight:600;
-  color:#4b5563;
 }
 
 .nav-links a:hover{
-  color:#2563eb;
+  color:#111827;
 }
 
 .nav-btn{
-  background:#2563eb;
+  background:#111827;
   color:#fff !important;
-  padding:11px 17px;
-  border-radius:10px;
+  padding:10px 15px;
+  border-radius:8px;
 }
 
-.menu-btn{
+.menu{
   display:none;
   border:0;
   background:none;
-  font-size:27px;
+  font-size:26px;
   cursor:pointer;
 }
 
-/* =========================
-   HERO
-========================= */
-
-.hero{
-  max-width:900px;
-  margin:30px auto 20px;
-  padding:0 16px;
-}
-
-.hero-box{
-  background:#ffffff;
-  border:1px solid #e5e7eb;
-  border-radius:20px;
-  padding:25px;
-  box-shadow:0 8px 30px rgba(0,0,0,.05);
-}
-
-.hero h1{
-  font-size:30px;
-  margin-bottom:8px;
-}
-
-.hero p{
-  color:#6b7280;
-  line-height:1.6;
-}
-
-.create-btn{
-  display:inline-block;
-  margin-top:18px;
-  background:#111827;
-  color:#fff;
-  padding:12px 18px;
-  border-radius:10px;
-  font-weight:700;
-}
-
-/* =========================
-   FEED
-========================= */
-
-.feed{
+.container{
   width:100%;
-  max-width:650px;
-  margin:25px auto 60px;
-  padding:0 12px;
+  max-width:760px;
+  margin:0 auto;
+  padding:25px 15px 50px;
 }
 
-.status{
-  text-align:center;
-  padding:30px 10px;
-  color:#6b7280;
-}
-
-.error{
-  background:#fee2e2;
-  color:#991b1b;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:20px;
-}
-
-/* =========================
-   POST CARD
-========================= */
-
-.post-card{
-  background:#ffffff;
-  border:1px solid #e5e7eb;
-  border-radius:18px;
-  margin-bottom:22px;
-  overflow:hidden;
-  box-shadow:0 8px 25px rgba(0,0,0,.04);
-}
-
-.post-header{
+.top-area{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:15px;
+  gap:12px;
+  margin-bottom:20px;
 }
 
-.business-info{
+.top-area h1{
+  font-size:28px;
+}
+
+.create-btn{
+  text-decoration:none;
+  background:#111827;
+  color:#fff;
+  padding:11px 15px;
+  border-radius:9px;
+  font-weight:700;
+  font-size:14px;
+}
+
+.status{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:18px;
+  text-align:center;
+  color:#6b7280;
+  margin-bottom:18px;
+}
+
+.post{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  overflow:hidden;
+  margin-bottom:20px;
+  box-shadow:0 3px 12px rgba(0,0,0,.04);
+}
+
+.post-head{
   display:flex;
   align-items:center;
   gap:11px;
+  padding:15px;
 }
 
 .avatar{
-  width:45px;
-  height:45px;
+  width:44px;
+  height:44px;
   border-radius:50%;
-  background:#2563eb;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:800;
-  font-size:18px;
+  object-fit:cover;
+  background:#e5e7eb;
+}
+
+.business-info{
+  flex:1;
 }
 
 .business-name{
-  font-weight:800;
   font-size:15px;
+  font-weight:800;
+  color:#111827;
 }
 
-.business-meta{
+.post-meta{
   margin-top:3px;
   color:#6b7280;
   font-size:12px;
 }
 
-.post-type{
-  background:#eef2ff;
-  color:#3730a3;
-  padding:6px 9px;
-  border-radius:8px;
-  font-size:11px;
-  font-weight:700;
-}
-
-/* =========================
-   MEDIA
-========================= */
-
-.media-wrap{
+.post-media{
   width:100%;
-  background:#111827;
+  background:#f3f4f6;
 }
 
-.media-wrap img,
-.media-wrap video{
+.post-media img,
+.post-media video{
+  width:100%;
+  max-height:600px;
   display:block;
-  width:100%;
-  max-height:650px;
   object-fit:cover;
 }
 
-.media-wrap video{
-  background:#000;
-}
-
-/* =========================
-   CONTENT
-========================= */
-
-.post-content{
+.post-body{
   padding:15px;
 }
 
 .caption{
   font-size:14px;
   line-height:1.6;
-  color:#1f2937;
+  margin-bottom:10px;
   white-space:pre-wrap;
 }
 
+.location{
+  color:#6b7280;
+  font-size:13px;
+  margin-bottom:7px;
+}
+
 .hashtags{
-  margin-top:8px;
   color:#2563eb;
   font-size:13px;
 }
 
-.location{
-  margin-top:10px;
-  color:#6b7280;
-  font-size:12px;
-}
-
-/* =========================
-   STATS
-========================= */
-
 .stats{
   display:flex;
   gap:18px;
-  padding:0 15px 10px;
+  padding:12px 15px;
+  border-top:1px solid #f0f0f0;
   color:#6b7280;
-  font-size:12px;
-  flex-wrap:wrap;
+  font-size:13px;
 }
 
-/* =========================
-   ACTIONS
-========================= */
-
 .actions{
-  border-top:1px solid #e5e7eb;
   display:grid;
   grid-template-columns:repeat(4,1fr);
+  border-top:1px solid #e5e7eb;
 }
 
 .action-btn{
@@ -297,66 +212,42 @@ header{
   padding:13px 5px;
   cursor:pointer;
   font-size:13px;
-  color:#374151;
-  font-weight:600;
+  font-weight:700;
+  color:#4b5563;
 }
 
 .action-btn:hover{
   background:#f9fafb;
 }
 
-.action-btn:disabled{
-  opacity:.55;
-  cursor:not-allowed;
-}
-
-.action-btn.like-active{
+.action-btn.liked{
   color:#dc2626;
 }
 
-.action-icon{
-  display:block;
-  font-size:20px;
-  margin-bottom:3px;
-}
-
-/* =========================
-   LOGIN MESSAGE
-========================= */
-
-.login-message{
-  display:none;
-  margin:0 15px 15px;
-  padding:12px;
-  border-radius:10px;
-  background:#eff6ff;
-  color:#1d4ed8;
-  font-size:13px;
+.empty{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  padding:40px 20px;
   text-align:center;
 }
 
-/* =========================
-   FOOTER
-========================= */
-
-.footer{
-  text-align:center;
-  color:#9ca3af;
-  font-size:12px;
-  padding:30px 15px;
+.empty h2{
+  margin-bottom:8px;
 }
 
-/* =========================
-   MOBILE
-========================= */
+.empty p{
+  color:#6b7280;
+  margin-bottom:18px;
+}
 
 @media(max-width:700px){
 
   .nav{
-    min-height:62px;
+    min-height:58px;
   }
 
-  .menu-btn{
+  .menu{
     display:block;
   }
 
@@ -365,13 +256,12 @@ header{
     position:absolute;
     left:0;
     right:0;
-    top:62px;
+    top:58px;
     background:#fff;
     border-bottom:1px solid #e5e7eb;
+    padding:15px;
     flex-direction:column;
     align-items:stretch;
-    gap:0;
-    padding:8px 16px 16px;
   }
 
   .nav-links.show{
@@ -379,195 +269,98 @@ header{
   }
 
   .nav-links a{
-    padding:13px 8px;
+    padding:10px;
   }
 
-  .nav-btn{
-    text-align:center;
-    margin-top:5px;
+  .top-area{
+    align-items:flex-start;
   }
 
-  .hero{
-    margin-top:18px;
+  .top-area h1{
+    font-size:23px;
   }
 
-  .hero-box{
-    padding:20px;
+  .create-btn{
+    font-size:12px;
+    padding:9px 11px;
   }
 
-  .hero h1{
-    font-size:25px;
-  }
-
-  .feed{
-    padding:0 8px;
-    margin-top:18px;
-  }
-
-  .post-card{
-    border-radius:15px;
-  }
-
-  .post-header{
-    padding:13px;
-  }
-
-  .post-content{
-    padding:13px;
-  }
-
-  .stats{
-    padding-left:13px;
-    padding-right:13px;
+  .actions{
+    grid-template-columns:repeat(4,1fr);
   }
 
   .action-btn{
     font-size:11px;
   }
-
-  .action-icon{
-    font-size:18px;
-  }
-
 }
-
 </style>
-
 </head>
 
 <body>
 
 <header>
-
   <div class="nav">
 
-    <a href="index.html" class="logo">
-      Boost<span>ly</span>
-    </a>
+    <a href="index.html" class="logo">Boostly</a>
 
-    <button
-      type="button"
-      class="menu-btn"
-      id="menuButton"
-      aria-label="Open menu">
+    <button class="menu" onclick="toggleMenu()">☰</button>
 
-      ☰
-
-    </button>
-
-    <nav
-      class="nav-links"
-      id="navLinks">
-
-      <a href="index.html">
-        Home
-      </a>
-
-      <a href="explore.html">
-        Explore
-      </a>
-
-      <a href="boost-feed.html">
-        Boost Feed
-      </a>
-
-      <a href="dashboard.html">
-        Dashboard
-      </a>
-
-      <a
-        href="create-post.html"
-        class="nav-btn">
-
-        Create Post
-
-      </a>
-
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="boost-feed.html">Boost Feed</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="create-post.html" class="nav-btn">Create Post</a>
     </nav>
 
   </div>
-
 </header>
 
-<section class="hero">
 
-  <div class="hero-box">
+<main class="container">
 
-    <h1>
-      Boost Feed
-    </h1>
-
-    <p>
-      Discover local businesses, posts, reels,
-      offers and updates from businesses on Boostly.
-    </p>
-
-    <a
-      href="create-post.html"
-      class="create-btn">
-
-      + Create Post
-
-    </a>
-
+  <div class="top-area">
+    <h1>Boost Feed</h1>
+    <a href="create-post.html" class="create-btn">+ Create Post</a>
   </div>
 
-</section>
-
-<main class="feed">
-
-  <div
-    id="feedStatus"
-    class="status">
-
-    Loading Boost Feed...
-
+  <div id="status" class="status">
+    Loading posts...
   </div>
 
   <div id="feed"></div>
 
 </main>
 
-<footer class="footer">
-
-  © 2026 Boostly. All rights reserved.
-
-</footer>
 
 <script>
 
-/* =====================================================
+const API = "/api/boost-post";
+
+const BUSINESS_ID = 1;
+
+
+/* ================================
    MOBILE MENU
-===================================================== */
+================================ */
 
-document
-  .getElementById("menuButton")
-  .addEventListener(
-    "click",
-    function(){
+function toggleMenu(){
 
-      document
-        .getElementById("navLinks")
-        .classList
-        .toggle("show");
+  document
+    .getElementById("navLinks")
+    .classList.toggle("show");
 
-    }
-  );
+}
 
 
-/* =====================================================
+/* ================================
    ESCAPE HTML
-===================================================== */
+================================ */
 
 function escapeHtml(value){
 
-  if(
-    value === null ||
-    value === undefined
-  ){
-
+  if(value === null || value === undefined){
     return "";
-
   }
 
   return String(value)
@@ -580,443 +373,272 @@ function escapeHtml(value){
 }
 
 
-/* =====================================================
-   BUSINESS INITIAL
-===================================================== */
+/* ================================
+   LOAD POSTS
+================================ */
 
-function getInitial(name){
+async function loadPosts(){
 
-  if(!name){
-
-    return "B";
-
-  }
-
-  return name
-    .trim()
-    .charAt(0)
-    .toUpperCase();
-
-}
-
-
-/* =====================================================
-   FORMAT NUMBERS
-===================================================== */
-
-function formatNumber(number){
-
-  number =
-    Number(number || 0);
-
-  if(number >= 1000000){
-
-    return (
-      (number / 1000000)
-        .toFixed(1)
-        .replace(".0","")
-      + "M"
-    );
-
-  }
-
-  if(number >= 1000){
-
-    return (
-      (number / 1000)
-        .toFixed(1)
-        .replace(".0","")
-      + "K"
-    );
-
-  }
-
-  return String(number);
-
-}
-
-
-/* =====================================================
-   LOAD FEED
-===================================================== */
-
-async function loadFeed(){
-
-  const feed =
-    document.getElementById("feed");
-
-  const status =
-    document.getElementById("feedStatus");
-
-  status.style.display =
-    "block";
-
-  status.textContent =
-    "Loading Boost Feed...";
+  const status = document.getElementById("status");
+  const feed = document.getElementById("feed");
 
   try{
 
-    const response =
-      await fetch(
-        "/api/boost-post?business_id=1&_=" +
-        Date.now(),
-        {
-          method:"GET",
-          cache:"no-store",
-          credentials:"include"
-        }
-      );
+    const response = await fetch(
+      API +
+      "?business_id=" +
+      BUSINESS_ID +
+      "&_=" +
+      Date.now(),
+      {
+        method:"GET",
+        credentials:"include",
+        cache:"no-store"
+      }
+    );
 
-    const data =
-      await response.json();
+    const data = await response.json();
 
-    if(
-      !response.ok ||
-      !data.success
-    ){
+    if(!response.ok){
 
       throw new Error(
-        data.error ||
-        "Unable to load feed"
+        data.error || "Failed to load posts"
       );
 
     }
 
-    const posts =
-      data.posts || [];
+    const posts = data.posts || [];
 
-    status.style.display =
-      "none";
+    status.style.display = "none";
 
     if(posts.length === 0){
 
-      status.style.display =
-        "block";
-
-      status.innerHTML = `
-        <strong>No posts yet.</strong>
-        <br><br>
-        Be the first business to create a Boost Post.
+      feed.innerHTML = `
+        <div class="empty">
+          <h2>No posts yet</h2>
+          <p>Create your first Boost Post.</p>
+          <a href="create-post.html"
+             class="create-btn">
+             Create Post
+          </a>
+        </div>
       `;
 
       return;
 
     }
 
-    feed.innerHTML =
-      posts
-        .map(renderPost)
-        .join("");
-
-    attachPostButtons();
+    feed.innerHTML = posts
+      .map(renderPost)
+      .join("");
 
   }catch(error){
 
     console.error(error);
 
-    status.style.display =
-      "block";
-
-    status.innerHTML = `
-      <div class="error">
-        ${escapeHtml(
-          error.message ||
-          "Something went wrong"
-        )}
-      </div>
-    `;
+    status.innerHTML =
+      "Unable to load posts. Please refresh the page.";
 
   }
 
 }
 
 
-/* =====================================================
+/* ================================
    RENDER POST
-===================================================== */
+================================ */
 
 function renderPost(post){
 
+  const id = Number(post.id);
+
   const businessName =
-    post.business_name ||
-    "Boostly Business";
-
-  const category =
-    post.category ||
-    "Local Business";
-
-  const city =
-    post.city ||
-    "";
-
-  const initial =
-    getInitial(
-      businessName
+    escapeHtml(
+      post.business_name ||
+      "Boostly Business"
     );
 
-  const postType =
-    post.post_type === "reel"
-      ? "REEL"
-      : "POST";
+  const caption =
+    escapeHtml(post.caption || "");
 
-  /*
-    IMPORTANT:
-    D1 can return liked as 1/0.
-    API now converts it to true/false,
-    but frontend also accepts both safely.
-  */
+  const location =
+    escapeHtml(post.location || "");
+
+  const hashtags =
+    escapeHtml(post.hashtags || "");
+
+  const likes =
+    Number(post.likes_count || 0);
+
+  const comments =
+    Number(post.comments_count || 0);
+
+  const shares =
+    Number(post.shares_count || 0);
+
+  const saves =
+    Number(post.saves_count || 0);
 
   const liked =
-    post.liked === true ||
-    Number(post.liked) === 1;
+    Boolean(post.liked);
 
   let media = "";
 
-  /* VIDEO */
-
   if(
-    post.media_type === "video"
+    post.media_type === "video" &&
+    post.media_url
   ){
 
-    const videoUrl =
-      escapeHtml(
-        post.media_url
-      );
-
-    const poster =
-      post.thumbnail_url
-        ? `poster="${escapeHtml(post.thumbnail_url)}"`
-        : "";
-
     media = `
-      <div class="media-wrap">
-
-        <video
-          controls
-          playsinline
-          preload="metadata"
-          ${poster}>
-
-          <source
-            src="${videoUrl}"
-            type="video/mp4">
-
-          Your browser does not support video.
-
-        </video>
-
-      </div>
+      <video
+        src="${escapeHtml(post.media_url)}"
+        controls
+        playsinline>
+      </video>
     `;
 
-  }
-
-  /* IMAGE */
-
-  else{
+  }else if(post.media_url){
 
     media = `
-      <div class="media-wrap">
-
-        <img
-          src="${escapeHtml(post.media_url)}"
-          alt="${escapeHtml(businessName)} post"
-          loading="lazy"
-          onerror="this.style.display='none';">
-
-      </div>
+      <img
+        src="${escapeHtml(post.media_url)}"
+        alt="${businessName}"
+        loading="lazy">
     `;
 
   }
 
   return `
 
-    <article
-      class="post-card"
-      data-post-id="${post.id}">
+    <article class="post" id="post-${id}">
 
-      <div class="post-header">
+      <div class="post-head">
+
+        <img
+          class="avatar"
+          src="${escapeHtml(
+            post.business_logo ||
+            post.thumbnail_url ||
+            ""
+          )}"
+          alt="Business">
 
         <div class="business-info">
 
-          <div class="avatar">
-            ${escapeHtml(initial)}
+          <div class="business-name">
+            ${businessName}
           </div>
 
-          <div>
-
-            <div class="business-name">
-              ${escapeHtml(
-                businessName
-              )}
-            </div>
-
-            <div class="business-meta">
-
-              ${escapeHtml(category)}
-
-              ${
-                city
-                  ? " • " +
-                    escapeHtml(city)
-                  : ""
-              }
-
-            </div>
-
+          <div class="post-meta">
+            Boostly Post
           </div>
 
         </div>
 
-        <div class="post-type">
-          ${postType}
-        </div>
+      </div>
+
+
+      ${
+        media
+        ?
+        `<div class="post-media">${media}</div>`
+        :
+        ""
+      }
+
+
+      <div class="post-body">
+
+        ${
+          caption
+          ?
+          `<div class="caption">${caption}</div>`
+          :
+          ""
+        }
+
+        ${
+          location
+          ?
+          `<div class="location">📍 ${location}</div>`
+          :
+          ""
+        }
+
+        ${
+          hashtags
+          ?
+          `<div class="hashtags">${hashtags}</div>`
+          :
+          ""
+        }
 
       </div>
 
-      ${media}
-
-      <div class="post-content">
-
-        ${
-          post.caption
-            ? `
-              <div class="caption">
-                ${escapeHtml(
-                  post.caption
-                )}
-              </div>
-            `
-            : ""
-        }
-
-        ${
-          post.hashtags
-            ? `
-              <div class="hashtags">
-                ${escapeHtml(
-                  post.hashtags
-                )}
-              </div>
-            `
-            : ""
-        }
-
-        ${
-          post.location
-            ? `
-              <div class="location">
-                📍 ${escapeHtml(
-                  post.location
-                )}
-              </div>
-            `
-            : ""
-        }
-
-      </div>
 
       <div class="stats">
 
-        <span class="like-count">
-          ❤️
-          ${formatNumber(
-            post.likes_count
-          )}
-          likes
+        <span>
+          ❤️ <span id="like-count-${id}">
+            ${likes}
+          </span> Likes
         </span>
 
         <span>
-          💬
-          ${formatNumber(
-            post.comments_count
-          )}
-          comments
+          💬 ${comments} Comments
         </span>
 
         <span>
-          👁
-          ${formatNumber(
-            post.views_count
-          )}
-          views
+          🔗 ${shares} Shares
+        </span>
+
+        <span>
+          🔖 ${saves} Saves
         </span>
 
       </div>
 
-      <div class="login-message">
-        Please login to like this post.
-      </div>
 
       <div class="actions">
 
         <button
-          type="button"
-          class="action-btn like-button ${
+          class="action-btn ${liked ? "liked" : ""}"
+          id="like-btn-${id}"
+          data-action="${liked ? "unlike" : "like"}"
+          onclick="toggleLike(${id})">
+
+          ${
             liked
-              ? "like-active"
-              : ""
-          }"
-          data-action="like"
-          data-post-id="${post.id}">
-
-          <span class="action-icon">
-
-            ${
-              liked
-                ? "❤️"
-                : "♡"
-            }
-
-          </span>
-
-          <span class="like-text">
-
-            ${
-              liked
-                ? "Liked"
-                : "Like"
-            }
-
-          </span>
+            ? "❤️ Liked"
+            : "♡ Like"
+          }
 
         </button>
 
+
         <button
-          type="button"
-          class="action-btn comment-button"
-          data-post-id="${post.id}">
+          class="action-btn"
+          onclick="commentPost(${id})">
 
-          <span class="action-icon">
-            💬
-          </span>
-
-          Comment
+          💬 Comment
 
         </button>
 
+
         <button
-          type="button"
-          class="action-btn save-button"
-          data-post-id="${post.id}">
+          class="action-btn"
+          onclick="savePost(${id})">
 
-          <span class="action-icon">
-            🔖
-          </span>
-
-          Save
+          🔖 Save
 
         </button>
 
+
         <button
-          type="button"
-          class="action-btn share-button"
-          data-post-id="${post.id}">
+          class="action-btn"
+          onclick="sharePost(${id})">
 
-          <span class="action-icon">
-            ↗️
-          </span>
-
-          Share
+          🔗 Share
 
         </button>
 
@@ -1029,309 +651,168 @@ function renderPost(post){
 }
 
 
-/* =====================================================
-   ATTACH BUTTON EVENTS
-===================================================== */
-
-function attachPostButtons(){
-
-  document
-    .querySelectorAll(".like-button")
-    .forEach(function(button){
-
-      button.addEventListener(
-        "click",
-        function(){
-
-          const postId =
-            button.dataset.postId;
-
-          toggleLike(
-            postId,
-            button
-          );
-
-        }
-      );
-
-    });
-
-  document
-    .querySelectorAll(".comment-button")
-    .forEach(function(button){
-
-      button.addEventListener(
-        "click",
-        function(){
-
-          alert(
-            "Comment system next step mein connect hoga."
-          );
-
-        }
-      );
-
-    });
-
-  document
-    .querySelectorAll(".save-button")
-    .forEach(function(button){
-
-      button.addEventListener(
-        "click",
-        function(){
-
-          alert(
-            "Save system next step mein connect hoga."
-          );
-
-        }
-      );
-
-    });
-
-  document
-    .querySelectorAll(".share-button")
-    .forEach(function(button){
-
-      button.addEventListener(
-        "click",
-        function(){
-
-          sharePost(
-            button.dataset.postId
-          );
-
-        }
-      );
-
-    });
-
-}
-
-
-/* =====================================================
+/* ================================
    LIKE / UNLIKE
-===================================================== */
+================================ */
 
-async function toggleLike(
-  postId,
-  button
-){
+async function toggleLike(postId){
 
-  if(
-    button.dataset.loading === "true"
-  ){
-
-    return;
-
-  }
-
-  button.dataset.loading =
-    "true";
-
-  button.disabled =
-    true;
-
-  const wasLiked =
-    button.classList.contains(
-      "like-active"
+  const button =
+    document.getElementById(
+      "like-btn-" + postId
     );
 
+  const count =
+    document.getElementById(
+      "like-count-" + postId
+    );
+
+  if(!button){
+    return;
+  }
+
   const action =
-    wasLiked
-      ? "unlike"
-      : "like";
+    button.dataset.action || "like";
+
+
+  /* Prevent double click */
+
+  button.disabled = true;
+
 
   try{
 
-    const formData =
-      new FormData();
+    const formData = new FormData();
 
-    formData.append(
-      "action",
-      action
-    );
+    formData.append("action", action);
+    formData.append("post_id", postId);
 
-    formData.append(
-      "post_id",
-      postId
-    );
 
-    const response =
-      await fetch(
-        "/api/boost-post",
-        {
-          method:"POST",
-          body:formData,
-          credentials:"include",
-          cache:"no-store"
-        }
-      );
-
-    const data =
-      await response.json();
-
-    /* LOGIN REQUIRED */
-
-    if(
-      response.status === 401
-    ){
-
-      const card =
-        button.closest(
-          ".post-card"
-        );
-
-      const message =
-        card.querySelector(
-          ".login-message"
-        );
-
-      if(message){
-
-        message.style.display =
-          "block";
-
+    const response = await fetch(
+      API,
+      {
+        method:"POST",
+        body:formData,
+        credentials:"include"
       }
+    );
+
+
+    const data = await response.json();
+
+
+    if(response.status === 401){
+
+      alert(
+        "Please login first to like this post."
+      );
 
       return;
 
     }
 
-    if(
-      !response.ok ||
-      !data.success
-    ){
+
+    if(!response.ok){
 
       throw new Error(
-        data.error ||
-        "Unable to update like"
+        data.error || "Like action failed"
       );
 
     }
 
-    /* HIDE LOGIN MESSAGE */
 
-    const card =
-      button.closest(
-        ".post-card"
-      );
-
-    const message =
-      card.querySelector(
-        ".login-message"
-      );
-
-    if(message){
-
-      message.style.display =
-        "none";
-
-    }
-
-    /* UPDATE BUTTON */
+    /* Update count */
 
     if(
-      data.liked === true ||
-      Number(data.liked) === 1
+      data.likes_count !== undefined
     ){
 
-      button.classList.add(
-        "like-active"
-      );
+      count.textContent =
+        Number(data.likes_count);
 
-      button
-        .querySelector(
-          ".action-icon"
-        )
-        .textContent =
-        "❤️";
+    }
 
-      button
-        .querySelector(
-          ".like-text"
-        )
-        .textContent =
-        "Liked";
+
+    /* Update button */
+
+    if(data.liked){
+
+      button.classList.add("liked");
+
+      button.textContent =
+        "❤️ Liked";
+
+      button.dataset.action =
+        "unlike";
 
     }else{
 
-      button.classList.remove(
-        "like-active"
-      );
+      button.classList.remove("liked");
 
-      button
-        .querySelector(
-          ".action-icon"
-        )
-        .textContent =
-        "♡";
+      button.textContent =
+        "♡ Like";
 
-      button
-        .querySelector(
-          ".like-text"
-        )
-        .textContent =
-        "Like";
+      button.dataset.action =
+        "like";
 
     }
 
-    /* UPDATE COUNT */
-
-    const countElement =
-      card.querySelector(
-        ".like-count"
-      );
-
-    if(countElement){
-
-      countElement.textContent =
-        "❤️ " +
-        formatNumber(
-          data.likes_count
-        ) +
-        " likes";
-
-    }
 
   }catch(error){
 
-    console.error(
-      "Like error:",
-      error
-    );
+    console.error(error);
 
     alert(
       error.message ||
-      "Unable to like post."
+      "Like system error"
     );
 
   }finally{
 
-    button.dataset.loading =
-      "false";
-
-    button.disabled =
-      false;
+    button.disabled = false;
 
   }
 
 }
 
 
-/* =====================================================
-   SHARE
-===================================================== */
+/* ================================
+   COMMENT
+================================ */
 
-async function sharePost(
-  postId
-){
+function commentPost(postId){
+
+  alert(
+    "Comment system next step mein connect hoga."
+  );
+
+}
+
+
+/* ================================
+   SAVE
+================================ */
+
+function savePost(postId){
+
+  alert(
+    "Save system next step mein connect hoga."
+  );
+
+}
+
+
+/* ================================
+   SHARE
+================================ */
+
+async function sharePost(postId){
 
   const shareUrl =
     window.location.origin +
     "/boost-feed.html#post-" +
     postId;
+
 
   try{
 
@@ -1340,19 +821,14 @@ async function sharePost(
     ){
 
       await navigator.share({
-
-        title:
-          "Boostly Post",
-
-        text:
-          "Check this business post on Boostly.",
-
-        url:
-          shareUrl
-
+        title:"Boostly Post",
+        text:"Check this business post on Boostly",
+        url:shareUrl
       });
 
-    }else{
+    }else if(
+      navigator.clipboard
+    ){
 
       await navigator.clipboard.writeText(
         shareUrl
@@ -1362,45 +838,32 @@ async function sharePost(
         "Post link copied!"
       );
 
+    }else{
+
+      prompt(
+        "Copy this link:",
+        shareUrl
+      );
+
     }
 
   }catch(error){
 
-    if(
-      error.name !==
-      "AbortError"
-    ){
-
-      try{
-
-        await navigator.clipboard.writeText(
-          shareUrl
-        );
-
-        alert(
-          "Post link copied!"
-        );
-
-      }catch(e){
-
-        alert(
-          "Unable to share post."
-        );
-
-      }
-
-    }
+    console.log(
+      "Share cancelled",
+      error
+    );
 
   }
 
 }
 
 
-/* =====================================================
+/* ================================
    START
-===================================================== */
+================================ */
 
-loadFeed();
+loadPosts();
 
 </script>
 
