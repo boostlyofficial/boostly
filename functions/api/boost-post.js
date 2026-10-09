@@ -70,10 +70,16 @@ export async function onRequest(context) {
           p.location,
           p.hashtags,
           p.likes_count,
-          p.comments_count,
-          p.shares_count,
-          p.saves_count,
-          p.views_count,
+p.comments_count,
+p.shares_count,
+
+(
+  SELECT COUNT(*)
+  FROM boost_post_saves s
+  WHERE s.post_id = p.id
+) AS saves_count,
+
+p.views_count,
           p.status,
           p.created_at,
           p.updated_at,
