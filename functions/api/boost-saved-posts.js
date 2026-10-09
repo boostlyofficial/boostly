@@ -2,7 +2,7 @@ export async function onRequestGet(context) {
   try {
     const DB = context.env.DB;
 
-    // Check login session
+    // Check login cookie
     const cookieHeader =
       context.request.headers.get("Cookie") || "";
 
@@ -25,13 +25,14 @@ export async function onRequestGet(context) {
       );
     }
 
-    const sessionId = decodeURIComponent(match[1]);
+    const sessionId = match[1];
 
-    // Find logged-in user
+    // Check session using the correct column: id
     const session = await DB.prepare(`
       SELECT user_id
       FROM sessions
-      WHERE session_id = ?
+      WHERE id = ?
+        AND expires_at > datetime('now')
       LIMIT 1
     `)
       .bind(sessionId)
@@ -41,7 +42,7 @@ export async function onRequestGet(context) {
       return new Response(
         JSON.stringify({
           success: false,
-          error: "Invalid session. Please login again."
+          error: "Session expired. Please login again."
         }),
         {
           status: 401,
@@ -54,7 +55,7 @@ export async function onRequestGet(context) {
 
     const userId = session.user_id;
 
-    // Load posts saved by the logged-in user
+    // Load saved posts
     const result = await DB.prepare(`
       SELECT
         p.id,
@@ -94,7 +95,7 @@ export async function onRequestGet(context) {
       JSON.stringify({
         success: true,
         count: posts.length,
-        posts: posts
+        posts
       }),
       {
         status: 200,
