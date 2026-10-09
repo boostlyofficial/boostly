@@ -773,34 +773,110 @@ async function toggleLike(postId){
 
   }
 
-}
-
-
-/* ================================
-   COMMENT
-================================ */
-
 function commentPost(postId){
+/* =========================================
+   COMMENT SYSTEM
+========================================= */
 
-  alert(
-    "Comment system next step mein connect hoga."
-  );
+async function commentPost(postId) {
+  try {
+    const commentText = prompt("Apna comment likho:");
 
+    if (commentText === null) {
+      return;
+    }
+
+    const cleanComment = commentText.trim();
+
+    if (!cleanComment) {
+      alert("Please comment likho.");
+      return;
+    }
+
+    if (cleanComment.length > 1000) {
+      alert("Comment 1000 characters se chhota rakho.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("action", "create");
+    formData.append("post_id", postId);
+    formData.append("comment_text", cleanComment);
+
+    const response = await fetch(
+      "/api/boost-post-comments",
+      {
+        method: "POST",
+        body: formData,
+        credentials: "include"
+      }
+    );
+
+    const result = await response.json();
+
+    if (response.status === 401) {
+      alert("Comment karne ke liye pehle login karo.");
+      return;
+    }
+
+    if (!response.ok || !result.success) {
+      alert(result.error || "Comment post nahi ho saka.");
+      return;
+    }
+
+    alert("Comment successfully post ho gaya!");
+
+    location.reload();
+
+  } catch (error) {
+    console.error("Comment error:", error);
+    alert("Comment karte waqt error aaya. Dobara try karo.");
+  }
 }
 
 
-/* ================================
-   SAVE
-================================ */
+/* =========================================
+   SAVE SYSTEM
+========================================= */
 
-function savePost(postId){
+async function savePost(postId) {
+  try {
+    const formData = new FormData();
 
-  alert(
-    "Save system next step mein connect hoga."
-  );
+    formData.append("action", "save");
+    formData.append("post_id", postId);
 
+    const response = await fetch(
+      "/api/boost-post-save",
+      {
+        method: "POST",
+        body: formData,
+        credentials: "include"
+      }
+    );
+
+    const result = await response.json();
+
+    if (response.status === 401) {
+      alert("Post save karne ke liye pehle login karo.");
+      return;
+    }
+
+    if (!response.ok || !result.success) {
+      alert(
+        result.error ||
+        "Post save nahi ho saka. Save API check karni hogi."
+      );
+      return;
+    }
+
+    alert(result.message || "Post successfully save ho gaya!");
+
+  } catch (error) {
+    console.error("Save error:", error);
+    alert("Save karte waqt error aaya. Dobara try karo.");
+  }
 }
-
 
 /* ================================
    SHARE
