@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#4c1d95">
+<title>Campaigns | Boostly</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --purple:#4c1d95;
+  --purple2:#6d28d9;
+  --blue:#2563eb;
+  --gold:#f5b942;
+  --bg:#f5f6fc;
+  --text:#1e1b4b;
+  --muted:#74758b;
+  --white:#fff;
+  --border:#e8e8f2;
+}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.5;
+}
+a{text-decoration:none;color:inherit}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.topbar{
+  background:linear-gradient(120deg,#35106f,#4c1d95,#2563eb);
+  color:#fff;padding:17px 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:15px;flex-wrap:wrap;
+}
+.logo{font-size:25px;font-weight:900;letter-spacing:-.7px}
+.logo span{color:var(--gold)}
+.topnav{display:flex;gap:17px;align-items:center;flex-wrap:wrap}
+.topnav a{font-size:13px;color:#f2edff}
+.topnav a:hover{color:var(--gold)}
+.topnav .back{
+  background:#fff;color:var(--purple);padding:9px 14px;
+  border-radius:10px;font-weight:700;
+}
+.container{max-width:1180px;margin:auto;padding:28px 18px 55px}
+.hero{
+  background:linear-gradient(125deg,#4c1d95,#6d28d9 55%,#2563eb);
+  color:#fff;padding:28px;border-radius:22px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;flex-wrap:wrap;box-shadow:0 12px 32px #4c1d9520;
+}
+.eyebrow{
+  text-transform:uppercase;letter-spacing:1.5px;
+  font-size:11px;font-weight:800;color:#f8d982;margin-bottom:7px;
+}
+.hero h1{font-size:clamp(25px,4vw,36px);line-height:1.2;margin-bottom:10px}
+.hero p{font-size:14px;color:#eee7ff;max-width:600px}
+.hero-badge{
+  border:1px solid #ffffff55;background:#ffffff15;
+  border-radius:14px;padding:14px 18px;min-width:150px;
+}
+.hero-badge strong{display:block;font-size:19px}
+.hero-badge span{font-size:12px;color:#eee7ff}
+.section-title{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;flex-wrap:wrap;margin:27px 0 14px;
+}
+.section-title h2{font-size:20px}
+.section-title p{font-size:12px;color:var(--muted);margin-top:3px}
+.metrics{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;
+}
+.metric{
+  background:#fff;border:1px solid var(--border);
+  border-radius:17px;padding:19px;box-shadow:0 5px 20px #25205c05;
+}
+.metric-icon{
+  width:40px;height:40px;display:grid;place-items:center;
+  border-radius:12px;background:#f0eaff;font-size:20px;margin-bottom:13px;
+}
+.metric small{color:var(--muted);font-size:12px}
+.metric h3{font-size:25px;margin:5px 0 2px}
+.metric p{font-size:11px;color:#8b8ca1}
+.layout{
+  display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);
+  gap:17px;align-items:start;
+}
+.panel{
+  background:#fff;border:1px solid var(--border);
+  border-radius:18px;padding:22px;min-width:0;
+}
+.panel h2{font-size:19px;margin-bottom:5px}
+.panel-sub{font-size:12px;color:var(--muted);margin-bottom:19px}
+.field{margin-bottom:15px}
+.field label{
+  display:block;font-size:12px;font-weight:700;margin-bottom:7px;
+}
+.field input,.field select,.field textarea{
+  width:100%;border:1px solid #ddddec;background:#fcfcff;
+  border-radius:10px;padding:12px;color:var(--text);outline:none;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:var(--purple2);box-shadow:0 0 0 3px #6d28d915;
+}
+.field textarea{min-height:85px;resize:vertical}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn{
+  border:0;border-radius:11px;padding:12px 16px;
+  font-weight:800;font-size:13px;display:inline-flex;
+  align-items:center;justify-content:center;gap:7px;
+}
+.btn-primary{background:linear-gradient(110deg,var(--purple),var(--blue));color:#fff}
+.btn-light{background:#f1edff;color:var(--purple)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.full{width:100%}
+.notice{
+  border-radius:11px;background:#fff8e6;border:1px solid #f4dfaa;
+  color:#80580b;padding:12px;font-size:12px;margin:14px 0;
+}
+.status-line{font-size:12px;margin-top:12px;min-height:18px;color:var(--purple)}
+.info-list{display:grid;gap:12px;margin-top:16px}
+.info-item{display:flex;gap:11px;align-items:flex-start}
+.info-icon{
+  flex-shrink:0;width:35px;height:35px;border-radius:10px;
+  background:#f1edff;display:grid;place-items:center;
+}
+.info-item strong{display:block;font-size:13px;margin-bottom:2px}
+.info-item span{display:block;font-size:12px;color:var(--muted)}
+.campaign-list{display:grid;gap:12px}
+.campaign-card{
+  border:1px solid var(--border);border-radius:14px;padding:16px;
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+.campaign-card h3{font-size:15px;overflow-wrap:anywhere}
+.campaign-card p{font-size:12px;color:var(--muted);margin-top:4px}
+.tag{
+  display:inline-block;border-radius:20px;padding:5px 9px;
+  font-size:10px;font-weight:800;background:#f1edff;color:var(--purple);
+  margin-top:8px;
+}
+.card-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.small-btn{
+  border:1px solid var(--border);background:#fff;border-radius:8px;
+  padding:7px 10px;font-size:11px;font-weight:700;color:var(--text);
+}
+.small-btn.delete{color:#b42318}
+.empty{
+  text-align:center;padding:28px 12px;color:var(--muted);
+  border:1px dashed #d9d7e8;border-radius:13px;font-size:13px;
+}
+.empty .big{font-size:29px;margin-bottom:7px}
+.footer{text-align:center;font-size:11px;color:var(--muted);padding-top:24px}
+.hidden{display:none!important}
+@media(max-width:850px){
+  .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .layout{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .topbar{padding:15px}
+  .topnav{gap:11px}
+  .topnav a{font-size:12px}
+  .container{padding:18px 12px 35px}
+  .hero{padding:22px 18px}
+  .hero-badge{width:100%}
+  .panel{padding:17px}
+  .two-col{grid-template-columns:1fr;gap:0}
+  .metric{padding:14px}
+  .metric h3{font-size:22px}
+}
+</style>
+</head>
+
+<body>
+<header class="topbar">
+  <a class="logo" href="index.html">Boost<span>ly</span></a>
+  <nav class="topnav">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="boost-feed.html">Boost Feed</a>
+    <a class="back" href="dashboard.html">← Dashboard</a>
+  </nav>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Growth & Marketing Center</div>
+      <h1>Campaign Workspace 🚀</h1>
+      <p>Plan your next promotion, organize campaign ideas and prepare your business for growth — all in one place.</p>
+    </div>
+    <div class="hero-badge">
+      <strong>Plan smarter.</strong>
+      <span>Grow with Boostly</span>
+    </div>
+  </section>
+
+  <div class="section-title">
+    <div>
+      <h2>Campaign Overview</h2>
+      <p>Your saved campaign drafts on this device.</p>
+    </div>
+  </div>
+
+  <section class="metrics">
+    <div class="metric">
+      <div class="metric-icon">📋</div>
+      <small>Total Drafts</small>
+      <h3 id="totalDrafts">0</h3>
+      <p>Saved campaign ideas</p>
+    </div>
+    <div class="metric">
+      <div class="metric-icon">💰</div>
+      <small>Planned Budget</small>
+      <h3 id="totalBudget">₹0</h3>
+      <p>Draft budgets only</p>
+    </div>
+    <div class="metric">
+      <div class="metric-icon">📣</div>
+      <small>Ready to Review</small>
+      <h3 id="reviewCount">0</h3>
+      <p>Campaign drafts</p>
+    </div>
+    <div class="metric">
+      <div class="metric-icon">📊</div>
+      <small>Live Campaigns</small>
+      <h3>—</h3>
+      <p>Backend connection pending</p>
+    </div>
+  </section>
+
+  <div class="section-title">
+    <div>
+      <h2>Create a Campaign Draft</h2>
+      <p>Save your promotion plan before launching it.</p>
+    </div>
+  </div>
+
+  <section class="layout">
+    <div class="panel">
+      <h2>📝 Campaign Details</h2>
+      <p class="panel-sub">Fill in your campaign idea below.</p>
+
+      <form id="campaignForm">
+        <div class="field">
+          <label for="campaignName">Campaign Name *</label>
+          <input id="campaignName" maxlength="80" required
+            placeholder="e.g. Diwali Special Offer">
+        </div>
+
+        <div class="field">
+          <label for="campaignGoal">Campaign Goal *</label>
+          <select id="campaignGoal" required>
+            <option value="">Select a goal</option>
+            <option value="More customers">Get more customers</option>
+            <option value="More calls">Get more calls</option>
+            <option value="More messages">Get more WhatsApp/messages</option>
+            <option value="Brand awareness">Build brand awareness</option>
+            <option value="Promote an offer">Promote a special offer</option>
+          </select>
+        </div>
+
+        <div class="two-col">
+          <div class="field">
+            <label for="campaignBudget">Planned Budget (₹) *</label>
+            <input id="campaignBudget" type="number" min="0"
+              max="10000000" step="1" required placeholder="e.g. 1000">
+          </div>
+          <div class="field">
+            <label for="campaignDuration">Duration</label>
+            <select id="campaignDuration">
+              <option value="3 days">3 days</option>
+              <option value="7 days" selected>7 days</option>
+              <option value="14 days">14 days</option>
+              <option value="30 days">30 days</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="campaignAudience">Target Location / Audience</label>
+          <input id="campaignAudience" maxlength="100"
+            placeholder="e.g. Ludhiana, nearby customers">
+        </div>
+
+        <div class="field">
+          <label for="campaignDescription">Offer / Campaign Details</label>
+          <textarea id="campaignDescription" maxlength="500"
+            placeholder="Describe your offer, audience and promotion idea..."></textarea>
+        </div>
+
+        <div class="notice">
+          <strong>Important:</strong> This saves a draft on this device only.
+          No advertisement is published, and no money is charged.
+        </div>
+
+        <button class="btn btn-primary full" type="submit">＋ Save Campaign Draft</button>
+        <p class="status-line" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <aside class="panel">
+      <h2>💡 Campaign Checklist</h2>
+      <p class="panel-sub">Before you launch a real promotion.</p>
+
+      <div class="info-list">
+        <div class="info-item">
+          <div class="info-icon">🎯</div>
+          <div>
+            <strong>Choose one clear goal</strong>
+            <span>Decide whether you want calls, messages or more customers.</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">👥</div>
+          <div>
+            <strong>Know your audience</strong>
+            <span>Define your location and the customers you want to reach.</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🖼️</div>
+          <div>
+            <strong>Prepare your creative</strong>
+            <span>Use clear photos, videos and a genuine offer.</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🛡️</div>
+          <div>
+            <strong>Set a safe budget</strong>
+            <span>Choose a budget you can afford before connecting any paid advertising.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="notice">
+        Live ad delivery, payment processing, audience targeting and real performance
+        tracking are not connected yet.
+      </div>
+    </aside>
+  </section>
+
+  <div class="section-title">
+    <div>
+      <h2>Your Campaign Drafts</h2>
+      <p>Drafts are stored in this browser on this device.</p>
+    </div>
+    <button type="button" class="btn btn-light" id="refreshButton">↻ Refresh</button>
+  </div>
+
+  <section class="panel">
+    <div id="campaignList" class="campaign-list"></div>
+    <p id="storageNote" class="status-line" role="status" aria-live="polite"></p>
+  </section>
+
+  <div class="footer">
+    Boostly Campaign Workspace · Campaign drafts are not live advertisements.
+  </div>
+</main>
+
+<script>
+(function(){
+  const STORAGE_KEY = "boostly_campaign_drafts_v1";
+  const form = document.getElementById("campaignForm");
+  const list = document.getElementById("campaignList");
+  const formStatus = document.getElementById("formStatus");
+  const storageNote = document.getElementById("storageNote");
+
+  function readDrafts(){
+    try{
+      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      return Array.isArray(data) ? data : [];
+    }catch(error){
+      return [];
+    }
+  }
+
+  function writeDrafts(drafts){
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(drafts));
+      return true;
+    }catch(error){
+      storageNote.textContent =
+        "Draft save nahi hua. Browser storage full ya disabled ho sakta hai.";
+      return false;
+    }
+  }
+
+  function escapeHTML(value){
+    return String(value ?? "").replace(/[&<>"']/g, function(char){
+      return {
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+      }[char];
+    });
+  }
+
+  function money(value){
+    return "₹" + Number(value || 0).toLocaleString("en-IN");
+  }
+
+  function render(){
+    const drafts = readDrafts();
+    const totalBudget = drafts.reduce(function(sum, item){
+      return sum + Number(item.budget || 0);
+    }, 0);
+
+    document.getElementById("totalDrafts").textContent = drafts.length;
+    document.getElementById("totalBudget").textContent = money(totalBudget);
+    document.getElementById("reviewCount").textContent = drafts.length;
+
+    if(!drafts.length){
+      list.innerHTML =
+        '<div class="empty"><div class="big">📋</div>' +
+        '<strong>No campaign drafts yet</strong>' +
+        '<p>Create your first campaign draft using the form above.</p></div>';
+      return;
+    }
+
+    list.innerHTML = drafts.slice().reverse().map(function(item){
+      return '<article class="campaign-card">' +
+        '<div style="flex:1;min-width:180px">' +
+          '<h3>' + escapeHTML(item.name) + '</h3>' +
+          '<p>Goal: ' + escapeHTML(item.goal) + '</p>' +
+          '<p>Planned budget: <strong>' + money(item.budget) + '</strong>' +
+          ' · Duration: ' + escapeHTML(item.duration) + '</p>' +
+          (item.audience ? '<p>Audience: ' + escapeHTML(item.audience) + '</p>' : '') +
+          (item.description ? '<p>' + escapeHTML(item.description) + '</p>' : '') +
+          '<span class="tag">DRAFT · NOT LIVE</span>' +
+        '</div>' +
+        '<div class="card-actions">' +
+          '<button type="button" class="small-btn" data-edit="' +
+            escapeHTML(item.id) + '">Edit</button>' +
+          '<button type="button" class="small-btn delete" data-delete="' +
+            escapeHTML(item.id) + '">Delete</button>' +
+        '</div>' +
+      '</article>';
+    }).join("");
+  }
+
+  form.addEventListener("submit", function(event){
+    event.preventDefault();
+    formStatus.textContent = "";
+
+    const name = document.getElementById("campaignName").value.trim();
+    const goal = document.getElementById("campaignGoal").value;
+    const budgetValue = document.getElementById("campaignBudget").value;
+    const budget = Number(budgetValue);
+
+    if(!name || !goal || budgetValue === "" ||
+       !Number.isFinite(budget) || budget < 0 || budget > 10000000){
+      formStatus.textContent = "Please check the required fields and budget.";
+      return;
+    }
+
+    const drafts = readDrafts();
+    const editingId = form.dataset.editingId || "";
+
+    const draft = {
+      id: editingId || (
+        window.crypto && crypto.randomUUID
+          ? crypto.randomUUID()
+          : String(Date.now()) + Math.random().toString(16).slice(2)
+      ),
+      name: name,
+      goal: goal,
+      budget: budget,
+      duration: document.getElementById("campaignDuration").value,
+      audience: document.getElementById("campaignAudience").value.trim(),
+      description: document.getElementById("campaignDescription").value.trim(),
+      updatedAt: new Date().toISOString()
+    };
+
+    const index = drafts.findIndex(function(item){
+      return String(item.id) === String(draft.id);
+    });
+
+    if(index >= 0) drafts[index] = draft;
+    else drafts.push(draft);
+
+    if(!writeDrafts(drafts)) return;
+
+    form.reset();
+    document.getElementById("campaignDuration").value = "7 days";
+    delete form.dataset.editingId;
+    form.querySelector('button[type="submit"]').textContent = "＋ Save Campaign Draft";
+    formStatus.textContent = "Campaign draft saved on this device.";
+    storageNote.textContent = "";
+    render();
+  });
+
+  list.addEventListener("click", function(event){
+    const editButton = event.target.closest("[data-edit]");
+    const deleteButton = event.target.closest("[data-delete]");
+
+    if(editButton){
+      const draft = readDrafts().find(function(item){
+        return String(item.id) === editButton.dataset.edit;
+      });
+      if(!draft) return;
+
+      document.getElementById("campaignName").value = draft.name || "";
+      document.getElementById("campaignGoal").value = draft.goal || "";
+      document.getElementById("campaignBudget").value = draft.budget ?? "";
+      document.getElementById("campaignDuration").value = draft.duration || "7 days";
+      document.getElementById("campaignAudience").value = draft.audience || "";
+      document.getElementById("campaignDescription").value = draft.description || "";
+
+      form.dataset.editingId = draft.id;
+      form.querySelector('button[type="submit"]').textContent = "Save Draft Changes";
+      formStatus.textContent = "Draft editing mode: update the form above.";
+      window.scrollTo({top: form.offsetTop + 250, behavior:"smooth"});
+      return;
+    }
+
+    if(deleteButton){
+      const drafts = readDrafts();
+      const updated = drafts.filter(function(item){
+        return String(item.id) !== deleteButton.dataset.delete;
+      });
+      if(writeDrafts(updated)){
+        storageNote.textContent = "Campaign draft deleted.";
+        render();
+      }
+    }
+  });
+
+  document.getElementById("refreshButton").addEventListener("click", render);
+  render();
+})();
+</script>
+</body>
+</html>
