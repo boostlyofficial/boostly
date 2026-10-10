@@ -971,7 +971,235 @@ font-size:19px
 
 </section>
 
+<!-- =====================================
+     BOOSTLY GROWTH & MONETIZATION HUB
+===================================== -->
 
+<style>
+.growth-hub{
+  margin:0 0 24px;
+  padding:25px;
+  border:1px solid #e5dcf3;
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(37,99,235,.10),transparent 35%),
+    linear-gradient(135deg,#ffffff,#f8f4ff);
+  box-shadow:0 14px 35px rgba(42,27,75,.07);
+}
+
+.growth-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:7px;
+}
+
+.growth-heading h2{
+  font-size:23px;
+  color:#332044;
+}
+
+.growth-label{
+  padding:7px 10px;
+  border-radius:8px;
+  color:#5b21b6;
+  background:#f0e8ff;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.growth-intro{
+  color:#777182;
+  font-size:13px;
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+.growth-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:13px;
+}
+
+.growth-item{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  min-height:165px;
+  padding:17px;
+  border:1px solid #ece5f5;
+  border-radius:16px;
+  text-decoration:none;
+  background:#fff;
+  transition:transform .2s,box-shadow .2s;
+}
+
+.growth-item:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 25px rgba(42,27,75,.09);
+}
+
+.growth-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:43px;
+  height:43px;
+  margin-bottom:13px;
+  border-radius:13px;
+  font-size:22px;
+  background:#f0e8ff;
+}
+
+.growth-item strong{
+  color:#302440;
+  font-size:14px;
+  margin-bottom:6px;
+}
+
+.growth-item small{
+  color:#81798e;
+  font-size:11px;
+  line-height:1.5;
+  margin-bottom:14px;
+}
+
+.growth-status{
+  margin-top:auto;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.4px;
+  color:#6d28d9;
+}
+
+.growth-item.analytics{
+  border-top:3px solid #6d28d9;
+}
+
+.growth-item.campaigns{
+  border-top:3px solid #2563eb;
+}
+
+.growth-item.marketplace{
+  border-top:3px solid #c59b45;
+}
+
+.growth-item.earnings{
+  border-top:3px solid #159568;
+}
+
+.growth-item.settings{
+  border-top:3px solid #64748b;
+}
+
+.growth-item.premium{
+  border-top:3px solid #d97706;
+}
+
+.growth-item.campaigns .growth-icon{
+  background:#eaf1ff;
+}
+
+.growth-item.marketplace .growth-icon{
+  background:#fff5dc;
+}
+
+.growth-item.earnings .growth-icon{
+  background:#e6f8ef;
+}
+
+.growth-item.settings .growth-icon{
+  background:#eef2f7;
+}
+
+.growth-item.premium .growth-icon{
+  background:#fff0dc;
+}
+
+@media(max-width:750px){
+  .growth-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .growth-hub{
+    padding:18px;
+  }
+}
+
+@media(max-width:380px){
+  .growth-grid{
+    grid-template-columns:1fr;
+  }
+
+  .growth-heading h2{
+    font-size:20px;
+  }
+}
+</style>
+
+<section class="growth-hub">
+
+  <div class="growth-heading">
+    <h2>🚀 Growth &amp; Monetization</h2>
+    <span class="growth-label">GROWTH HUB</span>
+  </div>
+
+  <p class="growth-intro">
+    Your next steps to grow with Boostly. Explore your business
+    performance, campaigns, creator opportunities and more.
+  </p>
+
+  <div class="growth-grid">
+
+    <a class="growth-item analytics" href="post-analytics.html">
+      <span class="growth-icon">📊</span>
+      <strong>Post Analytics</strong>
+      <small>Track your content performance and engagement.</small>
+      <span class="growth-status">NEXT FEATURE →</span>
+    </a>
+
+    <a class="growth-item campaigns" href="campaigns.html">
+      <span class="growth-icon">🎯</span>
+      <strong>Campaigns</strong>
+      <small>Plan and manage your business promotions.</small>
+      <span class="growth-status">COMING SOON</span>
+    </a>
+
+    <a class="growth-item marketplace" href="creator-marketplace.html">
+      <span class="growth-icon">🤝</span>
+      <strong>Creator Marketplace</strong>
+      <small>Connect with creators and explore collaborations.</small>
+      <span class="growth-status">COMING SOON</span>
+    </a>
+
+    <a class="growth-item earnings" href="earnings.html">
+      <span class="growth-icon">💰</span>
+      <strong>Earnings</strong>
+      <small>Explore creator earnings and payout features.</small>
+      <span class="growth-status">COMING SOON</span>
+    </a>
+
+    <a class="growth-item settings" href="settings.html">
+      <span class="growth-icon">⚙️</span>
+      <strong>Settings</strong>
+      <small>Manage your account and preferences.</small>
+      <span class="growth-status">COMING SOON</span>
+    </a>
+
+    <a class="growth-item premium" href="premium.html">
+      <span class="growth-icon">👑</span>
+      <strong>Premium Plans</strong>
+      <small>Explore Boostly plans and premium features.</small>
+      <span class="growth-status">VIEW PLANS →</span>
+    </a>
+
+  </div>
+
+</section>
+
+<!-- END BOOSTLY GROWTH HUB -->
 <div class="main-grid">
 
 <div>
