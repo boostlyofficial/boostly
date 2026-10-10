@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post Analytics | Boostly</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --purple:#4c1d95;
+  --purple2:#6d28d9;
+  --blue:#2563eb;
+  --gold:#c59b45;
+  --bg:#f7f5f1;
+  --text:#211b31;
+  --muted:#81798e;
+  --border:#ebe5da;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:linear-gradient(135deg,#faf9f6,#f2eff9);
+  min-height:100vh;
+  padding-bottom:30px;
+}
+
+.topbar{
+  min-height:66px;
+  padding:12px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:900;
+  color:var(--purple);
+}
+
+.top-links{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.top-links a{
+  text-decoration:none;
+  font-size:12px;
+  font-weight:800;
+  padding:10px 12px;
+  border-radius:9px;
+  background:#f3edff;
+  color:var(--purple);
+}
+
+.container{
+  width:92%;
+  max-width:1150px;
+  margin:28px auto;
+}
+
+.hero{
+  padding:27px;
+  border-radius:22px;
+  color:#fff;
+  background:linear-gradient(120deg,#4c1d95,#6d28d9,#2563eb);
+  box-shadow:0 15px 35px rgba(76,29,149,.17);
+  margin-bottom:22px;
+}
+
+.hero-label{
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:2px;
+  color:#e8dcff;
+  text-transform:uppercase;
+}
+
+.hero h1{
+  font-size:32px;
+  margin:10px 0;
+}
+
+.hero p{
+  font-size:13px;
+  line-height:1.7;
+  color:#eee8ff;
+  max-width:650px;
+}
+
+.hero-note{
+  display:inline-block;
+  margin-top:17px;
+  padding:8px 11px;
+  border:1px solid rgba(255,255,255,.25);
+  background:rgba(255,255,255,.12);
+  border-radius:9px;
+  font-size:11px;
+}
+
+.section-title{
+  font-size:19px;
+  font-weight:900;
+  margin-bottom:6px;
+}
+
+.section-subtitle{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+  margin-bottom:17px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+  margin-bottom:24px;
+}
+
+.stat{
+  padding:19px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:17px;
+  box-shadow:0 8px 24px rgba(42,27,75,.05);
+  min-width:0;
+}
+
+.stat-icon{
+  font-size:22px;
+  margin-bottom:14px;
+}
+
+.stat-value{
+  font-size:28px;
+  font-weight:900;
+  overflow-wrap:anywhere;
+  color:var(--purple);
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:5px;
+}
+
+.panel{
+  padding:22px;
+  margin-bottom:20px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:19px;
+  box-shadow:0 8px 24px rgba(42,27,75,.05);
+}
+
+.panel-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:17px;
+}
+
+.refresh-btn{
+  border:0;
+  padding:10px 13px;
+  border-radius:9px;
+  color:#fff;
+  font-size:11px;
+  font-weight:800;
+  background:linear-gradient(135deg,var(--purple),var(--blue));
+  cursor:pointer;
+}
+
+.status{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+  overflow-wrap:anywhere;
+}
+
+.post-list{
+  display:grid;
+  gap:12px;
+}
+
+.post{
+  display:grid;
+  grid-template-columns:75px minmax(0,1fr);
+  gap:14px;
+  align-items:start;
+  padding:15px;
+  border:1px solid #eee8f5;
+  border-radius:14px;
+  background:linear-gradient(135deg,#fff,#fcfaff);
+}
+
+.post-media{
+  width:75px;
+  height:75px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:#f0e8ff;
+  color:var(--purple);
+  font-size:25px;
+}
+
+.post-media img,
+.post-media video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.post-caption{
+  font-size:14px;
+  font-weight:800;
+  overflow-wrap:anywhere;
+  line-height:1.5;
+}
+
+.post-type{
+  display:inline-block;
+  margin:5px 0 10px;
+  padding:4px 7px;
+  border-radius:6px;
+  color:var(--purple);
+  background:#f1eaff;
+  font-size:9px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+.post-stats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+
+.post-stats span{
+  padding:7px 9px;
+  border:1px solid #eee8df;
+  border-radius:8px;
+  background:#faf8f4;
+  color:#51465f;
+  font-size:10px;
+  font-weight:800;
+}
+
+.empty{
+  text-align:center;
+  padding:30px 12px;
+}
+
+.empty-icon{
+  font-size:37px;
+  margin-bottom:12px;
+}
+
+.empty h3{
+  font-size:17px;
+  margin-bottom:7px;
+}
+
+.empty p{
+  max-width:450px;
+  margin:auto;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.8;
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:18px;
+}
+
+.btn{
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  padding:12px 15px;
+  border-radius:10px;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:900;
+}
+
+.btn-primary{
+  color:#fff;
+  background:linear-gradient(135deg,var(--purple),var(--blue));
+}
+
+.btn-secondary{
+  color:var(--purple);
+  background:#f1eaff;
+  border:1px solid #e3d6f7;
+}
+
+footer{
+  text-align:center;
+  padding:22px;
+  color:#9991a3;
+  font-size:10px;
+}
+
+@media(max-width:800px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media(max-width:500px){
+  .topbar{padding:12px 4%}
+  .logo{font-size:19px}
+  .top-links{gap:5px}
+  .top-links a{padding:9px 8px;font-size:10px}
+  .container{margin:20px auto}
+  .hero{padding:21px;border-radius:17px}
+  .hero h1{font-size:27px}
+  .stats{gap:9px}
+  .stat{padding:14px;border-radius:14px}
+  .stat-value{font-size:24px}
+  .panel{padding:15px;border-radius:16px}
+  .post{grid-template-columns:58px minmax(0,1fr);gap:10px;padding:11px}
+  .post-media{width:58px;height:58px}
+  .post-stats{gap:5px}
+  .post-stats span{font-size:9px;padding:6px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="logo">✦ Boostly</div>
+  <nav class="top-links">
+    <a href="dashboard.html">← Dashboard</a>
+    <a href="boost-feed.html">Boost Feed</a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <div class="hero-label">Boostly Business Intelligence</div>
+    <h1>Post Analytics 📊</h1>
+    <p>
+      Understand how your content performs. Review post views,
+      likes, comments and shares in one place.
+    </p>
+    <div class="hero-note">
+      Your analytics will use the data available from your Boostly posts.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Performance Overview</h2>
+    <p class="section-subtitle">
+      Combined totals for the posts returned by your Boostly feed.
+    </p>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-icon">👁️</div>
+        <div class="stat-value" id="totalViews">—</div>
+        <div class="stat-label">Total Views</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-icon">❤️</div>
+        <div class="stat-value" id="totalLikes">—</div>
+        <div class="stat-label">Total Likes</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-icon">💬</div>
+        <div class="stat-value" id="totalComments">—</div>
+        <div class="stat-label">Total Comments</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-icon">🔗</div>
+        <div class="stat-value" id="totalShares">—</div>
+        <div class="stat-label">Total Shares</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div>
+        <h2 class="section-title">Your Posts</h2>
+        <p class="section-subtitle" style="margin-bottom:0">
+          Individual content performance
+        </p>
+      </div>
+      <button class="refresh-btn" id="refreshBtn" onclick="loadAnalytics()">
+        ↻ Refresh
+      </button>
+    </div>
+
+    <p class="status" id="loadStatus" role="status" aria-live="polite">
+      Loading your post analytics...
+    </p>
+
+    <div class="post-list" id="postList"></div>
+  </section>
+
+  <section class="panel">
+    <h2 class="section-title">Next Growth Steps 🚀</h2>
+    <p class="section-subtitle">
+      Use your post performance to plan your next move.
+    </p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="create-post.html">＋ Create a Post</a>
+      <a class="btn btn-secondary" href="boost-feed.html">Open Boost Feed</a>
+      <a class="btn btn-secondary" href="premium.html">Explore Plans</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>© 2026 Boostly. All rights reserved.</footer>
+
+<script>
+function safeNumber(value){
+  const number = Number(value);
+  return Number.isFinite(number) && number > 0 ? number : 0;
+}
+
+function formatNumber(value){
+  return safeNumber(value).toLocaleString("en-IN");
+}
+
+function escapeHtml(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function getPosts(data){
+  if(Array.isArray(data)) return data;
+  if(Array.isArray(data.posts)) return data.posts;
+  if(Array.isArray(data.data)) return data.data;
+  if(data.data && Array.isArray(data.data.posts)) return data.data.posts;
+  return null;
+}
+
+function getPostCount(post, keys){
+  for(const key of keys){
+    if(post[key] !== undefined && post[key] !== null){
+      return safeNumber(post[key]);
+    }
+  }
+  return 0;
+}
+
+function getMedia(post){
+  const url = post.media_url || post.thumbnail_url || "";
+  if(!url) return '<span>📄</span>';
+
+  const safeUrl = escapeHtml(url);
+
+  if(String(post.media_type || post.post_type || "").toLowerCase().includes("video")){
+    return '<video src="' + safeUrl + '" muted playsinline preload="metadata"></video>';
+  }
+
+  return '<img src="' + safeUrl + '" alt="Post media" loading="lazy" onerror="this.style.display=\'none\'">';
+}
+
+function renderPosts(posts){
+  const postList = document.getElementById("postList");
+
+  if(posts.length === 0){
+    postList.innerHTML =
+      '<div class="empty">' +
+        '<div class="empty-icon">📭</div>' +
+        '<h3>No posts found</h3>' +
+        '<p>No posts were returned for your account. Create a post or check again after publishing content.</p>' +
+        '<div class="actions" style="justify-content:center">' +
+          '<a class="btn btn-primary" href="create-post.html">Create a Post</a>' +
+          '<a class="btn btn-secondary" href="boost-feed.html">View Boost Feed</a>' +
+        '</div>' +
+      '</div>';
+    return;
+  }
+
+  postList.innerHTML = posts.map(function(post){
+    const caption = post.caption || post.description || "Untitled post";
+    const type = post.media_type || post.post_type || "Post";
+
+    const views = getPostCount(post,["views_count","view_count","views"]);
+    const likes = getPostCount(post,["likes_count","like_count","likes"]);
+    const comments = getPostCount(post,["comments_count","comment_count","comments"]);
+    const shares = getPostCount(post,["shares_count","share_count","shares"]);
+
+    return `
+      <article class="post">
+        <div class="post-media">${getMedia(post)}</div>
+        <div>
+          <div class="post-caption">${escapeHtml(caption)}</div>
+          <span class="post-type">${escapeHtml(type)}</span>
+          <div class="post-stats">
+            <span>👁️ ${formatNumber(views)} Views</span>
+            <span>❤️ ${formatNumber(likes)} Likes</span>
+            <span>💬 ${formatNumber(comments)} Comments</span>
+            <span>🔗 ${formatNumber(shares)} Shares</span>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+async function loadAnalytics(){
+  const status = document.getElementById("loadStatus");
+  const button = document.getElementById("refreshBtn");
+
+  button.disabled = true;
+  button.textContent = "Loading...";
+  status.textContent = "Loading your posts...";
+
+  document.getElementById("postList").innerHTML = "";
+
+  try{
+    const businessResponse = await fetch("/api/my-business", {
+      credentials:"include",
+      cache:"no-store"
+    });
+
+    if(businessResponse.status === 401){
+      window.location.href = "/login.html";
+      return;
+    }
+
+    if(!businessResponse.ok){
+      throw new Error("Could not load your business profile.");
+    }
+
+    const businessData = await businessResponse.json();
+    const business = businessData.business || businessData;
+
+    if(!business || !business.id){
+      status.textContent = "No business profile was found. Create your business profile first.";
+      document.getElementById("totalViews").textContent = "—";
+      document.getElementById("totalLikes").textContent = "—";
+      document.getElementById("totalComments").textContent = "—";
+      document.getElementById("totalShares").textContent = "—";
+      renderPosts([]);
+      return;
+    }
+
+    const response = await fetch(
+      "/api/boost-post?business_id=" +
+      encodeURIComponent(business.id) +
+      "&_=" + Date.now(),
+      {
+        credentials:"include",
+        cache:"no-store"
+      }
+    );
+
+    if(response.status === 401){
+      window.location.href = "/login.html";
+      return;
+    }
+
+    if(!response.ok){
+      throw new Error("The posts API returned an error (" + response.status + ").");
+    }
+
+    const data = await response.json();
+    const posts = getPosts(data);
+
+    if(!data.success && !posts){
+      throw new Error(data.error || "Post data could not be read.");
+    }
+
+    if(!posts){
+      throw new Error("The posts API response format was not recognized.");
+    }
+
+    const views = posts.reduce((sum,post) =>
+      sum + getPostCount(post,["views_count","view_count","views"]),0);
+
+    const likes = posts.reduce((sum,post) =>
+      sum + getPostCount(post,["likes_count","like_count","likes"]),0);
+
+    const comments = posts.reduce((sum,post) =>
+      sum + getPostCount(post,["comments_count","comment_count","comments"]),0);
+
+    const shares = posts.reduce((sum,post) =>
+      sum + getPostCount(post,["shares_count","share_count","shares"]),0);
+
+    document.getElementById("totalViews").textContent = formatNumber(views);
+    document.getElementById("totalLikes").textContent = formatNumber(likes);
+    document.getElementById("totalComments").textContent = formatNumber(comments);
+    document.getElementById("totalShares").textContent = formatNumber(shares);
+
+    renderPosts(posts);
+
+    status.textContent =
+      "Loaded " + posts.length + " post(s). Totals reflect the data returned by the current Boostly posts API.";
+
+  }catch(error){
+    console.error("Post analytics error:",error);
+
+    status.textContent =
+      "Analytics could not be loaded: " +
+      (error.message || "Please try again.");
+
+    document.getElementById("totalViews").textContent = "—";
+    document.getElementById("totalLikes").textContent = "—";
+    document.getElementById("totalComments").textContent = "—";
+    document.getElementById("totalShares").textContent = "—";
+
+    document.getElementById("postList").innerHTML =
+      '<div class="empty">' +
+        '<div class="empty-icon">⚠️</div>' +
+        '<h3>Could not load analytics</h3>' +
+        '<p>Refresh the page and try again. If the issue continues, the API response needs to be checked.</p>' +
+      '</div>';
+
+  }finally{
+    button.disabled = false;
+    button.textContent = "↻ Refresh";
+  }
+}
+
+loadAnalytics();
+</script>
+
+</body>
+</html>
