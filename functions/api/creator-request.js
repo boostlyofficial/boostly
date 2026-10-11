@@ -33,7 +33,7 @@ export async function onRequest(context) {
 
     // Confirm the session belongs to a real logged-in user.
     const session = await env.DB.prepare(
-      "SELECT * FROM sessions WHERE session_id = ? LIMIT 1"
+      "SELECT * FROM sessions WHERE id = ? LIMIT 1"
     ).bind(match[1]).first();
 
     if (!session) {
