@@ -267,41 +267,77 @@ dialog p{font-size:12px;color:var(--muted);margin-bottom:15px}
   search.addEventListener("input",render);
   sort.addEventListener("change",render);
 
-  form.addEventListener("submit",function(event){
-    event.preventDefault();
-    if(!selectedCreator)return;
-    const budgetText = document.getElementById("collabBudget").value;
-    const budget = budgetText === "" ? null : Number(budgetText);
-    if(budget !== null && (!Number.isFinite(budget)||budget<0||budget>10000000)){
-      document.getElementById("modalStatus").textContent="Please enter a valid budget.";
-      return;
-    }
-    const requests = readRequests();
-    if(requests.some(r=>r.creatorId===selectedCreator.id)){
-      document.getElementById("modalStatus").textContent="A request for this demo profile is already saved on this device.";
-      return;
-    }
-    requests.push({
-      id:Date.now().toString(),
-      creatorId:selectedCreator.id,
-      creatorName:selectedCreator.name,
-      brand:document.getElementById("brandName").value.trim(),
-      goal:document.getElementById("collabGoal").value,
-      budget:budget,
-      message:document.getElementById("collabMessage").value.trim(),
-      savedAt:new Date().toISOString(),
-      status:"Local demo request"
+form.addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  if (!selectedCreator) return;
+
+  const modalStatus = document.getElementById("modalStatus");
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  const brandName = document.getElementById("brandName").value.trim();
+  const goal = document.getElementById("collabGoal").value;
+  const message = document.getElementById("collabMessage").value.trim();
+  const budgetText = document.getElementById("collabBudget").value;
+  const budget = budgetText === "" ? null : Number(budgetText);
+
+  if (!brandName || !goal || !message) {
+    modalStatus.textContent = "Please complete all required fields.";
+    return;
+  }
+
+  if (
+    budget !== null &&
+    (!Number.isFinite(budget) || budget < 0 || budget > 10000000)
+  ) {
+    modalStatus.textContent = "Please enter a valid budget.";
+    return;
+  }
+
+  submitButton.disabled = true;
+  submitButton.textContent = "Saving...";
+  modalStatus.textContent = "Sending your request...";
+
+  try {
+    const response = await fetch("/api/creator-request", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        creator_name: selectedCreator.name,
+        creator_handle: selectedCreator.handle,
+        brand_name: brandName,
+        goal: goal,
+        budget: budget,
+        message: message
+      })
     });
-    try{
-      localStorage.setItem("boostly_creator_requests_v1",JSON.stringify(requests));
-      document.getElementById("modalStatus").textContent="Request saved on this device. It has not been sent to the creator.";
-      document.getElementById("status").textContent="Demo collaboration request saved locally.";
-      render();
-      setTimeout(function(){if(dialog.open)dialog.close()},1000);
-    }catch(error){
-      document.getElementById("modalStatus").textContent="Could not save. Browser storage may be unavailable.";
+
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.error || "Could not save the request.");
     }
-  });
+
+    modalStatus.textContent = "Request saved successfully!";
+    document.getElementById("status").textContent =
+      "Collaboration request saved to Boostly.";
+
+    setTimeout(function() {
+      if (dialog.open) dialog.close();
+    }, 1200);
+
+  } catch (error) {
+    modalStatus.textContent = error.message ||
+      "Request failed. Please try again.";
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "Save request";
+  }
+});
+
 
   document.getElementById("cancelRequest").addEventListener("click",()=>dialog.close());
   document.getElementById("exploreBtn").addEventListener("click",()=>document.getElementById("discover").scrollIntoView({behavior:"smooth"}));
