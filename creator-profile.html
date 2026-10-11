@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#10101b">
+<title>Creator Profile | Boostly</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#10101b;--panel:#1a1a29;--panel2:#222237;--text:#f8f7ff;--muted:#a6a4bd;--lime:#d9ff66;--coral:#ff6b6b;--violet:#a78bfa;--line:#37364d}
+body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{text-decoration:none;color:inherit}
+button,input,select,textarea{font:inherit}
+.topbar{padding:16px 5%;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.logo{font-size:25px;font-weight:900}.logo span{color:var(--coral)}
+.nav{display:flex;gap:15px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.nav a:hover{color:var(--lime)}
+.wrap{width:min(760px,100%);margin:30px auto;padding:0 15px 40px}
+.hero{padding:25px;border-radius:20px;background:linear-gradient(120deg,#ff6b6b,#a78bfa 60%,#65e8e0);color:#171525;margin-bottom:20px}
+.hero small{font-size:11px;font-weight:900;letter-spacing:2px}
+.hero h1{font-size:clamp(28px,6vw,42px);line-height:1.15;margin:8px 0}
+.hero p{font-size:13px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px}
+.panel h2{font-size:21px;margin-bottom:4px}
+.sub{color:var(--muted);font-size:13px;margin-bottom:20px}
+.field{margin-bottom:16px}
+label{display:block;font-size:12px;font-weight:800;margin-bottom:6px}
+input,select,textarea{width:100%;padding:13px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--violet)}
+textarea{min-height:105px;resize:vertical}
+.hint{font-size:11px;color:var(--muted);margin-top:5px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.btn{border:0;border-radius:10px;padding:12px 17px;font-size:13px;font-weight:900;cursor:pointer}
+.primary{background:var(--lime);color:#171525}
+.secondary{background:transparent;border:1px solid var(--line);color:var(--text)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.actions button{flex:1}
+#status{font-size:13px;margin-top:16px;overflow-wrap:anywhere}
+.success{color:var(--lime)}
+.error{color:#ff8b8b}
+.preview{display:none;margin-top:18px;padding:16px;background:var(--panel2);border-radius:13px;overflow-wrap:anywhere}
+.preview h3{font-size:19px}
+.preview p{font-size:13px;color:var(--muted);margin-top:5px}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.panel{padding:17px}.hero{padding:21px}.topbar{padding:14px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="logo" href="index.html">boost<span>ly</span> ✳</a>
+  <nav class="nav">
+    <a href="creator-marketplace.html">Creator Marketplace</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="index.html">Home</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <small>BOOSTLY · CREATOR CLUB</small>
+    <h1>Your talent deserves to be discovered.</h1>
+    <p>Create your creator profile so businesses can learn about your content and collaboration interests.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Creator Profile</h2>
+    <p class="sub">Complete your details and save your profile to Boostly.</p>
+
+    <form id="creatorForm">
+      <div class="field">
+        <label for="creatorName">Creator Name *</label>
+        <input id="creatorName" maxlength="80" required placeholder="e.g. Aman Sharma">
+      </div>
+
+      <div class="field">
+        <label for="creatorHandle">Creator Username *</label>
+        <input id="creatorHandle" maxlength="50" required placeholder="e.g. amancreates">
+        <p class="hint">Enter your username without the @ symbol.</p>
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label for="category">Content Category *</label>
+          <select id="category" required>
+            <option value="">Choose category</option>
+            <option>Food</option>
+            <option>Beauty</option>
+            <option>Fashion</option>
+            <option>Lifestyle</option>
+            <option>Travel</option>
+            <option>Fitness</option>
+            <option>Technology</option>
+            <option>Education</option>
+            <option>Photography</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="city">City</label>
+          <input id="city" maxlength="80" placeholder="e.g. Ludhiana">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="bio">About You</label>
+        <textarea id="bio" maxlength="500" placeholder="Describe your content, audience and creative style..."></textarea>
+        <p class="hint">Maximum 500 characters.</p>
+      </div>
+
+      <div class="field">
+        <label for="instagram">Instagram Profile URL</label>
+        <input id="instagram" type="url" maxlength="300" placeholder="https://www.instagram.com/yourname">
+      </div>
+
+      <div class="field">
+        <label for="youtube">YouTube Channel URL</label>
+        <input id="youtube" type="url" maxlength="300" placeholder="https://www.youtube.com/@yourchannel">
+      </div>
+
+      <div class="field">
+        <label for="profileImage">Profile Image URL (optional)</label>
+        <input id="profileImage" type="url" maxlength="1000" placeholder="https://example.com/photo.jpg">
+        <p class="hint">Use a publicly accessible image URL. This field does not upload a photo from your phone.</p>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" id="saveButton" type="submit">Save Creator Profile</button>
+        <button class="btn secondary" id="loadButton" type="button">Load Saved Profile</button>
+      </div>
+      <p id="status" role="status" aria-live="polite"></p>
+    </form>
+
+    <div class="preview" id="preview">
+      <h3 id="previewName"></h3>
+      <p id="previewHandle"></p>
+      <p id="previewCategory"></p>
+      <p id="previewCity"></p>
+      <p id="previewBio"></p>
+      <p id="previewStatus"></p>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  const form = document.getElementById("creatorForm");
+  const status = document.getElementById("status");
+  const saveButton = document.getElementById("saveButton");
+  const loadButton = document.getElementById("loadButton");
+
+  const fields = {
+    creator_name: document.getElementById("creatorName"),
+    creator_handle: document.getElementById("creatorHandle"),
+    category: document.getElementById("category"),
+    city: document.getElementById("city"),
+    bio: document.getElementById("bio"),
+    instagram_url: document.getElementById("instagram"),
+    youtube_url: document.getElementById("youtube"),
+    profile_image: document.getElementById("profileImage")
+  };
+
+  function showStatus(message, isError){
+    status.textContent = message;
+    status.className = isError ? "error" : "success";
+  }
+
+  function getFormData(){
+    const data = {};
+    Object.keys(fields).forEach(function(key){
+      data[key] = fields[key].value.trim();
+    });
+    data.creator_handle = data.creator_handle.replace(/^@+/, "");
+    return data;
+  }
+
+  function showProfile(profile){
+    if(!profile) return;
+    fields.creator_name.value = profile.creator_name || "";
+    fields.creator_handle.value = profile.creator_handle || "";
+    fields.category.value = profile.category || "";
+    fields.city.value = profile.city || "";
+    fields.bio.value = profile.bio || "";
+    fields.instagram_url.value = profile.instagram_url || "";
+    fields.youtube_url.value = profile.youtube_url || "";
+    fields.profile_image.value = profile.profile_image || "";
+
+    document.getElementById("previewName").textContent =
+      profile.creator_name || "Creator";
+    document.getElementById("previewHandle").textContent =
+      profile.creator_handle ? "@" + profile.creator_handle : "";
+    document.getElementById("previewCategory").textContent =
+      "Category: " + (profile.category || "—");
+    document.getElementById("previewCity").textContent =
+      "City: " + (profile.city || "—");
+    document.getElementById("previewBio").textContent =
+      profile.bio || "No bio added yet.";
+    document.getElementById("previewStatus").textContent =
+      "Profile status: " + (profile.status || "saved");
+    document.getElementById("preview").style.display = "block";
+  }
+
+  async function loadProfile(){
+    loadButton.disabled = true;
+    loadButton.textContent = "Loading...";
+    showStatus("Loading your saved profile...", false);
+
+    try{
+      const response = await fetch("/api/creator-profile", {
+        method: "GET",
+        credentials: "include",
+        cache: "no-store"
+      });
+      const result = await response.json();
+
+      if(!response.ok || !result.success){
+        throw new Error(result.error || "Could not load profile.");
+      }
+
+      if(!result.profile){
+        showStatus("No saved creator profile found yet. Complete the form and save it.", false);
+        document.getElementById("preview").style.display = "none";
+        return;
+      }
+
+      showProfile(result.profile);
+      showStatus("Your saved creator profile loaded successfully.", false);
+    }catch(error){
+      showStatus(error.message || "Could not load profile.", true);
+    }finally{
+      loadButton.disabled = false;
+      loadButton.textContent = "Load Saved Profile";
+    }
+  }
+
+  form.addEventListener("submit", async function(event){
+    event.preventDefault();
+
+    const data = getFormData();
+
+    if(!data.creator_name || !data.creator_handle || !data.category){
+      showStatus("Please complete the required fields.", true);
+      return;
+    }
+
+    saveButton.disabled = true;
+    saveButton.textContent = "Saving...";
+    showStatus("Saving your creator profile...", false);
+
+    try{
+      const response = await fetch("/api/creator-profile", {
+        method: "POST",
+        credentials: "include",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+
+      if(!response.ok || !result.success){
+        throw new Error(result.error || "Could not save profile.");
+      }
+
+      if(result.profile) showProfile(result.profile);
+      showStatus("Creator profile saved successfully!", false);
+    }catch(error){
+      showStatus(error.message || "Could not save profile.", true);
+    }finally{
+      saveButton.disabled = false;
+      saveButton.textContent = "Save Creator Profile";
+    }
+  });
+
+  loadButton.addEventListener("click", loadProfile);
+})();
+</script>
+</body>
+</html>
