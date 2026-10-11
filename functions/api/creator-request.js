@@ -1,4 +1,3 @@
-
 export async function onRequest(context) {
   const { request, env } = context;
 
@@ -39,7 +38,7 @@ export async function onRequest(context) {
       }, 401);
     }
 
-    // GET: Load requests from the database
+    // GET: Load the logged-in user's requests
     if (request.method === "GET") {
       const result = await env.DB.prepare(`
         SELECT
@@ -63,7 +62,7 @@ export async function onRequest(context) {
       });
     }
 
-    // POST: Save a new collaboration request
+    // POST: Create a request or cancel a pending request
     if (request.method !== "POST") {
       return json({
         success: false,
@@ -73,6 +72,41 @@ export async function onRequest(context) {
 
     const body = await request.json();
 
+    // CANCEL an existing pending request
+    if (body.action === "cancel") {
+      const requestId = Number(body.request_id);
+
+      if (!Number.isInteger(requestId) || requestId < 1) {
+        return json({
+          success: false,
+          error: "Invalid request ID."
+        }, 400);
+      }
+
+      const result = await env.DB.prepare(`
+        UPDATE creator_requests
+        SET status = 'cancelled'
+        WHERE id = ?
+          AND user_id = ?
+          AND status = 'pending'
+      `).bind(requestId, session.user_id).run();
+
+      if (!result.meta || result.meta.changes !== 1) {
+        return json({
+          success: false,
+          error: "Request not found or it is no longer pending."
+        }, 400);
+      }
+
+      return json({
+        success: true,
+        message: "Request cancelled successfully.",
+        request_id: requestId,
+        status: "cancelled"
+      });
+    }
+
+    // CREATE a new collaboration request
     const creatorName = String(body.creator_name || "").trim();
     const creatorHandle = String(body.creator_handle || "").trim();
     const brandName = String(body.brand_name || "").trim();
