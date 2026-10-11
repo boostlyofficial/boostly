@@ -353,13 +353,17 @@ form.addEventListener("submit", async function(event) {
   document.getElementById("cancelRequest").addEventListener("click",()=>dialog.close());
   document.getElementById("exploreBtn").addEventListener("click",()=>document.getElementById("discover").scrollIntoView({behavior:"smooth"}));
   
-  document.getElementById("myRequestsBtn").addEventListener("click", async function(){
-    const button = document.getElementById("myRequestsBtn");
-    const status = document.getElementById("status");
+  const myRequestsButton = document.getElementById("myRequestsBtn");
+  const myRequestsPanel = document.getElementById("myRequestsPanel");
+  const myRequestsList = document.getElementById("myRequestsList");
+  const closeRequestsButton = document.getElementById("closeRequestsBtn");
 
-    button.disabled = true;
-    button.textContent = "Loading requests...";
-    status.textContent = "Loading your saved requests from Boostly...";
+  async function loadMyRequests() {
+    myRequestsButton.disabled = true;
+    myRequestsButton.textContent = "Loading...";
+    myRequestsPanel.style.display = "block";
+    myRequestsList.innerHTML =
+      '<p style="color:#a6a4bd;">Loading your requests...</p>';
 
     try {
       const response = await fetch("/api/creator-request", {
@@ -379,35 +383,103 @@ form.addEventListener("submit", async function(event) {
         : [];
 
       if (!requests.length) {
-        status.textContent = "No database requests found yet. Send a new collaboration request first.";
+        myRequestsList.innerHTML =
+          '<div class="empty">No requests found yet. Send a collaboration request first.</div>';
         return;
       }
 
-      const summary = requests.map(function(r, i) {
+      myRequestsList.innerHTML = requests.map(function(r) {
         const budget = Number(r.budget || 0);
-        return (
-          (i + 1) + ". " + (r.creator_name || "Creator") +
-          "\nBusiness: " + (r.brand_name || "—") +
-          "\nGoal: " + (r.goal || "—") +
-          "\nBudget: ₹" + budget.toLocaleString("en-IN") +
-          "\nStatus: " + (r.status || "pending") +
-          "\nDate: " + (r.created_at || "—")
-        );
-      }).join("\n\n");
+        const statusText = String(r.status || "pending").toLowerCase();
+        const isPending = statusText === "pending";
 
-      alert("MY COLLABORATION REQUESTS\n\n" + summary);
-      status.textContent = requests.length + " request(s) loaded from the database.";
+        return `
+          <article style="padding:16px;background:#222237;border:1px solid #37364d;border-radius:13px;">
+            <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:start;">
+              <div>
+                <h3 style="font-size:16px;">${escapeHTML(r.creator_name || "Creator")}</h3>
+                <p style="font-size:12px;color:#a6a4bd;margin-top:4px;">${escapeHTML(r.creator_handle || "")}</p>
+              </div>
+              <span class="label">${escapeHTML(statusText.toUpperCase())}</span>
+            </div>
+
+            <div style="margin-top:12px;font-size:13px;line-height:1.9;">
+              <p><strong>Business:</strong> ${escapeHTML(r.brand_name || "—")}</p>
+              <p><strong>Goal:</strong> ${escapeHTML(r.goal || "—")}</p>
+              <p><strong>Budget:</strong> ₹${budget.toLocaleString("en-IN")}</p>
+              <p><strong>Message:</strong> ${escapeHTML(r.message || "—")}</p>
+              <p style="color:#a6a4bd;font-size:11px;"><strong>Date:</strong> ${escapeHTML(r.created_at || "—")}</p>
+            </div>
+
+            ${isPending
+              ? `<button type="button" class="btn" data-cancel-request="${Number(r.id)}" style="margin-top:12px;background:#ff6b6b;color:#171525;">Cancel Request</button>`
+              : ""}
+          </article>
+        `;
+      }).join("");
+
+      document.getElementById("status").textContent =
+        requests.length + " request(s) loaded.";
 
     } catch (error) {
-      status.textContent = error.message || "Could not load requests. Please try again.";
+      myRequestsList.innerHTML =
+        '<p style="color:#ff8b8b;">' +
+        escapeHTML(error.message || "Could not load requests.") +
+        '</p>';
     } finally {
-      button.disabled = false;
-      button.textContent = "My requests ↗";
+      myRequestsButton.disabled = false;
+      myRequestsButton.textContent = "My requests ↗";
     }
+  }
+
+  myRequestsButton.addEventListener("click", loadMyRequests);
+
+  closeRequestsButton.addEventListener("click", function() {
+    myRequestsPanel.style.display = "none";
   });
 
-  render();
-})();
-</script>
-</body>
-</html>
+  myRequestsList.addEventListener("click", async function(event) {
+    const cancelButton = event.target.closest("[data-cancel-request]");
+    if (!cancelButton) return;
+
+    const requestId = Number(cancelButton.dataset.cancelRequest);
+
+    if (!Number.isInteger(requestId) || requestId < 1) return;
+
+    if (!confirm("Are you sure you want to cancel this pending request?")) {
+      return;
+    }
+
+    cancelButton.disabled = true;
+    cancelButton.textContent = "Cancelling...";
+
+    try {
+      const response = await fetch("/api/creator-request", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          action: "cancel",
+          request_id: requestId
+        })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || "Could not cancel the request.");
+      }
+
+      document.getElementById("status").textContent =
+        "Request cancelled successfully.";
+
+      await loadMyRequests();
+
+    } catch (error) {
+      alert(error.message || "Could not cancel the request. Please try again.");
+      cancelButton.disabled = false;
+      cancelButton.textContent = "Cancel Request";
+    }
+  });
