@@ -11,13 +11,6 @@ export async function onRequest(context) {
       }
     });
 
-  if (request.method !== "POST") {
-    return json({
-      success: false,
-      error: "Method not allowed. Use POST."
-    }, 405);
-  }
-
   try {
     const cookie = request.headers.get("Cookie") || "";
     const match = cookie.match(
@@ -27,19 +20,55 @@ export async function onRequest(context) {
     if (!match) {
       return json({
         success: false,
-        error: "Please log in before sending a request."
+        error: "Please log in before continuing."
       }, 401);
     }
 
-    const session = await env.DB.prepare(
-      "SELECT user_id FROM sessions WHERE id = ? LIMIT 1"
-    ).bind(match[1]).first();
+    const session = await env.DB.prepare(`
+      SELECT user_id
+      FROM sessions
+      WHERE id = ?
+        AND expires_at > datetime('now')
+      LIMIT 1
+    `).bind(match[1]).first();
 
     if (!session || !session.user_id) {
       return json({
         success: false,
         error: "Session expired. Please log in again."
       }, 401);
+    }
+
+    // GET: Load requests from the database
+    if (request.method === "GET") {
+      const result = await env.DB.prepare(`
+        SELECT
+          id,
+          creator_name,
+          creator_handle,
+          brand_name,
+          goal,
+          budget,
+          message,
+          status,
+          created_at
+        FROM creator_requests
+        WHERE user_id = ?
+        ORDER BY id DESC
+      `).bind(session.user_id).all();
+
+      return json({
+        success: true,
+        requests: result.results || []
+      });
+    }
+
+    // POST: Save a new collaboration request
+    if (request.method !== "POST") {
+      return json({
+        success: false,
+        error: "Method not allowed."
+      }, 405);
     }
 
     const body = await request.json();
@@ -57,12 +86,7 @@ export async function onRequest(context) {
         ? 0
         : Number(body.budget);
 
-    if (
-      !creatorName ||
-      !brandName ||
-      !goal ||
-      !message
-    ) {
+    if (!creatorName || !brandName || !goal || !message) {
       return json({
         success: false,
         error: "Creator, business name, goal and message are required."
@@ -85,9 +109,13 @@ export async function onRequest(context) {
       }, 400);
     }
 
-    const business = await env.DB.prepare(
-      "SELECT id FROM businesses WHERE user_id = ? ORDER BY id DESC LIMIT 1"
-    ).bind(session.user_id).first();
+    const business = await env.DB.prepare(`
+      SELECT id
+      FROM businesses
+      WHERE user_id = ?
+      ORDER BY id DESC
+      LIMIT 1
+    `).bind(session.user_id).first();
 
     if (!business) {
       return json({
@@ -121,7 +149,7 @@ export async function onRequest(context) {
   } catch (error) {
     return json({
       success: false,
-      error: "Could not save the request. Please check the API and database configuration."
+      error: "Could not process the request. Please try again."
     }, 500);
   }
 }
