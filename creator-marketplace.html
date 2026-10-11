@@ -341,15 +341,60 @@ form.addEventListener("submit", async function(event) {
 
   document.getElementById("cancelRequest").addEventListener("click",()=>dialog.close());
   document.getElementById("exploreBtn").addEventListener("click",()=>document.getElementById("discover").scrollIntoView({behavior:"smooth"}));
-  document.getElementById("myRequestsBtn").addEventListener("click",function(){
-    const requests = readRequests();
-    if(!requests.length){
-      document.getElementById("status").textContent="No local requests saved yet. Choose a creator and press Collaborate.";
-      return;
+  
+  document.getElementById("myRequestsBtn").addEventListener("click", async function(){
+    const button = document.getElementById("myRequestsBtn");
+    const status = document.getElementById("status");
+
+    button.disabled = true;
+    button.textContent = "Loading requests...";
+    status.textContent = "Loading your saved requests from Boostly...";
+
+    try {
+      const response = await fetch("/api/creator-request", {
+        method: "GET",
+        credentials: "include",
+        cache: "no-store"
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || "Could not load requests.");
+      }
+
+      const requests = Array.isArray(result.requests)
+        ? result.requests
+        : [];
+
+      if (!requests.length) {
+        status.textContent = "No database requests found yet. Send a new collaboration request first.";
+        return;
+      }
+
+      const summary = requests.map(function(r, i) {
+        const budget = Number(r.budget || 0);
+        return (
+          (i + 1) + ". " + (r.creator_name || "Creator") +
+          "\nBusiness: " + (r.brand_name || "—") +
+          "\nGoal: " + (r.goal || "—") +
+          "\nBudget: ₹" + budget.toLocaleString("en-IN") +
+          "\nStatus: " + (r.status || "pending") +
+          "\nDate: " + (r.created_at || "—")
+        );
+      }).join("\n\n");
+
+      alert("MY COLLABORATION REQUESTS\n\n" + summary);
+      status.textContent = requests.length + " request(s) loaded from the database.";
+
+    } catch (error) {
+      status.textContent = error.message || "Could not load requests. Please try again.";
+    } finally {
+      button.disabled = false;
+      button.textContent = "My requests ↗";
     }
-    const summary = requests.map((r,i)=>(i+1)+". "+r.creatorName+" — "+r.goal+" — "+r.status).join("\n");
-    alert("YOUR LOCAL DEMO REQUESTS\n\n"+summary+"\n\nThese requests have not been sent to creators.");
   });
+
   render();
 })();
 </script>
