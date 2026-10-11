@@ -1,0 +1,321 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#10101b">
+<title>Creator Club | Boostly</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#10101b;--panel:#1a1a29;--panel2:#222237;--text:#f8f7ff;--muted:#a6a4bd;--coral:#ff6b6b;--violet:#a78bfa;--lime:#d9ff66;--cyan:#65e8e0;--line:#37364d}
+body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;padding:17px 5%;border-bottom:1px solid var(--line);background:#10101beF}
+.logo{font-size:25px;font-weight:950;letter-spacing:-1px}.logo span{color:var(--coral)}
+.nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.nav a:hover{color:var(--lime)}
+.nav .back{padding:9px 13px;border-radius:9px;background:var(--lime);color:#171717;font-weight:800}
+.wrap{max-width:1200px;margin:auto;padding:28px 18px 55px}
+.hero{position:relative;overflow:hidden;border-radius:25px;padding:34px;background:linear-gradient(120deg,#ff6b6b 0%,#a78bfa 55%,#65e8e0 120%);color:#171525}
+.hero:after{content:"✳";position:absolute;right:5%;top:-50px;font-size:220px;opacity:.15;pointer-events:none}
+.kicker{font-size:11px;letter-spacing:2px;font-weight:950;text-transform:uppercase}
+.hero h1{font-size:clamp(34px,6vw,58px);line-height:1.02;letter-spacing:-2px;max-width:650px;margin:14px 0}
+.hero p{max-width:590px;font-size:14px;font-weight:600}
+.hero-foot{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:23px}
+.hero-note{font-size:11px;font-weight:800;background:#ffffff70;border:1px solid #ffffff90;padding:9px 12px;border-radius:100px}
+.btn{border:0;border-radius:11px;padding:12px 16px;font-size:12px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.btn-dark{background:#171525;color:white}.btn-lime{background:var(--lime);color:#171525}.btn-outline{background:transparent;color:var(--text);border:1px solid var(--line)}
+.heading{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap;margin:29px 0 15px}
+.heading h2{font-size:22px;letter-spacing:-.6px}.heading p{font-size:12px;color:var(--muted);margin-top:3px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
+.chip{border:1px solid var(--line);border-radius:100px;padding:8px 13px;font-size:11px;font-weight:800;color:var(--muted);background:var(--panel)}
+.chip.active{background:var(--lime);color:#16161d;border-color:var(--lime)}
+.tools{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:10px}
+.tools input,.tools select{width:100%;padding:13px;border-radius:11px;border:1px solid var(--line);background:var(--panel);color:var(--text);outline:none}
+.tools input:focus,.tools select:focus{border-color:var(--violet)}
+.creator-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:16px}
+.creator{border:1px solid var(--line);background:var(--panel);border-radius:19px;overflow:hidden;transition:transform .2s,border-color .2s}
+.creator:hover{transform:translateY(-4px);border-color:var(--violet)}
+.cover{height:90px;position:relative;background:linear-gradient(125deg,#ff6b6b,#a78bfa)}
+.creator:nth-child(3n+2) .cover{background:linear-gradient(125deg,#65e8e0,#d9ff66)}
+.creator:nth-child(3n) .cover{background:linear-gradient(125deg,#a78bfa,#ff6b6b)}
+.avatar{position:absolute;left:17px;bottom:-25px;width:58px;height:58px;border-radius:18px;background:var(--panel2);border:3px solid var(--panel);display:grid;place-items:center;font-size:27px}
+.profile-content{padding:34px 17px 17px}
+.profile-top{display:flex;justify-content:space-between;gap:8px;align-items:start}
+.creator h3{font-size:16px;overflow-wrap:anywhere}
+.handle{font-size:11px;color:var(--muted);margin-top:2px}
+.label{display:inline-block;border-radius:100px;padding:5px 8px;background:#303047;color:var(--cyan);font-size:9px;font-weight:900;white-space:nowrap}
+.category{font-size:11px;color:var(--violet);font-weight:800;margin:10px 0}
+.bio{font-size:12px;color:#c1bfd3;min-height:38px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:15px 0}
+.stat{background:var(--panel2);padding:10px;border-radius:10px}
+.stat strong{display:block;font-size:15px}.stat span{display:block;font-size:10px;color:var(--muted)}
+.card-actions{display:flex;gap:8px}
+.card-actions button{flex:1}
+.request-btn{background:var(--coral);color:#171525}
+.request-btn:disabled{opacity:.6;cursor:default}
+.muted-btn{background:transparent;color:var(--text);border:1px solid var(--line)}
+.disclaimer{margin-top:17px;padding:13px 15px;border:1px solid #5b4a72;background:#211b32;border-radius:12px;color:#d8c9ff;font-size:11px}
+.empty{grid-column:1/-1;text-align:center;padding:35px 15px;border:1px dashed var(--line);border-radius:15px;color:var(--muted);font-size:13px}
+.bottom{margin-top:28px;border:1px solid var(--line);background:var(--panel);border-radius:20px;padding:23px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.bottom h2{font-size:20px}.bottom p{font-size:12px;color:var(--muted);margin-top:5px;max-width:600px}
+dialog{border:1px solid var(--line);border-radius:18px;background:var(--panel);color:var(--text);padding:23px;width:min(460px,calc(100% - 24px));margin:auto}
+dialog::backdrop{background:#080810cc;backdrop-filter:blur(4px)}
+dialog h2{font-size:21px;margin-bottom:5px}
+dialog p{font-size:12px;color:var(--muted);margin-bottom:15px}
+.field{margin:13px 0}.field label{display:block;font-size:11px;font-weight:800;margin-bottom:6px}
+.field input,.field select{width:100%;padding:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:10px}
+.modal-actions{display:flex;gap:9px;margin-top:18px}.modal-actions button{flex:1}
+#status{font-size:12px;color:var(--lime);margin-top:12px;min-height:18px}
+@media(max-width:900px){.creator-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:580px){.topbar{padding:15px}.nav{gap:11px}.wrap{padding:18px 12px 35px}.hero{padding:25px 20px}.tools{grid-template-columns:1fr}.creator-grid{grid-template-columns:1fr}.creator{max-width:450px;width:100%;margin:auto}.hero h1{letter-spacing:-1px}.bottom{padding:19px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="logo" href="index.html">boost<span>ly</span> ✳</a>
+  <nav class="nav">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="boost-feed.html">Boost Feed</a>
+    <a href="post-analytics.html">Analytics</a>
+    <a class="back" href="dashboard.html">← Back</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="kicker">Boostly · Creator Club</div>
+    <h1>Good content.<br>Great collabs.</h1>
+    <p>Discover creative talent, plan your next collaboration and bring fresh ideas to your brand.</p>
+    <div class="hero-foot">
+      <button class="btn btn-dark" id="exploreBtn">Explore creators ↓</button>
+      <span class="hero-note">CREATOR × BUSINESS · COLLAB STUDIO</span>
+    </div>
+  </section>
+
+  <div class="heading" id="discover">
+    <div><h2>Discover talent ✳</h2><p>Search by creator name or content category.</p></div>
+    <span class="label">SAMPLE PROFILES</span>
+  </div>
+
+  <div class="tools">
+    <input id="search" type="search" placeholder="Search creators or categories..." aria-label="Search creators">
+    <select id="sort" aria-label="Sort creator cards">
+      <option value="default">Featured first</option>
+      <option value="followers">Audience size</option>
+      <option value="name">Name A–Z</option>
+    </select>
+  </div>
+
+  <div class="chips" id="filters">
+    <button class="chip active" data-category="All">All creators</button>
+    <button class="chip" data-category="Food">Food</button>
+    <button class="chip" data-category="Beauty">Beauty</button>
+    <button class="chip" data-category="Fashion">Fashion</button>
+    <button class="chip" data-category="Lifestyle">Lifestyle</button>
+    <button class="chip" data-category="Travel">Travel</button>
+  </div>
+
+  <section class="creator-grid" id="creatorGrid" aria-live="polite"></section>
+
+  <div class="disclaimer">
+    <strong>Transparency note:</strong> The profiles below are illustrative demo profiles, not verified Boostly creators. Audience figures are sample values, not verified metrics. Collaboration requests are saved only in this browser on this device.
+  </div>
+
+  <section class="bottom">
+    <div>
+      <h2>Your next collab starts here.</h2>
+      <p>Prepare your collaboration request with a goal, campaign idea and proposed budget. This demo records your request locally; it does not send it to a creator or process payments.</p>
+    </div>
+    <button class="btn btn-lime" id="myRequestsBtn">My requests ↗</button>
+  </section>
+  <p id="status" role="status" aria-live="polite"></p>
+</main>
+
+<dialog id="requestDialog">
+  <form id="requestForm">
+    <h2>Start a collaboration</h2>
+    <p id="creatorSelected">Tell the creator what you have in mind.</p>
+    <div class="field">
+      <label for="brandName">Business / Brand Name *</label>
+      <input id="brandName" maxlength="80" required placeholder="Your business name">
+    </div>
+    <div class="field">
+      <label for="collabGoal">Collaboration Goal *</label>
+      <select id="collabGoal" required>
+        <option value="">Choose a goal</option>
+        <option>Promote a product or service</option>
+        <option>Create a short video</option>
+        <option>Social media awareness</option>
+        <option>Local business promotion</option>
+        <option>Product photography</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="collabBudget">Proposed Budget (₹)</label>
+      <input id="collabBudget" type="number" min="0" max="10000000" step="1" placeholder="Optional">
+    </div>
+    <div class="field">
+      <label for="collabMessage">Campaign Idea *</label>
+      <input id="collabMessage" maxlength="300" required placeholder="Briefly describe your idea">
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-outline" id="cancelRequest">Cancel</button>
+      <button type="submit" class="btn btn-lime">Save request</button>
+    </div>
+    <p id="modalStatus" role="status" aria-live="polite" style="margin-top:12px"></p>
+  </form>
+</dialog>
+
+<script>
+(function(){
+  const creators = [
+    {id:"demo-food-1",name:"The Local Plate",handle:"@demo_localplate",category:"Food",icon:"🍜",bio:"Food discovery and local restaurant content ideas.",followers:12800,engagement:"Sample only"},
+    {id:"demo-beauty-1",name:"Glow Notes",handle:"@demo_glownotes",category:"Beauty",icon:"💄",bio:"Beauty tutorials, skincare stories and salon content.",followers:8400,engagement:"Sample only"},
+    {id:"demo-fashion-1",name:"Street Edit",handle:"@demo_streetedit",category:"Fashion",icon:"👟",bio:"Outfit inspiration and everyday fashion concepts.",followers:21500,engagement:"Sample only"},
+    {id:"demo-life-1",name:"Daily Little Things",handle:"@demo_dailythings",category:"Lifestyle",icon:"☕",bio:"Lifestyle reels, routines and everyday storytelling.",followers:6300,engagement:"Sample only"},
+    {id:"demo-travel-1",name:"Wander Frames",handle:"@demo_wanderframes",category:"Travel",icon:"🌍",bio:"Travel diaries, local places and visual storytelling.",followers:34200,engagement:"Sample only"},
+    {id:"demo-food-2",name:"Bite Sized Stories",handle:"@demo_bitestories",category:"Food",icon:"🍰",bio:"Food photography concepts and cafe discovery content.",followers:9700,engagement:"Sample only"}
+  ];
+
+  const grid = document.getElementById("creatorGrid");
+  const search = document.getElementById("search");
+  const sort = document.getElementById("sort");
+  const filters = document.getElementById("filters");
+  const dialog = document.getElementById("requestDialog");
+  const form = document.getElementById("requestForm");
+  let activeCategory = "All";
+  let selectedCreator = null;
+
+  function escapeHTML(value){
+    return String(value ?? "").replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function readRequests(){
+    try{
+      const items = JSON.parse(localStorage.getItem("boostly_creator_requests_v1") || "[]");
+      return Array.isArray(items) ? items : [];
+    }catch(e){return []}
+  }
+  function render(){
+    let items = creators.filter(function(c){
+      const q = search.value.trim().toLowerCase();
+      const matchesCategory = activeCategory === "All" || c.category === activeCategory;
+      const matchesSearch = !q || [c.name,c.handle,c.category,c.bio].join(" ").toLowerCase().includes(q);
+      return matchesCategory && matchesSearch;
+    });
+    if(sort.value === "followers") items.sort((a,b)=>b.followers-a.followers);
+    if(sort.value === "name") items.sort((a,b)=>a.name.localeCompare(b.name));
+
+    if(!items.length){
+      grid.innerHTML = '<div class="empty">No demo profiles match that search. Try another keyword or category.</div>';
+      return;
+    }
+
+    grid.innerHTML = items.map(function(c){
+      const requested = readRequests().some(r=>r.creatorId===c.id);
+      return '<article class="creator">' +
+        '<div class="cover"><div class="avatar">'+c.icon+'</div></div>' +
+        '<div class="profile-content">' +
+          '<div class="profile-top"><div><h3>'+escapeHTML(c.name)+'</h3><div class="handle">'+escapeHTML(c.handle)+'</div></div><span class="label">DEMO</span></div>' +
+          '<div class="category">'+escapeHTML(c.category)+' CREATOR</div>' +
+          '<p class="bio">'+escapeHTML(c.bio)+'</p>' +
+          '<div class="stats"><div class="stat"><strong>'+c.followers.toLocaleString("en-IN")+'</strong><span>Sample audience</span></div><div class="stat"><strong>—</strong><span>Verified reach</span></div></div>' +
+          '<div class="card-actions"><button class="btn request-btn" data-request="'+c.id+'" '+(requested?'disabled':'')+'>'+(requested?'Request saved ✓':'＋ Collaborate')+'</button>' +
+          '<button class="btn muted-btn" data-details="'+c.id+'">Details</button></div>' +
+        '</div></article>';
+    }).join("");
+  }
+
+  function openRequest(creator){
+    selectedCreator = creator;
+    document.getElementById("creatorSelected").textContent =
+      "Collaboration with "+creator.name+" · "+creator.category;
+    document.getElementById("modalStatus").textContent = "";
+    form.reset();
+    dialog.showModal();
+  }
+
+  grid.addEventListener("click",function(event){
+    const requestButton = event.target.closest("[data-request]");
+    const detailsButton = event.target.closest("[data-details]");
+    if(requestButton){
+      const creator = creators.find(c=>c.id===requestButton.dataset.request);
+      if(creator) openRequest(creator);
+    }
+    if(detailsButton){
+      const creator = creators.find(c=>c.id===detailsButton.dataset.details);
+      if(creator){
+        document.getElementById("status").textContent =
+          creator.name+" is a demo profile. Audience metrics are not verified and no real account is connected.";
+        window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+      }
+    }
+  });
+
+  filters.addEventListener("click",function(event){
+    const button = event.target.closest("[data-category]");
+    if(!button)return;
+    activeCategory = button.dataset.category;
+    filters.querySelectorAll(".chip").forEach(b=>b.classList.toggle("active",b===button));
+    render();
+  });
+  search.addEventListener("input",render);
+  sort.addEventListener("change",render);
+
+  form.addEventListener("submit",function(event){
+    event.preventDefault();
+    if(!selectedCreator)return;
+    const budgetText = document.getElementById("collabBudget").value;
+    const budget = budgetText === "" ? null : Number(budgetText);
+    if(budget !== null && (!Number.isFinite(budget)||budget<0||budget>10000000)){
+      document.getElementById("modalStatus").textContent="Please enter a valid budget.";
+      return;
+    }
+    const requests = readRequests();
+    if(requests.some(r=>r.creatorId===selectedCreator.id)){
+      document.getElementById("modalStatus").textContent="A request for this demo profile is already saved on this device.";
+      return;
+    }
+    requests.push({
+      id:Date.now().toString(),
+      creatorId:selectedCreator.id,
+      creatorName:selectedCreator.name,
+      brand:document.getElementById("brandName").value.trim(),
+      goal:document.getElementById("collabGoal").value,
+      budget:budget,
+      message:document.getElementById("collabMessage").value.trim(),
+      savedAt:new Date().toISOString(),
+      status:"Local demo request"
+    });
+    try{
+      localStorage.setItem("boostly_creator_requests_v1",JSON.stringify(requests));
+      document.getElementById("modalStatus").textContent="Request saved on this device. It has not been sent to the creator.";
+      document.getElementById("status").textContent="Demo collaboration request saved locally.";
+      render();
+      setTimeout(function(){if(dialog.open)dialog.close()},1000);
+    }catch(error){
+      document.getElementById("modalStatus").textContent="Could not save. Browser storage may be unavailable.";
+    }
+  });
+
+  document.getElementById("cancelRequest").addEventListener("click",()=>dialog.close());
+  document.getElementById("exploreBtn").addEventListener("click",()=>document.getElementById("discover").scrollIntoView({behavior:"smooth"}));
+  document.getElementById("myRequestsBtn").addEventListener("click",function(){
+    const requests = readRequests();
+    if(!requests.length){
+      document.getElementById("status").textContent="No local requests saved yet. Choose a creator and press Collaborate.";
+      return;
+    }
+    const summary = requests.map((r,i)=>(i+1)+". "+r.creatorName+" — "+r.goal+" — "+r.status).join("\n");
+    alert("YOUR LOCAL DEMO REQUESTS\n\n"+summary+"\n\nThese requests have not been sent to creators.");
+  });
+  render();
+})();
+</script>
+</body>
+</html>
