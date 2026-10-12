@@ -1,657 +1,750 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#10101b">
-<title>Creator Club | Boostly</title>
+<meta name="theme-color" content="#fff7f0">
+<title>Creator Connections | Boostly</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0b0918;
-  --panel:#151128;
-  --panel2:#211a3b;
-  --text:#f8f7ff;
-  --muted:#b1accb;
-  --coral:#fb7185;
-  --violet:#a78bfa;
-  --lime:#22d3ee;
-  --cyan:#67e8f9;
-  --line:#39305c;
-  --glow:rgba(34,211,238,.2);
+  --bg:#fff7f0;
+  --card:#ffffff;
+  --peach:#ffb38a;
+  --peach-dark:#e97749;
+  --teal:#087f78;
+  --teal-light:#e3f7f2;
+  --ink:#253b39;
+  --muted:#71817c;
+  --border:#f0e4da;
+  --danger:#c74646;
 }
-html{scroll-behavior:smooth}
 body{
-  font-family:Inter,Arial,sans-serif;
-  background:radial-gradient(ellipse at 15% 0%,#211344 0%,transparent 38%),var(--bg);
-  color:var(--text);
-  line-height:1.6;
-  min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.5;
 }
-a{text-decoration:none;color:inherit}
-button,input,select{font:inherit}
-button{cursor:pointer;transition:transform .2s,background .2s,border-color .2s,box-shadow .2s,opacity .2s}
-button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{
-  outline:2px solid var(--cyan);
-  outline-offset:3px;
-}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
 .topbar{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:15px;flex-wrap:wrap;padding:17px 5%;
-  border-bottom:1px solid var(--line);
-  background:rgba(11,9,24,.92);
-  backdrop-filter:blur(16px);
-  position:sticky;top:0;z-index:10;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  padding:14px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
 }
-.logo{font-size:25px;font-weight:950;letter-spacing:-1px}
-.logo span{color:var(--cyan)}
-.nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--muted)}
-.nav a{transition:color .2s}
-.nav a:hover{color:var(--cyan)}
-.nav .back{
-  padding:9px 13px;border-radius:10px;
-  background:linear-gradient(135deg,#a78bfa,#67e8f9);
-  color:#100d20;font-weight:900;
-  box-shadow:0 0 18px rgba(103,232,249,.15);
-}
-.wrap{max-width:1200px;margin:auto;padding:28px 18px 55px}
+.brand{font-size:25px;font-weight:900;color:var(--teal)}
+.brand span{color:var(--peach-dark)}
+.nav{display:flex;gap:17px;flex-wrap:wrap;align-items:center}
+.nav a{font-size:13px;font-weight:700;color:#586a65}
+.nav a:hover{color:var(--teal)}
+.container{width:min(1120px,92%);margin:0 auto}
 .hero{
-  position:relative;overflow:hidden;border:1px solid #6650a1;
-  border-radius:26px;padding:36px;
-  background:linear-gradient(125deg,#21133f 0%,#39216b 55%,#123b56 120%);
-  color:#fff;box-shadow:0 18px 55px rgba(0,0,0,.24);
+  margin:26px auto 20px;
+  background:linear-gradient(120deg,#ffe0cc,#fff0e5 55%,#dff6ef);
+  padding:30px;
+  border-radius:25px;
+  border:1px solid #f5d7c6;
 }
-.hero:before{
-  content:"";position:absolute;width:260px;height:260px;
-  right:-70px;top:-100px;border-radius:50%;
-  background:rgba(103,232,249,.17);filter:blur(3px);
+.eyebrow{
+  color:var(--teal);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:2px;
+  text-transform:uppercase;
 }
-.hero:after{
-  content:"✳";position:absolute;right:6%;top:-48px;
-  font-size:220px;color:var(--cyan);opacity:.13;pointer-events:none;
-}
-.kicker{font-size:11px;letter-spacing:2px;font-weight:950;text-transform:uppercase;color:var(--cyan)}
-.hero h1{
-  font-size:clamp(34px,6vw,58px);line-height:1.04;
-  letter-spacing:-2px;max-width:650px;margin:14px 0;
-  background:linear-gradient(90deg,#fff,#d8ccff 55%,#67e8f9);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.hero p{max-width:590px;font-size:14px;color:#e3ddfa}
-.hero-foot{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:23px}
-.hero-note{
-  font-size:11px;font-weight:800;color:#e5ddff;
-  background:#ffffff0d;border:1px solid #ffffff35;
-  padding:9px 12px;border-radius:100px;
-}
+h1{font-size:clamp(29px,5vw,43px);line-height:1.12;margin:9px 0}
+.hero p{color:#586c65;max-width:620px;font-size:14px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 .btn{
-  border:1px solid transparent;border-radius:12px;padding:12px 16px;
-  font-size:12px;font-weight:900;display:inline-flex;
+  border:0;border-radius:12px;padding:11px 16px;
+  font-weight:800;font-size:13px;display:inline-flex;
   align-items:center;justify-content:center;gap:7px;
-  transition:transform .2s,box-shadow .2s,background .2s,border-color .2s;
 }
-.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.22)}
-.btn:active:not(:disabled){transform:scale(.97)}
-.btn-dark{background:#f8f7ff;color:#171027}
-.btn-lime{
-  background:linear-gradient(110deg,#a78bfa,#67e8f9);
-  color:#100d20;box-shadow:0 0 18px rgba(103,232,249,.12);
+.btn-primary{background:var(--teal);color:#fff}
+.btn-primary:hover{background:#066c66}
+.btn-peach{background:var(--peach-dark);color:#fff}
+.btn-light{background:#fff;color:var(--teal);border:1px solid var(--border)}
+.btn-danger{background:#fff0f0;color:var(--danger);border:1px solid #f2cece}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.stats{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;margin:18px 0 25px
 }
-.btn-outline{background:transparent;color:var(--text);border-color:var(--line)}
-.btn-outline:hover:not(:disabled){border-color:var(--cyan);background:#67e8f90c}
-.heading{
-  display:flex;justify-content:space-between;align-items:end;
-  gap:12px;flex-wrap:wrap;margin:32px 0 15px;
+.stat{
+  background:#fff;border:1px solid var(--border);
+  padding:16px;border-radius:17px
 }
-.heading h2{font-size:22px;letter-spacing:-.6px}
-.heading p{font-size:12px;color:var(--muted);margin-top:3px}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
-.chip{
-  border:1px solid var(--line);border-radius:100px;padding:9px 14px;
-  font-size:11px;font-weight:800;color:var(--muted);
-  background:var(--panel);transition:all .2s;
+.stat strong{display:block;font-size:23px;color:var(--teal)}
+.stat span{font-size:12px;color:var(--muted)}
+.section-head{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:12px;flex-wrap:wrap;margin:26px 0 14px
 }
-.chip:hover{color:var(--cyan);border-color:var(--cyan);transform:translateY(-1px)}
-.chip.active{
-  background:linear-gradient(110deg,#a78bfa,#67e8f9);
-  color:#100d20;border-color:transparent;
-  box-shadow:0 0 20px rgba(103,232,249,.17);
+.section-head h2{font-size:22px}
+.section-head p{font-size:12px;color:var(--muted)}
+.filters{
+  display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;
+  background:#fff;padding:14px;border:1px solid var(--border);
+  border-radius:18px;margin-bottom:18px
 }
-.tools{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:10px}
-.tools input,.tools select{
-  width:100%;padding:13px;border-radius:12px;
-  border:1px solid var(--line);background:var(--panel);
-  color:var(--text);outline:none;
+.field{
+  width:100%;border:1px solid #e7e8df;background:#fff;
+  padding:12px;border-radius:11px;color:var(--ink);
+  outline:none;min-width:0
 }
-.tools input::placeholder{color:#81799e}
-.tools input:focus,.tools select:focus{
-  border-color:var(--cyan);box-shadow:0 0 0 3px var(--glow);
+.field:focus{border-color:var(--teal);box-shadow:0 0 0 3px #087f7815}
+.creator-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px
 }
-.creator-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:17px}
-.creator{
-  border:1px solid var(--line);background:linear-gradient(160deg,#19132e,#111020);
-  border-radius:20px;overflow:hidden;
-  transition:transform .25s,border-color .25s,box-shadow .25s;
-  animation:cardIn .45s ease both;
+.creator-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:19px;padding:18px;min-width:0;
+  box-shadow:0 5px 20px #62432a08
 }
-.creator:hover{
-  transform:translateY(-5px);border-color:var(--cyan);
-  box-shadow:0 14px 35px rgba(0,0,0,.25),0 0 20px rgba(103,232,249,.08);
-}
-@keyframes cardIn{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.cover{height:96px;position:relative;background:linear-gradient(125deg,#6d28d9,#0891b2)}
-.creator:nth-child(3n+2) .cover{background:linear-gradient(125deg,#4c1d95,#0e7490)}
-.creator:nth-child(3n) .cover{background:linear-gradient(125deg,#312e81,#155e75)}
+.creator-top{display:flex;align-items:center;gap:12px;margin-bottom:13px}
 .avatar{
-  position:absolute;left:17px;bottom:-25px;width:60px;height:60px;
-  border-radius:19px;background:#211a3b;border:3px solid #19132e;
-  display:grid;place-items:center;font-size:27px;
-  box-shadow:0 0 18px rgba(103,232,249,.12);
+  width:58px;height:58px;border-radius:17px;object-fit:cover;
+  background:var(--teal-light);flex-shrink:0
 }
-.profile-content{padding:35px 17px 18px}
-.profile-top{display:flex;justify-content:space-between;gap:8px;align-items:start}
-.creator h3{font-size:16px;overflow-wrap:anywhere}
-.handle{font-size:11px;color:var(--muted);margin-top:2px}
-.label{
-  display:inline-block;border-radius:100px;padding:5px 9px;
-  background:#172d43;color:var(--cyan);border:1px solid #27506b;
-  font-size:9px;font-weight:900;white-space:nowrap;
+.avatar-fallback{
+  display:flex;align-items:center;justify-content:center;
+  color:var(--teal);font-size:22px;font-weight:900
 }
-.category{font-size:11px;color:#c4b5fd;font-weight:900;margin:11px 0}
-.bio{font-size:12px;color:#c9c4dc;min-height:38px}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:15px 0}
-.stat{background:var(--panel2);border:1px solid #332650;padding:11px;border-radius:11px}
-.stat strong{display:block;font-size:15px;color:#fff}
-.stat span{display:block;font-size:10px;color:var(--muted)}
-.card-actions{display:flex;gap:8px}
-.card-actions button{flex:1;min-width:0}
-.request-btn{
-  background:linear-gradient(110deg,#a78bfa,#67e8f9);
-  color:#100d20;
+.creator-name{font-size:16px;font-weight:900;overflow-wrap:anywhere}
+.handle{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.pill{
+  display:inline-block;padding:5px 9px;border-radius:20px;
+  background:var(--teal-light);color:var(--teal);
+  font-size:11px;font-weight:800;margin:3px 3px 3px 0
 }
-.request-btn:disabled{opacity:.55;cursor:default;box-shadow:none}
-.muted-btn{background:transparent;color:var(--cyan);border-color:#3e3562}
-.muted-btn:hover:not(:disabled){background:#67e8f90d;border-color:var(--cyan)}
-.disclaimer{
-  margin-top:17px;padding:14px 15px;
-  border:1px solid #514075;background:#1b1530;
-  border-radius:13px;color:#d9d0f5;font-size:11px;
+.creator-bio{
+  color:#65736e;font-size:13px;min-height:58px;
+  margin:10px 0;overflow-wrap:anywhere
 }
-.disclaimer strong{color:var(--cyan)}
+.creator-location{font-size:12px;color:var(--muted);margin-bottom:12px}
+.card-actions{display:flex;gap:8px;flex-wrap:wrap}
+.card-actions .btn{flex:1}
+.notice{
+  padding:13px 15px;border-radius:12px;font-size:13px;
+  margin:12px 0;display:none;overflow-wrap:anywhere
+}
+.notice.show{display:block}
+.notice.info{background:#eaf7f4;color:#12685f}
+.notice.error{background:#fff0f0;color:#a93636}
+.notice.success{background:#e9f8eb;color:#286d39}
 .empty{
-  grid-column:1/-1;text-align:center;padding:35px 15px;
-  border:1px dashed #514075;border-radius:15px;
-  color:var(--muted);font-size:13px;background:#151128;
+  background:#fff;border:1px dashed #e4d5c8;border-radius:18px;
+  padding:35px 18px;text-align:center;color:var(--muted);
+  grid-column:1/-1
 }
-.bottom{
-  margin-top:28px;border:1px solid #514075;
-  background:linear-gradient(120deg,#19132e,#17263d);
-  border-radius:21px;padding:24px;display:flex;
-  align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+.empty strong{display:block;color:var(--ink);font-size:16px;margin-bottom:6px}
+.panel{
+  background:#fff;border:1px solid var(--border);
+  border-radius:20px;padding:20px;margin:28px 0
 }
-.bottom h2{font-size:20px;color:#fff}
-.bottom p{font-size:12px;color:var(--muted);margin-top:5px;max-width:600px}
-#myRequestsPanel{
-  background:var(--panel)!important;border-color:var(--line)!important;
-  box-shadow:0 15px 40px rgba(0,0,0,.16);
+.request-list{display:grid;gap:12px}
+.request-item{
+  border:1px solid var(--border);border-radius:14px;
+  padding:15px;background:#fffdfb;overflow-wrap:anywhere
 }
-dialog{
-  border:1px solid #62508e;border-radius:20px;
-  background:linear-gradient(160deg,#1c1532,#100e20);
-  color:var(--text);padding:24px;width:min(460px,calc(100% - 24px));
-  margin:auto;box-shadow:0 25px 80px #0008;
+.request-item h3{font-size:15px;margin-bottom:5px}
+.request-item p{font-size:12px;color:#65736e;margin:5px 0}
+.request-item .btn{margin-top:10px}
+.footer{text-align:center;padding:30px 10px;color:var(--muted);font-size:12px}
+.modal{
+  display:none;position:fixed;inset:0;z-index:20;
+  background:#17252299;padding:16px;overflow:auto;
+  align-items:center;justify-content:center
 }
-dialog::backdrop{background:#070611d9;backdrop-filter:blur(6px)}
-dialog h2{font-size:21px;margin-bottom:5px}
-dialog p{font-size:12px;color:var(--muted);margin-bottom:15px}
-.field{margin:13px 0}
-.field label{display:block;font-size:11px;font-weight:800;margin-bottom:6px;color:#ddd6fe}
-.field input,.field select{
-  width:100%;padding:12px;border:1px solid var(--line);
-  background:var(--bg);color:var(--text);border-radius:11px;
+.modal.open{display:flex}
+.modal-box{
+  background:#fff;width:min(520px,100%);padding:23px;
+  border-radius:22px;max-height:92vh;overflow:auto;
+  box-shadow:0 20px 80px #0002
 }
-.field input:focus,.field select:focus{border-color:var(--cyan);outline:none;box-shadow:0 0 0 3px var(--glow)}
-.field input::placeholder{color:#81799e}
-.modal-actions{display:flex;gap:9px;margin-top:18px}
-.modal-actions button{flex:1}
-#status{font-size:12px;color:var(--cyan);margin-top:12px;min-height:18px}
-#modalStatus{color:var(--cyan)}
-@media(max-width:900px){.creator-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:580px){
-  .topbar{padding:14px 15px}
+.modal-head{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:12px;margin-bottom:15px
+}
+.modal-head h2{font-size:21px}
+.close{
+  border:0;background:#f5eee8;border-radius:10px;
+  width:36px;height:36px;font-size:20px;color:var(--ink)
+}
+.form-grid{display:grid;gap:12px}
+.form-group label{
+  display:block;font-size:12px;font-weight:800;margin-bottom:5px
+}
+textarea.field{min-height:90px;resize:vertical}
+.form-help{font-size:11px;color:var(--muted)}
+.social-links{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.social-links a{
+  background:#eef8f4;color:var(--teal);padding:7px 10px;
+  border-radius:9px;font-size:12px;font-weight:800
+}
+@media(max-width:800px){
+  .creator-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .filters{grid-template-columns:1fr 1fr}
+  .filters input{grid-column:1/-1}
+}
+@media(max-width:540px){
+  .topbar{padding:13px 4%}
   .nav{gap:11px}
-  .wrap{padding:18px 12px 35px}
-  .hero{padding:25px 20px}
-  .tools{grid-template-columns:1fr}
+  .nav a{font-size:12px}
+  .container{width:92%}
+  .hero{padding:22px 18px;border-radius:20px}
+  .stats{gap:8px}
+  .stat{padding:12px}
+  .stat strong{font-size:19px}
+  .stat span{font-size:10px}
   .creator-grid{grid-template-columns:1fr}
-  .creator{max-width:450px;width:100%;margin:auto}
-  .hero h1{letter-spacing:-1px}
-  .bottom{padding:19px}
-  .nav .back{padding:8px 10px}
-  .card-actions .btn{padding:11px 9px;font-size:11px}
-  dialog{padding:20px}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+  .filters{grid-template-columns:1fr}
+  .filters input{grid-column:auto}
+  .creator-bio{min-height:0}
 }
 </style>
-
 </head>
+
 <body>
 <header class="topbar">
-  <a class="logo" href="index.html">boost<span>ly</span> ✳</a>
+  <a class="brand" href="index.html">Boost<span>ly</span></a>
   <nav class="nav">
-    <a href="dashboard.html">Dashboard</a>
-    <a href="boost-feed.html">Boost Feed</a>
-    <a href="post-analytics.html">Analytics</a>
-    <a class="back" href="dashboard.html">← Back</a>
+    <a href="index.html">Home</a>
+    <a href="creator-profile.html">My Creator Profile</a>
+    <a href="creator-marketplace.html">Discover Creators</a>
+    <a href="creator-dashboard.html">Dashboard</a>
+    <a href="login.html">Log in</a>
   </nav>
 </header>
 
-<main class="wrap">
+<main class="container">
   <section class="hero">
-    <div class="kicker">Boostly · Creator Club</div>
-    <h1>Good content.<br>Great collabs.</h1>
-    <p>Discover creative talent, plan your next collaboration and bring fresh ideas to your brand.</p>
-    <div class="hero-foot">
-      <button class="btn btn-dark" id="exploreBtn">Explore creators ↓</button>
-      <span class="hero-note">CREATOR × BUSINESS · COLLAB STUDIO</span>
+    <div class="eyebrow">Boostly Creator Network</div>
+    <h1>Meet creators.<br>Build something great.</h1>
+    <p>Discover real creator profiles, find the right collaboration partner and manage your requests in one place.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#discover">Explore Creators ↓</a>
+      <a class="btn btn-light" href="creator-profile.html">Create My Profile +</a>
     </div>
   </section>
 
-  <div class="heading" id="discover">
-    <div><h2>Discover talent ✳</h2><p>Search by creator name or content category.</p></div>
-    <span class="label">SAMPLE PROFILES</span>
-  </div>
-
-  <div class="tools">
-    <input id="search" type="search" placeholder="Search creators or categories..." aria-label="Search creators">
-    <select id="sort" aria-label="Sort creator cards">
-      <option value="default">Featured first</option>
-      <option value="followers">Audience size</option>
-      <option value="name">Name A–Z</option>
-    </select>
-  </div>
-
-  <div class="chips" id="filters">
-    <button class="chip active" data-category="All">All creators</button>
-    <button class="chip" data-category="Food">Food</button>
-    <button class="chip" data-category="Beauty">Beauty</button>
-    <button class="chip" data-category="Fashion">Fashion</button>
-    <button class="chip" data-category="Lifestyle">Lifestyle</button>
-    <button class="chip" data-category="Travel">Travel</button>
-  </div>
-
-  <section class="creator-grid" id="creatorGrid" aria-live="polite"></section>
-
-  <div class="disclaimer">
-    <strong>Transparency note:</strong> The profiles below are illustrative demo profiles, not verified Boostly creators. Audience figures are sample values, not verified metrics. Collaboration requests are saved only in this browser on this device.
-  </div>
-
-  <section class="bottom">
-    <div>
-      <h2>Your next collab starts here.</h2>
-      <p>Prepare your collaboration request with a goal, campaign idea and proposed budget. This demo records your request locally; it does not send it to a creator or process payments.</p>
-    </div>
-    <button class="btn btn-lime" id="myRequestsBtn">My requests ↗</button>
+  <section class="stats">
+    <div class="stat"><strong id="creatorCount">—</strong><span>Active creators loaded</span></div>
+    <div class="stat"><strong id="categoryCount">—</strong><span>Creator categories</span></div>
+    <div class="stat"><strong id="requestCount">—</strong><span>My requests loaded</span></div>
   </section>
-  <section id="myRequestsPanel" style="display:none;margin-top:22px;padding:20px;background:#1a1a29;border:1px solid #37364d;border-radius:18px;">
-  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:15px;">
-    <div>
-      <h2 style="font-size:21px;">My Collaboration Requests</h2>
-      <p style="font-size:12px;color:#a6a4bd;margin-top:4px;">Track and manage your requests.</p>
-    </div>
-    <button type="button" id="closeRequestsBtn" class="btn btn-outline">Close ✕</button>
-  </div>
-  <div id="myRequestsList" style="display:grid;gap:12px;"></div>
-</section>
 
-<p id="status" role="status" aria-live="polite"></p>
-</main>
-
-<dialog id="requestDialog">
-  <form id="requestForm">
-    <h2>Start a collaboration</h2>
-    <p id="creatorSelected">Tell the creator what you have in mind.</p>
-    <div class="field">
-      <label for="brandName">Business / Brand Name *</label>
-      <input id="brandName" maxlength="80" required placeholder="Your business name">
+  <section id="discover">
+    <div class="section-head">
+      <div>
+        <h2>Discover Creators</h2>
+        <p>Profiles are loaded from Boostly's creator database.</p>
+      </div>
+      <button class="btn btn-light" id="refreshBtn" type="button">↻ Refresh</button>
     </div>
-    <div class="field">
-      <label for="collabGoal">Collaboration Goal *</label>
-      <select id="collabGoal" required>
-        <option value="">Choose a goal</option>
-        <option>Promote a product or service</option>
-        <option>Create a short video</option>
-        <option>Social media awareness</option>
-        <option>Local business promotion</option>
-        <option>Product photography</option>
+
+    <div id="creatorNotice" class="notice" role="status"></div>
+
+    <div class="filters">
+      <input class="field" id="searchInput" type="search" placeholder="Search name, handle, bio or city...">
+      <select class="field" id="categoryFilter">
+        <option value="">All categories</option>
+      </select>
+      <select class="field" id="cityFilter">
+        <option value="">All cities</option>
       </select>
     </div>
-    <div class="field">
-      <label for="collabBudget">Proposed Budget (₹)</label>
-      <input id="collabBudget" type="number" min="0" max="10000000" step="1" placeholder="Optional">
+
+    <div id="creatorGrid" class="creator-grid">
+      <div class="empty"><strong>Loading creators...</strong>Please wait while profiles are fetched.</div>
     </div>
-    <div class="field">
-      <label for="collabMessage">Campaign Idea *</label>
-      <input id="collabMessage" maxlength="300" required placeholder="Briefly describe your idea">
+  </section>
+
+  <section class="panel" id="my-requests">
+    <div class="section-head">
+      <div>
+        <h2>My Collaboration Requests</h2>
+        <p>Requests are loaded from the Boostly request API.</p>
+      </div>
+      <button class="btn btn-light" id="refreshRequestsBtn" type="button">↻ Refresh</button>
     </div>
-    <div class="modal-actions">
-      <button type="button" class="btn btn-outline" id="cancelRequest">Cancel</button>
-      <button type="submit" class="btn btn-lime">Save request</button>
+    <div id="requestNotice" class="notice" role="status"></div>
+    <div id="requestList" class="request-list">
+      <div class="empty"><strong>Loading requests...</strong></div>
     </div>
-    <p id="modalStatus" role="status" aria-live="polite" style="margin-top:12px"></p>
-  </form>
-</dialog>
+  </section>
+</main>
+
+<footer class="footer">© Boostly — Helping creators and businesses grow together.</footer>
+
+<div class="modal" id="detailsModal" role="dialog" aria-modal="true" aria-labelledby="detailsTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="detailsTitle">Creator Details</h2>
+      <button class="close" type="button" data-close="detailsModal" aria-label="Close">×</button>
+    </div>
+    <div id="detailsContent"></div>
+    <div class="hero-actions">
+      <button class="btn btn-primary" id="detailsCollaborateBtn" type="button">Send Collaboration Request</button>
+      <button class="btn btn-light" type="button" data-close="detailsModal">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="requestModal" role="dialog" aria-modal="true" aria-labelledby="requestTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="requestTitle">Collaboration Request</h2>
+      <button class="close" type="button" data-close="requestModal" aria-label="Close">×</button>
+    </div>
+    <div id="formNotice" class="notice" role="status"></div>
+    <form id="collabForm" class="form-grid">
+      <div class="form-group">
+        <label for="targetCreator">Creator</label>
+        <input class="field" id="targetCreator" readonly>
+      </div>
+      <div class="form-group">
+        <label for="brandName">Your name or business name *</label>
+        <input class="field" id="brandName" maxlength="100" required placeholder="e.g. Royal Look Salon">
+      </div>
+      <div class="form-group">
+        <label for="goal">Collaboration goal *</label>
+        <select class="field" id="goal" required>
+          <option value="">Select a goal</option>
+          <option value="Product promotion">Product promotion</option>
+          <option value="Local business promotion">Local business promotion</option>
+          <option value="Paid partnership">Paid partnership</option>
+          <option value="Content creation">Content creation</option>
+          <option value="Brand awareness">Brand awareness</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="budget">Budget (optional)</label>
+        <input class="field" id="budget" maxlength="100" placeholder="e.g. ₹2,000 or open to discussion">
+      </div>
+      <div class="form-group">
+        <label for="message">Your message *</label>
+        <textarea class="field" id="message" maxlength="1500" required placeholder="Tell the creator about your idea..."></textarea>
+        <div class="form-help">Please do not include passwords or sensitive personal information.</div>
+      </div>
+      <button class="btn btn-primary" id="submitRequestBtn" type="submit">Send Request</button>
+    </form>
+  </div>
+</div>
 
 <script>
 (function(){
-  const creators = [
-    {id:"demo-food-1",name:"The Local Plate",handle:"@demo_localplate",category:"Food",icon:"🍜",bio:"Food discovery and local restaurant content ideas.",followers:12800,engagement:"Sample only"},
-    {id:"demo-beauty-1",name:"Glow Notes",handle:"@demo_glownotes",category:"Beauty",icon:"💄",bio:"Beauty tutorials, skincare stories and salon content.",followers:8400,engagement:"Sample only"},
-    {id:"demo-fashion-1",name:"Street Edit",handle:"@demo_streetedit",category:"Fashion",icon:"👟",bio:"Outfit inspiration and everyday fashion concepts.",followers:21500,engagement:"Sample only"},
-    {id:"demo-life-1",name:"Daily Little Things",handle:"@demo_dailythings",category:"Lifestyle",icon:"☕",bio:"Lifestyle reels, routines and everyday storytelling.",followers:6300,engagement:"Sample only"},
-    {id:"demo-travel-1",name:"Wander Frames",handle:"@demo_wanderframes",category:"Travel",icon:"🌍",bio:"Travel diaries, local places and visual storytelling.",followers:34200,engagement:"Sample only"},
-    {id:"demo-food-2",name:"Bite Sized Stories",handle:"@demo_bitestories",category:"Food",icon:"🍰",bio:"Food photography concepts and cafe discovery content.",followers:9700,engagement:"Sample only"}
-  ];
+  "use strict";
 
-  const grid = document.getElementById("creatorGrid");
-  const search = document.getElementById("search");
-  const sort = document.getElementById("sort");
-  const filters = document.getElementById("filters");
-  const dialog = document.getElementById("requestDialog");
-  const form = document.getElementById("requestForm");
-  let activeCategory = "All";
+  const $ = id => document.getElementById(id);
+  let creators = [];
   let selectedCreator = null;
+  let requests = [];
 
   function escapeHTML(value){
-    return String(value ?? "").replace(/[&<>"']/g, function(c){
-      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    return String(value == null ? "" : value).replace(/[&<>"']/g, function(ch){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch];
     });
   }
-  function readRequests(){
-    try{
-      const items = JSON.parse(localStorage.getItem("boostly_creator_requests_v1") || "[]");
-      return Array.isArray(items) ? items : [];
-    }catch(e){return []}
-  }
-  function render(){
-    let items = creators.filter(function(c){
-      const q = search.value.trim().toLowerCase();
-      const matchesCategory = activeCategory === "All" || c.category === activeCategory;
-      const matchesSearch = !q || [c.name,c.handle,c.category,c.bio].join(" ").toLowerCase().includes(q);
-      return matchesCategory && matchesSearch;
-    });
-    if(sort.value === "followers") items.sort((a,b)=>b.followers-a.followers);
-    if(sort.value === "name") items.sort((a,b)=>a.name.localeCompare(b.name));
 
-    if(!items.length){
-      grid.innerHTML = '<div class="empty">No demo profiles match that search. Try another keyword or category.</div>';
+  function safeURL(value){
+    try{
+      const url = new URL(String(value || ""));
+      return url.protocol === "https:" || url.protocol === "http:" ? url.href : "";
+    }catch(e){
+      return "";
+    }
+  }
+
+  function showNotice(id, message, type){
+    const el = $(id);
+    el.textContent = message;
+    el.className = "notice show " + (type || "info");
+  }
+
+  function hideNotice(id){
+    $(id).className = "notice";
+    $(id).textContent = "";
+  }
+
+  async function apiFetch(url, options){
+    const response = await fetch(url, Object.assign({
+      credentials: "include",
+      cache: "no-store"
+    }, options || {}));
+
+    let data;
+    try{
+      data = await response.json();
+    }catch(e){
+      throw new Error("Server returned an invalid response. Please try again.");
+    }
+
+    if(!response.ok || data.success === false){
+      throw new Error(data.error || data.message || ("Request failed (" + response.status + ")"));
+    }
+    return data;
+  }
+
+  function getName(c){
+    return c.creator_name || c.name || "Creator";
+  }
+
+  function getHandle(c){
+    return c.creator_handle || c.handle || "";
+  }
+
+  function getCategory(c){
+    return c.category || "Other";
+  }
+
+  function renderFilters(){
+    const categories = [...new Set(creators.map(c => getCategory(c)).filter(Boolean))].sort();
+    const cities = [...new Set(creators.map(c => String(c.city || "").trim()).filter(Boolean))].sort();
+
+    const categoryValue = $("categoryFilter").value;
+    const cityValue = $("cityFilter").value;
+
+    $("categoryFilter").innerHTML = '<option value="">All categories</option>' +
+      categories.map(c => '<option value="' + escapeHTML(c) + '">' + escapeHTML(c) + '</option>').join("");
+
+    $("cityFilter").innerHTML = '<option value="">All cities</option>' +
+      cities.map(c => '<option value="' + escapeHTML(c) + '">' + escapeHTML(c) + '</option>').join("");
+
+    if(categories.includes(categoryValue)) $("categoryFilter").value = categoryValue;
+    if(cities.includes(cityValue)) $("cityFilter").value = cityValue;
+
+    $("creatorCount").textContent = creators.length;
+    $("categoryCount").textContent = categories.length;
+  }
+
+  function getVisibleCreators(){
+    const query = $("searchInput").value.trim().toLowerCase();
+    const category = $("categoryFilter").value;
+    const city = $("cityFilter").value;
+
+    return creators.filter(c => {
+      const haystack = [
+        getName(c), getHandle(c), getCategory(c),
+        c.bio || "", c.city || ""
+      ].join(" ").toLowerCase();
+
+      return (!query || haystack.includes(query)) &&
+        (!category || getCategory(c) === category) &&
+        (!city || String(c.city || "").trim() === city);
+    });
+  }
+
+  function creatorCard(c){
+    const name = getName(c);
+    const handle = getHandle(c);
+    const category = getCategory(c);
+    const image = safeURL(c.profile_image || c.avatar || "");
+    const initial = escapeHTML((name.trim().charAt(0) || "C").toUpperCase());
+
+    return '<article class="creator-card">' +
+      '<div class="creator-top">' +
+        (image
+          ? '<img class="avatar" src="' + escapeHTML(image) + '" alt="" loading="lazy" referrerpolicy="no-referrer">'
+          : '<div class="avatar avatar-fallback">' + initial + '</div>') +
+        '<div><div class="creator-name">' + escapeHTML(name) + '</div>' +
+        '<div class="handle">' + (handle ? '@' + escapeHTML(handle.replace(/^@/, "")) : 'Boostly Creator') + '</div></div>' +
+      '</div>' +
+      '<span class="pill">' + escapeHTML(category) + '</span>' +
+      '<p class="creator-bio">' + escapeHTML(c.bio || "This creator has not added a bio yet.") + '</p>' +
+      '<div class="creator-location">📍 ' + escapeHTML(c.city || "Location not added") + '</div>' +
+      '<div class="card-actions">' +
+        '<button class="btn btn-light" type="button" data-details="' + escapeHTML(c.id) + '">Details</button>' +
+        '<button class="btn btn-primary" type="button" data-collaborate="' + escapeHTML(c.id) + '">Collaborate</button>' +
+      '</div>' +
+    '</article>';
+  }
+
+  function renderCreators(){
+    const visible = getVisibleCreators();
+    const grid = $("creatorGrid");
+
+    if(!visible.length){
+      grid.innerHTML = '<div class="empty"><strong>No creators found</strong>Try another search, category or city. Creators must have an active profile to appear here.</div>';
       return;
     }
 
-    grid.innerHTML = items.map(function(c){
-      const requested = readRequests().some(r=>r.creatorId===c.id);
-      return '<article class="creator">' +
-        '<div class="cover"><div class="avatar">'+c.icon+'</div></div>' +
-        '<div class="profile-content">' +
-          '<div class="profile-top"><div><h3>'+escapeHTML(c.name)+'</h3><div class="handle">'+escapeHTML(c.handle)+'</div></div><span class="label">DEMO</span></div>' +
-          '<div class="category">'+escapeHTML(c.category)+' CREATOR</div>' +
-          '<p class="bio">'+escapeHTML(c.bio)+'</p>' +
-          '<div class="stats"><div class="stat"><strong>'+c.followers.toLocaleString("en-IN")+'</strong><span>Sample audience</span></div><div class="stat"><strong>—</strong><span>Verified reach</span></div></div>' +
-          '<div class="card-actions"><button class="btn request-btn" data-request="'+c.id+'" '+(requested?'disabled':'')+'>'+(requested?'Request saved ✓':'＋ Collaborate')+'</button>' +
-          '<button class="btn muted-btn" data-details="'+c.id+'">Details</button></div>' +
-        '</div></article>';
+    grid.innerHTML = visible.map(creatorCard).join("");
+  }
+
+  async function loadCreators(){
+    const btn = $("refreshBtn");
+    btn.disabled = true;
+    btn.textContent = "Loading...";
+
+    try{
+      const data = await apiFetch("/api/creators");
+      creators = Array.isArray(data.creators) ? data.creators :
+        (Array.isArray(data.results) ? data.results : []);
+
+      renderFilters();
+      renderCreators();
+      hideNotice("creatorNotice");
+
+      if(!creators.length){
+        showNotice("creatorNotice",
+          "No active creator profiles are available yet. Create a profile from My Creator Profile, then refresh this page.",
+          "info");
+      }
+    }catch(error){
+      $("creatorGrid").innerHTML =
+        '<div class="empty"><strong>Creators could not be loaded</strong>' +
+        escapeHTML(error.message) +
+        '<br><br>Check that /api/creators is deployed and the creators table contains active profiles.</div>';
+      showNotice("creatorNotice", error.message, "error");
+    }finally{
+      btn.disabled = false;
+      btn.textContent = "↻ Refresh";
+    }
+  }
+
+  function openModal(id){
+    $(id).classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal(id){
+    $(id).classList.remove("open");
+    if(!$("detailsModal").classList.contains("open") &&
+       !$("requestModal").classList.contains("open")){
+      document.body.style.overflow = "";
+    }
+  }
+
+  function findCreator(id){
+    return creators.find(c => String(c.id) === String(id));
+  }
+
+  function openDetails(creator){
+    if(!creator) return;
+    selectedCreator = creator;
+
+    const image = safeURL(creator.profile_image || creator.avatar || "");
+    const name = getName(creator);
+    const handle = getHandle(creator);
+    const instagram = safeURL(creator.instagram_url);
+    const youtube = safeURL(creator.youtube_url);
+
+    $("detailsTitle").textContent = name + " — Creator Profile";
+    $("detailsContent").innerHTML =
+      '<div class="creator-top">' +
+        (image
+          ? '<img class="avatar" src="' + escapeHTML(image) + '" alt="">'
+          : '<div class="avatar avatar-fallback">' + escapeHTML((name.charAt(0) || "C").toUpperCase()) + '</div>') +
+        '<div><div class="creator-name">' + escapeHTML(name) + '</div>' +
+        '<div class="handle">' + (handle ? '@' + escapeHTML(handle.replace(/^@/, "")) : 'Boostly Creator') + '</div>' +
+        '<span class="pill">' + escapeHTML(getCategory(creator)) + '</span></div>' +
+      '</div>' +
+      '<p style="margin:12px 0;font-size:13px;overflow-wrap:anywhere">' +
+        escapeHTML(creator.bio || "This creator has not added a bio yet.") + '</p>' +
+      '<p style="font-size:13px;color:#71817c">📍 ' + escapeHTML(creator.city || "Location not added") + '</p>' +
+      '<div class="social-links">' +
+        (instagram ? '<a href="' + escapeHTML(instagram) + '" target="_blank" rel="noopener noreferrer">Instagram ↗</a>' : '') +
+        (youtube ? '<a href="' + escapeHTML(youtube) + '" target="_blank" rel="noopener noreferrer">YouTube ↗</a>' : '') +
+      '</div>';
+
+    openModal("detailsModal");
+  }
+
+  function openRequestForm(creator){
+    if(!creator) return;
+    selectedCreator = creator;
+    $("targetCreator").value = getName(creator) +
+      (getHandle(creator) ? " (@" + getHandle(creator).replace(/^@/, "") + ")" : "");
+    hideNotice("formNotice");
+    closeModal("detailsModal");
+    openModal("requestModal");
+  }
+
+  async function loadRequests(){
+    const btn = $("refreshRequestsBtn");
+    btn.disabled = true;
+    btn.textContent = "Loading...";
+
+    try{
+      const data = await apiFetch("/api/creator-request");
+      requests = Array.isArray(data.requests) ? data.requests :
+        (Array.isArray(data.results) ? data.results :
+        (Array.isArray(data.data) ? data.data : []));
+
+      renderRequests();
+      hideNotice("requestNotice");
+    }catch(error){
+      requests = [];
+      $("requestList").innerHTML =
+        '<div class="empty"><strong>Requests could not be loaded</strong>' +
+        escapeHTML(error.message) +
+        '<br><br>If this feature requires login, log in and refresh this section.</div>';
+      showNotice("requestNotice", error.message, "error");
+    }finally{
+      btn.disabled = false;
+      btn.textContent = "↻ Refresh";
+    }
+  }
+
+  function renderRequests(){
+    $("requestCount").textContent = requests.length;
+
+    if(!requests.length){
+      $("requestList").innerHTML =
+        '<div class="empty"><strong>No requests to show</strong>Collaboration requests you send will appear here when the API returns them.</div>';
+      return;
+    }
+
+    $("requestList").innerHTML = requests.map(r => {
+      const id = r.id || r.request_id;
+      const status = r.status || "pending";
+      const canCancel = id != null && !["cancelled","canceled","rejected","completed"].includes(String(status).toLowerCase());
+
+      return '<article class="request-item">' +
+        '<h3>' + escapeHTML(r.creator_name || r.target_creator_name || r.creator_handle || "Creator collaboration") + '</h3>' +
+        '<p><strong>Status:</strong> ' + escapeHTML(status) + '</p>' +
+        '<p><strong>Goal:</strong> ' + escapeHTML(r.goal || "—") + '</p>' +
+        '<p><strong>Budget:</strong> ' + escapeHTML(r.budget || "Not specified") + '</p>' +
+        '<p><strong>Message:</strong> ' + escapeHTML(r.message || "—") + '</p>' +
+        '<p><strong>Date:</strong> ' + escapeHTML(r.created_at || "—") + '</p>' +
+        (canCancel
+          ? '<button class="btn btn-danger" type="button" data-cancel="' + escapeHTML(id) + '">Cancel Request</button>'
+          : '') +
+      '</article>';
     }).join("");
   }
 
-  function openRequest(creator){
-    selectedCreator = creator;
-    document.getElementById("creatorSelected").textContent =
-      "Collaboration with "+creator.name+" · "+creator.category;
-    document.getElementById("modalStatus").textContent = "";
-    form.reset();
-    dialog.showModal();
-  }
-
-  grid.addEventListener("click",function(event){
-    const requestButton = event.target.closest("[data-request]");
+  $("creatorGrid").addEventListener("click", function(event){
     const detailsButton = event.target.closest("[data-details]");
-    if(requestButton){
-      const creator = creators.find(c=>c.id===requestButton.dataset.request);
-      if(creator) openRequest(creator);
-    }
+    const collaborateButton = event.target.closest("[data-collaborate]");
+
     if(detailsButton){
-      const creator = creators.find(c=>c.id===detailsButton.dataset.details);
-      if(creator){
-        document.getElementById("status").textContent =
-          creator.name+" is a demo profile. Audience metrics are not verified and no real account is connected.";
-        window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
-      }
+      openDetails(findCreator(detailsButton.dataset.details));
+    }else if(collaborateButton){
+      openRequestForm(findCreator(collaborateButton.dataset.collaborate));
     }
   });
 
-  filters.addEventListener("click",function(event){
-    const button = event.target.closest("[data-category]");
-    if(!button)return;
-    activeCategory = button.dataset.category;
-    filters.querySelectorAll(".chip").forEach(b=>b.classList.toggle("active",b===button));
-    render();
-  });
-  search.addEventListener("input",render);
-  sort.addEventListener("change",render);
-
-form.addEventListener("submit", async function(event) {
-  event.preventDefault();
-
-  if (!selectedCreator) return;
-
-  const modalStatus = document.getElementById("modalStatus");
-  const submitButton = form.querySelector('button[type="submit"]');
-
-  const brandName = document.getElementById("brandName").value.trim();
-  const goal = document.getElementById("collabGoal").value;
-  const message = document.getElementById("collabMessage").value.trim();
-  const budgetText = document.getElementById("collabBudget").value;
-  const budget = budgetText === "" ? null : Number(budgetText);
-
-  if (!brandName || !goal || !message) {
-    modalStatus.textContent = "Please complete all required fields.";
-    return;
-  }
-
-  if (
-    budget !== null &&
-    (!Number.isFinite(budget) || budget < 0 || budget > 10000000)
-  ) {
-    modalStatus.textContent = "Please enter a valid budget.";
-    return;
-  }
-
-  submitButton.disabled = true;
-  submitButton.textContent = "Saving...";
-  modalStatus.textContent = "Sending your request...";
-
-  try {
-    const response = await fetch("/api/creator-request", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        creator_name: selectedCreator.name,
-        creator_handle: selectedCreator.handle,
-        brand_name: brandName,
-        goal: goal,
-        budget: budget,
-        message: message
-      })
-    });
-
-    const result = await response.json();
-
-    if (!response.ok || !result.success) {
-      throw new Error(result.error || "Could not save the request.");
-    }
-
-    modalStatus.textContent = "Request saved successfully!";
-    document.getElementById("status").textContent =
-      "Collaboration request saved to Boostly.";
-
-    setTimeout(function() {
-      if (dialog.open) dialog.close();
-    }, 1200);
-
-  } catch (error) {
-    modalStatus.textContent = error.message ||
-      "Request failed. Please try again.";
-  } finally {
-    submitButton.disabled = false;
-    submitButton.textContent = "Save request";
-  }
-});
-
-
-  document.getElementById("cancelRequest").addEventListener("click",()=>dialog.close());
-  document.getElementById("exploreBtn").addEventListener("click",()=>document.getElementById("discover").scrollIntoView({behavior:"smooth"}));
-  
-  const myRequestsButton = document.getElementById("myRequestsBtn");
-  const myRequestsPanel = document.getElementById("myRequestsPanel");
-  const myRequestsList = document.getElementById("myRequestsList");
-  const closeRequestsButton = document.getElementById("closeRequestsBtn");
-
-  async function loadMyRequests() {
-    myRequestsButton.disabled = true;
-    myRequestsButton.textContent = "Loading...";
-    myRequestsPanel.style.display = "block";
-    myRequestsList.innerHTML =
-      '<p style="color:#a6a4bd;">Loading your requests...</p>';
-
-    try {
-      const response = await fetch("/api/creator-request", {
-        method: "GET",
-        credentials: "include",
-        cache: "no-store"
-      });
-
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.error || "Could not load requests.");
-      }
-
-      const requests = Array.isArray(result.requests)
-        ? result.requests
-        : [];
-
-      if (!requests.length) {
-        myRequestsList.innerHTML =
-          '<div class="empty">No requests found yet. Send a collaboration request first.</div>';
-        return;
-      }
-
-      myRequestsList.innerHTML = requests.map(function(r) {
-        const budget = Number(r.budget || 0);
-        const statusText = String(r.status || "pending").toLowerCase();
-        const isPending = statusText === "pending";
-
-        return `
-          <article style="padding:16px;background:#222237;border:1px solid #37364d;border-radius:13px;">
-            <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:start;">
-              <div>
-                <h3 style="font-size:16px;">${escapeHTML(r.creator_name || "Creator")}</h3>
-                <p style="font-size:12px;color:#a6a4bd;margin-top:4px;">${escapeHTML(r.creator_handle || "")}</p>
-              </div>
-              <span class="label">${escapeHTML(statusText.toUpperCase())}</span>
-            </div>
-
-            <div style="margin-top:12px;font-size:13px;line-height:1.9;">
-              <p><strong>Business:</strong> ${escapeHTML(r.brand_name || "—")}</p>
-              <p><strong>Goal:</strong> ${escapeHTML(r.goal || "—")}</p>
-              <p><strong>Budget:</strong> ₹${budget.toLocaleString("en-IN")}</p>
-              <p><strong>Message:</strong> ${escapeHTML(r.message || "—")}</p>
-              <p style="color:#a6a4bd;font-size:11px;"><strong>Date:</strong> ${escapeHTML(r.created_at || "—")}</p>
-            </div>
-
-            ${isPending
-              ? `<button type="button" class="btn" data-cancel-request="${Number(r.id)}" style="margin-top:12px;background:#ff6b6b;color:#171525;">Cancel Request</button>`
-              : ""}
-          </article>
-        `;
-      }).join("");
-
-      document.getElementById("status").textContent =
-        requests.length + " request(s) loaded.";
-
-    } catch (error) {
-      myRequestsList.innerHTML =
-        '<p style="color:#ff8b8b;">' +
-        escapeHTML(error.message || "Could not load requests.") +
-        '</p>';
-    } finally {
-      myRequestsButton.disabled = false;
-      myRequestsButton.textContent = "My requests ↗";
-    }
-  }
-
-  myRequestsButton.addEventListener("click", loadMyRequests);
-
-  closeRequestsButton.addEventListener("click", function() {
-    myRequestsPanel.style.display = "none";
+  $("detailsCollaborateBtn").addEventListener("click", function(){
+    openRequestForm(selectedCreator);
   });
 
-  myRequestsList.addEventListener("click", async function(event) {
-    const cancelButton = event.target.closest("[data-cancel-request]");
-    if (!cancelButton) return;
+  $("collabForm").addEventListener("submit", async function(event){
+    event.preventDefault();
 
-    const requestId = Number(cancelButton.dataset.cancelRequest);
-
-    if (!Number.isInteger(requestId) || requestId < 1) return;
-
-    if (!confirm("Are you sure you want to cancel this pending request?")) {
+    if(!selectedCreator){
+      showNotice("formNotice", "Please select a creator first.", "error");
       return;
     }
 
-    cancelButton.disabled = true;
-    cancelButton.textContent = "Cancelling...";
+    const button = $("submitRequestBtn");
+    button.disabled = true;
+    button.textContent = "Sending...";
 
-    try {
-      const response = await fetch("/api/creator-request", {
+    const payload = {
+      creator_name: getName(selectedCreator),
+      creator_handle: getHandle(selectedCreator),
+      brand_name: $("brandName").value.trim(),
+      goal: $("goal").value,
+      budget: $("budget").value.trim(),
+      message: $("message").value.trim()
+    };
+
+    try{
+      const data = await apiFetch("/api/creator-request", {
         method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(payload)
+      });
+
+      showNotice("formNotice",
+        data.message || "Your collaboration request was submitted.",
+        "success");
+
+      $("collabForm").reset();
+      await loadRequests();
+
+      setTimeout(function(){
+        closeModal("requestModal");
+        hideNotice("formNotice");
+      }, 1200);
+    }catch(error){
+      showNotice("formNotice",
+        error.message + " If login is required, open Log in and try again.",
+        "error");
+    }finally{
+      button.disabled = false;
+      button.textContent = "Send Request";
+    }
+  });
+
+  $("requestList").addEventListener("click", async function(event){
+    const button = event.target.closest("[data-cancel]");
+    if(!button) return;
+
+    const requestId = button.dataset.cancel;
+    if(!confirm("Are you sure you want to cancel this collaboration request?")) return;
+
+    button.disabled = true;
+    button.textContent = "Cancelling...";
+
+    try{
+      const data = await apiFetch("/api/creator-request", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
         body: JSON.stringify({
           action: "cancel",
           request_id: requestId
         })
       });
 
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.error || "Could not cancel the request.");
-      }
-
-      document.getElementById("status").textContent =
-        "Request cancelled successfully.";
-
-      await loadMyRequests();
-
-    } catch (error) {
-      alert(error.message || "Could not cancel the request. Please try again.");
-      cancelButton.disabled = false;
-      cancelButton.textContent = "Cancel Request";
+      showNotice("requestNotice",
+        data.message || "Cancellation request processed.",
+        "success");
+      await loadRequests();
+    }catch(error){
+      showNotice("requestNotice", error.message, "error");
+      button.disabled = false;
+      button.textContent = "Cancel Request";
     }
   });
-render();
+
+  $("searchInput").addEventListener("input", renderCreators);
+  $("categoryFilter").addEventListener("change", renderCreators);
+  $("cityFilter").addEventListener("change", renderCreators);
+  $("refreshBtn").addEventListener("click", loadCreators);
+  $("refreshRequestsBtn").addEventListener("click", loadRequests);
+
+  document.querySelectorAll("[data-close]").forEach(button => {
+    button.addEventListener("click", function(){
+      closeModal(button.dataset.close);
+    });
+  });
+
+  document.querySelectorAll(".modal").forEach(modal => {
+    modal.addEventListener("click", function(event){
+      if(event.target === modal) closeModal(modal.id);
+    });
+  });
+
+  document.addEventListener("keydown", function(event){
+    if(event.key === "Escape"){
+      closeModal("detailsModal");
+      closeModal("requestModal");
+    }
+  });
+
+  loadCreators();
+  loadRequests();
 })();
 </script>
 </body>
