@@ -3,274 +3,653 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#10101b">
+<meta name="theme-color" content="#f8f7ff">
 <title>Creator Profile | Boostly</title>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#10101b;--panel:#1a1a29;--panel2:#222237;--text:#f8f7ff;--muted:#a6a4bd;--lime:#d9ff66;--coral:#ff6b6b;--violet:#a78bfa;--line:#37364d}
-body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-a{text-decoration:none;color:inherit}
+:root{
+  --bg:#f7f8ff;
+  --white:#ffffff;
+  --ink:#202044;
+  --muted:#777994;
+  --purple:#7665e8;
+  --purple-light:#eeeaff;
+  --mint:#dff8ed;
+  --green:#16845b;
+  --pink:#ffe6f0;
+  --line:#e8e8f5;
+  --shadow:0 12px 35px rgba(71,62,139,.08);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,Arial,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 0% 0%,#f0eaff 0,transparent 32%),
+    radial-gradient(circle at 100% 20%,#e4fff3 0,transparent 25%),
+    var(--bg);
+  line-height:1.6;
+  min-height:100vh;
+}
 button,input,select,textarea{font:inherit}
-.topbar{padding:16px 5%;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
-.logo{font-size:25px;font-weight:900}.logo span{color:var(--coral)}
-.nav{display:flex;gap:15px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
-.nav a:hover{color:var(--lime)}
-.wrap{width:min(760px,100%);margin:30px auto;padding:0 15px 40px}
-.hero{padding:25px;border-radius:20px;background:linear-gradient(120deg,#ff6b6b,#a78bfa 60%,#65e8e0);color:#171525;margin-bottom:20px}
-.hero small{font-size:11px;font-weight:900;letter-spacing:2px}
-.hero h1{font-size:clamp(28px,6vw,42px);line-height:1.15;margin:8px 0}
-.hero p{font-size:13px}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px}
-.panel h2{font-size:21px;margin-bottom:4px}
-.sub{color:var(--muted);font-size:13px;margin-bottom:20px}
-.field{margin-bottom:16px}
-label{display:block;font-size:12px;font-weight:800;margin-bottom:6px}
-input,select,textarea{width:100%;padding:13px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);outline:none}
-input:focus,select:focus,textarea:focus{border-color:var(--violet)}
-textarea{min-height:105px;resize:vertical}
-.hint{font-size:11px;color:var(--muted);margin-top:5px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.btn{border:0;border-radius:10px;padding:12px 17px;font-size:13px;font-weight:900;cursor:pointer}
-.primary{background:var(--lime);color:#171525}
-.secondary{background:transparent;border:1px solid var(--line);color:var(--text)}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-.actions button{flex:1}
-#status{font-size:13px;margin-top:16px;overflow-wrap:anywhere}
-.success{color:var(--lime)}
-.error{color:#ff8b8b}
-.preview{display:none;margin-top:18px;padding:16px;background:var(--panel2);border-radius:13px;overflow-wrap:anywhere}
-.preview h3{font-size:19px}
-.preview p{font-size:13px;color:var(--muted);margin-top:5px}
-@media(max-width:520px){.grid{grid-template-columns:1fr}.panel{padding:17px}.hero{padding:21px}.topbar{padding:14px}}
+button,a{-webkit-tap-highlight-color:transparent}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer}
+.topbar{
+  position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:14px;flex-wrap:wrap;padding:14px 5%;
+  background:rgba(255,255,255,.92);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(16px);
+}
+.logo{font-size:25px;font-weight:950;letter-spacing:-1px}
+.logo span{color:var(--purple)}
+.nav{display:flex;gap:15px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.nav a:hover{color:var(--purple)}
+.nav .nav-btn{
+  background:var(--purple-light);color:var(--purple);
+  border-radius:10px;padding:9px 13px;font-weight:900;
+}
+.wrap{max-width:1150px;margin:auto;padding:27px 18px 55px}
+.page-heading{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:15px;flex-wrap:wrap;margin-bottom:20px;
+}
+.eyebrow{
+  color:var(--purple);font-size:11px;font-weight:900;
+  letter-spacing:1.7px;text-transform:uppercase;
+}
+h1{font-size:clamp(29px,5vw,43px);line-height:1.15;letter-spacing:-1.5px;margin:5px 0}
+.subtitle{font-size:13px;color:var(--muted);max-width:600px}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--mint);color:var(--green);
+  padding:7px 12px;border-radius:100px;font-size:11px;font-weight:900;
+}
+.layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(245px,.8fr);gap:20px;align-items:start}
+.main-column,.side-column{display:grid;gap:18px;min-width:0}
+.card{
+  background:rgba(255,255,255,.96);border:1px solid var(--line);
+  border-radius:22px;box-shadow:var(--shadow);overflow:hidden;
+}
+.cover{
+  height:165px;position:relative;overflow:hidden;
+  background:linear-gradient(120deg,#d7c9ff,#ffcfe3 52%,#c6f5e1);
+}
+.cover:before,.cover:after{
+  content:"";position:absolute;border-radius:50%;filter:blur(1px);
+}
+.cover:before{width:200px;height:200px;right:-35px;top:-110px;background:#fff8}
+.cover:after{width:150px;height:150px;left:35%;bottom:-115px;background:#ffffff88}
+.cover-label{
+  position:absolute;right:15px;top:15px;z-index:1;
+  border:1px solid #ffffffaa;background:#ffffffb8;
+  padding:7px 11px;border-radius:100px;font-size:10px;font-weight:900;
+}
+.profile-content{padding:0 23px 23px}
+.avatar-wrap{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-top:-49px;position:relative;z-index:2}
+.avatar{
+  width:104px;height:104px;border-radius:28px;object-fit:cover;
+  background:var(--purple-light);border:5px solid white;
+  box-shadow:0 6px 20px #3f2e7d18;
+}
+.avatar-placeholder{
+  display:grid;place-items:center;font-size:42px;color:var(--purple);
+  font-weight:900;
+}
+.profile-badge{
+  background:var(--mint);color:var(--green);border-radius:100px;
+  padding:7px 11px;font-size:10px;font-weight:900;margin-bottom:8px;
+}
+.profile-title{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-top:12px}
+.profile-title h2{font-size:25px;line-height:1.25;overflow-wrap:anywhere}
+.handle{font-size:12px;color:var(--muted);margin-top:3px}
+.category-label{
+  display:inline-block;margin-top:12px;padding:6px 11px;border-radius:100px;
+  background:var(--purple-light);color:var(--purple);font-size:11px;font-weight:900;
+}
+.bio{font-size:13px;color:#555773;margin-top:14px;overflow-wrap:anywhere}
+.meta{display:flex;gap:13px;flex-wrap:wrap;margin-top:13px;font-size:11px;color:var(--muted)}
+.socials{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}
+.social-link{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:9px 13px;border:1px solid var(--line);border-radius:11px;
+  background:white;color:var(--ink);font-size:11px;font-weight:900;
+  overflow-wrap:anywhere;max-width:100%;
+}
+.social-link:hover{border-color:var(--purple);color:var(--purple)}
+.stats{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:9px;margin-top:21px;
+}
+.stat{
+  border-radius:15px;padding:14px 10px;text-align:center;
+  background:linear-gradient(145deg,#f6f3ff,#fbfffd);
+  border:1px solid #eeeafa;
+}
+.stat strong{display:block;font-size:21px;line-height:1.3;color:var(--purple)}
+.stat span{display:block;font-size:10px;color:var(--muted);margin-top:4px}
+.section-card{padding:21px}
+.section-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}
+.section-heading h2{font-size:17px;letter-spacing:-.3px}
+.section-heading span{font-size:10px;color:var(--muted)}
+.about-text{font-size:13px;color:#5e607b;white-space:pre-wrap;overflow-wrap:anywhere}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}
+.tag{padding:7px 10px;background:#f0f8f4;color:#26815d;border-radius:100px;font-size:10px;font-weight:800}
+.side-card{padding:20px}
+.side-card h2{font-size:16px;margin-bottom:13px}
+.side-card p{font-size:12px;color:var(--muted)}
+.tip-list{display:grid;gap:13px}
+.tip{display:flex;align-items:start;gap:10px;font-size:12px;color:#565873}
+.tip-icon{
+  width:30px;height:30px;flex:0 0 30px;border-radius:10px;
+  background:var(--mint);display:grid;place-items:center;
+}
+.cta-card{
+  padding:22px;border-radius:22px;
+  background:linear-gradient(135deg,#7665e8,#aa8af4 65%,#edbde0);
+  color:white;box-shadow:var(--shadow);
+}
+.cta-card h2{font-size:20px;line-height:1.3}
+.cta-card p{font-size:12px;color:#ffffffdf;margin:9px 0 16px}
+.cta-card button{
+  background:white;color:#6554d7;border:0;border-radius:11px;
+  padding:12px 14px;font-size:12px;font-weight:900;width:100%;
+}
+.cta-card button:hover{transform:translateY(-1px)}
+.detail-list{display:grid;gap:13px}
+.detail-row{display:flex;align-items:start;gap:10px}
+.detail-icon{
+  width:33px;height:33px;flex:0 0 33px;display:grid;place-items:center;
+  background:#f2efff;border-radius:11px;
+}
+.detail-row span{display:block;font-size:10px;color:var(--muted)}
+.detail-row strong{display:block;font-size:12px;overflow-wrap:anywhere}
+.form-card{padding:23px}
+.form-card h2{font-size:20px;margin-bottom:5px}
+.form-intro{font-size:12px;color:var(--muted);margin-bottom:18px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{min-width:0}
+.field.full{grid-column:1/-1}
+.field label{display:block;font-size:11px;font-weight:900;margin-bottom:6px}
+.field input,.field select,.field textarea{
+  display:block;width:100%;min-width:0;padding:12px;
+  border:1px solid #e4e3f2;border-radius:12px;background:#fcfbff;
+  color:var(--ink);outline:none;
+}
+.field textarea{min-height:100px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:var(--purple);box-shadow:0 0 0 3px #7665e81b;
+}
+.field small{display:block;font-size:10px;color:var(--muted);margin-top:5px}
+.form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.btn{
+  border:0;border-radius:12px;padding:12px 17px;font-size:12px;
+  font-weight:900;transition:transform .2s,opacity .2s;
+}
+.btn:hover:not(:disabled){transform:translateY(-1px)}
+.btn:disabled{opacity:.6;cursor:wait}
+.btn-primary{background:var(--purple);color:white;box-shadow:0 6px 16px #7665e82b}
+.btn-soft{background:var(--purple-light);color:var(--purple)}
+.status{
+  margin-top:13px;min-height:20px;font-size:12px;color:var(--green);
+  overflow-wrap:anywhere;
+}
+.status.error{color:#c13b63}
+.hidden{display:none!important}
+.loading{opacity:.7;pointer-events:none}
+.footer{text-align:center;padding:25px 10px 0;font-size:11px;color:var(--muted)}
+@media(max-width:850px){
+  .layout{grid-template-columns:1fr}
+  .side-column{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .side-column .cta-card{grid-column:1/-1}
+}
+@media(max-width:560px){
+  .topbar{padding:13px 15px}
+  .nav{gap:9px}
+  .nav a{font-size:11px}
+  .wrap{padding:21px 12px 35px}
+  .cover{height:125px}
+  .profile-content{padding:0 16px 18px}
+  .avatar{width:88px;height:88px;border-radius:23px}
+  .avatar-wrap{margin-top:-43px}
+  .profile-title h2{font-size:21px}
+  .profile-badge{font-size:9px;padding:6px 8px}
+  .stats{gap:6px}
+  .stat{padding:12px 5px}
+  .stat strong{font-size:18px}
+  .stat span{font-size:9px}
+  .side-column{grid-template-columns:1fr}
+  .side-column .cta-card{grid-column:auto}
+  .section-card,.side-card,.form-card{padding:17px}
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .form-actions .btn{width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important}
+}
 </style>
 </head>
+
 <body>
 <header class="topbar">
   <a class="logo" href="index.html">boost<span>ly</span> ✳</a>
   <nav class="nav">
-    <a href="creator-marketplace.html">Creator Marketplace</a>
     <a href="dashboard.html">Dashboard</a>
-    <a href="index.html">Home</a>
+    <a href="creator-marketplace.html">Creator Club</a>
+    <a href="boost-feed.html">Boost Feed</a>
+    <a class="nav-btn" href="#profileForm">Edit Profile ↓</a>
   </nav>
 </header>
 
 <main class="wrap">
-  <section class="hero">
-    <small>BOOSTLY · CREATOR CLUB</small>
-    <h1>Your talent deserves to be discovered.</h1>
-    <p>Create your creator profile so businesses can learn about your content and collaboration interests.</p>
-  </section>
-
-  <section class="panel">
-    <h2>Creator Profile</h2>
-    <p class="sub">Complete your details and save your profile to Boostly.</p>
-
-    <form id="creatorForm">
-      <div class="field">
-        <label for="creatorName">Creator Name *</label>
-        <input id="creatorName" maxlength="80" required placeholder="e.g. Aman Sharma">
-      </div>
-
-      <div class="field">
-        <label for="creatorHandle">Creator Username *</label>
-        <input id="creatorHandle" maxlength="50" required placeholder="e.g. amancreates">
-        <p class="hint">Enter your username without the @ symbol.</p>
-      </div>
-
-      <div class="grid">
-        <div class="field">
-          <label for="category">Content Category *</label>
-          <select id="category" required>
-            <option value="">Choose category</option>
-            <option>Food</option>
-            <option>Beauty</option>
-            <option>Fashion</option>
-            <option>Lifestyle</option>
-            <option>Travel</option>
-            <option>Fitness</option>
-            <option>Technology</option>
-            <option>Education</option>
-            <option>Photography</option>
-            <option>Other</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="city">City</label>
-          <input id="city" maxlength="80" placeholder="e.g. Ludhiana">
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="bio">About You</label>
-        <textarea id="bio" maxlength="500" placeholder="Describe your content, audience and creative style..."></textarea>
-        <p class="hint">Maximum 500 characters.</p>
-      </div>
-
-      <div class="field">
-        <label for="instagram">Instagram Profile URL</label>
-        <input id="instagram" type="url" maxlength="300" placeholder="https://www.instagram.com/yourname">
-      </div>
-
-      <div class="field">
-        <label for="youtube">YouTube Channel URL</label>
-        <input id="youtube" type="url" maxlength="300" placeholder="https://www.youtube.com/@yourchannel">
-      </div>
-
-      <div class="field">
-        <label for="profileImage">Profile Image URL (optional)</label>
-        <input id="profileImage" type="url" maxlength="1000" placeholder="https://example.com/photo.jpg">
-        <p class="hint">Use a publicly accessible image URL. This field does not upload a photo from your phone.</p>
-      </div>
-
-      <div class="actions">
-        <button class="btn primary" id="saveButton" type="submit">Save Creator Profile</button>
-        <button class="btn secondary" id="loadButton" type="button">Load Saved Profile</button>
-      </div>
-      <p id="status" role="status" aria-live="polite"></p>
-    </form>
-
-    <div class="preview" id="preview">
-      <h3 id="previewName"></h3>
-      <p id="previewHandle"></p>
-      <p id="previewCategory"></p>
-      <p id="previewCity"></p>
-      <p id="previewBio"></p>
-      <p id="previewStatus"></p>
+  <div class="page-heading">
+    <div>
+      <div class="eyebrow">Boostly · Creator Studio</div>
+      <h1>Your Creator Profile</h1>
+      <p class="subtitle">Build your identity, showcase your work and help brands understand your creative style.</p>
     </div>
-  </section>
+    <span class="pill">✦ Light Studio Theme</span>
+  </div>
+
+  <div class="layout">
+    <div class="main-column">
+      <section class="card" id="profileCard">
+        <div class="cover" id="coverArea">
+          <span class="cover-label">CREATOR SPACE ✦</span>
+        </div>
+        <div class="profile-content">
+          <div class="avatar-wrap">
+            <div id="avatar" class="avatar avatar-placeholder">B</div>
+            <span id="profileStatus" class="profile-badge">Profile not loaded</span>
+          </div>
+          <div class="profile-title">
+            <div>
+              <h2 id="displayName">Your Creator Name</h2>
+              <p class="handle" id="displayHandle">@yourhandle</p>
+              <span class="category-label" id="displayCategory">Choose your category</span>
+            </div>
+          </div>
+          <p class="bio" id="displayBio">Your creator bio will appear here after you save your profile.</p>
+          <div class="meta">
+            <span id="displayCity">📍 Add your city</span>
+            <span>✦ Boostly Creator</span>
+          </div>
+          <div class="socials" id="socialLinks"></div>
+          <div class="stats">
+            <div class="stat"><strong>—</strong><span>Followers</span></div>
+            <div class="stat"><strong>—</strong><span>Engagement</span></div>
+            <div class="stat"><strong>—</strong><span>Posts</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card section-card">
+        <div class="section-heading">
+          <h2>About the Creator</h2>
+          <span>YOUR STORY</span>
+        </div>
+        <p class="about-text" id="aboutText">Your story will appear here. Tell brands what you create, who you reach and what makes your content different.</p>
+        <div class="tags" id="categoryTags">
+          <span class="tag">Creative ideas</span>
+          <span class="tag">Collaboration</span>
+          <span class="tag">Community</span>
+        </div>
+      </section>
+
+      <section class="card form-card" id="profileForm">
+        <h2>Build your profile ✦</h2>
+        <p class="form-intro">Fill in your details and save. You can come back and update them whenever you need.</p>
+
+        <form id="creatorForm">
+          <div class="form-grid">
+            <div class="field">
+              <label for="creatorName">Creator name *</label>
+              <input id="creatorName" name="creator_name" maxlength="80" required placeholder="e.g. Aanya Sharma">
+            </div>
+
+            <div class="field">
+              <label for="creatorHandle">Creator username *</label>
+              <input id="creatorHandle" name="creator_handle" maxlength="50" required placeholder="e.g. aanya.creates">
+              <small>Enter without @. We will show the @ automatically.</small>
+            </div>
+
+            <div class="field">
+              <label for="category">Creator category *</label>
+              <select id="category" name="category" required>
+                <option value="">Choose category</option>
+                <option>Food</option>
+                <option>Beauty</option>
+                <option>Fashion</option>
+                <option>Lifestyle</option>
+                <option>Travel</option>
+                <option>Fitness</option>
+                <option>Technology</option>
+                <option>Education</option>
+                <option>Photography</option>
+                <option>Gaming</option>
+                <option>Business</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="city">City</label>
+              <input id="city" name="city" maxlength="80" placeholder="e.g. Amritsar">
+            </div>
+
+            <div class="field full">
+              <label for="bio">Creator bio</label>
+              <textarea id="bio" name="bio" maxlength="500" placeholder="Tell people what you create, what inspires you and what brands can collaborate with you on."></textarea>
+              <small>Maximum 500 characters.</small>
+            </div>
+
+            <div class="field full">
+              <label for="profileImage">Profile photo URL</label>
+              <input id="profileImage" name="profile_image" type="url" maxlength="1000" placeholder="https://example.com/your-photo.jpg">
+              <small>Paste a publicly accessible image URL. Direct photo uploads are not enabled in this version.</small>
+            </div>
+
+            <div class="field">
+              <label for="instagram">Instagram URL</label>
+              <input id="instagram" name="instagram_url" type="url" maxlength="300" placeholder="https://instagram.com/username">
+            </div>
+
+            <div class="field">
+              <label for="youtube">YouTube URL</label>
+              <input id="youtube" name="youtube_url" type="url" maxlength="300" placeholder="https://youtube.com/@username">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit" id="saveButton">Save Creator Profile</button>
+            <button class="btn btn-soft" type="button" id="reloadButton">Reload Saved Profile</button>
+          </div>
+          <p id="formStatus" class="status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </div>
+
+    <aside class="side-column">
+      <section class="cta-card">
+        <h2>Make your creativity visible ✨</h2>
+        <p>A clear profile helps brands discover your style and understand what you bring to a campaign.</p>
+        <button type="button" id="editProfileButton">Complete My Profile ↓</button>
+      </section>
+
+      <section class="card side-card">
+        <h2>Profile checklist</h2>
+        <div class="tip-list">
+          <div class="tip"><span class="tip-icon">📸</span><span>Add a clear profile photo so people can recognise your creator identity.</span></div>
+          <div class="tip"><span class="tip-icon">✍️</span><span>Write a useful bio describing your content and interests.</span></div>
+          <div class="tip"><span class="tip-icon">🔗</span><span>Add your social links so brands can find your public work.</span></div>
+          <div class="tip"><span class="tip-icon">🌱</span><span>Keep your category and city up to date.</span></div>
+        </div>
+      </section>
+
+      <section class="card side-card">
+        <h2>Creator details</h2>
+        <div class="detail-list">
+          <div class="detail-row"><span class="detail-icon">🏷️</span><div><span>Category</span><strong id="detailCategory">Not set</strong></div></div>
+          <div class="detail-row"><span class="detail-icon">📍</span><div><span>Location</span><strong id="detailCity">Not set</strong></div></div>
+          <div class="detail-row"><span class="detail-icon">🔗</span><div><span>Social links</span><strong id="detailSocials">0 added</strong></div></div>
+          <div class="detail-row"><span class="detail-icon">✓</span><div><span>Profile status</span><strong id="detailStatus">Not saved</strong></div></div>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <footer class="footer">Boostly Creator Studio · Build your profile, tell your story.</footer>
 </main>
 
 <script>
 (function(){
   const form = document.getElementById("creatorForm");
-  const status = document.getElementById("status");
+  const statusEl = document.getElementById("formStatus");
   const saveButton = document.getElementById("saveButton");
-  const loadButton = document.getElementById("loadButton");
+  const reloadButton = document.getElementById("reloadButton");
 
   const fields = {
     creator_name: document.getElementById("creatorName"),
     creator_handle: document.getElementById("creatorHandle"),
     category: document.getElementById("category"),
-    city: document.getElementById("city"),
     bio: document.getElementById("bio"),
+    city: document.getElementById("city"),
     instagram_url: document.getElementById("instagram"),
     youtube_url: document.getElementById("youtube"),
     profile_image: document.getElementById("profileImage")
   };
 
   function showStatus(message, isError){
-    status.textContent = message;
-    status.className = isError ? "error" : "success";
+    statusEl.textContent = message;
+    statusEl.classList.toggle("error", Boolean(isError));
   }
 
-  function getFormData(){
-    const data = {};
-    Object.keys(fields).forEach(function(key){
-      data[key] = fields[key].value.trim();
-    });
-    data.creator_handle = data.creator_handle.replace(/^@+/, "");
-    return data;
+  function safeHttpUrl(value){
+    if(!value) return "";
+    try{
+      const url = new URL(value);
+      return url.protocol === "https:" || url.protocol === "http:" ? url.href : "";
+    }catch{
+      return "";
+    }
   }
 
-  function showProfile(profile){
-    if(!profile) return;
+  function setText(id, value, fallback){
+    document.getElementById(id).textContent = value || fallback;
+  }
+
+  function renderProfile(profile){
+    if(!profile){
+      setText("displayName","Your Creator Name","Your Creator Name");
+      setText("displayHandle","@yourhandle","@yourhandle");
+      setText("displayCategory","Choose your category","Choose your category");
+      setText("displayBio","Your creator bio will appear here after you save your profile.","");
+      setText("displayCity","📍 Add your city","📍 Add your city");
+      setText("aboutText","Your story will appear here. Tell brands what you create, who you reach and what makes your content different.","");
+      setText("profileStatus","Profile not saved","Profile not saved");
+      setText("detailCategory","Not set","Not set");
+      setText("detailCity","Not set","Not set");
+      setText("detailSocials","0 added","0 added");
+      setText("detailStatus","Not saved","Not saved");
+      document.getElementById("avatar").className = "avatar avatar-placeholder";
+      document.getElementById("avatar").textContent = "B";
+      document.getElementById("socialLinks").replaceChildren();
+      fields.creator_name.value = "";
+      fields.creator_handle.value = "";
+      fields.category.value = "";
+      fields.bio.value = "";
+      fields.city.value = "";
+      fields.instagram_url.value = "";
+      fields.youtube_url.value = "";
+      fields.profile_image.value = "";
+      return;
+    }
+
     fields.creator_name.value = profile.creator_name || "";
     fields.creator_handle.value = profile.creator_handle || "";
     fields.category.value = profile.category || "";
-    fields.city.value = profile.city || "";
     fields.bio.value = profile.bio || "";
+    fields.city.value = profile.city || "";
     fields.instagram_url.value = profile.instagram_url || "";
     fields.youtube_url.value = profile.youtube_url || "";
     fields.profile_image.value = profile.profile_image || "";
 
-    document.getElementById("previewName").textContent =
-      profile.creator_name || "Creator";
-    document.getElementById("previewHandle").textContent =
-      profile.creator_handle ? "@" + profile.creator_handle : "";
-    document.getElementById("previewCategory").textContent =
-      "Category: " + (profile.category || "—");
-    document.getElementById("previewCity").textContent =
-      "City: " + (profile.city || "—");
-    document.getElementById("previewBio").textContent =
-      profile.bio || "No bio added yet.";
-    document.getElementById("previewStatus").textContent =
-      "Profile status: " + (profile.status || "saved");
-    document.getElementById("preview").style.display = "block";
+    setText("displayName",profile.creator_name,"Your Creator Name");
+    setText("displayHandle","@" + (profile.creator_handle || "yourhandle"),"@yourhandle");
+    setText("displayCategory",profile.category || "Choose your category","Choose your category");
+    setText("displayBio",profile.bio || "Add a short bio to introduce yourself.","Add a short bio to introduce yourself.");
+    setText("displayCity",profile.city ? "📍 " + profile.city : "📍 Add your city","📍 Add your city");
+    setText("aboutText",profile.bio || "Your creator story will appear here when you add a bio.","Your creator story will appear here.");
+    setText("profileStatus","✓ Profile saved","✓ Profile saved");
+    setText("detailCategory",profile.category,"Not set");
+    setText("detailCity",profile.city,"Not set");
+    setText("detailStatus",profile.status || "active","active");
+
+    const avatar = document.getElementById("avatar");
+    const imageUrl = safeHttpUrl(profile.profile_image || "");
+    avatar.replaceChildren();
+
+    if(imageUrl){
+      const img = document.createElement("img");
+      img.src = imageUrl;
+      img.alt = "Creator profile photo";
+      img.className = "avatar";
+      img.onerror = function(){
+        avatar.className = "avatar avatar-placeholder";
+        avatar.textContent = (profile.creator_name || "B").trim().charAt(0).toUpperCase();
+      };
+      avatar.className = "";
+      avatar.appendChild(img);
+      img.style.width = "100%";
+      img.style.height = "100%";
+      img.style.objectFit = "cover";
+      img.style.borderRadius = "23px";
+    }else{
+      avatar.className = "avatar avatar-placeholder";
+      avatar.textContent = (profile.creator_name || "B").trim().charAt(0).toUpperCase();
+    }
+
+    const links = document.getElementById("socialLinks");
+    links.replaceChildren();
+    let count = 0;
+
+    [
+      ["instagram_url","Instagram","◎"],
+      ["youtube_url","YouTube","▶"]
+    ].forEach(function(item){
+      const url = safeHttpUrl(profile[item[0]] || "");
+      if(!url) return;
+      const a = document.createElement("a");
+      a.className = "social-link";
+      a.href = url;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.textContent = item[2] + " " + item[1];
+      links.appendChild(a);
+      count++;
+    });
+
+    setText("detailSocials",count + (count === 1 ? " added" : " added"),"0 added");
+
+    const tags = document.getElementById("categoryTags");
+    tags.replaceChildren();
+    [profile.category,profile.city ? profile.city + " Creator" : "", "Open to Collaborations"]
+      .filter(Boolean).forEach(function(label){
+        const tag = document.createElement("span");
+        tag.className = "tag";
+        tag.textContent = label;
+        tags.appendChild(tag);
+      });
   }
 
-  async function loadProfile(){
-    loadButton.disabled = true;
-    loadButton.textContent = "Loading...";
-    showStatus("Loading your saved profile...", false);
+  async function loadProfile(showMessage){
+    reloadButton.disabled = true;
+    if(showMessage) showStatus("Loading your saved profile...",false);
 
     try{
-      const response = await fetch("/api/creator-profile", {
-        method: "GET",
-        credentials: "include",
-        cache: "no-store"
+      const response = await fetch("/api/creator-profile",{
+        method:"GET",
+        credentials:"include",
+        cache:"no-store"
       });
-      const result = await response.json();
 
+      let result;
+      try{ result = await response.json(); }
+      catch{ throw new Error("The server returned an unexpected response."); }
+
+      if(response.status === 401){
+        throw new Error("Please log in first, then return to this page.");
+      }
       if(!response.ok || !result.success){
-        throw new Error(result.error || "Could not load profile.");
+        throw new Error(result.error || "Could not load your profile.");
       }
 
-      if(!result.profile){
-        showStatus("No saved creator profile found yet. Complete the form and save it.", false);
-        document.getElementById("preview").style.display = "none";
-        return;
+      if(result.profile){
+        renderProfile(result.profile);
+        if(showMessage) showStatus("Your saved creator profile is loaded.",false);
+      }else{
+        renderProfile(null);
+        if(showMessage) showStatus("No saved profile yet. Fill in the form to create one.",false);
       }
-
-      showProfile(result.profile);
-      showStatus("Your saved creator profile loaded successfully.", false);
     }catch(error){
-      showStatus(error.message || "Could not load profile.", true);
+      showStatus(error.message || "Could not load your profile.",true);
     }finally{
-      loadButton.disabled = false;
-      loadButton.textContent = "Load Saved Profile";
+      reloadButton.disabled = false;
     }
   }
 
-  form.addEventListener("submit", async function(event){
+  form.addEventListener("submit",async function(event){
     event.preventDefault();
 
-    const data = getFormData();
+    const payload = {};
+    Object.keys(fields).forEach(function(key){
+      payload[key] = fields[key].value.trim();
+    });
 
-    if(!data.creator_name || !data.creator_handle || !data.category){
-      showStatus("Please complete the required fields.", true);
+    if(!payload.creator_name || !payload.creator_handle || !payload.category){
+      showStatus("Creator name, username and category are required.",true);
       return;
     }
 
+    if(payload.creator_handle.startsWith("@")){
+      payload.creator_handle = payload.creator_handle.replace(/^@+/,"");
+    }
+
+    for(const key of ["instagram_url","youtube_url","profile_image"]){
+      if(payload[key] && !safeHttpUrl(payload[key])){
+        showStatus("Please enter a valid HTTP or HTTPS URL for social links and profile photo.",true);
+        fields[key].focus();
+        return;
+      }
+    }
+
     saveButton.disabled = true;
-    saveButton.textContent = "Saving...";
-    showStatus("Saving your creator profile...", false);
+    saveButton.textContent = "Saving profile...";
+    showStatus("Saving your creator profile...",false);
 
     try{
-      const response = await fetch("/api/creator-profile", {
-        method: "POST",
-        credentials: "include",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(data)
+      const response = await fetch("/api/creator-profile",{
+        method:"POST",
+        credentials:"include",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(payload)
       });
 
-      const result = await response.json();
+      let result;
+      try{ result = await response.json(); }
+      catch{ throw new Error("The server returned an unexpected response."); }
 
+      if(response.status === 401){
+        throw new Error("Please log in first, then try saving your profile.");
+      }
       if(!response.ok || !result.success){
-        throw new Error(result.error || "Could not save profile.");
+        throw new Error(result.error || "Could not save your profile.");
       }
 
-      if(result.profile) showProfile(result.profile);
-      showStatus("Creator profile saved successfully!", false);
+      renderProfile(result.profile || payload);
+      showStatus("✓ Creator profile saved successfully!",false);
+      document.getElementById("profileCard").scrollIntoView({behavior:"smooth",block:"start"});
     }catch(error){
-      showStatus(error.message || "Could not save profile.", true);
+      showStatus(error.message || "Could not save your profile. Please try again.",true);
     }finally{
       saveButton.disabled = false;
       saveButton.textContent = "Save Creator Profile";
     }
   });
 
-  loadButton.addEventListener("click", loadProfile);
+  reloadButton.addEventListener("click",function(){
+    loadProfile(true);
+  });
+
+  document.getElementById("editProfileButton").addEventListener("click",function(){
+    document.getElementById("profileForm").scrollIntoView({behavior:"smooth",block:"start"});
+  });
+
+  loadProfile(false);
 })();
 </script>
 </body>
