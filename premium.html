@@ -1,923 +1,813 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Boostly Premium Plans</title>
-
-<meta name="description"
-content="Choose the Boostly plan that fits your business growth.">
+<meta name="theme-color" content="#f8f7ff">
+<title>Boostly Premium | Choose Your Growth Plan</title>
 
 <style>
+*{box-sizing:border-box;margin:0;padding:0}
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+:root{
+  --purple:#7047eb;
+  --purple-dark:#4f2bc0;
+  --purple-light:#eee9ff;
+  --cyan:#17bfd0;
+  --gold:#c49435;
+  --ink:#24223a;
+  --muted:#77758c;
+  --line:#eceaf5;
+  --white:#fff;
+  --bg:#f8f7ff;
+  --green:#16845b;
 }
 
+html{scroll-behavior:smooth}
 body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f7f8fc;
-  color:#171426;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse at 8% 0%,rgba(190,172,255,.20),transparent 34%),
+    radial-gradient(ellipse at 96% 16%,rgba(113,224,231,.14),transparent 28%),
+    var(--bg);
+  line-height:1.55;
   min-height:100vh;
 }
-
-a{
-  text-decoration:none;
-  color:inherit;
+button,a{-webkit-tap-highlight-color:transparent}
+button{font:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+button:focus-visible,a:focus-visible{
+  outline:3px solid var(--cyan);
+  outline-offset:4px;
 }
+.container{width:min(1160px,92%);margin:auto}
 
-/* =========================
-   HEADER
-========================= */
-
-header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:rgba(255,255,255,.95);
-  backdrop-filter:blur(15px);
-  border-bottom:1px solid #e8e8ef;
-}
-
+/* Navigation */
 .nav{
-  max-width:1200px;
-  margin:auto;
-  min-height:70px;
-  padding:0 20px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.logo{
-  font-size:25px;
-  font-weight:900;
-  letter-spacing:-1px;
-  color:#5b21b6;
-}
-
-.logo span{
-  color:#2563eb;
-}
-
-.nav-links{
-  display:flex;
-  gap:22px;
-  align-items:center;
-}
-
-.nav-links a{
-  font-size:14px;
-  font-weight:700;
-  color:#5d596b;
-}
-
-.nav-links a:hover{
-  color:#5b21b6;
-}
-
-.back-btn{
-  background:#171426;
-  color:#fff !important;
-  padding:10px 16px;
-  border-radius:12px;
-}
-
-/* =========================
-   HERO
-========================= */
-
-.hero{
-  max-width:900px;
-  margin:auto;
-  text-align:center;
-  padding:65px 20px 35px;
-}
-
-.badge{
-  display:inline-block;
-  padding:8px 14px;
-  border-radius:50px;
-  background:#eee8ff;
-  color:#6d28d9;
-  font-size:12px;
-  font-weight:800;
-  margin-bottom:18px;
-}
-
-.hero h1{
-  font-size:clamp(34px,7vw,58px);
-  line-height:1.05;
-  letter-spacing:-2px;
-  margin-bottom:18px;
-}
-
-.gradient{
-  background:linear-gradient(90deg,#6d28d9,#2563eb);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-}
-
-.hero p{
-  max-width:650px;
-  margin:auto;
-  color:#696579;
-  line-height:1.7;
-  font-size:16px;
-}
-
-/* =========================
-   CURRENT PLAN
-========================= */
-
-.current-box{
-  max-width:1000px;
-  margin:15px auto 30px;
-  padding:0 20px;
-}
-
-.current-inner{
-  background:#fff;
-  border:1px solid #e8e4f3;
-  border-radius:20px;
-  padding:18px 20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:15px;
-  box-shadow:0 10px 30px rgba(38,25,75,.05);
+  padding:20px 0;
 }
-
-.current-label{
-  color:#777185;
-  font-size:13px;
-  font-weight:700;
-}
-
-.current-plan{
-  margin-top:4px;
-  font-size:22px;
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:25px;
   font-weight:900;
+  letter-spacing:-1px;
+}
+.brand-mark{
+  width:43px;height:43px;
+  display:grid;place-items:center;
+  color:white;
+  border-radius:15px;
+  background:linear-gradient(135deg,#8e69ff,#5932d0);
+  box-shadow:0 8px 20px #7047eb35;
+  font-size:24px;
+}
+.brand span span{color:var(--purple)}
+.nav-links{display:flex;align-items:center;gap:10px}
+.nav-link{
+  padding:10px 15px;
+  border-radius:12px;
+  color:#65627a;
+  font-size:14px;
+  font-weight:750;
+}
+.nav-link:hover{background:#eee9ff;color:var(--purple)}
+.nav-cta{
+  background:var(--ink);
+  color:white;
+  border-radius:13px;
+  padding:12px 18px;
+  font-weight:800;
+  font-size:14px;
+}
+
+/* Hero */
+.hero{
+  position:relative;
+  overflow:hidden;
+  margin-top:15px;
+  padding:52px 34px;
+  border:1px solid #e9e2ff;
+  border-radius:30px;
+  background:linear-gradient(115deg,#fff 4%,#f5f0ff 57%,#edfcff 100%);
+  box-shadow:0 20px 65px #5140a00b;
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  width:250px;height:250px;
+  border:35px solid #a28aff17;
+  border-radius:50%;
+  right:-75px;top:-110px;
+}
+.hero:after{
+  content:"";
+  position:absolute;
+  width:120px;height:120px;
+  border-radius:35px;
+  background:#19c8d00d;
+  right:120px;bottom:-75px;
+  transform:rotate(28deg);
+}
+.hero-content{position:relative;z-index:1;max-width:780px}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 13px;
+  border-radius:999px;
+  color:#5b3acb;
+  background:#ece5ff;
+  border:1px solid #dfd4ff;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1.1px;
   text-transform:uppercase;
 }
-
-.status{
-  padding:8px 13px;
-  border-radius:50px;
-  background:#ecfdf3;
-  color:#087443;
-  font-size:12px;
-  font-weight:800;
+.eyebrow-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:#8b68f4;
+  box-shadow:0 0 0 4px #8b68f41c;
 }
+.hero h1{
+  margin-top:20px;
+  max-width:760px;
+  font-size:clamp(36px,6vw,66px);
+  line-height:1.04;
+  letter-spacing:-2.7px;
+  font-weight:950;
+}
+.gradient-text{
+  color:var(--purple);
+  background:linear-gradient(90deg,#6943e7,#a04ee5,#15aebe);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.hero p{
+  margin-top:17px;
+  max-width:620px;
+  font-size:17px;
+  color:#6c6982;
+  line-height:1.8;
+}
+.hero-points{
+  display:flex;flex-wrap:wrap;gap:10px;
+  margin-top:24px;
+}
+.hero-point{
+  display:flex;align-items:center;gap:8px;
+  background:#ffffffc9;
+  border:1px solid #e7e1f6;
+  border-radius:12px;
+  padding:10px 13px;
+  font-size:13px;font-weight:750;
+  color:#514d69;
+}
+.hero-point b{color:var(--green);font-size:16px}
 
-/* =========================
-   PLANS
-========================= */
-
-.plans{
-  max-width:1250px;
-  margin:auto;
-  padding:15px 20px 70px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
+/* Current plan */
+.status-card{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   gap:18px;
+  margin:24px 0 45px;
+  padding:21px 24px;
+  background:white;
+  border:1px solid var(--line);
+  border-radius:22px;
+  box-shadow:0 10px 32px #29204c08;
 }
-
-.card{
-  position:relative;
-  background:#fff;
-  border:1px solid #e5e3eb;
-  border-radius:24px;
-  padding:28px 22px;
-  box-shadow:0 12px 35px rgba(35,20,70,.06);
-  transition:.3s ease;
+.status-left{display:flex;align-items:center;gap:15px}
+.status-icon{
+  display:grid;place-items:center;
+  width:52px;height:52px;flex-shrink:0;
+  border-radius:17px;
+  background:linear-gradient(135deg,#eee8ff,#e6fbff);
+  font-size:24px;
 }
-
-.card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 20px 45px rgba(35,20,70,.12);
-}
-
-.card.pro{
-  border:2px solid #7c3aed;
-  box-shadow:0 15px 45px rgba(124,58,237,.14);
-}
-
-.card.business{
-  border:2px solid #2563eb;
-}
-
-.card.elite{
-  border:2px solid #c89b3c;
-}
-
-.popular{
-  position:absolute;
-  top:-12px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#7c3aed;
-  color:#fff;
-  padding:6px 13px;
-  border-radius:50px;
-  font-size:11px;
-  font-weight:900;
+.status-title{font-size:12px;font-weight:850;color:var(--muted);letter-spacing:.8px;text-transform:uppercase}
+.status-plan{font-size:21px;font-weight:900;line-height:1.35}
+.status-note{font-size:13px;color:var(--muted);margin-top:3px}
+.status-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  background:#e9f8f0;color:#16734f;
+  padding:9px 13px;border-radius:999px;
+  font-size:12px;font-weight:850;
   white-space:nowrap;
 }
-
-.plan-icon{
-  font-size:31px;
-  margin-bottom:12px;
+.status-pill:before{
+  content:"";width:7px;height:7px;border-radius:50%;background:#25a66e;
 }
 
-.plan-name{
-  font-size:24px;
-  font-weight:900;
+/* Section heading */
+.section-heading{text-align:center;margin-bottom:27px}
+.section-kicker{
+  font-size:12px;letter-spacing:2px;
+  color:var(--purple);font-weight:950;text-transform:uppercase;
+}
+.section-heading h2{
+  margin-top:9px;
+  font-size:clamp(30px,4.8vw,46px);
+  line-height:1.15;letter-spacing:-1.6px;font-weight:950;
+}
+.section-heading p{
+  margin:12px auto 0;max-width:590px;
+  color:var(--muted);font-size:15px;
 }
 
-.plan-desc{
-  color:#777185;
-  min-height:45px;
-  margin:8px 0 18px;
-  font-size:13px;
-  line-height:1.5;
+/* Plan cards */
+.plans{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:17px;
+  align-items:stretch;
 }
-
-.price{
-  font-size:31px;
-  font-weight:900;
-  margin-bottom:20px;
-}
-
-.price small{
-  font-size:12px;
-  color:#888;
-  font-weight:600;
-}
-
-.plan-btn{
-  width:100%;
-  border:0;
-  padding:13px 15px;
-  border-radius:13px;
-  font-size:14px;
-  font-weight:900;
-  cursor:pointer;
-  background:#171426;
-  color:#fff;
-}
-
-.pro .plan-btn{
-  background:linear-gradient(90deg,#7c3aed,#2563eb);
-}
-
-.business .plan-btn{
-  background:#2563eb;
-}
-
-.elite .plan-btn{
-  background:#b88928;
-}
-
-.plan-btn.current{
-  background:#e9e7ee;
-  color:#514c5d;
-  cursor:default;
-}
-
-/* =========================
-   FEATURES
-========================= */
-
-.features{
-  margin-top:23px;
-  padding-top:20px;
-  border-top:1px solid #eee;
-}
-
-.features h3{
-  font-size:13px;
-  margin-bottom:13px;
-}
-
-.features li{
-  list-style:none;
-  font-size:13px;
-  color:#555161;
-  margin:11px 0;
-  line-height:1.4;
-}
-
-.features li::before{
-  content:"✓";
-  color:#16a34a;
-  font-weight:900;
-  margin-right:8px;
-}
-
-/* =========================
-   INFO
-========================= */
-
-.info{
-  max-width:900px;
-  margin:0 auto 60px;
-  padding:0 20px;
-}
-
-.info-box{
+.plan-card{
+  position:relative;
+  display:flex;flex-direction:column;
+  min-width:0;
+  padding:24px 20px 21px;
   background:#fff;
-  border:1px solid #e7e3ef;
-  border-radius:22px;
-  padding:25px;
-  text-align:center;
+  border:1px solid #e9e6f3;
+  border-radius:23px;
+  box-shadow:0 12px 32px #2c1e5b08;
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
 }
-
-.info-box h2{
+.plan-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 20px 38px #2c1e5b12;
+  border-color:#cfc2ff;
+}
+.plan-card.featured{
+  border:2px solid var(--purple);
+  background:linear-gradient(180deg,#f7f3ff 0%,#fff 42%);
+  box-shadow:0 16px 38px #7047eb1b;
+}
+.plan-card.elite{
+  background:linear-gradient(180deg,#fffaf0 0%,#fff 42%);
+  border-color:#ead8ae;
+}
+.plan-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.plan-icon{
+  display:grid;place-items:center;
+  width:48px;height:48px;
+  border-radius:16px;
   font-size:23px;
-  margin-bottom:10px;
 }
-
-.info-box p{
-  color:#6d6878;
-  line-height:1.7;
-  font-size:14px;
+.free .plan-icon{background:#edf0f8}
+.pro .plan-icon{background:#eee7ff}
+.business .plan-icon{background:#e2faff}
+.elite .plan-icon{background:#fff0ce}
+.plan-label{
+  padding:6px 9px;border-radius:999px;
+  font-size:10px;font-weight:900;letter-spacing:.4px;
+  background:#f0eef7;color:#747087;
+  text-transform:uppercase;
 }
+.featured .plan-label{background:#7047eb;color:white}
+.elite .plan-label{background:#f5e5bc;color:#835e16}
+.plan-card h3{font-size:22px;font-weight:950;letter-spacing:-.5px;margin-top:19px}
+.plan-desc{font-size:12px;color:var(--muted);min-height:38px;margin-top:5px}
+.price-line{display:flex;align-items:baseline;gap:4px;margin:19px 0 5px}
+.currency{font-size:18px;font-weight:850}
+.price{font-size:35px;line-height:1;font-weight:950;letter-spacing:-1.4px}
+.price-period{font-size:11px;color:var(--muted);font-weight:650}
+.price-caption{min-height:20px;font-size:11px;color:#8a879b}
+.plan-divider{height:1px;background:#efedf5;margin:19px 0}
+.feature-heading{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.7px;color:#77738a;margin-bottom:13px}
+.feature-list{list-style:none;display:grid;gap:12px;margin-bottom:23px}
+.feature-list li{
+  display:flex;gap:9px;align-items:flex-start;
+  font-size:12px;color:#514e65;line-height:1.5;
+}
+.check{
+  display:grid;place-items:center;flex-shrink:0;
+  width:18px;height:18px;border-radius:50%;
+  background:#e4f7ed;color:#16845b;
+  font-size:11px;font-weight:950;margin-top:1px;
+}
+.plan-button{
+  width:100%;margin-top:auto;
+  min-height:47px;padding:12px 10px;
+  border:1px solid #e5e0f2;border-radius:13px;
+  color:#4f2bc0;background:#f4f0ff;
+  font-size:13px;font-weight:900;
+  transition:transform .15s,filter .15s;
+}
+.plan-button:hover{filter:brightness(.97);transform:translateY(-1px)}
+.plan-button.primary{
+  color:white;border-color:transparent;
+  background:linear-gradient(105deg,#7147eb,#9259e8);
+  box-shadow:0 8px 17px #7047eb29;
+}
+.plan-button.cyan{
+  color:#fff;border-color:transparent;
+  background:linear-gradient(105deg,#13aebe,#24cbd5);
+}
+.plan-button.gold{
+  color:#533c0e;border-color:transparent;
+  background:linear-gradient(105deg,#f4d994,#dfb85d);
+}
+.plan-button:disabled{opacity:.78;cursor:default;transform:none}
+.current-tag{
+  display:none;
+  font-size:10px;color:#16845b;
+  font-weight:900;text-align:center;margin-top:10px;
+}
+.plan-card.is-current{outline:2px solid #1eab78;outline-offset:2px}
+.plan-card.is-current .current-tag{display:block}
 
-/* =========================
-   TOAST
-========================= */
-
+/* More information */
+.why-section{padding:62px 0 50px}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;margin-top:25px}
+.why-card{
+  background:#fff;border:1px solid var(--line);
+  border-radius:20px;padding:24px;
+}
+.why-icon{
+  display:grid;place-items:center;width:46px;height:46px;
+  border-radius:15px;background:#f0eaff;font-size:22px;
+}
+.why-card:nth-child(2) .why-icon{background:#e4faff}
+.why-card:nth-child(3) .why-icon{background:#fff2d9}
+.why-card h3{font-size:17px;font-weight:900;margin-top:15px}
+.why-card p{font-size:13px;color:var(--muted);margin-top:7px;line-height:1.75}
+.faq{
+  margin:10px auto 55px;
+  max-width:850px;
+  padding:28px;
+  border-radius:23px;
+  border:1px solid #e8e3f4;
+  background:linear-gradient(130deg,#fff,#f5f1ff);
+}
+.faq h2{font-size:26px;font-weight:950;letter-spacing:-.6px;margin-bottom:16px}
+.faq-item{padding:15px 0;border-top:1px solid #eae5f4}
+.faq-item h3{font-size:14px;font-weight:850}
+.faq-item p{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.7}
+.footer{
+  text-align:center;padding:25px 0 35px;
+  color:#8a879b;font-size:12px;
+  border-top:1px solid #eae7f2;
+}
+.footer strong{color:#6251a0}
 .toast{
-  position:fixed;
-  left:50%;
-  bottom:25px;
-  transform:translateX(-50%) translateY(100px);
-  background:#171426;
-  color:#fff;
-  padding:13px 18px;
-  border-radius:12px;
-  font-size:13px;
-  font-weight:700;
-  opacity:0;
-  transition:.3s;
-  z-index:2000;
-  max-width:90%;
-  text-align:center;
+  position:fixed;z-index:1000;
+  left:50%;bottom:22px;transform:translate(-50%,20px);
+  width:max-content;max-width:calc(100% - 30px);
+  padding:14px 19px;border-radius:14px;
+  background:#27243b;color:#fff;
+  font-size:13px;font-weight:750;
+  box-shadow:0 15px 40px #211c3a35;
+  opacity:0;pointer-events:none;
+  transition:opacity .2s,transform .2s;
 }
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.loading{color:#77758c}
+.error-note{color:#b54747!important}
+.hidden{display:none!important}
 
-.toast.show{
-  transform:translateX(-50%) translateY(0);
-  opacity:1;
+@media(max-width:1000px){
+  .plans{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .plan-card{padding:25px}
+  .plan-desc{min-height:unset}
 }
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:950px){
-
-  .plans{
-    grid-template-columns:repeat(2,1fr);
-  }
-
+@media(max-width:600px){
+  .container{width:92%}
+  .nav{padding:14px 0}
+  .brand{font-size:22px}
+  .brand-mark{width:38px;height:38px;border-radius:13px}
+  .nav-links{gap:4px}
+  .nav-link{padding:9px 10px;font-size:12px}
+  .nav-cta{padding:10px 12px;font-size:12px}
+  .hero{padding:34px 21px;border-radius:24px;margin-top:8px}
+  .hero h1{font-size:clamp(37px,10vw,49px);letter-spacing:-1.8px}
+  .hero p{font-size:15px}
+  .hero-points{gap:8px}
+  .hero-point{font-size:11px;padding:9px 10px}
+  .status-card{padding:16px;margin:18px 0 37px;align-items:flex-start}
+  .status-left{gap:11px}
+  .status-icon{width:44px;height:44px;border-radius:14px;font-size:20px}
+  .status-plan{font-size:18px}
+  .status-pill{font-size:10px;padding:8px 9px}
+  .section-heading h2{font-size:34px}
+  .section-heading p{font-size:13px}
+  .plans{gap:11px}
+  .plan-card{padding:16px 13px;border-radius:19px}
+  .plan-icon{width:40px;height:40px;font-size:20px;border-radius:13px}
+  .plan-label{font-size:8px;padding:5px 7px}
+  .plan-card h3{font-size:20px;margin-top:15px}
+  .plan-desc{font-size:11px}
+  .price-line{margin:16px 0 5px;gap:2px}
+  .price{font-size:29px}
+  .currency{font-size:15px}
+  .price-period{font-size:10px}
+  .price-caption{font-size:10px}
+  .plan-divider{margin:15px 0}
+  .feature-heading{font-size:9px}
+  .feature-list{gap:10px}
+  .feature-list li{font-size:11px;gap:6px}
+  .check{width:16px;height:16px;font-size:10px}
+  .plan-button{font-size:11px;padding:11px 6px;min-height:46px}
+  .why-section{padding:45px 0 35px}
+  .why-grid{grid-template-columns:1fr;gap:12px}
+  .why-card{padding:20px}
+  .faq{padding:21px;margin-bottom:38px}
+  .faq h2{font-size:23px}
 }
-
-@media(max-width:650px){
-
-  .nav{
-    min-height:62px;
-  }
-
-  .logo{
-    font-size:22px;
-  }
-
-  .nav-links a:not(.back-btn){
-    display:none;
-  }
-
-  .hero{
-    padding:45px 18px 28px;
-  }
-
-  .hero h1{
-    font-size:38px;
-  }
-
-  .hero p{
-    font-size:14px;
-  }
-
-  .current-inner{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .plans{
-    grid-template-columns:1fr;
-    padding-left:15px;
-    padding-right:15px;
-  }
-
-  .card{
-    padding:25px 20px;
-  }
-
+@media(max-width:360px){
+  .plans{grid-template-columns:1fr}
+  .plan-card{padding:23px}
+  .plan-card h3{font-size:23px}
+  .price{font-size:35px}
+  .feature-list li{font-size:13px}
+  .plan-button{font-size:13px}
+  .status-card{flex-direction:column}
 }
-
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important}
+}
 </style>
 </head>
 
 <body>
-
-<header>
-
-  <div class="nav">
-
-    <a href="index.html" class="logo">
-      Boost<span>ly</span>
+<header class="container">
+  <nav class="nav" aria-label="Main navigation">
+    <a class="brand" href="index.html" aria-label="Boostly home">
+      <span class="brand-mark">✦</span>
+      <span>boost<span>ly</span></span>
     </a>
-
     <div class="nav-links">
-
-      <a href="dashboard.html">
-        Dashboard
-      </a>
-
-      <a href="explore.html">
-        Explore
-      </a>
-
-      <a href="business.html?business_id=1">
-        Profile
-      </a>
-
-      <a href="dashboard.html" class="back-btn">
-        Back
-      </a>
-
+      <a class="nav-link" href="dashboard.html">Dashboard</a>
+      <a class="nav-cta" href="index.html">Home ↗</a>
     </div>
-
-  </div>
-
+  </nav>
 </header>
 
-
-<section class="hero">
-
-  <div class="badge">
-    🚀 BOOSTLY PREMIUM
-  </div>
-
-  <h1>
-    Choose your
-    <span class="gradient">
-      growth plan
-    </span>
-  </h1>
-
-  <p>
-    Unlock advanced tools, analytics, creator collaborations,
-    campaigns and premium growth features as your business grows.
-  </p>
-
-</section>
-
-
-<section class="current-box">
-
-  <div class="current-inner">
-
-    <div>
-
-      <div class="current-label">
-        YOUR CURRENT PLAN
+<main class="container">
+  <section class="hero">
+    <div class="hero-content">
+      <div class="eyebrow"><span class="eyebrow-dot"></span> BOOSTLY GROWTH PLANS</div>
+      <h1>Give your business<br>the <span class="gradient-text">growth it deserves.</span></h1>
+      <p>
+        Discover tools built for local businesses and creators.
+        Choose a plan that fits your goals and get ready to grow with Boostly.
+      </p>
+      <div class="hero-points">
+        <div class="hero-point"><b>✓</b> Simple plan options</div>
+        <div class="hero-point"><b>✓</b> Built for business growth</div>
+        <div class="hero-point"><b>✓</b> Mobile-friendly experience</div>
       </div>
+    </div>
+  </section>
 
-      <div id="currentPlan" class="current-plan">
-        Loading...
+  <section class="status-card" aria-live="polite">
+    <div class="status-left">
+      <div class="status-icon">✧</div>
+      <div>
+        <div class="status-title">Your current membership</div>
+        <div class="status-plan" id="currentPlan">Checking your plan...</div>
+        <div class="status-note" id="planStatus">Connecting to your Boostly account.</div>
       </div>
+    </div>
+    <div class="status-pill" id="statusPill">Checking</div>
+  </section>
 
+  <section id="plans">
+    <div class="section-heading">
+      <div class="section-kicker">Find your fit</div>
+      <h2>Choose your growth plan</h2>
+      <p>Start with what you need today. Explore the plan options below as your business grows.</p>
     </div>
 
-    <div id="planStatus" class="status">
-      Checking...
-    </div>
+    <div class="plans">
+      <article class="plan-card free" data-plan="free">
+        <div class="plan-top">
+          <div class="plan-icon">🌱</div>
+          <span class="plan-label">Starter</span>
+        </div>
+        <h3>Free</h3>
+        <p class="plan-desc">A simple starting point for your Boostly journey.</p>
+        <div class="price-line">
+          <span class="currency">₹</span><span class="price">0</span>
+        </div>
+        <div class="price-caption">Free to get started</div>
+        <div class="plan-divider"></div>
+        <div class="feature-heading">Plan highlights</div>
+        <ul class="feature-list">
+          <li><span class="check">✓</span><span>Business profile access</span></li>
+          <li><span class="check">✓</span><span>Explore Boostly features</span></li>
+          <li><span class="check">✓</span><span>Basic platform access</span></li>
+          <li><span class="check">✓</span><span>Standard growth tools</span></li>
+        </ul>
+        <button class="plan-button" type="button" data-select="free">Current free option</button>
+        <div class="current-tag">✓ YOUR CURRENT PLAN</div>
+      </article>
 
+      <article class="plan-card pro" data-plan="pro">
+        <div class="plan-top">
+          <div class="plan-icon">⚡</div>
+          <span class="plan-label">Level up</span>
+        </div>
+        <h3>Pro</h3>
+        <p class="plan-desc">For businesses ready to explore more growth tools.</p>
+        <div class="price-line">
+          <span class="price" style="font-size:27px">Coming Soon</span>
+        </div>
+        <div class="price-caption">Pricing will be announced</div>
+        <div class="plan-divider"></div>
+        <div class="feature-heading">Planned highlights</div>
+        <ul class="feature-list">
+          <li><span class="check">✓</span><span>Pro-level growth tools</span></li>
+          <li><span class="check">✓</span><span>More business insights</span></li>
+          <li><span class="check">✓</span><span>Enhanced visibility options</span></li>
+          <li><span class="check">✓</span><span>Future Pro features</span></li>
+        </ul>
+        <button class="plan-button primary" type="button" data-select="pro">Explore Pro</button>
+        <div class="current-tag">✓ YOUR CURRENT PLAN</div>
+      </article>
+
+      <article class="plan-card business featured" data-plan="business">
+        <div class="plan-top">
+          <div class="plan-icon">🚀</div>
+          <span class="plan-label">Popular choice</span>
+        </div>
+        <h3>Business</h3>
+        <p class="plan-desc">Designed for ambitious businesses focused on growth.</p>
+        <div class="price-line">
+          <span class="price" style="font-size:27px">Coming Soon</span>
+        </div>
+        <div class="price-caption">Pricing will be announced</div>
+        <div class="plan-divider"></div>
+        <div class="feature-heading">Planned highlights</div>
+        <ul class="feature-list">
+          <li><span class="check">✓</span><span>Advanced growth options</span></li>
+          <li><span class="check">✓</span><span>Campaign tools when launched</span></li>
+          <li><span class="check">✓</span><span>Deeper business insights</span></li>
+          <li><span class="check">✓</span><span>Future business features</span></li>
+        </ul>
+        <button class="plan-button cyan" type="button" data-select="business">Explore Business</button>
+        <div class="current-tag">✓ YOUR CURRENT PLAN</div>
+      </article>
+
+      <article class="plan-card elite" data-plan="elite">
+        <div class="plan-top">
+          <div class="plan-icon">👑</div>
+          <span class="plan-label">Premium</span>
+        </div>
+        <h3>Elite</h3>
+        <p class="plan-desc">A future premium experience for bigger ambitions.</p>
+        <div class="price-line">
+          <span class="price" style="font-size:27px">Coming Soon</span>
+        </div>
+        <div class="price-caption">Pricing will be announced</div>
+        <div class="plan-divider"></div>
+        <div class="feature-heading">Planned highlights</div>
+        <ul class="feature-list">
+          <li><span class="check">✓</span><span>Premium growth options</span></li>
+          <li><span class="check">✓</span><span>Advanced campaign capabilities</span></li>
+          <li><span class="check">✓</span><span>Expanded insights in future</span></li>
+          <li><span class="check">✓</span><span>Future Elite features</span></li>
+        </ul>
+        <button class="plan-button gold" type="button" data-select="elite">Explore Elite</button>
+        <div class="current-tag">✓ YOUR CURRENT PLAN</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="why-section">
+    <div class="section-heading">
+      <div class="section-kicker">Made for your next step</div>
+      <h2>More than just a plan</h2>
+      <p>Boostly is being built to help businesses discover useful tools as they grow.</p>
+    </div>
+    <div class="why-grid">
+      <article class="why-card">
+        <div class="why-icon">🎯</div>
+        <h3>Growth-focused</h3>
+        <p>Plan options are designed around the needs of local businesses and creators.</p>
+      </article>
+      <article class="why-card">
+        <div class="why-icon">📊</div>
+        <h3>Built to improve</h3>
+        <p>More insights and growth capabilities can be introduced as new features launch.</p>
+      </article>
+      <article class="why-card">
+        <div class="why-icon">🤝</div>
+        <h3>Clear and simple</h3>
+        <p>See which plan is active on your account without confusing upgrade messages.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h2>Good to know</h2>
+    <div class="faq-item">
+      <h3>Are the paid plans available right now?</h3>
+      <p>Not yet. Pro, Business and Elite are shown as upcoming plans. Selecting them here will not charge you or upgrade your account.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Will clicking a plan activate it?</h3>
+      <p>No. This page does not process payments or activate paid subscriptions. Paid upgrades will need a proper payment and account-verification flow before launch.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Why can't I see my current plan?</h3>
+      <p>Sign in to the account connected to your business. If the plan still cannot load, check your connection and try again.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <strong>✦ Boostly</strong> — Built for business growth.
+    <div style="margin-top:6px">Paid plans are upcoming and are not currently available for purchase.</div>
   </div>
+</footer>
 
-</section>
-
-
-<section class="plans">
-
-
-  <!-- FREE -->
-
-  <article class="card">
-
-    <div class="plan-icon">🆓</div>
-
-    <div class="plan-name">
-      Free
-    </div>
-
-    <div class="plan-desc">
-      Start building your business presence on Boostly.
-    </div>
-
-    <div class="price">
-      ₹0
-      <small>/ forever</small>
-    </div>
-
-    <button
-      id="freeBtn"
-      class="plan-btn"
-      onclick="selectPlan('free')">
-      Current Plan
-    </button>
-
-    <div class="features">
-
-      <h3>Includes</h3>
-
-      <ul>
-
-        <li>Basic Business Profile</li>
-
-        <li>Basic Boost Posts</li>
-
-        <li>Basic Boost Reels</li>
-
-        <li>Basic Editor</li>
-
-        <li>Basic Analytics</li>
-
-      </ul>
-
-    </div>
-
-  </article>
-
-
-  <!-- PRO -->
-
-  <article class="card pro">
-
-    <div class="popular">
-      MOST POPULAR
-    </div>
-
-    <div class="plan-icon">✨</div>
-
-    <div class="plan-name">
-      Pro
-    </div>
-
-    <div class="plan-desc">
-      Unlock advanced tools and start growing faster.
-    </div>
-
-    <div class="price">
-      Coming Soon
-    </div>
-
-    <button
-      id="proBtn"
-      class="plan-btn"
-      onclick="selectPlan('pro')">
-      Upgrade to Pro
-    </button>
-
-    <div class="features">
-
-      <h3>Everything in Free +</h3>
-
-      <ul>
-
-        <li>Advanced Editor</li>
-
-        <li>Premium Filters & Effects</li>
-
-        <li>Advanced Analytics</li>
-
-        <li>Audience Insights</li>
-
-        <li>Promotion Campaigns</li>
-
-        <li>Creator Collaboration</li>
-
-        <li>Profile Boost</li>
-
-        <li>Verification Request</li>
-
-        <li>Premium Templates</li>
-
-      </ul>
-
-    </div>
-
-  </article>
-
-
-  <!-- BUSINESS -->
-
-  <article class="card business">
-
-    <div class="plan-icon">👑</div>
-
-    <div class="plan-name">
-      Business
-    </div>
-
-    <div class="plan-desc">
-      Advanced marketing and creator campaign tools.
-    </div>
-
-    <div class="price">
-      Coming Soon
-    </div>
-
-    <button
-      id="businessBtn"
-      class="plan-btn"
-      onclick="selectPlan('business')">
-      Upgrade to Business
-    </button>
-
-    <div class="features">
-
-      <h3>Everything in Pro +</h3>
-
-      <ul>
-
-        <li>Advanced Campaign Targeting</li>
-
-        <li>Creator Marketplace</li>
-
-        <li>Conversion Tracking</li>
-
-        <li>Multiple Campaigns</li>
-
-        <li>Advanced Reports</li>
-
-        <li>Priority Discovery</li>
-
-      </ul>
-
-    </div>
-
-  </article>
-
-
-  <!-- ELITE -->
-
-  <article class="card elite">
-
-    <div class="plan-icon">💎</div>
-
-    <div class="plan-name">
-      Elite
-    </div>
-
-    <div class="plan-desc">
-      Maximum growth tools for serious businesses.
-    </div>
-
-    <div class="price">
-      Coming Soon
-    </div>
-
-    <button
-      id="eliteBtn"
-      class="plan-btn"
-      onclick="selectPlan('elite')">
-      Upgrade to Elite
-    </button>
-
-    <div class="features">
-
-      <h3>Everything in Business +</h3>
-
-      <ul>
-
-        <li>Premium Placement</li>
-
-        <li>Advanced Creator Campaigns</li>
-
-        <li>Advanced Conversion Analytics</li>
-
-        <li>Priority Support</li>
-
-        <li>AI Growth Tools</li>
-
-      </ul>
-
-    </div>
-
-  </article>
-
-
-</section>
-
-
-<section class="info">
-
-  <div class="info-box">
-
-    <h2>
-      🔵 Boostly Verification
-    </h2>
-
-    <p>
-      Paid plans can unlock eligibility to request verification.
-      A paid plan does not automatically grant a verified badge.
-      Verification is subject to Boostly review and approval.
-    </p>
-
-  </div>
-
-</section>
-
-
-<div id="toast" class="toast"></div>
-
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
+(() => {
+  "use strict";
 
-const BUSINESS_ID = 1;
+  const currentPlanEl = document.getElementById("currentPlan");
+  const planStatusEl = document.getElementById("planStatus");
+  const statusPillEl = document.getElementById("statusPill");
+  const toastEl = document.getElementById("toast");
 
+  let activePlan = null;
+  let toastTimer = null;
 
-/* =========================
-   TOAST
-========================= */
+  function showToast(message) {
+    toastEl.textContent = message;
+    toastEl.classList.add("show");
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove("show"), 3200);
+  }
 
-function showToast(message){
+  function displayPlanName(code) {
+    const names = {
+      free: "Free Plan",
+      pro: "Pro Plan",
+      business: "Business Plan",
+      elite: "Elite Plan"
+    };
+    return names[String(code || "").toLowerCase()] || "Your Boostly Plan";
+  }
 
-  const toast =
-    document.getElementById("toast");
+  function updatePlanButtons(code) {
+    document.querySelectorAll(".plan-card").forEach(card => {
+      const cardPlan = card.dataset.plan;
+      const button = card.querySelector("[data-select]");
+      const isCurrent = cardPlan === code;
 
-  toast.textContent = message;
+      card.classList.toggle("is-current", isCurrent);
 
-  toast.classList.add("show");
+      if (!button) return;
 
-  setTimeout(() => {
+      if (isCurrent) {
+        button.textContent = "✓ Current Plan";
+        button.disabled = true;
+      } else {
+        button.disabled = false;
+        const labels = {
+          free: "Choose Free",
+          pro: "Explore Pro",
+          business: "Explore Business",
+          elite: "Explore Elite"
+        };
+        button.textContent = labels[cardPlan] || "View Plan";
+      }
+    });
+  }
 
-    toast.classList.remove("show");
+  async function loadCurrentPlan() {
+    currentPlanEl.textContent = "Checking your plan...";
+    planStatusEl.textContent = "Connecting to your Boostly account.";
+    statusPillEl.textContent = "Checking";
 
-  }, 3000);
+    try {
+      const businessResponse = await fetch("/api/my-business", {
+        method: "GET",
+        credentials: "include",
+        cache: "no-store",
+        headers: { "Accept": "application/json" }
+      });
 
-}
+      let businessData = {};
+      try {
+        businessData = await businessResponse.json();
+      } catch (_) {
+        throw new Error("Business information could not be read.");
+      }
 
+      if (!businessResponse.ok) {
+        if (businessResponse.status === 401) {
+          throw new Error("Please sign in to check your current plan.");
+        }
+        if (businessResponse.status === 404) {
+          throw new Error("No business profile was found for this account.");
+        }
+        throw new Error(businessData.error || businessData.message || "Could not load your business.");
+      }
 
-/* =========================
-   LOAD PLAN
-========================= */
+      const business = businessData.business || businessData;
+      const businessId = Number(business.id);
 
-async function loadPlan(){
+      if (!Number.isInteger(businessId) || businessId < 1) {
+        throw new Error("Your business ID could not be verified.");
+      }
 
-  try{
-
-    const response =
-      await fetch(
-        `/api/plan?business_id=${BUSINESS_ID}`,
+      const planResponse = await fetch(
+        "/api/plan?business_id=" + encodeURIComponent(businessId) + "&_=" + Date.now(),
         {
-          cache:"no-store"
+          method: "GET",
+          credentials: "include",
+          cache: "no-store",
+          headers: { "Accept": "application/json" }
         }
       );
 
-    const data =
-      await response.json();
+      let planData = {};
+      try {
+        planData = await planResponse.json();
+      } catch (_) {
+        throw new Error("Plan information could not be read.");
+      }
 
-    if(!data.success){
+      if (!planResponse.ok || planData.success === false) {
+        throw new Error(planData.error || planData.message || "Could not load your current plan.");
+      }
 
-      throw new Error(
-        data.error || "Unable to load plan"
-      );
+      const code = String(planData.plan && planData.plan.code || "").toLowerCase();
 
+      if (!["free", "pro", "business", "elite"].includes(code)) {
+        throw new Error("The current plan information is incomplete.");
+      }
+
+      activePlan = code;
+      currentPlanEl.textContent = displayPlanName(code);
+      planStatusEl.textContent = "Your plan information was loaded from your business account.";
+      statusPillEl.textContent = "Plan Loaded";
+      updatePlanButtons(code);
+
+    } catch (error) {
+      activePlan = null;
+      currentPlanEl.textContent = "Plan unavailable";
+      planStatusEl.textContent = error && error.message
+        ? error.message
+        : "We could not verify your plan. Please try again.";
+      planStatusEl.classList.add("error-note");
+      statusPillEl.textContent = "Not Verified";
+
+      document.querySelectorAll(".plan-card").forEach(card => {
+        card.classList.remove("is-current");
+        const button = card.querySelector("[data-select]");
+        if (button) {
+          button.disabled = false;
+          const labels = {
+            free: "View Free Plan",
+            pro: "Explore Pro",
+            business: "Explore Business",
+            elite: "Explore Elite"
+          };
+          button.textContent = labels[card.dataset.plan] || "View Plan";
+        }
+      });
     }
-
-
-    const plan =
-      (data.plan?.code || "free")
-      .toLowerCase();
-
-
-    document.getElementById(
-      "currentPlan"
-    ).textContent =
-      plan;
-
-
-    document.getElementById(
-      "planStatus"
-    ).textContent =
-      "ACTIVE";
-
-
-    updateButtons(plan);
-
-
-  }catch(error){
-
-    console.error(error);
-
-    document.getElementById(
-      "currentPlan"
-    ).textContent =
-      "FREE";
-
-
-    document.getElementById(
-      "planStatus"
-    ).textContent =
-      "ACTIVE";
-
   }
 
-}
+  document.querySelectorAll("[data-select]").forEach(button => {
+    button.addEventListener("click", () => {
+      const selectedPlan = button.dataset.select;
 
+      if (selectedPlan === activePlan) {
+        showToast("This plan is already active on your account.");
+        return;
+      }
 
-/* =========================
-   UPDATE BUTTONS
-========================= */
+      if (selectedPlan === "free") {
+        showToast("The Free plan is available. Your account plan has not been changed.");
+        return;
+      }
 
-function updateButtons(currentPlan){
-
-  const plans = [
-    "free",
-    "pro",
-    "business",
-    "elite"
-  ];
-
-
-  plans.forEach(plan => {
-
-    const button =
-      document.getElementById(
-        plan + "Btn"
+      showToast(
+        displayPlanName(selectedPlan) +
+        " is coming soon. No payment was taken and your plan was not changed."
       );
-
-    if(!button) return;
-
-
-    if(plan === currentPlan){
-
-      button.textContent =
-        "✓ Current Plan";
-
-      button.classList.add(
-        "current"
-      );
-
-      button.onclick = null;
-
-    }
-
+    });
   });
 
-}
-
-
-/* =========================
-   PLAN ACTION
-========================= */
-
-function selectPlan(plan){
-
-  if(plan === "free"){
-
-    showToast(
-      "You are already using the Free plan."
-    );
-
-    return;
-
-  }
-
-
-  showToast(
-    plan.toUpperCase() +
-    " subscription will be available soon."
-  );
-
-}
-
-
-/* =========================
-   START
-========================= */
-
-loadPlan();
-
+  loadCurrentPlan();
+})();
 </script>
-
 </body>
 </html>
