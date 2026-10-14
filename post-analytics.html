@@ -526,7 +526,10 @@ body[data-theme="8"]{--bg:#171126;--surface:#221936;--surface2:#302247;--text:#f
     $("#shares").textContent = formatNumber(stats.shares);
 
     const rate = engagementRate(stats);
-    $("#engagement").textContent = rate.toFixed(2) + "%";
+  // Engagement value is displayed in the hero section.
+if ($("#heroEngagement")) {
+  $("#heroEngagement").textContent = rate.toFixed(2) + "%";
+}
     $("#heroEngagement").textContent = rate.toFixed(2) + "%";
   }
 
@@ -774,55 +777,60 @@ body[data-theme="8"]{--bg:#171126;--surface:#221936;--surface2:#302247;--text:#f
   }
 
   async function loadContent() {
-    if (state.loading) return;
-    state.loading = true;
-    $("#refreshBtn").disabled = true;
-    $("#refreshBtn").textContent = "Loading…";
-    $("#postsGrid").innerHTML = '<div class="loading">Loading your content…</div>';
+  if (state.loading) return;
 
-    /*
-      These endpoints are attempted only as read requests.
-      The page does not create, delete, like, or boost content.
-      If your project uses different API routes, update them to match your existing backend.
-    */
-    const endpoints = ["/api/my-business", "/api/boost-post"];
-    let received = [];
-    let lastError = null;
+  state.loading = true;
 
-    for (const endpoint of endpoints) {
-      try {
-        const response = await fetch(endpoint, {
-          method: "GET",
-          headers: { "Accept": "application/json" },
-          credentials: "same-origin",
-          cache: "no-store"
-        });
+  const refreshBtn = $("#refreshBtn");
+  const postsGrid = $("#postsGrid");
 
-        if (!response.ok) {
-          lastError = new Error(`${endpoint}: HTTP ${response.status}`);
-          continue;
-        }
+  if (refreshBtn) {
+    refreshBtn.disabled = true;
+    refreshBtn.textContent = "Loading…";
+  }
 
-        const data = await response.json();
+  if (postsGrid) {
+    postsGrid.innerHTML = `
+      <div class="loading">Loading your content…</div>
+    `;
+  }
 
-        if (endpoint === "/api/my-business" && data && typeof data === "object") {
-          const business = data.business || data.data || data;
-          if (business && typeof business === "object") {
-            state.businessId = business.id ?? business.business_id ?? state.businessId;
-          }
-        }
+  try {
+    const response = await fetch("/api/post-analytics", {
+      method: "GET",
+      headers: {
+        "Accept": "application/json"
+      },
+      credentials: "same-origin",
+      cache: "no-store"
+    });
 
-        const items = extractArray(data);
-        if (items.length) received = received.concat(items);
-      } catch (error) {
-        lastError = error;
-      }
+    if (!response.ok) {
+      throw new Error(
+        "Analytics API returned HTTP " + response.status
+      );
     }
 
+    const data = await response.json();
+
+    if (!data || data.success !== true) {
+      throw new Error(
+        data?.error || "Unable to load analytics data."
+      );
+    }
+
+    const items = Array.isArray(data.posts)
+      ? data.posts
+      : [];
+
     const unique = new Map();
-    received.forEach((item, index) => {
+
+    items.forEach((item, index) => {
       const post = normalisePost(item, index);
-      if (!unique.has(post.id)) unique.set(post.id, post);
+
+      if (!unique.has(post.id)) {
+        unique.set(post.id, post);
+      }
     });
 
     state.posts = Array.from(unique.values());
@@ -830,17 +838,38 @@ body[data-theme="8"]{--bg:#171126;--surface:#221936;--surface2:#302247;--text:#f
 
     renderAll();
 
-    if (state.posts.length) {
-      showToast(`Loaded ${state.posts.length} content item(s).`);
+    if (state.posts.length > 0) {
+      showToast(
+        `Loaded ${state.posts.length} content item(s).`
+      );
     } else {
-      showToast("No content data was returned. Check your API response or endpoint.");
-      if (lastError) console.warn("Boostly analytics data could not be loaded:", lastError);
+      showToast(
+        "No posts were returned for your account."
+      );
     }
 
+  } catch (error) {
+    console.error(
+      "Boostly analytics loading error:",
+      error
+    );
+
+    state.posts = [];
+    renderAll();
+
+    showToast(
+      "Analytics could not load. Check your login and API."
+    );
+
+  } finally {
     state.loading = false;
-    $("#refreshBtn").disabled = false;
-    $("#refreshBtn").textContent = "↻ Refresh";
+
+    if (refreshBtn) {
+      refreshBtn.disabled = false;
+      refreshBtn.textContent = "↻ Refresh";
+    }
   }
+}
 
   function exportCSV() {
     const posts = filteredPosts();
