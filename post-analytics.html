@@ -421,31 +421,126 @@ body[data-theme="8"]{--bg:#171126;--surface:#221936;--surface2:#302247;--text:#f
     showToast.timer = setTimeout(() => toast.classList.remove("show"), 3000);
   }
 
-  function normalisePost(item, index) {
-    const source = item && typeof item === "object" ? item : {};
-    const rawType = textValue(source.type || source.content_type || source.format || "post").toLowerCase();
-    let type = "post";
-    if (rawType.includes("reel")) type = "reel";
-    else if (rawType.includes("video")) type = "video";
+  
+function normalisePost(item, index) {
+  const source = item && typeof item === "object" ? item : {};
 
-    const stats = source.analytics && typeof source.analytics === "object"
-      ? source.analytics
-      : source.stats && typeof source.stats === "object" ? source.stats : {};
+  const rawType = textValue(
+    source.type ||
+    source.post_type ||
+    source.content_type ||
+    source.format ||
+    "post"
+  ).toLowerCase();
 
-    return {
-      id: textValue(source.id ?? source.post_id ?? source.uuid ?? `content-${index}`),
-      title: textValue(source.title || source.name || ""),
-      caption: textValue(source.caption || source.description || source.content || source.text || ""),
-      type,
-      date: source.created_at || source.createdAt || source.published_at || source.date || "",
-      views: number(source.views ?? source.view_count ?? stats.views),
-      likes: number(source.likes ?? source.like_count ?? stats.likes),
-      comments: number(source.comments ?? source.comment_count ?? stats.comments),
-      shares: number(source.shares ?? source.share_count ?? stats.shares),
-      url: textValue(source.url || source.post_url || ""),
-      image: textValue(source.image_url || source.thumbnail_url || source.image || "")
-    };
+  let type = "post";
+
+  if (rawType.includes("reel")) {
+    type = "reel";
+  } else if (rawType.includes("video")) {
+    type = "video";
   }
+
+  const stats =
+    source.analytics && typeof source.analytics === "object"
+      ? source.analytics
+      : source.stats && typeof source.stats === "object"
+        ? source.stats
+        : {};
+
+  return {
+    id: textValue(
+      source.id ??
+      source.post_id ??
+      source.uuid ??
+      `content-${index}`
+    ),
+
+    title: textValue(
+      source.title ||
+      source.name ||
+      ""
+    ),
+
+    caption: textValue(
+      source.caption ||
+      source.description ||
+      source.content ||
+      source.text ||
+      ""
+    ),
+
+    type,
+
+    date:
+      source.created_at ||
+      source.createdAt ||
+      source.published_at ||
+      source.date ||
+      "",
+
+    views: number(
+      source.views ??
+      source.views_count ??
+      source.view_count ??
+      stats.views ??
+      stats.views_count ??
+      0
+    ),
+
+    likes: number(
+      source.likes ??
+      source.likes_count ??
+      source.like_count ??
+      stats.likes ??
+      stats.likes_count ??
+      0
+    ),
+
+    comments: number(
+      source.comments ??
+      source.comments_count ??
+      source.comment_count ??
+      stats.comments ??
+      stats.comments_count ??
+      0
+    ),
+
+    shares: number(
+      source.shares ??
+      source.shares_count ??
+      source.share_count ??
+      stats.shares ??
+      stats.shares_count ??
+      0
+    ),
+
+    saves: number(
+      source.saves ??
+      source.saves_count ??
+      source.save_count ??
+      stats.saves ??
+      stats.saves_count ??
+      0
+    ),
+
+    url: textValue(
+      source.url ||
+      source.post_url ||
+      source.media_url ||
+      ""
+    ),
+
+    image: textValue(
+      source.thumbnail_url ||
+      source.image_url ||
+      source.image ||
+      source.media_url ||
+      ""
+    )
+  };
+}
+
 
   function extractArray(data) {
     if (Array.isArray(data)) return data;
