@@ -590,3 +590,196 @@ function renderPosts() {
             <label class="compare-select">
               <input type="checkbox" data-compare-id="${escapeHTML(post.id)}"
                 ${state.selected.has(post.id) ? "
+
+const comments=p=>num(p.comments_count,p.comment_count,p.comments);
+const shares=p=>num(p.shares_count,p.share_count,p.shares);
+const engagement=p=>likes(p)+comments(p)+shares(p);
+const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function normalisePost(item,index){
+ const p=item&&typeof item==='object'?item:{};
+ const rawType=String(p.type||p.content_type||p.format||'post').toLowerCase();
+ const type=rawType.includes('reel')?'reel':rawType.includes('video')?'video':'post';
+ return {...p,_id:String(p.id??p.post_id??index),_type:type,_caption:String(p.caption||p.content||p.text||p.description||'Untitled post'),_date:getDate(p),_views:views(p),_likes:likes(p),_comments:comments(p),_shares:shares(p),_image:p.image_url||p.media_url||p.thumbnail_url||p.image||p.thumbnail||''};
+}
+function showToast(message){
+ const el=$('toast');if(!el)return;
+ el.textContent=message;el.classList.add('show');
+ clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>el.classList.remove('show'),2600);
+}
+async function fetchJSON(url){
+ const response=await fetch(url,{credentials:'include',cache:'no-store',headers:{'Accept':'application/json'}});
+ let data;try{data=await response.json()}catch{throw new Error('Server se valid JSON response nahi mila.')}
+ if(!response.ok||data.success===false)throw new Error(data.error||data.message||'Request failed ('+response.status+')');
+ return data;
+}
+async function loadAnalytics(){
+ const button=$('refreshBtn');if(button){button.disabled=true;button.textContent='↻ Loading…'}
+ $('connectionStatus').innerHTML='<span class="dot"></span> Connecting to your data…';
+ loadError='';
+ try{
+  const businessData=await fetchJSON('/api/my-business');
+  const business=businessData.business||businessData.data||businessData.myBusiness||businessData;
+  businessId=business.id||business.business_id||businessData.business_id||null;
+  if(!businessId)throw new Error('Business profile nahi mila. Login karke business profile check karo.');
+  const postData=await fetchJSON('/api/boost-post?business_id='+encodeURIComponent(businessId)+'&_='+Date.now());
+  let list=Array.isArray(postData)?postData:(postData.posts||postData.data||postData.items||[]);
+  if(!Array.isArray(list))list=[];
+  allPosts=list.map(normalisePost).filter(p=>p._id!=='undefined');
+  $('connectionStatus').innerHTML='<span class="dot"></span> Connected · '+allPosts.length+' posts';
+ }catch(error){
+  loadError=error.message||'Analytics data load nahi ho saka.';
+  $('connectionStatus').innerHTML='<span style="color:var(--bad)">●</span> Data connection issue';
+  allPosts=[];
+  showToast(loadError);
+ }
+ renderOverview();renderPosts();renderInsights();renderAudience();
+ if(button){button.disabled=false;button.textContent='↻ Refresh data'}
+}
+function inRange(p){
+ if(!selectedDays)return true;
+ if(!p._date)return false;
+ return Date.now()-p._date.getTime()<=selectedDays*86400000&&p._date.getTime()<=Date.now();
+}
+function getRangePosts(){return allPosts.filter(inRange)}
+function renderOverview(){
+ const list=getRangePosts();
+ const totals=list.reduce((a,p)=>({views:a.views+p._views,likes:a.likes+p._likes,comments:a.comments+p._comments,shares:a.shares+p._shares}),{views:0,likes:0,comments:0,shares:0});
+ $('totalViews').textContent=compact(totals.views);
+ $('totalLikes').textContent=compact(totals.likes);
+ $('totalComments').textContent=compact(totals.comments);
+ $('totalShares').textContent=compact(totals.shares);
+ $('viewsFoot').textContent=list.length+' posts included in this range';
+ $('rangeCaption').textContent=selectedDays?'Last '+selectedDays+' days · dated posts only':'All available posts · lifetime totals';
+ const actions=totals.likes+totals.comments+totals.shares;
+ const rate=totals.views>0?(actions/totals.views*100):null;
+ $('engagementNote').textContent=rate===null?'Engagement rate unavailable: no usable view count was returned.':'Combined actions / views: '+rate.toFixed(2)+'%. This is a simple rate, not a unique-user rate.';
+ const items=[['Likes',totals.likes],['Comments',totals.comments],['Shares',totals.shares]];
+ const max=Math.max(1,...items.map(x=>x[1]));
+ $('engagementBreakdown').innerHTML=items.map(([name,value])=>'<div class="break-row"><span class="name">'+name+'</span><div class="track"><div class="fill" style="width:'+(value/max*100)+'%"></div></div><b>'+fmt(value)+'</b></div>').join('')+
+ '<div class="break-row"><span class="name">Rate</span><div class="track"><div class="fill" style="width:'+Math.min(100,rate||0)+'%"></div></div><b>'+(rate===null?'—':rate.toFixed(1)+'%')+'</b></div>';
+ renderTrend(list);renderGoal(totals.views);
+}
+function renderTrend(list){
+ const el=$('trendChart');
+ const dated=list.filter(p=>p._date);
+ if(!dated.length){el.innerHTML='<div class="chart-empty">Trend ke liye dated posts ka data available nahi hai.<br>Post dates milne par chart yahan dikhega.</div>';return}
+ const days=selectedDays||30,now=new Date(),points=[];
+ for(let i=Math.min(days,30)-1;i>=0;i--){
+  const day=new Date(now);day.setHours(0,0,0,0);day.setDate(day.getDate()-i);
+  const key=day.toISOString().slice(0,10);
+  const matches=dated.filter(p=>p._date.toISOString().slice(0,10)===key);
+  points.push({key,label:day.toLocaleDateString('en-IN',{day:'numeric',month:'short'}),value:matches.reduce((s,p)=>s+p._views,0)});
+ }
+ const max=Math.max(1,...points.map(p=>p.value)),w=600,h=220,pad=26;
+ const coords=points.map((p,i)=>({x:pad+i*(w-pad*2)/Math.max(1,points.length-1),y:h-pad-(p.value/max)*(h-pad*2)}));
+ const line=coords.map((p,i)=>(i?'L':'M')+p.x.toFixed(1)+' '+p.y.toFixed(1)).join(' ');
+ const area=line+' L '+coords[coords.length-1].x+' '+(h-pad)+' L '+coords[0].x+' '+(h-pad)+' Z';
+ el.innerHTML='<svg viewBox="0 0 '+w+' '+h+'" role="img" aria-label="Views per post date">'+[0,.25,.5,.75,1].map(v=>'<line class="chart-grid" x1="'+pad+'" x2="'+(w-pad)+'" y1="'+(h-pad-v*(h-pad*2))+'" y2="'+(h-pad-v*(h-pad*2))+'"/>').join('')+'<path class="chart-area" d="'+area+'"/><path class="chart-line" d="'+line+'"/>'+coords.map((p,i)=>'<circle cx="'+p.x+'" cy="'+p.y+'" r="3.5" fill="var(--accent)"><title>'+points[i].label+': '+fmt(points[i].value)+' views</title></circle>').join('')+points.filter((p,i)=>i===0||i===points.length-1||i===Math.floor(points.length/2)).map(p=>'<text class="chart-label" x="'+coords[points.indexOf(p)].x+'" y="'+(h-5)+'" text-anchor="middle">'+p.label+'</text>').join('')+'</svg>';
+}
+function renderInsights(){
+ const list=getRangePosts();
+ const top=[...list].sort((a,b)=>b._views-a._views)[0];
+ const mostLiked=[...list].sort((a,b)=>b._likes-a._likes)[0];
+ const highest=[...list].sort((a,b)=>(b._views?engagement(b)/b._views:0)-(a._views?engagement(a)/a._views:0))[0];
+ const cards=[];
+ if(loadError)cards.push(['⚠️','Data connection needs attention',loadError,'CHECK CONNECTION']);
+ else if(!list.length)cards.push(['✧','Publish your first post','Your post insights will appear when Boostly returns published content.','GET STARTED']);
+ if(top)cards.push(['🏆','Most viewed content','“'+escapeHTML(top._caption.slice(0,90))+'” has '+fmt(top._views)+' views. Review its topic and format for ideas.','TOP VIEWS']);
+ if(mostLiked&&mostLiked._likes>0)cards.push(['♡','Audience response','Your most-liked post has '+fmt(mostLiked._likes)+' likes. Compare its caption and creative with other posts.','TOP LIKES']);
+ if(highest&&engagement(highest)>0)cards.push(['✦','Engagement to learn from','“'+escapeHTML(highest._caption.slice(0,70))+'” has the strongest actions-to-views ratio among posts with views.','COMPARE']);
+ if(cards.length<3)cards.push(['◷','Check post timing','Keep posting dates accurate to make the date filters and trend chart more useful.','DATA TIP']);
+ if(cards.length<3)cards.push(['↗','Try a clear call to action','Invite viewers to comment, save, or share when it fits your post. Then compare the results.','NEXT ACTION']);
+ $('insightsGrid').innerHTML=cards.slice(0,3).map(c=>'<article class="insight"><div class="emoji">'+c[0]+'</div><h4>'+c[1]+'</h4><p>'+c[2]+'</p><span class="tag">'+c[3]+'</span></article>').join('');
+}
+function renderPosts(){
+ let list=getRangePosts();
+ const search=$('postSearch').value.trim().toLowerCase();
+ if(selectedType!=='all')list=list.filter(p=>p._type===selectedType);
+ if(search)list=list.filter(p=>(p._caption+' '+p._type).toLowerCase().includes(search));
+ const sort=$('sortSelect').value;
+ list.sort((a,b)=>sort==='likes'?b._likes-a._likes:sort==='engagement'?((b._views?engagement(b)/b._views:0)-(a._views?engagement(a)/a._views:0)):sort==='newest'?(b._date?.getTime()||0)-(a._date?.getTime()||0):sort==='oldest'?(a._date?.getTime()||0)-(b._date?.getTime()||0):b._views-a._views);
+ filteredPosts=list;
+ $('postCountText').textContent=list.length+' posts shown · '+getRangePosts().length+' in selected date range';
+ if(!list.length){$('postsGrid').innerHTML='<div class="empty">'+escapeHTML(loadError||'Is filter mein koi post nahi mili.')+'<br>Refresh data dabakar dobara try karo.</div>';return}
+ $('postsGrid').innerHTML=list.map(p=>{
+  const img=p._image?'<img src="'+escapeHTML(p._image)+'" alt="Post media" loading="lazy" onerror="this.parentElement.textContent=\'▧\'">':(p._type==='reel'?'▶':p._type==='video'?'▷':'▧');
+  const rate=p._views?((engagement(p)/p._views)*100).toFixed(1)+'%':'—';
+  return '<article class="post-card"><div class="post-thumb">'+img+'</div><div class="post-body"><div class="post-type">'+escapeHTML(p._type)+(p._date?' · '+p._date.toLocaleDateString('en-IN'):'')+'</div><div class="post-caption">'+escapeHTML(p._caption)+'</div><div class="post-stats"><div class="post-stat"><span>Views</span><b>'+fmt(p._views)+'</b></div><div class="post-stat"><span>Likes</span><b>'+fmt(p._likes)+'</b></div><div class="post-stat"><span>Comments</span><b>'+fmt(p._comments)+'</b></div><div class="post-stat"><span>Shares</span><b>'+fmt(p._shares)+'</b></div></div><div class="score-line"><span>Actions / views</span><span class="score">'+rate+'</span></div><div class="post-actions"><button class="btn small" data-compare="'+escapeHTML(p._id)+'">□ Compare</button><button class="btn small" data-copy="'+escapeHTML(p._id)+'">Copy stats</button></div></div></article>';
+ }).join('');
+}
+function renderAudience(){
+ const dated=allPosts.filter(p=>p._date);
+ const hours={};
+ dated.forEach(p=>{const h=p._date.getHours();hours[h]=(hours[h]||0)+1});
+ const best=Object.entries(hours).sort((a,b)=>b[1]-a[1])[0];
+ $('audienceInfo').innerHTML='<div class="break-row"><span class="name">Post hour</span><div class="small-text muted">'+(best?'Most dated posts are at '+String(best[0]).padStart(2,'0')+':00':'Not enough timestamp data yet')+'</div><b>'+(best?best[1]+' posts':'—')+'</b></div><div class="break-row"><span class="name">Audience</span><div class="small-text muted">Age, location and gender are not provided by this feed response.</div><b>—</b></div>';
+}
+function renderGoal(current){
+ $('goalCurrent').textContent=compact(current);
+ $('goalTarget').textContent=fmt(goal);
+ const pct=Math.min(100,current/Math.max(1,goal)*100);
+ $('goalFill').style.width=pct+'%';
+ $('goalCaption').textContent=pct>=100?'Goal reached! Set a higher target when ready.':pct.toFixed(1)+'% of your view goal reached.';
+}
+function exportCSV(){
+ const rows=[['Post ID','Type','Caption','Date','Views','Likes','Comments','Shares','Actions per view']];
+ getRangePosts().forEach(p=>rows.push([p._id,p._type,p._caption,p._date?p._date.toISOString():'',p._views,p._likes,p._comments,p._shares,p._views?(engagement(p)/p._views*100).toFixed(2)+'%':'']));
+ const csv=rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+ const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='boostly-post-analytics.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+ showToast('CSV export ready');
+}
+$('dateFilters').addEventListener('click',e=>{
+ const button=e.target.closest('button[data-days]');if(!button)return;
+ selectedDays=Number(button.dataset.days)||0;
+ $('dateFilters').querySelectorAll('button').forEach(b=>b.classList.toggle('active',b===button));
+ renderOverview();renderPosts();renderInsights();renderAudience();
+});
+$('typeFilters').addEventListener('click',e=>{
+ const button=e.target.closest('button[data-type]');if(!button)return;
+ selectedType=button.dataset.type;
+ $('typeFilters').querySelectorAll('button').forEach(b=>b.classList.toggle('active',b===button));
+ renderPosts();
+});
+$('refreshBtn').addEventListener('click',loadAnalytics);
+$('exportBtn').addEventListener('click',exportCSV);
+$('postSearch').addEventListener('input',renderPosts);
+$('sortSelect').addEventListener('change',renderPosts);
+$('themeDock').addEventListener('click',e=>{
+ const button=e.target.closest('button[data-theme]');if(!button)return;
+ document.body.dataset.theme=button.dataset.theme;
+ $('themeDock').querySelectorAll('button').forEach(b=>b.classList.toggle('active',b===button));
+});
+$('themeNext').addEventListener('click',()=>{
+ const current=Number(document.body.dataset.theme||1),next=current%8+1;
+ document.body.dataset.theme=String(next);
+ $('themeDock').querySelectorAll('button').forEach(b=>b.classList.toggle('active',Number(b.dataset.theme)===next));
+});
+$('saveGoal').addEventListener('click',()=>{
+ const value=Number($('goalInput').value);
+ if(!Number.isFinite(value)||value<1){showToast('Target 1 ya usse zyada rakho.');return}
+ goal=value;renderGoal(getRangePosts().reduce((s,p)=>s+p._views,0));showToast('Growth goal updated');
+});
+$('postsGrid').addEventListener('click',async e=>{
+ const compare=e.target.closest('[data-compare]');
+ if(compare){
+  const id=compare.dataset.compare;
+  const post=filteredPosts.find(p=>p._id===id);
+  if(!post)return;
+  const text='Post: '+post._caption+'\nViews: '+post._views+'\nLikes: '+post._likes+'\nComments: '+post._comments+'\nShares: '+post._shares;
+  if(navigator.clipboard&&navigator.clipboard.writeText){try{await navigator.clipboard.writeText(text);showToast('Post stats copied')}catch{showToast(text)}}else showToast(text);
+  return;
+ }
+ const copy=e.target.closest('[data-copy]');
+ if(copy){
+  const p=filteredPosts.find(item=>item._id===copy.dataset.copy);if(!p)return;
+  const text='Boostly Post Analytics\n'+p._caption+'\nViews: '+p._views+'\nLikes: '+p._likes+'\nComments: '+p._comments+'\nShares: '+p._shares;
+  try{if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(text);showToast('Stats copied')}else{window.prompt('Copy post stats:',text)}}catch{window.prompt('Copy post stats:',text)}
+ }
+});
+loadAnalytics();
+})();
+</script>
+</body>
+</html>
