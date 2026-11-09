@@ -198,25 +198,43 @@ textarea{min-height:92px;resize:vertical;line-height:1.55}
 <div class="panelhead"><div><h2>✧ &nbsp; Campaign playbook</h2><p>Small steps for a stronger plan.</p></div></div>
 
 <div class="tips">
-<div class="tip" role="button" tabindex="0" aria-expanded="false" data-playbook="goal">
-<div class="tipicon">◎</div>
-<div><b>Pick one clear goal</b><p>Choose the main outcome you want instead of trying to do everything at once.</p></div>
-</div>
 
-<div class="tip" role="button" tabindex="0" aria-expanded="false" data-playbook="budget">
-<div class="tipicon">₹</div>
-<div><b>Set a realistic budget</b><p>Record your planned amount. Saving a draft does not charge you.</p></div>
-</div>
+  <div class="tip" role="button" tabindex="0"
+       aria-expanded="false" data-playbook="goal">
+    <div class="tipicon">◎</div>
+    <div>
+      <b>Pick one clear goal</b>
+      <p>Choose the main outcome you want instead of trying to do everything at once.</p>
+    </div>
+  </div>
 
-<div class="tip" role="button" tabindex="0" aria-expanded="false" data-playbook="audience">
-<div class="tipicon">⌖</div>
-<div><b>Know your audience</b><p>Add a location or customer group to keep the idea focused.</p></div>
-</div>
+  <div class="tip" role="button" tabindex="0"
+       aria-expanded="false" data-playbook="budget">
+    <div class="tipicon">₹</div>
+    <div>
+      <b>Set a realistic budget</b>
+      <p>Record your planned amount. Saving a draft does not charge you.</p>
+    </div>
+  </div>
 
-<div class="tip" role="button" tabindex="0" aria-expanded="false" data-playbook="offer">
-<div class="tipicon">✎</div>
-<div><b>Make the offer specific</b><p>Describe the value and action you want customers to take.</p></div>
-</div>
+  <div class="tip" role="button" tabindex="0"
+       aria-expanded="false" data-playbook="audience">
+    <div class="tipicon">⌖</div>
+    <div>
+      <b>Know your audience</b>
+      <p>Add a location or customer group to keep the idea focused.</p>
+    </div>
+  </div>
+
+  <div class="tip" role="button" tabindex="0"
+       aria-expanded="false" data-playbook="offer">
+    <div class="tipicon">✎</div>
+    <div>
+      <b>Make the offer specific</b>
+      <p>Describe the value and action you want customers to take.</p>
+    </div>
+  </div>
+
 </div>
 
 <div class="locked">🔒 <div><b>Live promotion tools</b><p>Campaign delivery, ad payments and live performance require their own verified backend and payment integrations. Saving a campaign here does not activate them.</p></div></div>
@@ -679,6 +697,66 @@ document.querySelectorAll("[data-playbook]").forEach(card=>{
 });
 
 // LOAD CAMPAIGNS
+ // ==========================================
+// CAMPAIGN PLAYBOOK INTERACTIONS
+// ==========================================
+
+const campaignPlaybookDetails = {
+  goal: "Choose one primary result first. For example, more enquiries, more store visits or better brand awareness. A focused goal makes it easier to judge whether your campaign is successful.",
+
+  budget: "Decide how much you can comfortably spend. Keep the budget realistic and divide it across your campaign duration. Saving a campaign plan does not charge you.",
+
+  audience: "Think about the customers most likely to need your product or service. Add a relevant location, customer group or age range to make your campaign more focused.",
+
+  offer: "Explain exactly what you are offering, why it is valuable and what customers should do next. A clear offer is easier for customers to understand."
+};
+
+function campaignPlaybookToggle(card) {
+  const key = card.dataset.playbook;
+  const details = campaignPlaybookDetails[key];
+
+  if (!details) return;
+
+  const alreadyOpen = card.getAttribute("aria-expanded") === "true";
+
+  document.querySelectorAll("[data-playbook]").forEach(item => {
+    item.setAttribute("aria-expanded", "false");
+
+    const oldDetails = item.querySelector(".playbook-extra");
+    if (oldDetails) oldDetails.remove();
+  });
+
+  if (alreadyOpen) return;
+
+  const extra = document.createElement("p");
+  extra.className = "playbook-extra";
+  extra.textContent = details;
+
+  extra.style.cssText =
+    "margin:10px 0 2px 45px;padding:11px 12px;" +
+    "border-left:2px solid #e8c36e;" +
+    "border-radius:0 9px 9px 0;" +
+    "background:#e8c36e0c;" +
+    "color:#e8dfcc;" +
+    "font-size:11px;" +
+    "line-height:1.7;";
+
+  card.appendChild(extra);
+  card.setAttribute("aria-expanded", "true");
+}
+
+document.querySelectorAll("[data-playbook]").forEach(card => {
+  card.addEventListener("click", () => {
+    campaignPlaybookToggle(card);
+  });
+
+  card.addEventListener("keydown", event => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      campaignPlaybookToggle(card);
+    }
+  });
+});
 loadCampaigns(false);
 
 })();
