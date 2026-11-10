@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#100d0d">
+<title>Campaign Center | Boostly</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#100d0d;
+  --panel:rgba(32,25,25,.82);
+  --panel2:rgba(43,31,30,.76);
+  --line:rgba(255,255,255,.09);
+  --text:#fff8f4;
+  --muted:#b9aaa4;
+  --orange:#ff8a38;
+  --coral:#ff624f;
+  --gold:#ffc16c;
+  --green:#48d6a0;
+  --red:#ff6474;
+  --shadow:0 22px 65px rgba(0,0,0,.32);
+}
+
+body{
+  min-height:100vh;
+  color:var(--text);
+  background:
+    radial-gradient(ellipse at 12% 0%,rgba(255,112,55,.17),transparent 32%),
+    radial-gradient(ellipse at 88% 12%,rgba(255,76,79,.12),transparent 30%),
+    linear-gradient(145deg,#100d0d,#171010 55%,#100d0d);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+.page{
+  width:min(1420px,100%);
+  margin:auto;
+  padding:24px 30px 60px;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:14px 18px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:rgba(27,21,20,.76);
+  backdrop-filter:blur(18px);
+  box-shadow:var(--shadow);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-size:19px;
+  font-weight:900;
+  letter-spacing:1.3px;
+}
+
+.brand-mark{
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  color:#21100a;
+  font-weight:1000;
+  background:linear-gradient(135deg,#ffc16c,#ff7048);
+  box-shadow:0 7px 24px rgba(255,111,57,.25);
+}
+
+.brand small{
+  display:block;
+  margin-top:2px;
+  color:var(--muted);
+  font-size:9px;
+  letter-spacing:3px;
+}
+
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.nav a,.nav button{
+  padding:10px 13px;
+  border:1px solid transparent;
+  border-radius:11px;
+  color:#d7c9c2;
+  background:transparent;
+  font-size:12px;
+  font-weight:750;
+  transition:.2s;
+}
+
+.nav a:hover,.nav button:hover,.nav .current{
+  color:#fff;
+  border-color:rgba(255,138,56,.24);
+  background:rgba(255,138,56,.10);
+}
+
+.nav .refresh{
+  color:#21100a;
+  border:0;
+  background:linear-gradient(120deg,#ffc16c,#ff784c);
+}
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  margin-top:26px;
+  padding:38px;
+  border:1px solid rgba(255,150,91,.19);
+  border-radius:28px;
+  background:
+    radial-gradient(circle at 85% 20%,rgba(255,119,61,.19),transparent 32%),
+    linear-gradient(120deg,rgba(49,31,27,.97),rgba(28,21,21,.95));
+  box-shadow:var(--shadow);
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  width:280px;
+  height:280px;
+  right:-100px;
+  bottom:-180px;
+  border-radius:50%;
+  border:1px solid rgba(255,170,100,.2);
+  box-shadow:0 0 0 25px rgba(255,170,100,.025),0 0 0 55px rgba(255,170,100,.02);
+}
+
+.eyebrow{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:#ffb47c;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+
+.eyebrow:before{
+  content:"";
+  width:24px;
+  height:2px;
+  background:var(--orange);
+  border-radius:4px;
+}
+
+.hero h1{
+  max-width:720px;
+  margin-top:17px;
+  font-size:clamp(34px,5vw,59px);
+  line-height:1.04;
+  letter-spacing:-2px;
+  font-weight:950;
+}
+
+.hero h1 span{
+  color:#ff9a57;
+}
+
+.hero p{
+  max-width:620px;
+  margin-top:15px;
+  color:#c9b8b0;
+  font-size:14px;
+  line-height:1.8;
+}
+
+.hero-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:25px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:43px;
+  padding:11px 17px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  color:var(--text);
+  background:rgba(255,255,255,.045);
+  font-size:12px;
+  font-weight:850;
+  transition:.2s;
+}
+
+.btn:hover{transform:translateY(-2px);filter:brightness(1.12)}
+
+.btn-primary{
+  color:#241108;
+  border:0;
+  background:linear-gradient(120deg,#ffc16c,#ff794d);
+  box-shadow:0 9px 25px rgba(255,113,57,.19);
+}
+
+.btn-soft{
+  color:#ffb47c;
+  border-color:rgba(255,138,56,.25);
+  background:rgba(255,138,56,.08);
+}
+
+.overview{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:14px;
+  margin-top:20px;
+}
+
+.metric{
+  position:relative;
+  overflow:hidden;
+  min-height:132px;
+  padding:20px;
+  border:1px solid var(--line);
+  border-radius:19px;
+  background:linear-gradient(145deg,rgba(48,36,33,.83),rgba(28,23,22,.87));
+  box-shadow:0 12px 30px rgba(0,0,0,.17);
+}
+
+.metric:after{
+  content:"";
+  position:absolute;
+  width:90px;
+  height:90px;
+  right:-35px;
+  bottom:-45px;
+  border-radius:50%;
+  background:rgba(255,128,65,.09);
+  filter:blur(3px);
+}
+
+.metric-label{
+  color:#bbaaa2;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+}
+
+.metric-value{
+  margin-top:17px;
+  font-size:31px;
+  font-weight:950;
+  letter-spacing:-1px;
+}
+
+.metric-note{
+  margin-top:5px;
+  color:#8f817b;
+  font-size:10px;
+}
+
+.section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:15px;
+  margin:34px 0 17px;
+}
+
+.section-head h2{
+  font-size:24px;
+  font-weight:950;
+  letter-spacing:-.7px;
+}
+
+.section-head p{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.toolbar{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:17px;
+  background:rgba(34,26,25,.76);
+}
+
+.field-control{
+  min-height:42px;
+  padding:10px 13px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:11px;
+  outline:none;
+  color:var(--text);
+  background:#211a19;
+  font-size:12px;
+}
+
+.field-control:focus{
+  border-color:rgba(255,146,79,.6);
+  box-shadow:0 0 0 3px rgba(255,146,79,.09);
+}
+
+.field-control::placeholder{color:#85756e}
+
+.search-control{
+  flex:1;
+  min-width:190px;
+}
+
+select.field-control option{
+  color:#fff;
+  background:#211a19;
+}
+
+.campaign-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+  margin-top:17px;
+}
+
+.campaign-card{
+  position:relative;
+  overflow:hidden;
+  padding:21px;
+  border:1px solid var(--line);
+  border-radius:21px;
+  background:linear-gradient(145deg,rgba(43,33,31,.93),rgba(27,22,21,.96));
+  box-shadow:0 15px 35px rgba(0,0,0,.19);
+  transition:.22s;
+}
+
+.campaign-card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(255,145,78,.29);
+}
+
+.card-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+}
+
+.campaign-title{
+  font-size:18px;
+  font-weight:900;
+  line-height:1.3;
+  overflow-wrap:anywhere;
+}
+
+.campaign-goal{
+  margin-top:6px;
+  color:#b9a69e;
+  font-size:11px;
+}
+
+.status{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  flex-shrink:0;
+  padding:7px 10px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:30px;
+  color:#d8c9c1;
+  background:rgba(255,255,255,.045);
+  font-size:10px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+.status:before{
+  content:"";
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#aaa;
+}
+
+.status.active{color:#70e6b5;border-color:rgba(72,214,160,.22);background:rgba(72,214,160,.08)}
+.status.active:before{background:#48d6a0}
+.status.paused{color:#ffc16c;border-color:rgba(255,193,108,.2);background:rgba(255,193,108,.07)}
+.status.paused:before{background:#ffc16c}
+.status.completed{color:#a9baff;border-color:rgba(130,155,255,.2);background:rgba(130,155,255,.07)}
+.status.completed:before{background:#8da4ff}
+.status.draft:before{background:#aaa}
+.status.open,.status.published{color:#70e6b5}
+
+.campaign-description{
+  min-height:38px;
+  margin-top:15px;
+  color:#bbaea7;
+  font-size:12px;
+  line-height:1.65;
+  overflow-wrap:anywhere;
+}
+
+.campaign-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:15px;
+}
+
+.meta-chip{
+  padding:7px 9px;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:9px;
+  color:#d7c5bb;
+  background:rgba(255,255,255,.035);
+  font-size:10px;
+}
+
+.meta-chip strong{color:#ffbd83}
+
+.card-stats{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
+  margin-top:18px;
+  padding-top:17px;
+  border-top:1px solid var(--line);
+}
+
+.stat-value{
+  font-size:19px;
+  font-weight:950;
+  overflow-wrap:anywhere;
+}
+
+.stat-label{
+  margin-top:5px;
+  color:#968780;
+  font-size:9px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+.card-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+
+.created-date{
+  color:#8f817b;
+  font-size:10px;
+}
+
+.card-actions{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.mini-btn{
+  padding:8px 10px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:9px;
+  color:#e9d9d0;
+  background:rgba(255,255,255,.045);
+  font-size:10px;
+  font-weight:850;
+}
+
+.mini-btn:hover{border-color:rgba(255,145,78,.4);color:#ffbd83}
+.mini-btn.danger:hover{border-color:rgba(255,100,116,.4);color:#ff8490}
+
+.empty-state{
+  grid-column:1/-1;
+  padding:55px 20px;
+  border:1px dashed rgba(255,255,255,.15);
+  border-radius:20px;
+  color:#b9aaa4;
+  text-align:center;
+  background:rgba(255,255,255,.025);
+}
+
+.empty-state strong{
+  display:block;
+  margin-bottom:9px;
+  color:#fff1e8;
+  font-size:19px;
+}
+
+.notice{
+  margin-top:17px;
+  padding:12px 14px;
+  border:1px solid rgba(255,193,108,.15);
+  border-radius:12px;
+  color:#c6b3a7;
+  background:rgba(255,193,108,.045);
+  font-size:11px;
+  line-height:1.6;
+}
+
+.toast{
+  position:fixed;
+  z-index:1000;
+  left:50%;
+  bottom:24px;
+  max-width:calc(100% - 30px);
+  padding:13px 18px;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:12px;
+  color:#fff;
+  background:#30231f;
+  box-shadow:var(--shadow);
+  font-size:12px;
+  font-weight:750;
+  opacity:0;
+  pointer-events:none;
+  transform:translate(-50%,15px);
+  transition:.25s;
+}
+
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.modal-backdrop{
+  position:fixed;
+  z-index:500;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.76);
+  backdrop-filter:blur(8px);
+}
+
+.modal-backdrop.show{display:flex}
+
+.modal{
+  width:min(620px,100%);
+  max-height:92vh;
+  overflow:auto;
+  padding:25px;
+  border:1px solid rgba(255,145,78,.2);
+  border-radius:22px;
+  background:linear-gradient(145deg,#30221e,#1b1716);
+  box-shadow:0 30px 100px rgba(0,0,0,.6);
+}
+
+.modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.modal-head h2{
+  font-size:22px;
+  font-weight:950;
+}
+
+.close-btn{
+  width:36px;
+  height:36px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  color:#fff;
+  background:rgba(255,255,255,.06);
+  font-size:20px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.form-group{min-width:0}
+.form-group.full{grid-column:1/-1}
+
+.form-group label{
+  display:block;
+  margin-bottom:7px;
+  color:#d9c8be;
+  font-size:11px;
+  font-weight:850;
+}
+
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;
+  min-height:43px;
+  padding:11px 12px;
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:10px;
+  outline:none;
+  color:#fff;
+  background:#211a19;
+  font-size:12px;
+}
+
+.form-group textarea{
+  min-height:92px;
+  resize:vertical;
+}
+
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+  border-color:rgba(255,145,78,.6);
+}
+
+.form-group input::placeholder,.form-group textarea::placeholder{color:#88776f}
+
+.form-group select option{background:#211a19;color:#fff}
+
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:20px;
+}
+
+.loading{
+  padding:40px 15px;
+  color:#c3b2a8;
+  text-align:center;
+  font-size:13px;
+}
+
+@media(max-width:1000px){
+  .overview{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+@media(max-width:700px){
+  .page{padding:13px 13px 40px}
+  .topbar{align-items:flex-start;flex-direction:column;padding:14px}
+  .nav{justify-content:flex-start;width:100%}
+  .nav a,.nav button{padding:9px 10px;font-size:11px}
+  .hero{padding:27px 21px;border-radius:21px}
+  .hero h1{letter-spacing:-1.3px}
+  .overview{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .metric{min-height:112px;padding:15px}
+  .metric-value{font-size:26px}
+  .campaign-list{grid-template-columns:1fr}
+  .section-head{align-items:flex-start;flex-direction:column}
+  .toolbar{align-items:stretch}
+  .toolbar>*{width:100%}
+  .search-control{min-width:0}
+  .card-stats{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:15px}
+}
+
+@media(max-width:420px){
+  .form-grid{grid-template-columns:1fr}
+  .form-group.full{grid-column:auto}
+  .card-top{align-items:flex-start}
+  .campaign-title{font-size:16px}
+  .hero h1{font-size:35px}
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <header class="topbar">
+    <a class="brand" href="/dashboard.html">
+      <span class="brand-mark">B</span>
+      <span>BOOSTLY<small>CAMPAIGN CENTER</small></span>
+    </a>
+
+    <nav class="nav">
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/boost-feed.html">Boost Feed</a>
+      <a href="/post-analytics.html">Analytics</a>
+      <a class="current" href="/campaigns.html">Campaigns</a>
+      <button class="refresh" id="refreshBtn" type="button">↻ Refresh</button>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">Premium campaign workspace</div>
+    <h1>Make your next campaign <span>count.</span></h1>
+    <p>
+      Create campaigns, manage budgets and track real campaign activity
+      from one premium workspace. Your dashboard only displays metrics
+      recorded by Boostly.
+    </p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" id="newCampaignBtn" type="button">
+        + Create Campaign
+      </button>
+      <button class="btn btn-soft" id="exportBtn" type="button">
+        ↓ Export CSV
+      </button>
+    </div>
+  </section>
+
+  <section class="overview" aria-label="Campaign overview">
+    <div class="metric">
+      <div class="metric-label">Total campaigns</div>
+      <div class="metric-value" id="totalCampaigns">—</div>
+      <div class="metric-note">Your campaigns</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Total views</div>
+      <div class="metric-value" id="totalViews">—</div>
+      <div class="metric-note">Recorded campaign views</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Total clicks</div>
+      <div class="metric-value" id="totalClicks">—</div>
+      <div class="metric-note">Recorded campaign clicks</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Enquiries</div>
+      <div class="metric-value" id="totalEnquiries">—</div>
+      <div class="metric-note">Recorded enquiries</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Engagements</div>
+      <div class="metric-value" id="totalEngagements">—</div>
+      <div class="metric-note">Recorded interactions</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div>
+        <h2>Your Campaigns</h2>
+        <p>Manage your campaigns and monitor their recorded performance.</p>
+      </div>
+      <button class="btn btn-primary" id="newCampaignBtn2" type="button">
+        + New Campaign
+      </button>
+    </div>
+
+    <div class="toolbar">
+      <input
+        class="field-control search-control"
+        id="searchInput"
+        type="search"
+        placeholder="Search campaign name, goal or audience..."
+        autocomplete="off"
+      >
+
+      <select class="field-control" id="statusFilter" aria-label="Filter by status">
+        <option value="all">All statuses</option>
+        <option value="draft">Draft</option>
+        <option value="active">Active</option>
+        <option value="paused">Paused</option>
+        <option value="completed">Completed</option>
+        <option value="open">Open (legacy)</option>
+        <option value="published">Published (legacy)</option>
+      </select>
+
+      <select class="field-control" id="sortFilter" aria-label="Sort campaigns">
+        <option value="recent">Most recent</option>
+        <option value="oldest">Oldest first</option>
+        <option value="views">Most views</option>
+        <option value="clicks">Most clicks</option>
+        <option value="enquiries">Most enquiries</option>
+        <option value="budget">Highest budget</option>
+      </select>
+    </div>
+
+    <div class="campaign-list" id="campaignList">
+      <div class="empty-state">
+        <strong>Loading campaigns...</strong>
+        Please wait while Boostly loads your campaign records.
+      </div>
+    </div>
+
+    <div class="notice">
+      Metrics show actual records received from Boostly's campaign tracking
+      endpoint. If tracking events have not been recorded, the metric will
+      remain zero. No estimated or fabricated performance figures are shown.
+    </div>
+  </section>
+
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="modal-backdrop" id="campaignModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <h2 id="modalTitle">Create Campaign</h2>
+      <button class="close-btn" id="closeModalBtn" type="button" aria-label="Close">×</button>
+    </div>
+
+    <form id="campaignForm">
+      <input type="hidden" id="campaignId">
+
+      <div class="form-grid">
+        <div class="form-group full">
+          <label for="campaignName">Campaign name *</label>
+          <input id="campaignName" type="text" maxlength="100"
+                 placeholder="Example: Diwali Special Promotion" required>
+        </div>
+
+        <div class="form-group">
+          <label for="campaignGoal">Campaign goal *</label>
+          <select id="campaignGoal" required>
+            <option value="">Select goal</option>
+            <option value="Brand Awareness">Brand Awareness</option>
+            <option value="More Views">More Views</option>
+            <option value="More Engagement">More Engagement</option>
+            <option value="More Enquiries">More Enquiries</option>
+            <option value="Sales & Leads">Sales & Leads</option>
+            <option value="Website Traffic">Website Traffic</option>
+            <option value="Creator Collaboration">Creator Collaboration</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="campaignBudget">Budget (₹) *</label>
+          <input id="campaignBudget" type="number" min="0" step="0.01"
+                 placeholder="Example: 5000" required>
+        </div>
+
+        <div class="form-group">
+          <label for="campaignDuration">Duration (days) *</label>
+          <input id="campaignDuration" type="number" min="1" max="365"
+                 value="7" required>
+        </div>
+
+        <div class="form-group">
+          <label for="campaignStatus">Status *</label>
+          <select id="campaignStatus" required>
+            <option value="draft">Draft</option>
+            <option value="active">Active</option>
+            <option value="paused">Paused</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+
+        <div class="form-group full">
+          <label for="campaignAudience">Target audience</label>
+          <input id="campaignAudience" type="text" maxlength="180"
+                 placeholder="Example: Local customers, age 18–35">
+        </div>
+
+        <div class="form-group full">
+          <label for="campaignDescription">Campaign description</label>
+          <textarea id="campaignDescription" maxlength="1500"
+                    placeholder="Describe your campaign, offer and objectives..."></textarea>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn" id="cancelModalBtn" type="button">Cancel</button>
+        <button class="btn btn-primary" id="saveCampaignBtn" type="submit">
+          Save Campaign
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  "use strict";
+
+const API = "/api/campaign-center";
+
+const $ = (id) => document.getElementById(id);
+
+let campaigns = [];
+let busy = false;
+let toastTimer = null;
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+function number(value) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function formatNumber(value) {
+  return new Intl.NumberFormat("en-IN", {
+    maximumFractionDigits: 0
+  }).format(number(value));
+}
+
+function formatCurrency(value) {
+  return "₹" + new Intl.NumberFormat("en-IN", {
+    maximumFractionDigits: 2
+  }).format(number(value));
+}
+
+function formatDate(value) {
+  if (!value) return "Date unavailable";
+
+  let date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    date = new Date(String(value).replace(" ", "T") + "Z");
+  }
+
+  if (Number.isNaN(date.getTime())) return "Date unavailable";
+
+  return date.toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  });
+}
+
+function showToast(message) {
+  const toast = $("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3200);
+}
+
+async function apiRequest(url, options = {}) {
+  const config = {
+    method: options.method || "GET",
+    credentials: "include",
+    cache: "no-store",
+    headers: {
+      "Accept": "application/json",
+      ...(options.body ? { "Content-Type": "application/json" } : {}),
+      ...(options.headers || {})
+    }
+  };
+
+  if (options.body) {
+    config.body = JSON.stringify(options.body);
+  }
+
+  const response = await fetch(url, config);
+  const raw = await response.text();
+
+  let data;
+  try {
+    data = raw ? JSON.parse(raw) : {};
+  } catch {
+    throw new Error("Server returned an invalid response. Please refresh.");
+  }
+
+  if (response.status === 401 || response.status === 403) {
+    throw new Error("Your login session may have expired. Please log in again.");
+  }
+
+  if (!response.ok || data.success === false) {
+    throw new Error(data.error || data.message || "Request failed. Please try again.");
+  }
+
+  return data;
+}
+
+function getCampaignMetrics(item) {
+  const metrics = item.metrics && typeof item.metrics === "object"
+    ? item.metrics
+    : item;
+
+  return {
+    views: number(metrics.views ?? metrics.total_views),
+    clicks: number(metrics.clicks ?? metrics.total_clicks),
+    enquiries: number(metrics.enquiries ?? metrics.total_enquiries),
+    engagements: number(metrics.engagements ?? metrics.total_engagements)
+  };
+}
+
+function getStatus(item) {
+  return String(item.status || "draft").toLowerCase();
+}
+
+function getCampaignName(item) {
+  return item.campaign_name || item.name || "Untitled campaign";
+}
+
+function updateOverview() {
+  const totals = campaigns.reduce((result, item) => {
+    const metrics = getCampaignMetrics(item);
+
+    result.views += metrics.views;
+    result.clicks += metrics.clicks;
+    result.enquiries += metrics.enquiries;
+    result.engagements += metrics.engagements;
+
+    return result;
+  }, {
+    views: 0,
+    clicks: 0,
+    enquiries: 0,
+    engagements: 0
+  });
+
+  $("totalCampaigns").textContent = formatNumber(campaigns.length);
+  $("totalViews").textContent = formatNumber(totals.views);
+  $("totalClicks").textContent = formatNumber(totals.clicks);
+  $("totalEnquiries").textContent = formatNumber(totals.enquiries);
+  $("totalEngagements").textContent = formatNumber(totals.engagements);
+}
+
+function renderCampaigns() {
+  const list = $("campaignList");
+  const search = $("searchInput").value.trim().toLowerCase();
+  const status = $("statusFilter").value;
+  const sort = $("sortFilter").value;
+
+  let filtered = campaigns.filter((item) => {
+    const searchable = [
+      getCampaignName(item),
+      item.goal,
+      item.audience,
+      item.description
+    ].join(" ").toLowerCase();
+
+    const matchesSearch = !search || searchable.includes(search);
+    const matchesStatus = status === "all" || getStatus(item) === status;
+
+    return matchesSearch && matchesStatus;
+  });
+
+  filtered.sort((a, b) => {
+    const ma = getCampaignMetrics(a);
+    const mb = getCampaignMetrics(b);
+
+    switch (sort) {
+      case "oldest":
+        return new Date(a.created_at || 0) - new Date(b.created_at || 0);
+      case "views":
+        return mb.views - ma.views;
+      case "clicks":
+        return mb.clicks - ma.clicks;
+      case "enquiries":
+        return mb.enquiries - ma.enquiries;
+      case "budget":
+        return number(b.budget) - number(a.budget);
+      case "recent":
+      default:
+        return new Date(b.created_at || 0) - new Date(a.created_at || 0);
+    }
+  });
+
+  if (!filtered.length) {
+    list.innerHTML = `
+      <div class="empty-state">
+        <strong>${campaigns.length ? "No matching campaigns" : "Your campaign workspace is ready"}</strong>
+        ${campaigns.length
+          ? "Try another search or change the status filter."
+          : "Create your first campaign to start managing your promotions."}
+        <div style="margin-top:18px">
+          <button class="btn btn-primary" type="button" data-action="new">
+            + Create Campaign
+          </button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map((item) => {
+    const metrics = getCampaignMetrics(item);
+    const id = Number(item.id);
+    const statusValue = getStatus(item);
+    const statusClass = ["draft", "active", "paused", "completed", "open", "published"]
+      .includes(statusValue) ? statusValue : "draft";
+
+    const description = item.description || "No campaign description added.";
+    const audience = item.audience || "Not specified";
+
+    let statusActions = "";
+
+    if (statusValue === "active" || statusValue === "open" || statusValue === "published") {
+      statusActions = `
+        <button class="mini-btn" data-action="status" data-id="${id}" data-status="paused">Pause</button>
+        <button class="mini-btn" data-action="status" data-id="${id}" data-status="completed">Complete</button>`;
+    } else if (statusValue === "paused" || statusValue === "draft") {
+      statusActions = `
+        <button class="mini-btn" data-action="status" data-id="${id}" data-status="active">Activate</button>`;
+    }
+
+    return `
+      <article class="campaign-card">
+        <div class="card-top">
+          <div>
+            <h3 class="campaign-title">${escapeHTML(getCampaignName(item))}</h3>
+            <div class="campaign-goal">${escapeHTML(item.goal || "General campaign")}</div>
+          </div>
+          <span class="status ${statusClass}">${escapeHTML(statusValue)}</span>
+        </div>
+
+        <p class="campaign-description">${escapeHTML(description)}</p>
+
+        <div class="campaign-meta">
+          <span class="meta-chip">Budget: <strong>${formatCurrency(item.budget)}</strong></span>
+          <span class="meta-chip">Duration: <strong>${formatNumber(item.duration || 7)} days</strong></span>
+          <span class="meta-chip">Audience: <strong>${escapeHTML(audience)}</strong></span>
+        </div>
+
+        <div class="card-stats">
+          <div>
+            <div class="stat-value">${formatNumber(metrics.views)}</div>
+            <div class="stat-label">Views</div>
+          </div>
+          <div>
+            <div class="stat-value">${formatNumber(metrics.clicks)}</div>
+            <div class="stat-label">Clicks</div>
+          </div>
+          <div>
+            <div class="stat-value">${formatNumber(metrics.enquiries)}</div>
+            <div class="stat-label">Enquiries</div>
+          </div>
+          <div>
+            <div class="stat-value">${formatNumber(metrics.engagements)}</div>
+            <div class="stat-label">Engagements</div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <span class="created-date">Created: ${escapeHTML(formatDate(item.created_at))}</span>
+          <div class="card-actions">
+            <button class="mini-btn" data-action="edit" data-id="${id}">Edit</button>
+            ${statusActions}
+            <button class="mini-btn danger" data-action="delete" data-id="${id}">Delete</button>
+          </div>
+        </div>
+      </article>`;
+  }).join("");
+}
+
+async function loadCampaigns() {
+  if (busy) return;
+
+  busy = true;
+  $("refreshBtn").disabled = true;
+  $("refreshBtn").textContent = "Loading…";
+
+  $("campaignList").innerHTML = `
+    <div class="empty-state">
+      <strong>Loading campaigns...</strong>
+      Fetching your latest campaign records.
+    </div>`;
+
+  try {
+    const data = await apiRequest(API);
+
+    const rows = Array.isArray(data.campaigns)
+      ? data.campaigns
+      : Array.isArray(data.data)
+        ? data.data
+        : [];
+
+    campaigns = rows;
+    updateOverview();
+    renderCampaigns();
+
+  } catch (error) {
+    $("campaignList").innerHTML = `
+      <div class="empty-state">
+        <strong>Unable to load campaigns</strong>
+        ${escapeHTML(error.message)}
+        <div style="margin-top:16px">
+          <button class="btn btn-primary" type="button" data-action="retry">Try Again</button>
+        </div>
+      </div>`;
+
+    if (/login session|log in again/i.test(error.message)) {
+      showToast(error.message);
+    } else {
+      showToast(error.message);
+    }
+  } finally {
+    busy = false;
+    $("refreshBtn").disabled = false;
+    $("refreshBtn").textContent = "↻ Refresh";
+  }
+}
+
+function openModal(item = null) {
+  $("campaignForm").reset();
+  $("campaignId").value = item ? item.id : "";
+  $("modalTitle").textContent = item ? "Edit Campaign" : "Create Campaign";
+  $("saveCampaignBtn").textContent = item ? "Update Campaign" : "Save Campaign";
+
+  $("campaignName").value = item ? getCampaignName(item) : "";
+  $("campaignGoal").value = item ? (item.goal || "") : "";
+  $("campaignBudget").value = item ? number(item.budget) : "";
+  $("campaignDuration").value = item ? number(item.duration || 7) : 7;
+  $("campaignStatus").value = item ? getStatus(item) : "draft";
+  $("campaignAudience").value = item ? (item.audience || "") : "";
+  $("campaignDescription").value = item ? (item.description || "") : "";
+
+  $("campaignModal").classList.add("show");
+  $("campaignModal").setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+
+  setTimeout(() => $("campaignName").focus(), 80);
+}
+
+function closeModal() {
+  $("campaignModal").classList.remove("show");
+  $("campaignModal").setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+async function saveCampaign(event) {
+  event.preventDefault();
+
+  if (busy) return;
+
+  const id = $("campaignId").value;
+  const budget = Number($("campaignBudget").value);
+  const duration = Number($("campaignDuration").value);
+
+  if (!Number.isFinite(budget) || budget < 0) {
+    showToast("Please enter a valid budget.");
+    return;
+  }
+
+  if (!Number.isInteger(duration) || duration < 1 || duration > 365) {
+    showToast("Duration must be between 1 and 365 days.");
+    return;
+  }
+
+  const payload = {
+    campaign_name: $("campaignName").value.trim(),
+    goal: $("campaignGoal").value,
+    budget,
+    duration,
+    status: $("campaignStatus").value,
+    audience: $("campaignAudience").value.trim(),
+    description: $("campaignDescription").value.trim()
+  };
+
+  if (!payload.campaign_name || !payload.goal) {
+    showToast("Please complete all required fields.");
+    return;
+  }
+
+  const button = $("saveCampaignBtn");
+  button.disabled = true;
+  button.textContent = "Saving…";
+
+  try {
+    if (id) {
+      await apiRequest(API + "?campaign_id=" + encodeURIComponent(id), {
+        method: "PATCH",
+        body: payload
+      });
+      showToast("Campaign updated successfully.");
+    } else {
+      await apiRequest(API, {
+        method: "POST",
+        body: payload
+      });
+      showToast("Campaign created successfully.");
+    }
+
+    closeModal();
+    await loadCampaigns();
+
+  } catch (error) {
+    showToast(error.message);
+  } finally {
+    button.disabled = false;
+    button.textContent = id ? "Update Campaign" : "Save Campaign";
+  }
+}
+
+async function updateStatus(id, status) {
+  if (busy) return;
+
+  const campaign = campaigns.find((item) => Number(item.id) === Number(id));
+  if (!campaign) return;
+
+  const labels = {
+    active: "activate",
+    paused: "pause",
+    completed: "mark as completed"
+  };
+
+  const actionText = labels[status] || "update";
+
+  if (!confirm(`Are you sure you want to ${actionText} this campaign?`)) {
+    return;
+  }
+
+  try {
+    await apiRequest(API + "?campaign_id=" + encodeURIComponent(id), {
+      method: "PATCH",
+      body: { status }
+    });
+
+    showToast("Campaign status updated.");
+    await loadCampaigns();
+
+  } catch (error) {
+    showToast(error.message);
+  }
+}
+
+async function deleteCampaign(id) {
+  if (busy) return;
+
+  const campaign = campaigns.find((item) => Number(item.id) === Number(id));
+  if (!campaign) return;
+
+  const confirmed = confirm(
+    `Delete "${getCampaignName(campaign)}"? This action cannot be undone.`
+  );
+
+  if (!confirmed) return;
+
+  try {
+    await apiRequest(API + "?campaign_id=" + encodeURIComponent(id), {
+      method: "DELETE"
+    });
+
+    campaigns = campaigns.filter((item) => Number(item.id) !== Number(id));
+    updateOverview();
+    renderCampaigns();
+    showToast("Campaign deleted.");
+
+  } catch (error) {
+    if (/application|creator/i.test(error.message)) {
+      showToast("This campaign has creator applications. It cannot be deleted.");
+    } else {
+      showToast(error.message);
+    }
+  }
+}
+
+function exportCSV() {
+  if (!campaigns.length) {
+    showToast("There are no campaigns to export.");
+    return;
+  }
+
+  const headers = [
+    "Campaign ID",
+    "Campaign Name",
+    "Goal",
+    "Status",
+    "Budget",
+    "Duration",
+    "Audience",
+    "Views",
+    "Clicks",
+    "Enquiries",
+    "Engagements",
+    "Created At"
+  ];
+
+  const rows = campaigns.map((item) => {
+    const metrics = getCampaignMetrics(item);
+
+    return [
+      item.id,
+      getCampaignName(item),
+      item.goal || "",
+      getStatus(item),
+      number(item.budget),
+      number(item.duration),
+      item.audience || "",
+      metrics.views,
+      metrics.clicks,
+      metrics.enquiries,
+      metrics.engagements,
+      item.created_at || ""
+    ];
+  });
+
+  const csvCell = (value) => {
+    const text = String(value ?? "");
+    return '"' + text.replace(/"/g, '""') + '"';
+  };
+
+  const csv = [headers, ...rows]
+    .map((row) => row.map(csvCell).join(","))
+    .join("\r\n");
+
+  const blob = new Blob(["\uFEFF" + csv], {
+    type: "text/csv;charset=utf-8;"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+
+  anchor.href = url;
+  anchor.download = "boostly-campaigns-" +
+    new Date().toISOString().slice(0, 10) + ".csv";
+
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+
+  URL.revokeObjectURL(url);
+  showToast("Campaign CSV exported.");
+}
+
+/* Main controls */
+
+$("newCampaignBtn").addEventListener("click", () => openModal());
+$("newCampaignBtn2").addEventListener("click", () => openModal());
+$("refreshBtn").addEventListener("click", loadCampaigns);
+$("exportBtn").addEventListener("click", exportCSV);
+
+$("closeModalBtn").addEventListener("click", closeModal);
+$("cancelModalBtn").addEventListener("click", closeModal);
+$("campaignForm").addEventListener("submit", saveCampaign);
+
+$("campaignModal").addEventListener("click", (event) => {
+  if (event.target === $("campaignModal")) closeModal();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeModal();
+});
+
+$("searchInput").addEventListener("input", renderCampaigns);
+$("statusFilter").addEventListener("change", renderCampaigns);
+$("sortFilter").addEventListener("change", renderCampaigns);
+
+/* Campaign card actions */
+
+$("campaignList").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-action]");
+  if (!button) return;
+
+  const action = button.dataset.action;
+  const id = Number(button.dataset.id);
+
+  if (action === "new") {
+    openModal();
+    return;
+  }
+
+  if (action === "retry") {
+    loadCampaigns();
+    return;
+  }
+
+  if (action === "edit") {
+    const item = campaigns.find((campaign) => Number(campaign.id) === id);
+    if (item) openModal(item);
+    return;
+  }
+
+  if (action === "status") {
+    updateStatus(id, button.dataset.status);
+    return;
+  }
+
+  if (action === "delete") {
+    deleteCampaign(id);
+  }
+});
+
+/* Initial load */
+
+loadCampaigns();
+</script>
+</body>
+</html>
