@@ -8,19 +8,8 @@ const json = (data, status = 200) =>
     }
   });
 
-const allowedStatuses = [
-  "draft",
-  "active",
-  "paused",
-  "completed"
-];
-
-const allowedEvents = [
-  "view",
-  "click",
-  "enquiry",
-  "engagement"
-];
+const allowedStatuses = ["draft", "active", "paused", "completed"];
+const allowedEvents = ["view", "click", "enquiry", "engagement"];
 
 const number = (value, fallback = 0) => {
   const n = Number(value);
@@ -30,64 +19,26 @@ const number = (value, fallback = 0) => {
 const text = (value, max = 500) =>
   String(value ?? "").trim().slice(0, max);
 
-async function ensureEventsTable(DB) {
-  await DB.prepare(`
-    CREATE TABLE IF NOT EXISTS campaign_center_events (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      campaign_id INTEGER NOT NULL,
-      business_id INTEGER NOT NULL,
-      event_type TEXT NOT NULL,
-      event_key TEXT,
-      created_at TEXT NOT NULL DEFAULT (datetime('now'))
-    )
-  `).run();
-
-  await DB.prepare(`
-    CREATE INDEX IF NOT EXISTS
-    idx_campaign_center_events_campaign
-    ON campaign_center_events(campaign_id)
-  `).run();
-
-  await DB.prepare(`
-    CREATE INDEX IF NOT EXISTS
-    idx_campaign_center_events_type
-    ON campaign_center_events(campaign_id, event_type)
-  `).run();
-
-  await DB.prepare(`
-    CREATE UNIQUE INDEX IF NOT EXISTS
-    idx_campaign_center_events_unique
-    ON campaign_center_events(campaign_id, event_type, event_key)
-    WHERE event_key IS NOT NULL
-  `).run();
-}
-
 async function getUser(DB, request) {
   const cookie = request.headers.get("Cookie") || "";
-  const match = cookie.match(
-    /(?:^|;\s*)boostly_session=([^;]+)/
-  );
+  const match = cookie.match(/(?:^|;\s*)boostly_session=([^;]+)/);
 
   if (!match) {
     return {
-      error: "Not logged in",
+      error: "Not logged in. Please log in.",
       status: 401
     };
   }
 
-  const sessionId = match[1];
-
   const session = await DB.prepare(`
-    SELECT user_id
-    FROM sessions
-    WHERE id = ?
-      AND expires_at > datetime('now')
+    SELECT user_id FROM sessions
+    WHERE id = ? AND expires_at > datetime('now')
     LIMIT 1
-  `).bind(sessionId).first();
+  `).bind(match[1]).first();
 
   if (!session) {
     return {
-      error: "Session expired. Please login again.",
+      error: "Session expired. Please log in again.",
       status: 401
     };
   }
@@ -95,8 +46,7 @@ async function getUser(DB, request) {
   const userId = Number(session.user_id);
 
   const business = await DB.prepare(`
-    SELECT id
-    FROM businesses
+    SELECT id FROM businesses
     WHERE user_id = ?
     ORDER BY id DESC
     LIMIT 1
@@ -104,7 +54,7 @@ async function getUser(DB, request) {
 
   if (!business) {
     return {
-      error: "Business profile not found",
+      error: "Business profile not found for this login.",
       status: 403
     };
   }
@@ -115,125 +65,160 @@ async function getUser(DB, request) {
   };
 }
 
-async function getOwnedCampaign(DB, id, user) {
+async function ownedCampaign(DB, campaignId, user) {
   return DB.prepare(`
-    SELECT *
-    FROM campaigns
+    SELECT * FROM campaigns
     WHERE id = ?
       AND user_id = ?
       AND business_id = ?
     LIMIT 1
-  `).bind(id, user.userId, user.businessId).first();
+  `).bind(
+    campaignId,
+    user.userId,
+    user.businessId
+  ).first();
 }
 
-async function getMetrics(DB, campaignId) {
-  const result = await DB.prepare(`
+async function campaignMetrics(DB, campaignIds) {
+  const map = new Map();
+
+  for (const id of campaignIds) {
+    map.set(Number(id), {
+      views: 0,
+      clicks: 0,
+      enquiries: 0,
+      engagements: 0
+    });
+  }
+
+  if (!campaignIds.length) return map;
+
+  const placeholders = campaignIds.map(() => "?").join(",");
+
+  const rows = await DB.prepare(`
     SELECT
-      COUNT(CASE WHEN event_type = 'view' THEN 1 END) AS views,
-      COUNT(CASE WHEN event_type = 'click' THEN 1 END) AS clicks,
-      COUNT(CASE WHEN event_type = 'enquiry' THEN 1 END) AS enquiries,
-      COUNT(CASE WHEN event_type = 'engagement' THEN 1 END) AS engagements
+      campaign_id,
+      SUM(CASE WHEN event_type = 'view' THEN 1 ELSE 0 END) AS views,
+      SUM(CASE WHEN event_type = 'click' THEN 1 ELSE 0 END) AS clicks,
+      SUM(CASE WHEN event_type = 'enquiry' THEN 1 ELSE 0 END) AS enquiries,
+      SUM(CASE WHEN event_type = 'engagement' THEN 1 ELSE 0 END) AS engagements
     FROM campaign_center_events
-    WHERE campaign_id = ?
+    WHERE campaign_id IN (${placeholders})
+    GROUP BY campaign_id
+  `).bind(...campaignIds).all();
+
+  for (const row of rows.results || []) {
+    map.set(Number(row.campaign_id), {
+      views: Number(row.views || 0),
+      clicks: Number(row.clicks || 0),
+      enquiries: Number(row.enquiries || 0),
+      engagements: Number(row.engagements || 0)
+    });
+  }
+
+  return map;
+}
+
+async function trackEvent(DB, request) {
+  const body = await request.json();
+
+  const campaignId = number(body.campaign_id, -1);
+  const eventType = text(body.event_type, 30).toLowerCase();
+  const eventKey = text(body.event_key, 128);
+
+  if (
+    !Number.isInteger(campaignId) ||
+    campaignId < 1 ||
+    !allowedEvents.includes(eventType)
+  ) {
+    return json({
+      success: false,
+      error: "Invalid campaign ID or event type."
+    }, 400);
+  }
+
+  const campaign = await DB.prepare(`
+    SELECT id, business_id
+    FROM campaigns
+    WHERE id = ?
+      AND status IN ('active','open','published')
+    LIMIT 1
   `).bind(campaignId).first();
 
-  return {
-    views: Number(result?.views || 0),
-    clicks: Number(result?.clicks || 0),
-    enquiries: Number(result?.enquiries || 0),
-    engagements: Number(result?.engagements || 0)
-  };
+  if (!campaign) {
+    return json({
+      success: false,
+      error: "Campaign not found or not active."
+    }, 404);
+  }
+
+  try {
+    await DB.prepare(`
+      INSERT INTO campaign_center_events (
+        campaign_id,
+        business_id,
+        event_type,
+        event_key
+      )
+      VALUES (?, ?, ?, ?)
+    `).bind(
+      campaignId,
+      Number(campaign.business_id),
+      eventType,
+      eventKey || null
+    ).run();
+
+  } catch (error) {
+    if (
+      eventKey &&
+      String(error?.message || "").toLowerCase().includes("unique")
+    ) {
+      return json({
+        success: true,
+        duplicate: true,
+        message: "Event already recorded."
+      });
+    }
+
+    throw error;
+  }
+
+  return json({
+    success: true,
+    message: "Event recorded."
+  }, 201);
 }
 
-async function handleRequest(context) {
+async function handle(context) {
   const { request, env } = context;
   const DB = env.DB;
 
   if (!DB) {
     return json({
       success: false,
-      error: "D1 database binding DB is missing"
+      error: "D1 database binding DB is missing."
     }, 500);
   }
 
   try {
-    await ensureEventsTable(DB);
-
     const method = request.method.toUpperCase();
     const url = new URL(request.url);
 
-    // PUBLIC EVENT TRACKING
-    // Events are accepted only for active campaigns.
+    // Public event tracking is the only unauthenticated operation.
     if (method === "POST") {
-      const body = await request.json();
+      let body;
+
+      try {
+        body = await request.clone().json();
+      } catch {
+        body = {};
+      }
 
       if (body.action === "track") {
-        const campaignId = number(body.campaign_id);
-        const eventType = text(body.event_type, 30).toLowerCase();
-        const eventKey = text(body.event_key, 128);
-
-        if (
-          !Number.isInteger(campaignId) ||
-          campaignId < 1 ||
-          !allowedEvents.includes(eventType)
-        ) {
-          return json({
-            success: false,
-            error: "Invalid campaign or event type"
-          }, 400);
-        }
-
-        const campaign = await DB.prepare(`
-          SELECT id, business_id
-          FROM campaigns
-          WHERE id = ?
-            AND status IN ('active', 'open', 'published')
-          LIMIT 1
-        `).bind(campaignId).first();
-
-        if (!campaign) {
-          return json({
-            success: false,
-            error: "Campaign not found or inactive"
-          }, 404);
-        }
-
-        try {
-          await DB.prepare(`
-            INSERT INTO campaign_center_events (
-              campaign_id,
-              business_id,
-              event_type,
-              event_key
-            )
-            VALUES (?, ?, ?, ?)
-          `).bind(
-            campaignId,
-            Number(campaign.business_id),
-            eventType,
-            eventKey || null
-          ).run();
-        } catch (error) {
-          if (
-            eventKey &&
-            String(error.message || "").toLowerCase().includes("unique")
-          ) {
-            return json({
-              success: true,
-              duplicate: true
-            });
-          }
-          throw error;
-        }
-
-        return json({
-          success: true,
-          message: "Event recorded"
-        }, 201);
+        return await trackEvent(DB, request);
       }
     }
 
-    // All remaining operations require business login.
     const user = await getUser(DB, request);
 
     if (user.error) {
@@ -243,59 +228,78 @@ async function handleRequest(context) {
       }, user.status);
     }
 
-    // GET: CAMPAIGN LIST OR SINGLE CAMPAIGN
+    // GET: Fetch campaigns and metrics.
     if (method === "GET") {
-      const campaignId = number(
-        url.searchParams.get("campaign_id")
+      const requestedId = number(
+        url.searchParams.get("campaign_id"),
+        0
       );
 
-      if (campaignId) {
-        const campaign = await getOwnedCampaign(
+      if (requestedId) {
+        const campaign = await ownedCampaign(
           DB,
-          campaignId,
+          requestedId,
           user
         );
 
         if (!campaign) {
           return json({
             success: false,
-            error: "Campaign not found or access denied"
+            error: "Campaign not found or access denied."
           }, 404);
         }
 
-        const metrics = await getMetrics(DB, campaignId);
+        const metrics = await campaignMetrics(
+          DB,
+          [requestedId]
+        );
 
         return json({
           success: true,
           campaign: {
             ...campaign,
-            metrics
+            metrics: metrics.get(requestedId)
           }
         });
       }
 
       const result = await DB.prepare(`
-        SELECT *
-        FROM campaigns
+        SELECT * FROM campaigns
         WHERE user_id = ?
           AND business_id = ?
         ORDER BY created_at DESC, id DESC
-      `).bind(user.userId, user.businessId).all();
+      `).bind(
+        user.userId,
+        user.businessId
+      ).all();
 
-      const campaigns = [];
+      const rows = result.results || [];
 
-      for (const campaign of result.results || []) {
-        campaigns.push({
-          ...campaign,
-          metrics: await getMetrics(DB, Number(campaign.id))
-        });
-      }
+      const metricMap = await campaignMetrics(
+        DB,
+        rows.map(row => Number(row.id))
+      );
 
-      const totals = campaigns.reduce((sum, campaign) => {
-        sum.views += campaign.metrics.views;
-        sum.clicks += campaign.metrics.clicks;
-        sum.enquiries += campaign.metrics.enquiries;
-        sum.engagements += campaign.metrics.engagements;
+      const campaigns = rows.map(row => ({
+        ...row,
+        metrics: metricMap.get(Number(row.id)) || {
+          views: 0,
+          clicks: 0,
+          enquiries: 0,
+          engagements: 0
+        }
+      }));
+
+      const totals = campaigns.reduce((sum, row) => {
+        for (const key of [
+          "views",
+          "clicks",
+          "enquiries",
+          "engagements"
+        ]) {
+          sum[key] += row.metrics[key];
+        }
+
         return sum;
       }, {
         views: 0,
@@ -312,7 +316,7 @@ async function handleRequest(context) {
       });
     }
 
-    // CREATE CAMPAIGN
+    // POST: Create campaign.
     if (method === "POST") {
       const body = await request.json();
 
@@ -322,31 +326,44 @@ async function handleRequest(context) {
       const duration = number(body.duration, -1);
       const audience = text(body.audience, 500);
       const description = text(body.description, 3000);
-      const status = text(body.status || "draft", 30).toLowerCase();
+      const status = text(
+        body.status || "draft",
+        30
+      ).toLowerCase();
 
       if (!campaignName || !goal) {
         return json({
           success: false,
-          error: "Campaign name and goal are required"
+          error: "Campaign name and goal are required."
         }, 400);
       }
 
       if (
         budget < 0 ||
         budget > 100000000 ||
+        !Number.isFinite(budget)
+      ) {
+        return json({
+          success: false,
+          error: "Budget must be between ₹0 and ₹10,00,00,000."
+        }, 400);
+      }
+
+      if (
+        !Number.isInteger(duration) ||
         duration < 1 ||
         duration > 365
       ) {
         return json({
           success: false,
-          error: "Invalid budget or duration"
+          error: "Duration must be between 1 and 365 days."
         }, 400);
       }
 
       if (!allowedStatuses.includes(status)) {
         return json({
           success: false,
-          error: "Invalid campaign status"
+          error: "Invalid campaign status."
         }, 400);
       }
 
@@ -377,24 +394,29 @@ async function handleRequest(context) {
 
       return json({
         success: true,
-        message: "Campaign created",
-        campaign_id: result.meta?.last_row_id || null
+        message: "Campaign created.",
+        campaign_id: Number(result.meta?.last_row_id || 0)
       }, 201);
     }
 
-    // UPDATE OR CHANGE STATUS
+    // PATCH: Edit campaign or update status.
     if (method === "PATCH") {
       const body = await request.json();
-      const campaignId = number(body.campaign_id);
+
+      // Accept campaign_id from query string OR JSON body.
+      const campaignId = number(
+        url.searchParams.get("campaign_id") || body.campaign_id,
+        -1
+      );
 
       if (!Number.isInteger(campaignId) || campaignId < 1) {
         return json({
           success: false,
-          error: "Valid campaign ID required"
+          error: "Valid campaign ID is required."
         }, 400);
       }
 
-      const existing = await getOwnedCampaign(
+      const existing = await ownedCampaign(
         DB,
         campaignId,
         user
@@ -403,7 +425,7 @@ async function handleRequest(context) {
       if (!existing) {
         return json({
           success: false,
-          error: "Campaign not found or access denied"
+          error: "Campaign not found or access denied."
         }, 404);
       }
 
@@ -412,48 +434,60 @@ async function handleRequest(context) {
 
       if (body.campaign_name !== undefined) {
         const value = text(body.campaign_name, 120);
+
         if (!value) {
           return json({
             success: false,
-            error: "Campaign name cannot be empty"
+            error: "Campaign name cannot be empty."
           }, 400);
         }
+
         fields.push("campaign_name = ?");
         values.push(value);
       }
 
       if (body.goal !== undefined) {
         const value = text(body.goal, 80);
+
         if (!value) {
           return json({
             success: false,
-            error: "Campaign goal cannot be empty"
+            error: "Campaign goal cannot be empty."
           }, 400);
         }
+
         fields.push("goal = ?");
         values.push(value);
       }
 
       if (body.budget !== undefined) {
         const value = number(body.budget, -1);
+
         if (value < 0 || value > 100000000) {
           return json({
             success: false,
-            error: "Invalid budget"
+            error: "Invalid budget."
           }, 400);
         }
+
         fields.push("budget = ?");
         values.push(value);
       }
 
       if (body.duration !== undefined) {
         const value = number(body.duration, -1);
-        if (!Number.isInteger(value) || value < 1 || value > 365) {
+
+        if (
+          !Number.isInteger(value) ||
+          value < 1 ||
+          value > 365
+        ) {
           return json({
             success: false,
-            error: "Duration must be between 1 and 365 days"
+            error: "Duration must be between 1 and 365 days."
           }, 400);
         }
+
         fields.push("duration = ?");
         values.push(value);
       }
@@ -469,12 +503,15 @@ async function handleRequest(context) {
       }
 
       if (body.status !== undefined) {
-        const status = text(body.status, 30).toLowerCase();
+        const status = text(
+          body.status,
+          30
+        ).toLowerCase();
 
         if (!allowedStatuses.includes(status)) {
           return json({
             success: false,
-            error: "Invalid campaign status"
+            error: "Invalid campaign status."
           }, 400);
         }
 
@@ -485,7 +522,7 @@ async function handleRequest(context) {
       if (!fields.length) {
         return json({
           success: false,
-          error: "No valid fields supplied"
+          error: "No campaign fields supplied."
         }, 400);
       }
 
@@ -506,24 +543,25 @@ async function handleRequest(context) {
 
       return json({
         success: true,
-        message: "Campaign updated"
+        message: "Campaign updated."
       });
     }
 
-    // DELETE CAMPAIGN
+    // DELETE: Delete campaign if it has no applications.
     if (method === "DELETE") {
       const campaignId = number(
-        url.searchParams.get("campaign_id")
+        url.searchParams.get("campaign_id"),
+        -1
       );
 
       if (!Number.isInteger(campaignId) || campaignId < 1) {
         return json({
           success: false,
-          error: "Valid campaign_id required"
+          error: "Valid campaign_id is required."
         }, 400);
       }
 
-      const existing = await getOwnedCampaign(
+      const existing = await ownedCampaign(
         DB,
         campaignId,
         user
@@ -532,7 +570,7 @@ async function handleRequest(context) {
       if (!existing) {
         return json({
           success: false,
-          error: "Campaign not found or access denied"
+          error: "Campaign not found or access denied."
         }, 404);
       }
 
@@ -570,24 +608,24 @@ async function handleRequest(context) {
 
       return json({
         success: true,
-        message: "Campaign deleted"
+        message: "Campaign deleted."
       });
     }
 
     return json({
       success: false,
-      error: "Method not allowed"
+      error: "Method not allowed."
     }, 405);
 
   } catch (error) {
     return json({
       success: false,
-      error: "Server error",
+      error: "Server error.",
       detail: error?.message || "Unknown error"
     }, 500);
   }
 }
 
 export async function onRequest(context) {
-  return handleRequest(context);
+  return handle(context);
 }
