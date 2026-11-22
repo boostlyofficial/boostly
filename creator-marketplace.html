@@ -1,321 +1,1032 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#fff7f0">
-<title>Creator Connections | Boostly</title>
+<meta name="theme-color" content="#100d18">
+<meta name="description" content="Discover creators and build meaningful brand collaborations on Boostly.">
+<title>Creator Marketplace | Boostly</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+
 :root{
-  --bg:#fff7f0;
-  --card:#ffffff;
-  --peach:#ffb38a;
-  --peach-dark:#e97749;
-  --teal:#087f78;
-  --teal-light:#e3f7f2;
-  --ink:#253b39;
-  --muted:#71817c;
-  --border:#f0e4da;
-  --danger:#c74646;
+  --bg:#100d18;
+  --panel:#191425;
+  --panel2:#211a30;
+  --panel3:#281f39;
+  --gold:#e8c36e;
+  --gold2:#f8e7ac;
+  --gold-dark:#b99142;
+  --purple:#a855f7;
+  --pink:#e879c5;
+  --text:#f8f2e8;
+  --muted:#a69bb3;
+  --border:#382c49;
+  --danger:#e87979;
+  --success:#75c99a;
 }
+
+html{scroll-behavior:smooth}
+
 body{
   font-family:Arial,Helvetica,sans-serif;
   background:var(--bg);
-  color:var(--ink);
+  color:var(--text);
   line-height:1.5;
+  min-height:100vh;
 }
+
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
+
+.app{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:245px minmax(0,1fr);
+}
+
+.sidebar{
+  background:#0c0a12;
+  border-right:1px solid var(--border);
+  padding:27px 17px;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+  position:sticky;
+  top:0;
+  height:100vh;
+}
+
+.brand{
+  font-size:29px;
+  font-weight:950;
+  letter-spacing:-1.5px;
+  color:var(--gold2);
+  padding:0 12px;
+  margin-bottom:7px;
+}
+
+.brand span{color:var(--gold)}
+
+.brand-sub{
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:2.5px;
+  font-weight:800;
+  padding:0 13px;
+  margin-bottom:38px;
+}
+
+.side-label{
+  color:#766b84;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:2px;
+  padding:0 13px;
+  margin-bottom:12px;
+}
+
+.side-nav{
+  display:grid;
+  gap:7px;
+}
+
+.side-nav a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 13px;
+  border-radius:11px;
+  font-size:12px;
+  font-weight:800;
+  color:#b4a9c0;
+  transition:.2s;
+}
+
+.side-nav a:hover{
+  background:#211a30;
+  color:var(--gold2);
+}
+
+.side-nav a.active{
+  background:linear-gradient(110deg,#382943,#292039);
+  color:var(--gold2);
+  border:1px solid #6e5432;
+  box-shadow:0 5px 20px #0003;
+}
+
+.side-icon{
+  width:20px;
+  text-align:center;
+  font-size:16px;
+}
+
+.sidebar-bottom{
+  margin-top:auto;
+  border-top:1px solid var(--border);
+  padding:19px 10px 0;
+}
+
+.sidebar-bottom p{
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.sidebar-bottom strong{color:var(--gold)}
+
+.main{
+  min-width:0;
+  padding:0 34px 35px;
+}
+
 .topbar{
-  background:#fff;
-  border-bottom:1px solid var(--border);
-  padding:14px 5%;
+  min-height:82px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:15px;
-  flex-wrap:wrap;
+  gap:18px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:25px;
 }
-.brand{font-size:25px;font-weight:900;color:var(--teal)}
-.brand span{color:var(--peach-dark)}
-.nav{display:flex;gap:17px;flex-wrap:wrap;align-items:center}
-.nav a{font-size:13px;font-weight:700;color:#586a65}
-.nav a:hover{color:var(--teal)}
-.container{width:min(1120px,92%);margin:0 auto}
-.hero{
-  margin:26px auto 20px;
-  background:linear-gradient(120deg,#ffe0cc,#fff0e5 55%,#dff6ef);
-  padding:30px;
-  border-radius:25px;
-  border:1px solid #f5d7c6;
+
+.top-search{
+  width:min(430px,55%);
+  position:relative;
 }
-.eyebrow{
-  color:var(--teal);
+
+.top-search input{
+  width:100%;
+  padding:12px 15px 12px 42px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:12px;
+  outline:none;
+  color:var(--text);
+  font-size:12px;
+}
+
+.top-search input:focus{
+  border-color:var(--gold-dark);
+}
+
+.search-icon{
+  position:absolute;
+  left:15px;
+  top:10px;
+  color:var(--gold);
+  font-size:17px;
+}
+
+.top-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.top-link{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:800;
+}
+
+.top-link:hover{color:var(--gold)}
+
+.profile-chip{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:7px 12px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--panel);
   font-size:11px;
-  font-weight:900;
-  letter-spacing:2px;
+  font-weight:800;
+}
+
+.profile-chip span:first-child{
+  width:29px;
+  height:29px;
+  border-radius:9px;
+  display:grid;
+  place-items:center;
+  color:#1a1420;
+  background:linear-gradient(135deg,var(--gold2),var(--gold-dark));
+}
+
+.container{
+  width:100%;
+  max-width:1500px;
+  margin:auto;
+}
+
+.hero{
+  min-height:285px;
+  position:relative;
+  overflow:hidden;
+  border-radius:23px;
+  border:1px solid #675034;
+  background:
+    radial-gradient(ellipse at 78% 30%,#79502b55,transparent 40%),
+    radial-gradient(ellipse at 95% 95%,#8d4c8d33,transparent 45%),
+    linear-gradient(112deg,#211728,#18121f 55%,#302036);
+  padding:39px 42px;
+  display:flex;
+  align-items:center;
+}
+
+.hero:before{
+  content:"";
+  position:absolute;
+  width:340px;
+  height:340px;
+  border-radius:50%;
+  right:8%;
+  top:-110px;
+  border:1px solid #d7b76c33;
+  box-shadow:0 0 0 28px #d7b76c08,0 0 0 58px #d7b76c06;
+}
+
+.hero-content{
+  position:relative;
+  z-index:1;
+  max-width:650px;
+}
+
+.eyebrow{
+  color:var(--gold);
+  font-size:10px;
+  letter-spacing:3px;
+  font-weight:950;
   text-transform:uppercase;
 }
-h1{font-size:clamp(29px,5vw,43px);line-height:1.12;margin:9px 0}
-.hero p{color:#586c65;max-width:620px;font-size:14px}
-.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+
+.hero h1{
+  font-family:Georgia,serif;
+  font-size:clamp(32px,4vw,52px);
+  line-height:1.13;
+  letter-spacing:-1px;
+  margin:13px 0;
+  color:var(--gold2);
+  max-width:650px;
+}
+
+.hero h1 em{
+  color:#fff;
+  font-weight:400;
+}
+
+.hero p{
+  max-width:540px;
+  font-size:13px;
+  line-height:1.8;
+  color:#c1b5c8;
+}
+
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:11px;
+  margin-top:22px;
+}
+
 .btn{
-  border:0;border-radius:12px;padding:11px 16px;
-  font-weight:800;font-size:13px;display:inline-flex;
-  align-items:center;justify-content:center;gap:7px;
+  border:0;
+  border-radius:10px;
+  padding:11px 16px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  font-size:11px;
+  font-weight:900;
+  transition:.2s;
 }
-.btn-primary{background:var(--teal);color:#fff}
-.btn-primary:hover{background:#066c66}
-.btn-peach{background:var(--peach-dark);color:#fff}
-.btn-light{background:#fff;color:var(--teal);border:1px solid var(--border)}
-.btn-danger{background:#fff0f0;color:var(--danger);border:1px solid #f2cece}
-.btn:disabled{opacity:.55;cursor:not-allowed}
+
+.btn:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+.btn-gold{
+  color:#21180d;
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  box-shadow:0 5px 18px #d4a94c24;
+}
+
+.btn-gold:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px #d4a94c40;
+}
+
+.btn-outline{
+  color:var(--gold2);
+  border:1px solid #80663e;
+  background:#241b2d;
+}
+
+.btn-outline:hover{background:#382943}
+
+.btn-dark{
+  background:#30243d;
+  color:#e9d9bd;
+  border:1px solid #51405f;
+}
+
+.btn-danger{
+  background:#381e2a;
+  border:1px solid #70404b;
+  color:#f0a3a3;
+}
+
 .stats{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:12px;margin:18px 0 25px
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  margin:20px 0 30px;
 }
+
 .stat{
-  background:#fff;border:1px solid var(--border);
-  padding:16px;border-radius:17px
+  background:linear-gradient(135deg,#20192d,#181321);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:17px 19px;
 }
-.stat strong{display:block;font-size:23px;color:var(--teal)}
-.stat span{font-size:12px;color:var(--muted)}
+
+.stat strong{
+  display:block;
+  font-family:Georgia,serif;
+  color:var(--gold);
+  font-size:27px;
+  line-height:1.2;
+}
+
+.stat span{
+  display:block;
+  font-size:10px;
+  color:var(--muted);
+  font-weight:800;
+  margin-top:6px;
+  letter-spacing:.5px;
+}
+
 .section-head{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:12px;flex-wrap:wrap;margin:26px 0 14px
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  margin:28px 0 15px;
 }
-.section-head h2{font-size:22px}
-.section-head p{font-size:12px;color:var(--muted)}
+
+.section-title{
+  font-family:Georgia,serif;
+  font-size:25px;
+  color:var(--gold2);
+}
+
+.section-sub{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
 .filters{
-  display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;
-  background:#fff;padding:14px;border:1px solid var(--border);
-  border-radius:18px;margin-bottom:18px
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:11px;
+  background:var(--panel);
+  padding:13px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  margin-bottom:17px;
 }
+
 .field{
-  width:100%;border:1px solid #e7e8df;background:#fff;
-  padding:12px;border-radius:11px;color:var(--ink);
-  outline:none;min-width:0
+  width:100%;
+  min-width:0;
+  background:#100d18;
+  border:1px solid #40334f;
+  border-radius:10px;
+  padding:12px;
+  color:var(--text);
+  outline:none;
+  font-size:12px;
 }
-.field:focus{border-color:var(--teal);box-shadow:0 0 0 3px #087f7815}
+
+.field:focus{
+  border-color:var(--gold-dark);
+  box-shadow:0 0 0 3px #e8c36e12;
+}
+
+.field::placeholder{color:#82778d}
+
+select.field option{
+  background:#191425;
+  color:#fff;
+}
+
 .creator-grid{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:15px;
 }
+
 .creator-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:19px;padding:18px;min-width:0;
-  box-shadow:0 5px 20px #62432a08
+  min-width:0;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(155deg,#21192e,#171321 75%);
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:16px;
+  transition:.25s;
 }
-.creator-top{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+
+.creator-card:hover{
+  transform:translateY(-4px);
+  border-color:#80663e;
+  box-shadow:0 13px 30px #0004;
+}
+
+.creator-top{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  min-width:0;
+  margin-bottom:12px;
+}
+
 .avatar{
-  width:58px;height:58px;border-radius:17px;object-fit:cover;
-  background:var(--teal-light);flex-shrink:0
+  width:61px;
+  height:61px;
+  flex-shrink:0;
+  object-fit:cover;
+  border-radius:15px;
+  border:1px solid #80663e;
+  background:#2c2238;
 }
+
 .avatar-fallback{
-  display:flex;align-items:center;justify-content:center;
-  color:var(--teal);font-size:22px;font-weight:900
+  display:grid;
+  place-items:center;
+  color:var(--gold);
+  font-family:Georgia,serif;
+  font-size:24px;
+  font-weight:900;
 }
-.creator-name{font-size:16px;font-weight:900;overflow-wrap:anywhere}
-.handle{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+
+.creator-info{min-width:0}
+
+.creator-name{
+  color:#f9edda;
+  font-size:14px;
+  font-weight:900;
+  overflow-wrap:anywhere;
+}
+
+.handle{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:2px;
+  overflow-wrap:anywhere;
+}
+
+.verified{
+  display:inline-block;
+  color:#a9d5ff;
+  font-size:10px;
+  margin-left:4px;
+}
+
 .pill{
-  display:inline-block;padding:5px 9px;border-radius:20px;
-  background:var(--teal-light);color:var(--teal);
-  font-size:11px;font-weight:800;margin:3px 3px 3px 0
+  display:inline-block;
+  padding:5px 9px;
+  margin:2px 3px 2px 0;
+  border-radius:20px;
+  color:var(--gold2);
+  background:#49351f;
+  border:1px solid #715632;
+  font-size:9px;
+  font-weight:900;
 }
+
 .creator-bio{
-  color:#65736e;font-size:13px;min-height:58px;
-  margin:10px 0;overflow-wrap:anywhere
+  color:#b5a9c1;
+  font-size:11px;
+  line-height:1.7;
+  min-height:57px;
+  margin:10px 0;
+  overflow-wrap:anywhere;
 }
-.creator-location{font-size:12px;color:var(--muted);margin-bottom:12px}
-.card-actions{display:flex;gap:8px;flex-wrap:wrap}
-.card-actions .btn{flex:1}
+
+.creator-location{
+  font-size:10px;
+  color:#a99db6;
+  margin-bottom:12px;
+}
+
+.card-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:11px;
+}
+
+.card-actions .btn{
+  flex:1;
+  padding:10px 8px;
+  font-size:10px;
+}
+
 .notice{
-  padding:13px 15px;border-radius:12px;font-size:13px;
-  margin:12px 0;display:none;overflow-wrap:anywhere
+  display:none;
+  padding:12px 14px;
+  border-radius:10px;
+  font-size:11px;
+  line-height:1.6;
+  margin:12px 0;
+  overflow-wrap:anywhere;
 }
+
 .notice.show{display:block}
-.notice.info{background:#eaf7f4;color:#12685f}
-.notice.error{background:#fff0f0;color:#a93636}
-.notice.success{background:#e9f8eb;color:#286d39}
+.notice.info{background:#25213a;color:#d9c7f3;border:1px solid #54416d}
+.notice.error{background:#351c29;color:#f0aaaa;border:1px solid #75404c}
+.notice.success{background:#1b3027;color:#9de0b4;border:1px solid #365e47}
+
 .empty{
-  background:#fff;border:1px dashed #e4d5c8;border-radius:18px;
-  padding:35px 18px;text-align:center;color:var(--muted);
-  grid-column:1/-1
+  grid-column:1/-1;
+  text-align:center;
+  padding:36px 18px;
+  border:1px dashed #55445e;
+  border-radius:15px;
+  color:var(--muted);
+  background:#191425;
+  font-size:11px;
+  line-height:1.8;
 }
-.empty strong{display:block;color:var(--ink);font-size:16px;margin-bottom:6px}
+
+.empty strong{
+  display:block;
+  font-family:Georgia,serif;
+  font-size:18px;
+  color:var(--gold2);
+  margin-bottom:5px;
+}
+
 .panel{
-  background:#fff;border:1px solid var(--border);
-  border-radius:20px;padding:20px;margin:28px 0
+  background:linear-gradient(145deg,#20192d,#171321);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+  margin-top:32px;
 }
-.request-list{display:grid;gap:12px}
+
+.request-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
 .request-item{
-  border:1px solid var(--border);border-radius:14px;
-  padding:15px;background:#fffdfb;overflow-wrap:anywhere
+  background:#171321;
+  border:1px solid #40334f;
+  border-radius:13px;
+  padding:15px;
+  overflow-wrap:anywhere;
 }
-.request-item h3{font-size:15px;margin-bottom:5px}
-.request-item p{font-size:12px;color:#65736e;margin:5px 0}
+
+.request-item h3{
+  font-size:13px;
+  color:var(--gold2);
+  margin-bottom:7px;
+}
+
+.request-item p{
+  color:#b5a9c1;
+  font-size:10px;
+  margin:5px 0;
+  line-height:1.6;
+}
+
+.status{
+  display:inline-block;
+  padding:4px 9px;
+  border-radius:20px;
+  font-size:9px;
+  font-weight:900;
+  text-transform:capitalize;
+  background:#382d48;
+  color:#d8c5f0;
+  border:1px solid #59466f;
+}
+
+.status.pending{color:#f4d58b;background:#3c301c;border-color:#705a34}
+.status.approved,.status.completed{color:#9de0b4;background:#1b3027;border-color:#365e47}
+.status.rejected,.status.cancelled,.status.canceled{color:#f0aaaa;background:#351c29;border-color:#75404c}
+
 .request-item .btn{margin-top:10px}
-.footer{text-align:center;padding:30px 10px;color:var(--muted);font-size:12px}
+
+.footer{
+  text-align:center;
+  padding:35px 10px 15px;
+  font-size:10px;
+  color:#80758b;
+}
+
 .modal{
-  display:none;position:fixed;inset:0;z-index:20;
-  background:#17252299;padding:16px;overflow:auto;
-  align-items:center;justify-content:center
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:50;
+  background:#05040bdc;
+  padding:16px;
+  overflow-y:auto;
+  align-items:center;
+  justify-content:center;
+  backdrop-filter:blur(5px);
 }
+
 .modal.open{display:flex}
+
 .modal-box{
-  background:#fff;width:min(520px,100%);padding:23px;
-  border-radius:22px;max-height:92vh;overflow:auto;
-  box-shadow:0 20px 80px #0002
+  width:min(540px,100%);
+  max-height:92vh;
+  overflow-y:auto;
+  background:linear-gradient(145deg,#241b32,#15111e);
+  border:1px solid #725a3c;
+  border-radius:19px;
+  padding:23px;
+  box-shadow:0 25px 90px #0009;
 }
+
 .modal-head{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:12px;margin-bottom:15px
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:17px;
 }
-.modal-head h2{font-size:21px}
+
+.modal-head h2{
+  font-family:Georgia,serif;
+  color:var(--gold2);
+  font-size:22px;
+}
+
 .close{
-  border:0;background:#f5eee8;border-radius:10px;
-  width:36px;height:36px;font-size:20px;color:var(--ink)
+  border:1px solid #51405f;
+  background:#30243d;
+  color:var(--gold2);
+  width:35px;
+  height:35px;
+  border-radius:9px;
+  font-size:20px;
 }
-.form-grid{display:grid;gap:12px}
+
+.form-grid{display:grid;gap:13px}
+
 .form-group label{
-  display:block;font-size:12px;font-weight:800;margin-bottom:5px
+  display:block;
+  font-size:10px;
+  font-weight:900;
+  color:var(--gold2);
+  margin-bottom:6px;
 }
-textarea.field{min-height:90px;resize:vertical}
-.form-help{font-size:11px;color:var(--muted)}
-.social-links{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+
+textarea.field{
+  min-height:100px;
+  resize:vertical;
+}
+
+.form-help{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:5px;
+}
+
+.social-links{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin:14px 0;
+}
+
 .social-links a{
-  background:#eef8f4;color:var(--teal);padding:7px 10px;
-  border-radius:9px;font-size:12px;font-weight:800
+  background:#30243d;
+  color:var(--gold2);
+  border:1px solid #604a38;
+  padding:8px 12px;
+  border-radius:9px;
+  font-size:10px;
+  font-weight:900;
 }
-@media(max-width:800px){
+
+.details-bio{
+  font-size:12px;
+  color:#c1b5c8;
+  line-height:1.8;
+  margin:13px 0;
+  overflow-wrap:anywhere;
+}
+
+.details-location{
+  color:var(--muted);
+  font-size:11px;
+}
+
+@media(max-width:1100px){
+  .app{grid-template-columns:205px minmax(0,1fr)}
+  .main{padding:0 22px 30px}
   .creator-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .filters{grid-template-columns:1fr 1fr}
-  .filters input{grid-column:1/-1}
 }
-@media(max-width:540px){
-  .topbar{padding:13px 4%}
-  .nav{gap:11px}
-  .nav a{font-size:12px}
-  .container{width:92%}
-  .hero{padding:22px 18px;border-radius:20px}
+
+@media(max-width:760px){
+  .app{grid-template-columns:1fr}
+  .sidebar{
+    min-height:auto;
+    height:auto;
+    position:relative;
+    padding:15px 15px 12px;
+    border-right:0;
+    border-bottom:1px solid var(--border);
+  }
+  .brand{font-size:25px}
+  .brand-sub{margin-bottom:15px}
+  .side-label{display:none}
+  .side-nav{
+    display:flex;
+    overflow-x:auto;
+    padding-bottom:5px;
+    gap:6px;
+  }
+  .side-nav a{
+    flex-shrink:0;
+    padding:9px 11px;
+    font-size:10px;
+  }
+  .sidebar-bottom{display:none}
+  .main{padding:0 16px 25px}
+  .topbar{min-height:67px;margin-bottom:17px}
+  .hero{padding:29px 23px;min-height:260px}
+  .hero:before{right:-100px}
   .stats{gap:8px}
-  .stat{padding:12px}
-  .stat strong{font-size:19px}
-  .stat span{font-size:10px}
-  .creator-grid{grid-template-columns:1fr}
-  .filters{grid-template-columns:1fr}
-  .filters input{grid-column:auto}
-  .creator-bio{min-height:0}
+  .stat{padding:13px 11px}
+  .stat strong{font-size:22px}
+  .request-list{grid-template-columns:1fr}
 }
+
+@media(max-width:520px){
+  .main{padding:0 12px 22px}
+  .topbar{gap:8px}
+  .top-search{width:100%}
+  .top-search input{padding:10px 10px 10px 35px}
+  .search-icon{left:11px;top:8px}
+  .top-right{gap:7px}
+  .top-link{font-size:10px}
+  .profile-chip{padding:5px 7px;font-size:9px}
+  .profile-chip span:first-child{width:25px;height:25px}
+  .hero{padding:25px 18px;border-radius:17px}
+  .hero h1{font-size:34px}
+  .hero p{font-size:11px}
+  .hero-actions .btn{font-size:10px;padding:10px 12px}
+  .stats{gap:7px}
+  .stat{padding:11px 8px}
+  .stat strong{font-size:19px}
+  .stat span{font-size:8px}
+  .section-title{font-size:22px}
+  .filters{grid-template-columns:1fr;padding:10px}
+  .creator-grid{grid-template-columns:1fr}
+  .creator-card{padding:15px}
+  .panel{padding:14px}
+  .modal-box{padding:18px}
+}
+
 </style>
 </head>
 
 <body>
-<header class="topbar">
+
+<div class="app">
+
+<aside class="sidebar">
+
   <a class="brand" href="index.html">Boost<span>ly</span></a>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="creator-profile.html">My Creator Profile</a>
-    <a href="creator-marketplace.html">Discover Creators</a>
-    <a href="creator-dashboard.html">Dashboard</a>
-    <a href="login.html">Log in</a>
+  <div class="brand-sub">CREATOR ECOSYSTEM</div>
+
+  <div class="side-label">MAIN MENU</div>
+
+  <nav class="side-nav">
+    <a href="dashboard.html"><span class="side-icon">⌂</span>Dashboard</a>
+    <a href="boost-feed.html"><span class="side-icon">▣</span>Boost Feed</a>
+    <a class="active" href="creator-marketplace.html"><span class="side-icon">✦</span>Creator Marketplace</a>
+    <a href="campaigns.html"><span class="side-icon">◈</span>Campaigns</a>
+    <a href="post-analytics.html"><span class="side-icon">▥</span>Analytics</a>
+    <a href="plans.html"><span class="side-icon">♛</span>Boostly Pro</a>
   </nav>
+
+  <div class="sidebar-bottom">
+    <p>Build meaningful connections.<br><strong>Grow together with Boostly.</strong></p>
+  </div>
+
+</aside>
+
+<main class="main">
+
+<header class="topbar">
+
+  <div class="top-search">
+    <span class="search-icon">⌕</span>
+    <input id="topSearchInput" type="search" placeholder="Search creators, categories, cities...">
+  </div>
+
+  <div class="top-right">
+    <a class="top-link" href="creator-profile.html">My Profile</a>
+    <a class="profile-chip" href="login.html">
+      <span>♙</span> Account
+    </a>
+  </div>
+
 </header>
 
-<main class="container">
-  <section class="hero">
-    <div class="eyebrow">Boostly Creator Network</div>
-    <h1>Meet creators.<br>Build something great.</h1>
-    <p>Discover real creator profiles, find the right collaboration partner and manage your requests in one place.</p>
+<div class="container">
+
+<section class="hero">
+
+  <div class="hero-content">
+    <div class="eyebrow">THE BOOSTLY CREATOR NETWORK</div>
+
+    <h1>Discover creators who <em>inspire.</em><br>Collaborate. Grow.</h1>
+
+    <p>
+      Connect with talented creators, discover meaningful partnerships
+      and turn great ideas into powerful collaborations.
+    </p>
+
     <div class="hero-actions">
-      <a class="btn btn-primary" href="#discover">Explore Creators ↓</a>
-      <a class="btn btn-light" href="creator-profile.html">Create My Profile +</a>
+      <a href="#discover" class="btn btn-gold">Explore Creators <span>→</span></a>
+      <a href="creator-profile.html" class="btn btn-outline">Create My Profile +</a>
     </div>
-  </section>
+  </div>
 
-  <section class="stats">
-    <div class="stat"><strong id="creatorCount">—</strong><span>Active creators loaded</span></div>
-    <div class="stat"><strong id="categoryCount">—</strong><span>Creator categories</span></div>
-    <div class="stat"><strong id="requestCount">—</strong><span>My requests loaded</span></div>
-  </section>
+</section>
 
-  <section id="discover">
-    <div class="section-head">
-      <div>
-        <h2>Discover Creators</h2>
-        <p>Profiles are loaded from Boostly's creator database.</p>
-      </div>
-      <button class="btn btn-light" id="refreshBtn" type="button">↻ Refresh</button>
+<section class="stats">
+
+  <div class="stat">
+    <strong id="creatorCount">—</strong>
+    <span>ACTIVE CREATORS</span>
+  </div>
+
+  <div class="stat">
+    <strong id="categoryCount">—</strong>
+    <span>CREATOR CATEGORIES</span>
+  </div>
+
+  <div class="stat">
+    <strong id="requestCount">—</strong>
+    <span>MY REQUESTS</span>
+  </div>
+
+</section>
+
+<section id="discover">
+
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">FIND YOUR NEXT PARTNER</div>
+      <h2 class="section-title">Discover Creators</h2>
+      <p class="section-sub">Explore active creator profiles from the Boostly network.</p>
     </div>
 
-    <div id="creatorNotice" class="notice" role="status"></div>
+    <button class="btn btn-outline" id="refreshBtn" type="button">↻ Refresh</button>
+  </div>
 
-    <div class="filters">
-      <input class="field" id="searchInput" type="search" placeholder="Search name, handle, bio or city...">
-      <select class="field" id="categoryFilter">
-        <option value="">All categories</option>
-      </select>
-      <select class="field" id="cityFilter">
-        <option value="">All cities</option>
-      </select>
+  <div id="creatorNotice" class="notice" role="status"></div>
+
+  <div class="filters">
+
+    <input
+      class="field"
+      id="searchInput"
+      type="search"
+      placeholder="Search name, handle, bio or city..."
+    >
+
+    <select class="field" id="categoryFilter">
+      <option value="">All Categories</option>
+    </select>
+
+    <select class="field" id="cityFilter">
+      <option value="">All Cities</option>
+    </select>
+
+  </div>
+
+  <div id="creatorGrid" class="creator-grid">
+    <div class="empty">
+      <strong>Loading creators...</strong>
+      Please wait while creator profiles are fetched.
+    </div>
+  </div>
+
+</section>
+
+<section class="panel" id="my-requests">
+
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">YOUR COLLABORATION ACTIVITY</div>
+      <h2 class="section-title">My Requests</h2>
+      <p class="section-sub">Manage the collaboration requests sent from your account.</p>
     </div>
 
-    <div id="creatorGrid" class="creator-grid">
-      <div class="empty"><strong>Loading creators...</strong>Please wait while profiles are fetched.</div>
-    </div>
-  </section>
+    <button class="btn btn-outline" id="refreshRequestsBtn" type="button">↻ Refresh</button>
+  </div>
 
-  <section class="panel" id="my-requests">
-    <div class="section-head">
-      <div>
-        <h2>My Collaboration Requests</h2>
-        <p>Requests are loaded from the Boostly request API.</p>
-      </div>
-      <button class="btn btn-light" id="refreshRequestsBtn" type="button">↻ Refresh</button>
+  <div id="requestNotice" class="notice" role="status"></div>
+
+  <div id="requestList" class="request-list">
+    <div class="empty">
+      <strong>Loading requests...</strong>
+      Please wait.
     </div>
-    <div id="requestNotice" class="notice" role="status"></div>
-    <div id="requestList" class="request-list">
-      <div class="empty"><strong>Loading requests...</strong></div>
-    </div>
-  </section>
+  </div>
+
+</section>
+
+<footer class="footer">
+  © Boostly — Helping creators and businesses grow together.
+</footer>
+
+</div>
 </main>
+</div>
 
-<footer class="footer">© Boostly — Helping creators and businesses grow together.</footer>
+<!-- CREATOR DETAILS MODAL -->
 
 <div class="modal" id="detailsModal" role="dialog" aria-modal="true" aria-labelledby="detailsTitle">
+
   <div class="modal-box">
+
     <div class="modal-head">
       <h2 id="detailsTitle">Creator Details</h2>
       <button class="close" type="button" data-close="detailsModal" aria-label="Close">×</button>
     </div>
+
     <div id="detailsContent"></div>
+
     <div class="hero-actions">
-      <button class="btn btn-primary" id="detailsCollaborateBtn" type="button">Send Collaboration Request</button>
-      <button class="btn btn-light" type="button" data-close="detailsModal">Close</button>
+      <button class="btn btn-gold" id="detailsCollaborateBtn" type="button">
+        Send Collaboration Request
+      </button>
+
+      <button class="btn btn-outline" type="button" data-close="detailsModal">
+        Close
+      </button>
     </div>
+
   </div>
+
 </div>
 
+<!-- COLLABORATION REQUEST MODAL -->
+
 <div class="modal" id="requestModal" role="dialog" aria-modal="true" aria-labelledby="requestTitle">
+
   <div class="modal-box">
+
     <div class="modal-head">
       <h2 id="requestTitle">Collaboration Request</h2>
       <button class="close" type="button" data-close="requestModal" aria-label="Close">×</button>
     </div>
+
     <div id="formNotice" class="notice" role="status"></div>
+
     <form id="collabForm" class="form-grid">
+
       <div class="form-group">
-        <label for="targetCreator">Creator</label>
+        <label for="targetCreator">SELECTED CREATOR</label>
         <input class="field" id="targetCreator" readonly>
       </div>
+
       <div class="form-group">
-        <label for="brandName">Your name or business name *</label>
-        <input class="field" id="brandName" maxlength="100" required placeholder="e.g. Royal Look Salon">
+        <label for="brandName">YOUR BUSINESS NAME *</label>
+        <input
+          class="field"
+          id="brandName"
+          maxlength="80"
+          required
+          placeholder="e.g. Royal Look Salon"
+        >
       </div>
+
       <div class="form-group">
-        <label for="goal">Collaboration goal *</label>
+        <label for="goal">COLLABORATION GOAL *</label>
+
         <select class="field" id="goal" required>
           <option value="">Select a goal</option>
           <option value="Product promotion">Product promotion</option>
@@ -326,18 +1037,49 @@ textarea.field{min-height:90px;resize:vertical}
           <option value="Other">Other</option>
         </select>
       </div>
+
       <div class="form-group">
-        <label for="budget">Budget (optional)</label>
-        <input class="field" id="budget" maxlength="100" placeholder="e.g. ₹2,000 or open to discussion">
+        <label for="budget">BUDGET IN ₹ (OPTIONAL)</label>
+
+        <input
+          class="field"
+          id="budget"
+          type="number"
+          min="0"
+          max="10000000"
+          step="1"
+          placeholder="e.g. 2000"
+        >
+
+        <div class="form-help">
+          Enter a numeric amount in Indian Rupees. Leave blank if undecided.
+        </div>
       </div>
+
       <div class="form-group">
-        <label for="message">Your message *</label>
-        <textarea class="field" id="message" maxlength="1500" required placeholder="Tell the creator about your idea..."></textarea>
-        <div class="form-help">Please do not include passwords or sensitive personal information.</div>
+        <label for="message">YOUR MESSAGE *</label>
+
+        <textarea
+          class="field"
+          id="message"
+          maxlength="300"
+          required
+          placeholder="Tell the creator about your collaboration idea..."
+        ></textarea>
+
+        <div class="form-help">
+          Maximum 300 characters. Do not include passwords or sensitive information.
+        </div>
       </div>
-      <button class="btn btn-primary" id="submitRequestBtn" type="submit">Send Request</button>
+
+      <button class="btn btn-gold" id="submitRequestBtn" type="submit">
+        Send Collaboration Request →
+      </button>
+
     </form>
+
   </div>
+
 </div>
 
 <script>
@@ -345,26 +1087,35 @@ textarea.field{min-height:90px;resize:vertical}
   "use strict";
 
   const $ = id => document.getElementById(id);
+
   let creators = [];
   let selectedCreator = null;
   let requests = [];
 
   function escapeHTML(value){
-    return String(value == null ? "" : value).replace(/[&<>"']/g, function(ch){
-      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch];
+    return String(value == null ? "" : value).replace(/[&<>"']/g,function(ch){
+      return {
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+      }[ch];
     });
   }
 
   function safeURL(value){
     try{
       const url = new URL(String(value || ""));
-      return url.protocol === "https:" || url.protocol === "http:" ? url.href : "";
+      return url.protocol === "https:" || url.protocol === "http:"
+        ? url.href
+        : "";
     }catch(e){
       return "";
     }
   }
 
-  function showNotice(id, message, type){
+  function showNotice(id,message,type){
     const el = $(id);
     el.textContent = message;
     el.className = "notice show " + (type || "info");
@@ -375,13 +1126,14 @@ textarea.field{min-height:90px;resize:vertical}
     $(id).textContent = "";
   }
 
-  async function apiFetch(url, options){
-    const response = await fetch(url, Object.assign({
-      credentials: "include",
-      cache: "no-store"
-    }, options || {}));
+  async function apiFetch(url,options){
+    const response = await fetch(url,Object.assign({
+      credentials:"include",
+      cache:"no-store"
+    },options || {}));
 
     let data;
+
     try{
       data = await response.json();
     }catch(e){
@@ -389,8 +1141,13 @@ textarea.field{min-height:90px;resize:vertical}
     }
 
     if(!response.ok || data.success === false){
-      throw new Error(data.error || data.message || ("Request failed (" + response.status + ")"));
+      throw new Error(
+        data.error ||
+        data.message ||
+        ("Request failed (" + response.status + ")")
+      );
     }
+
     return data;
   }
 
@@ -407,20 +1164,40 @@ textarea.field{min-height:90px;resize:vertical}
   }
 
   function renderFilters(){
-    const categories = [...new Set(creators.map(c => getCategory(c)).filter(Boolean))].sort();
-    const cities = [...new Set(creators.map(c => String(c.city || "").trim()).filter(Boolean))].sort();
+    const categories = [...new Set(
+      creators.map(c => getCategory(c)).filter(Boolean)
+    )].sort();
+
+    const cities = [...new Set(
+      creators.map(c => String(c.city || "").trim()).filter(Boolean)
+    )].sort();
 
     const categoryValue = $("categoryFilter").value;
     const cityValue = $("cityFilter").value;
 
-    $("categoryFilter").innerHTML = '<option value="">All categories</option>' +
-      categories.map(c => '<option value="' + escapeHTML(c) + '">' + escapeHTML(c) + '</option>').join("");
+    $("categoryFilter").innerHTML =
+      '<option value="">All Categories</option>' +
+      categories.map(c =>
+        '<option value="' + escapeHTML(c) + '">' +
+        escapeHTML(c) +
+        '</option>'
+      ).join("");
 
-    $("cityFilter").innerHTML = '<option value="">All cities</option>' +
-      cities.map(c => '<option value="' + escapeHTML(c) + '">' + escapeHTML(c) + '</option>').join("");
+    $("cityFilter").innerHTML =
+      '<option value="">All Cities</option>' +
+      cities.map(c =>
+        '<option value="' + escapeHTML(c) + '">' +
+        escapeHTML(c) +
+        '</option>'
+      ).join("");
 
-    if(categories.includes(categoryValue)) $("categoryFilter").value = categoryValue;
-    if(cities.includes(cityValue)) $("cityFilter").value = cityValue;
+    if(categories.includes(categoryValue)){
+      $("categoryFilter").value = categoryValue;
+    }
+
+    if(cities.includes(cityValue)){
+      $("cityFilter").value = cityValue;
+    }
 
     $("creatorCount").textContent = creators.length;
     $("categoryCount").textContent = categories.length;
@@ -433,8 +1210,11 @@ textarea.field{min-height:90px;resize:vertical}
 
     return creators.filter(c => {
       const haystack = [
-        getName(c), getHandle(c), getCategory(c),
-        c.bio || "", c.city || ""
+        getName(c),
+        getHandle(c),
+        getCategory(c),
+        c.bio || "",
+        c.city || ""
       ].join(" ").toLowerCase();
 
       return (!query || haystack.includes(query)) &&
@@ -448,24 +1228,70 @@ textarea.field{min-height:90px;resize:vertical}
     const handle = getHandle(c);
     const category = getCategory(c);
     const image = safeURL(c.profile_image || c.avatar || "");
-    const initial = escapeHTML((name.trim().charAt(0) || "C").toUpperCase());
 
-    return '<article class="creator-card">' +
-      '<div class="creator-top">' +
-        (image
-          ? '<img class="avatar" src="' + escapeHTML(image) + '" alt="" loading="lazy" referrerpolicy="no-referrer">'
-          : '<div class="avatar avatar-fallback">' + initial + '</div>') +
-        '<div><div class="creator-name">' + escapeHTML(name) + '</div>' +
-        '<div class="handle">' + (handle ? '@' + escapeHTML(handle.replace(/^@/, "")) : 'Boostly Creator') + '</div></div>' +
-      '</div>' +
-      '<span class="pill">' + escapeHTML(category) + '</span>' +
-      '<p class="creator-bio">' + escapeHTML(c.bio || "This creator has not added a bio yet.") + '</p>' +
-      '<div class="creator-location">📍 ' + escapeHTML(c.city || "Location not added") + '</div>' +
-      '<div class="card-actions">' +
-        '<button class="btn btn-light" type="button" data-details="' + escapeHTML(c.id) + '">Details</button>' +
-        '<button class="btn btn-primary" type="button" data-collaborate="' + escapeHTML(c.id) + '">Collaborate</button>' +
-      '</div>' +
-    '</article>';
+    const initial = escapeHTML(
+      (name.trim().charAt(0) || "C").toUpperCase()
+    );
+
+    return `
+      <article class="creator-card">
+
+        <div class="creator-top">
+
+          ${
+            image
+              ? `<img class="avatar" src="${escapeHTML(image)}" alt="${escapeHTML(name)}" loading="lazy" referrerpolicy="no-referrer">`
+              : `<div class="avatar avatar-fallback">${initial}</div>`
+          }
+
+          <div class="creator-info">
+
+            <div class="creator-name">
+              ${escapeHTML(name)}
+            </div>
+
+            <div class="handle">
+              ${handle
+                ? "@" + escapeHTML(handle.replace(/^@/,""))
+                : "Boostly Creator"}
+            </div>
+
+          </div>
+
+        </div>
+
+        <span class="pill">${escapeHTML(category)}</span>
+
+        <p class="creator-bio">
+          ${escapeHTML(c.bio || "This creator has not added a bio yet.")}
+        </p>
+
+        <div class="creator-location">
+          📍 ${escapeHTML(c.city || "Location not added")}
+        </div>
+
+        <div class="card-actions">
+
+          <button
+            class="btn btn-dark"
+            type="button"
+            data-details="${escapeHTML(c.id)}"
+          >
+            View Profile
+          </button>
+
+          <button
+            class="btn btn-gold"
+            type="button"
+            data-collaborate="${escapeHTML(c.id)}"
+          >
+            Send Request
+          </button>
+
+        </div>
+
+      </article>
+    `;
   }
 
   function renderCreators(){
@@ -473,7 +1299,13 @@ textarea.field{min-height:90px;resize:vertical}
     const grid = $("creatorGrid");
 
     if(!visible.length){
-      grid.innerHTML = '<div class="empty"><strong>No creators found</strong>Try another search, category or city. Creators must have an active profile to appear here.</div>';
+      grid.innerHTML = `
+        <div class="empty">
+          <strong>No creators found</strong>
+          Try another search, category or city.
+          Active creator profiles appear here.
+        </div>
+      `;
       return;
     }
 
@@ -482,29 +1314,42 @@ textarea.field{min-height:90px;resize:vertical}
 
   async function loadCreators(){
     const btn = $("refreshBtn");
+
     btn.disabled = true;
     btn.textContent = "Loading...";
 
     try{
       const data = await apiFetch("/api/creators");
-      creators = Array.isArray(data.creators) ? data.creators :
-        (Array.isArray(data.results) ? data.results : []);
+
+      creators = Array.isArray(data.creators)
+        ? data.creators
+        : (Array.isArray(data.results) ? data.results : []);
 
       renderFilters();
       renderCreators();
       hideNotice("creatorNotice");
 
       if(!creators.length){
-        showNotice("creatorNotice",
-          "No active creator profiles are available yet. Create a profile from My Creator Profile, then refresh this page.",
-          "info");
+        showNotice(
+          "creatorNotice",
+          "No active creator profiles are available yet. Create a profile from My Profile and refresh this page.",
+          "info"
+        );
       }
+
     }catch(error){
-      $("creatorGrid").innerHTML =
-        '<div class="empty"><strong>Creators could not be loaded</strong>' +
-        escapeHTML(error.message) +
-        '<br><br>Check that /api/creators is deployed and the creators table contains active profiles.</div>';
-      showNotice("creatorNotice", error.message, "error");
+
+      $("creatorGrid").innerHTML = `
+        <div class="empty">
+          <strong>Creators could not be loaded</strong>
+          ${escapeHTML(error.message)}
+          <br><br>
+          Check that /api/creators is deployed and the creators table contains active profiles.
+        </div>
+      `;
+
+      showNotice("creatorNotice",error.message,"error");
+
     }finally{
       btn.disabled = false;
       btn.textContent = "↻ Refresh";
@@ -518,8 +1363,11 @@ textarea.field{min-height:90px;resize:vertical}
 
   function closeModal(id){
     $(id).classList.remove("open");
-    if(!$("detailsModal").classList.contains("open") &&
-       !$("requestModal").classList.contains("open")){
+
+    if(
+      !$("detailsModal").classList.contains("open") &&
+      !$("requestModal").classList.contains("open")
+    ){
       document.body.style.overflow = "";
     }
   }
@@ -530,6 +1378,7 @@ textarea.field{min-height:90px;resize:vertical}
 
   function openDetails(creator){
     if(!creator) return;
+
     selectedCreator = creator;
 
     const image = safeURL(creator.profile_image || creator.avatar || "");
@@ -539,31 +1388,71 @@ textarea.field{min-height:90px;resize:vertical}
     const youtube = safeURL(creator.youtube_url);
 
     $("detailsTitle").textContent = name + " — Creator Profile";
-    $("detailsContent").innerHTML =
-      '<div class="creator-top">' +
-        (image
-          ? '<img class="avatar" src="' + escapeHTML(image) + '" alt="">'
-          : '<div class="avatar avatar-fallback">' + escapeHTML((name.charAt(0) || "C").toUpperCase()) + '</div>') +
-        '<div><div class="creator-name">' + escapeHTML(name) + '</div>' +
-        '<div class="handle">' + (handle ? '@' + escapeHTML(handle.replace(/^@/, "")) : 'Boostly Creator') + '</div>' +
-        '<span class="pill">' + escapeHTML(getCategory(creator)) + '</span></div>' +
-      '</div>' +
-      '<p style="margin:12px 0;font-size:13px;overflow-wrap:anywhere">' +
-        escapeHTML(creator.bio || "This creator has not added a bio yet.") + '</p>' +
-      '<p style="font-size:13px;color:#71817c">📍 ' + escapeHTML(creator.city || "Location not added") + '</p>' +
-      '<div class="social-links">' +
-        (instagram ? '<a href="' + escapeHTML(instagram) + '" target="_blank" rel="noopener noreferrer">Instagram ↗</a>' : '') +
-        (youtube ? '<a href="' + escapeHTML(youtube) + '" target="_blank" rel="noopener noreferrer">YouTube ↗</a>' : '') +
-      '</div>';
+
+    $("detailsContent").innerHTML = `
+      <div class="creator-top">
+
+        ${
+          image
+            ? `<img class="avatar" src="${escapeHTML(image)}" alt="${escapeHTML(name)}">`
+            : `<div class="avatar avatar-fallback">${escapeHTML((name.charAt(0) || "C").toUpperCase())}</div>`
+        }
+
+        <div class="creator-info">
+
+          <div class="creator-name">${escapeHTML(name)}</div>
+
+          <div class="handle">
+            ${handle
+              ? "@" + escapeHTML(handle.replace(/^@/,""))
+              : "Boostly Creator"}
+          </div>
+
+          <span class="pill">${escapeHTML(getCategory(creator))}</span>
+
+        </div>
+
+      </div>
+
+      <p class="details-bio">
+        ${escapeHTML(creator.bio || "This creator has not added a bio yet.")}
+      </p>
+
+      <p class="details-location">
+        📍 ${escapeHTML(creator.city || "Location not added")}
+      </p>
+
+      <div class="social-links">
+
+        ${
+          instagram
+            ? `<a href="${escapeHTML(instagram)}" target="_blank" rel="noopener noreferrer">Instagram ↗</a>`
+            : ""
+        }
+
+        ${
+          youtube
+            ? `<a href="${escapeHTML(youtube)}" target="_blank" rel="noopener noreferrer">YouTube ↗</a>`
+            : ""
+        }
+
+      </div>
+    `;
 
     openModal("detailsModal");
   }
 
   function openRequestForm(creator){
     if(!creator) return;
+
     selectedCreator = creator;
-    $("targetCreator").value = getName(creator) +
-      (getHandle(creator) ? " (@" + getHandle(creator).replace(/^@/, "") + ")" : "");
+
+    $("targetCreator").value =
+      getName(creator) +
+      (getHandle(creator)
+        ? " (@" + getHandle(creator).replace(/^@/,"") + ")"
+        : "");
+
     hideNotice("formNotice");
     closeModal("detailsModal");
     openModal("requestModal");
@@ -571,24 +1460,41 @@ textarea.field{min-height:90px;resize:vertical}
 
   async function loadRequests(){
     const btn = $("refreshRequestsBtn");
+
     btn.disabled = true;
     btn.textContent = "Loading...";
 
     try{
       const data = await apiFetch("/api/creator-request");
-      requests = Array.isArray(data.requests) ? data.requests :
-        (Array.isArray(data.results) ? data.results :
-        (Array.isArray(data.data) ? data.data : []));
+
+      requests = Array.isArray(data.requests)
+        ? data.requests
+        : (
+          Array.isArray(data.results)
+            ? data.results
+            : (Array.isArray(data.data) ? data.data : [])
+        );
 
       renderRequests();
       hideNotice("requestNotice");
+
     }catch(error){
+
       requests = [];
-      $("requestList").innerHTML =
-        '<div class="empty"><strong>Requests could not be loaded</strong>' +
-        escapeHTML(error.message) +
-        '<br><br>If this feature requires login, log in and refresh this section.</div>';
-      showNotice("requestNotice", error.message, "error");
+
+      $("requestCount").textContent = "—";
+
+      $("requestList").innerHTML = `
+        <div class="empty">
+          <strong>Requests could not be loaded</strong>
+          ${escapeHTML(error.message)}
+          <br><br>
+          Log in and refresh this section if authentication is required.
+        </div>
+      `;
+
+      showNotice("requestNotice",error.message,"error");
+
     }finally{
       btn.disabled = false;
       btn.textContent = "↻ Refresh";
@@ -599,31 +1505,61 @@ textarea.field{min-height:90px;resize:vertical}
     $("requestCount").textContent = requests.length;
 
     if(!requests.length){
-      $("requestList").innerHTML =
-        '<div class="empty"><strong>No requests to show</strong>Collaboration requests you send will appear here when the API returns them.</div>';
+      $("requestList").innerHTML = `
+        <div class="empty">
+          <strong>No requests to show</strong>
+          Collaboration requests you send will appear here.
+        </div>
+      `;
       return;
     }
 
     $("requestList").innerHTML = requests.map(r => {
       const id = r.id || r.request_id;
-      const status = r.status || "pending";
-      const canCancel = id != null && !["cancelled","canceled","rejected","completed"].includes(String(status).toLowerCase());
+      const status = String(r.status || "pending").toLowerCase();
 
-      return '<article class="request-item">' +
-        '<h3>' + escapeHTML(r.creator_name || r.target_creator_name || r.creator_handle || "Creator collaboration") + '</h3>' +
-        '<p><strong>Status:</strong> ' + escapeHTML(status) + '</p>' +
-        '<p><strong>Goal:</strong> ' + escapeHTML(r.goal || "—") + '</p>' +
-        '<p><strong>Budget:</strong> ' + escapeHTML(r.budget || "Not specified") + '</p>' +
-        '<p><strong>Message:</strong> ' + escapeHTML(r.message || "—") + '</p>' +
-        '<p><strong>Date:</strong> ' + escapeHTML(r.created_at || "—") + '</p>' +
-        (canCancel
-          ? '<button class="btn btn-danger" type="button" data-cancel="' + escapeHTML(id) + '">Cancel Request</button>'
-          : '') +
-      '</article>';
+      const canCancel =
+        id != null &&
+        status === "pending";
+
+      const budget =
+        r.budget !== null &&
+        r.budget !== undefined &&
+        r.budget !== ""
+          ? "₹" + Number(r.budget).toLocaleString("en-IN")
+          : "Not specified";
+
+      return `
+        <article class="request-item">
+
+          <h3>${escapeHTML(r.creator_name || r.creator_handle || "Creator collaboration")}</h3>
+
+          <p>
+            <strong>Status:</strong>
+            <span class="status ${escapeHTML(status)}">${escapeHTML(status)}</span>
+          </p>
+
+          <p><strong>Goal:</strong> ${escapeHTML(r.goal || "—")}</p>
+
+          <p><strong>Budget:</strong> ${escapeHTML(budget)}</p>
+
+          <p><strong>Message:</strong> ${escapeHTML(r.message || "—")}</p>
+
+          <p><strong>Date:</strong> ${escapeHTML(r.created_at || "—")}</p>
+
+          ${
+            canCancel
+              ? `<button class="btn btn-danger" type="button" data-cancel="${escapeHTML(id)}">Cancel Request</button>`
+              : ""
+          }
+
+        </article>
+      `;
     }).join("");
   }
 
-  $("creatorGrid").addEventListener("click", function(event){
+  $("creatorGrid").addEventListener("click",function(event){
+
     const detailsButton = event.target.closest("[data-details]");
     const collaborateButton = event.target.closest("[data-collaborate]");
 
@@ -632,111 +1568,179 @@ textarea.field{min-height:90px;resize:vertical}
     }else if(collaborateButton){
       openRequestForm(findCreator(collaborateButton.dataset.collaborate));
     }
+
   });
 
-  $("detailsCollaborateBtn").addEventListener("click", function(){
+  $("detailsCollaborateBtn").addEventListener("click",function(){
     openRequestForm(selectedCreator);
   });
 
-  $("collabForm").addEventListener("submit", async function(event){
+  $("collabForm").addEventListener("submit",async function(event){
+
     event.preventDefault();
 
     if(!selectedCreator){
-      showNotice("formNotice", "Please select a creator first.", "error");
+      showNotice("formNotice","Please select a creator first.","error");
+      return;
+    }
+
+    const brandName = $("brandName").value.trim();
+    const goal = $("goal").value;
+    const message = $("message").value.trim();
+    const budgetText = $("budget").value.trim();
+
+    const budget = budgetText === "" ? 0 : Number(budgetText);
+
+    if(!brandName || !goal || !message){
+      showNotice("formNotice","Please complete all required fields.","error");
+      return;
+    }
+
+    if(
+      !Number.isFinite(budget) ||
+      budget < 0 ||
+      budget > 10000000
+    ){
+      showNotice("formNotice","Enter a valid budget between ₹0 and ₹10,000,000.","error");
+      return;
+    }
+
+    if(message.length > 300){
+      showNotice("formNotice","Your message must be 300 characters or fewer.","error");
       return;
     }
 
     const button = $("submitRequestBtn");
+
     button.disabled = true;
     button.textContent = "Sending...";
 
     const payload = {
       creator_name: getName(selectedCreator),
       creator_handle: getHandle(selectedCreator),
-      brand_name: $("brandName").value.trim(),
-      goal: $("goal").value,
-      budget: $("budget").value.trim(),
-      message: $("message").value.trim()
+      brand_name: brandName,
+      goal: goal,
+      budget: budget,
+      message: message
     };
 
     try{
-      const data = await apiFetch("/api/creator-request", {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify(payload)
+
+      const data = await apiFetch("/api/creator-request",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(payload)
       });
 
-      showNotice("formNotice",
+      showNotice(
+        "formNotice",
         data.message || "Your collaboration request was submitted.",
-        "success");
+        "success"
+      );
 
       $("collabForm").reset();
+
       await loadRequests();
 
       setTimeout(function(){
         closeModal("requestModal");
         hideNotice("formNotice");
-      }, 1200);
+      },1200);
+
     }catch(error){
-      showNotice("formNotice",
+
+      showNotice(
+        "formNotice",
         error.message + " If login is required, open Log in and try again.",
-        "error");
+        "error"
+      );
+
     }finally{
+
       button.disabled = false;
-      button.textContent = "Send Request";
+      button.textContent = "Send Collaboration Request →";
+
     }
+
   });
 
-  $("requestList").addEventListener("click", async function(event){
+  $("requestList").addEventListener("click",async function(event){
+
     const button = event.target.closest("[data-cancel]");
+
     if(!button) return;
 
     const requestId = button.dataset.cancel;
-    if(!confirm("Are you sure you want to cancel this collaboration request?")) return;
+
+    if(!confirm("Are you sure you want to cancel this collaboration request?")){
+      return;
+    }
 
     button.disabled = true;
     button.textContent = "Cancelling...";
 
     try{
-      const data = await apiFetch("/api/creator-request", {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({
-          action: "cancel",
-          request_id: requestId
+
+      const data = await apiFetch("/api/creator-request",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+          action:"cancel",
+          request_id:requestId
         })
       });
 
-      showNotice("requestNotice",
-        data.message || "Cancellation request processed.",
-        "success");
+      showNotice(
+        "requestNotice",
+        data.message || "Request cancelled successfully.",
+        "success"
+      );
+
       await loadRequests();
+
     }catch(error){
-      showNotice("requestNotice", error.message, "error");
+
+      showNotice("requestNotice",error.message,"error");
+
       button.disabled = false;
       button.textContent = "Cancel Request";
+
+    }
+
+  });
+
+  $("searchInput").addEventListener("input",renderCreators);
+
+  $("topSearchInput").addEventListener("input",function(){
+    $("searchInput").value = this.value;
+    renderCreators();
+
+    if(this.value.trim()){
+      $("discover").scrollIntoView({behavior:"smooth",block:"start"});
     }
   });
 
-  $("searchInput").addEventListener("input", renderCreators);
-  $("categoryFilter").addEventListener("change", renderCreators);
-  $("cityFilter").addEventListener("change", renderCreators);
-  $("refreshBtn").addEventListener("click", loadCreators);
-  $("refreshRequestsBtn").addEventListener("click", loadRequests);
+  $("categoryFilter").addEventListener("change",renderCreators);
+  $("cityFilter").addEventListener("change",renderCreators);
+
+  $("refreshBtn").addEventListener("click",loadCreators);
+  $("refreshRequestsBtn").addEventListener("click",loadRequests);
 
   document.querySelectorAll("[data-close]").forEach(button => {
-    button.addEventListener("click", function(){
+    button.addEventListener("click",function(){
       closeModal(button.dataset.close);
     });
   });
 
   document.querySelectorAll(".modal").forEach(modal => {
-    modal.addEventListener("click", function(event){
-      if(event.target === modal) closeModal(modal.id);
+    modal.addEventListener("click",function(event){
+      if(event.target === modal){
+        closeModal(modal.id);
+      }
     });
   });
 
-  document.addEventListener("keydown", function(event){
+  document.addEventListener("keydown",function(event){
     if(event.key === "Escape"){
       closeModal("detailsModal");
       closeModal("requestModal");
@@ -745,7 +1749,9 @@ textarea.field{min-height:90px;resize:vertical}
 
   loadCreators();
   loadRequests();
+
 })();
 </script>
+
 </body>
 </html>
