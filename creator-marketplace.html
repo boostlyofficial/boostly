@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#100d18">
+<meta name="theme-color" content="#0b080d">
 <meta name="description" content="Discover creators and build meaningful brand collaborations on Boostly.">
 <title>Creator Marketplace | Boostly</title>
 
@@ -12,28 +12,27 @@
 *{box-sizing:border-box;margin:0;padding:0}
 
 :root{
-  --bg:#100d18;
-  --panel:#191425;
-  --panel2:#211a30;
-  --panel3:#281f39;
-  --gold:#e8c36e;
-  --gold2:#f8e7ac;
-  --gold-dark:#b99142;
-  --purple:#a855f7;
-  --pink:#e879c5;
-  --text:#f8f2e8;
-  --muted:#a69bb3;
-  --border:#382c49;
-  --danger:#e87979;
-  --success:#75c99a;
+  --bg:#0b080e;
+  --sidebar:#09070c;
+  --panel:#17111c;
+  --panel2:#211725;
+  --panel3:#2b1d2a;
+  --gold:#e9bd55;
+  --gold2:#ffe39a;
+  --gold3:#bd9140;
+  --text:#fff8eb;
+  --muted:#a99aaa;
+  --border:#382839;
+  --green:#79d5a0;
+  --red:#ed9999;
 }
 
 html{scroll-behavior:smooth}
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
   background:var(--bg);
   color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
   line-height:1.5;
   min-height:100vh;
 }
@@ -45,47 +44,48 @@ button{cursor:pointer}
 .app{
   min-height:100vh;
   display:grid;
-  grid-template-columns:245px minmax(0,1fr);
+  grid-template-columns:215px minmax(0,1fr);
 }
 
 .sidebar{
-  background:#0c0a12;
+  background:var(--sidebar);
   border-right:1px solid var(--border);
-  padding:27px 17px;
+  padding:22px 13px;
   display:flex;
   flex-direction:column;
   min-height:100vh;
   position:sticky;
   top:0;
   height:100vh;
+  z-index:10;
 }
 
 .brand{
+  display:block;
+  padding:4px 10px;
   font-size:29px;
   font-weight:950;
   letter-spacing:-1.5px;
-  color:var(--gold2);
-  padding:0 12px;
-  margin-bottom:7px;
+  color:#fff;
 }
 
 .brand span{color:var(--gold)}
 
 .brand-sub{
   color:var(--muted);
-  font-size:10px;
-  letter-spacing:2.5px;
-  font-weight:800;
-  padding:0 13px;
-  margin-bottom:38px;
+  font-size:9px;
+  letter-spacing:2px;
+  font-weight:900;
+  padding:0 12px;
+  margin-bottom:32px;
 }
 
 .side-label{
-  color:#766b84;
-  font-size:10px;
+  color:#766879;
+  font-size:9px;
   font-weight:900;
   letter-spacing:2px;
-  padding:0 13px;
+  padding:0 12px;
   margin-bottom:12px;
 }
 
@@ -97,86 +97,110 @@ button{cursor:pointer}
 .side-nav a{
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:12px 13px;
-  border-radius:11px;
-  font-size:12px;
+  gap:10px;
+  padding:11px 10px;
+  border-radius:10px;
+  font-size:11px;
   font-weight:800;
-  color:#b4a9c0;
+  color:#b7a9bb;
   transition:.2s;
 }
 
 .side-nav a:hover{
-  background:#211a30;
+  background:#241a29;
   color:var(--gold2);
 }
 
 .side-nav a.active{
-  background:linear-gradient(110deg,#382943,#292039);
+  background:linear-gradient(110deg,#59401e,#30202d);
   color:var(--gold2);
-  border:1px solid #6e5432;
-  box-shadow:0 5px 20px #0003;
+  border:1px solid #94703c;
+  box-shadow:0 5px 18px #0005;
 }
 
 .side-icon{
-  width:20px;
+  width:19px;
   text-align:center;
-  font-size:16px;
+  font-size:15px;
 }
 
-.sidebar-bottom{
+.pro-box{
   margin-top:auto;
-  border-top:1px solid var(--border);
-  padding:19px 10px 0;
+  padding:17px 11px;
+  border:1px solid #72542d;
+  border-radius:14px;
+  background:
+    radial-gradient(circle at 90% 0%,#9e6d3033,transparent 60%),
+    linear-gradient(145deg,#211624,#120e17);
 }
 
-.sidebar-bottom p{
-  font-size:11px;
+.pro-box .pro-icon{
+  color:var(--gold);
+  font-size:25px;
+  margin-bottom:5px;
+}
+
+.pro-box strong{
+  display:block;
+  font-family:Georgia,serif;
+  color:var(--gold2);
+  font-size:15px;
+}
+
+.pro-box p{
   color:var(--muted);
-  line-height:1.7;
+  font-size:9px;
+  margin:5px 0 12px;
 }
 
-.sidebar-bottom strong{color:var(--gold)}
+.pro-box a{
+  display:block;
+  text-align:center;
+  padding:9px;
+  border-radius:8px;
+  color:#21170b;
+  background:linear-gradient(120deg,var(--gold2),var(--gold));
+  font-size:10px;
+  font-weight:900;
+}
 
 .main{
   min-width:0;
-  padding:0 34px 35px;
+  padding:0 20px 30px;
 }
 
 .topbar{
-  min-height:82px;
+  min-height:69px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:18px;
+  gap:15px;
   border-bottom:1px solid var(--border);
-  margin-bottom:25px;
+  margin-bottom:18px;
 }
 
 .top-search{
-  width:min(430px,55%);
+  width:min(420px,60%);
   position:relative;
 }
 
 .top-search input{
   width:100%;
-  padding:12px 15px 12px 42px;
-  background:var(--panel);
+  padding:11px 14px 11px 38px;
+  background:#17111c;
   border:1px solid var(--border);
-  border-radius:12px;
+  border-radius:20px;
   outline:none;
   color:var(--text);
-  font-size:12px;
+  font-size:11px;
 }
 
-.top-search input:focus{
-  border-color:var(--gold-dark);
-}
+.top-search input:focus{border-color:var(--gold3)}
 
 .search-icon{
   position:absolute;
-  left:15px;
-  top:10px;
+  left:13px;
+  top:8px;
   color:var(--gold);
   font-size:17px;
 }
@@ -184,56 +208,69 @@ button{cursor:pointer}
 .top-right{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:13px;
+}
+
+.notification-link{
+  width:33px;
+  height:33px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--border);
+  border-radius:50%;
+  color:var(--gold2);
+  background:var(--panel);
 }
 
 .top-link{
-  color:var(--muted);
-  font-size:12px;
+  color:#c2b3c5;
+  font-size:10px;
   font-weight:800;
 }
-
-.top-link:hover{color:var(--gold)}
 
 .profile-chip{
   display:flex;
   align-items:center;
-  gap:9px;
-  padding:7px 12px;
+  gap:8px;
+  padding:6px 10px;
   border:1px solid var(--border);
-  border-radius:12px;
+  border-radius:11px;
   background:var(--panel);
-  font-size:11px;
+  font-size:10px;
   font-weight:800;
 }
 
 .profile-chip span:first-child{
-  width:29px;
-  height:29px;
-  border-radius:9px;
+  width:27px;
+  height:27px;
+  border-radius:8px;
   display:grid;
   place-items:center;
-  color:#1a1420;
-  background:linear-gradient(135deg,var(--gold2),var(--gold-dark));
+  color:#21170b;
+  background:linear-gradient(135deg,var(--gold2),var(--gold3));
 }
 
-.container{
-  width:100%;
-  max-width:1500px;
+.layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 245px;
+  gap:17px;
+  max-width:1700px;
   margin:auto;
 }
 
+.content{min-width:0}
+
 .hero{
-  min-height:285px;
+  min-height:200px;
   position:relative;
   overflow:hidden;
-  border-radius:23px;
-  border:1px solid #675034;
+  border-radius:17px;
+  border:1px solid #73542e;
   background:
-    radial-gradient(ellipse at 78% 30%,#79502b55,transparent 40%),
-    radial-gradient(ellipse at 95% 95%,#8d4c8d33,transparent 45%),
-    linear-gradient(112deg,#211728,#18121f 55%,#302036);
-  padding:39px 42px;
+    radial-gradient(ellipse at 77% 48%,#b78a363b,transparent 36%),
+    radial-gradient(ellipse at 100% 100%,#6f386f55,transparent 45%),
+    linear-gradient(110deg,#261a20,#17101b 58%,#382034);
+  padding:24px 27px;
   display:flex;
   align-items:center;
 }
@@ -241,37 +278,45 @@ button{cursor:pointer}
 .hero:before{
   content:"";
   position:absolute;
-  width:340px;
-  height:340px;
+  width:280px;
+  height:280px;
+  border:1px solid #e7c46b55;
   border-radius:50%;
   right:8%;
-  top:-110px;
-  border:1px solid #d7b76c33;
-  box-shadow:0 0 0 28px #d7b76c08,0 0 0 58px #d7b76c06;
+  top:-125px;
+  box-shadow:0 0 0 23px #e7c46b0b,0 0 0 48px #e7c46b08;
+}
+
+.hero:after{
+  content:"✦";
+  position:absolute;
+  right:12%;
+  bottom:17px;
+  font-size:65px;
+  color:#f2cf7555;
 }
 
 .hero-content{
   position:relative;
   z-index:1;
-  max-width:650px;
+  max-width:570px;
 }
 
 .eyebrow{
   color:var(--gold);
-  font-size:10px;
-  letter-spacing:3px;
+  font-size:9px;
+  letter-spacing:2.7px;
   font-weight:950;
   text-transform:uppercase;
 }
 
 .hero h1{
   font-family:Georgia,serif;
-  font-size:clamp(32px,4vw,52px);
-  line-height:1.13;
-  letter-spacing:-1px;
-  margin:13px 0;
-  color:var(--gold2);
-  max-width:650px;
+  font-size:clamp(27px,3vw,39px);
+  line-height:1.1;
+  letter-spacing:-.7px;
+  margin:9px 0;
+  color:#fff0c8;
 }
 
 .hero h1 em{
@@ -280,28 +325,28 @@ button{cursor:pointer}
 }
 
 .hero p{
-  max-width:540px;
-  font-size:13px;
-  line-height:1.8;
-  color:#c1b5c8;
+  max-width:480px;
+  font-size:10px;
+  line-height:1.7;
+  color:#c6b8c8;
 }
 
 .hero-actions{
   display:flex;
   flex-wrap:wrap;
-  gap:11px;
-  margin-top:22px;
+  gap:8px;
+  margin-top:13px;
 }
 
 .btn{
   border:0;
-  border-radius:10px;
-  padding:11px 16px;
+  border-radius:9px;
+  padding:10px 13px;
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  gap:7px;
-  font-size:11px;
+  gap:6px;
+  font-size:10px;
   font-weight:900;
   transition:.2s;
 }
@@ -312,28 +357,28 @@ button{cursor:pointer}
 }
 
 .btn-gold{
-  color:#21180d;
-  background:linear-gradient(135deg,var(--gold2),var(--gold));
-  box-shadow:0 5px 18px #d4a94c24;
+  color:#24180a;
+  background:linear-gradient(135deg,#ffe8a5,#e9bd55);
+  box-shadow:0 5px 15px #d4a94c24;
 }
 
 .btn-gold:hover{
   transform:translateY(-2px);
-  box-shadow:0 8px 24px #d4a94c40;
+  box-shadow:0 8px 20px #d4a94c40;
 }
 
 .btn-outline{
   color:var(--gold2);
-  border:1px solid #80663e;
-  background:#241b2d;
+  border:1px solid #85663b;
+  background:#211725;
 }
 
-.btn-outline:hover{background:#382943}
+.btn-outline:hover{background:#392a35}
 
 .btn-dark{
-  background:#30243d;
-  color:#e9d9bd;
-  border:1px solid #51405f;
+  background:#302238;
+  color:#f1dfc2;
+  border:1px solid #57405e;
 }
 
 .btn-danger{
@@ -345,80 +390,77 @@ button{cursor:pointer}
 .stats{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:14px;
-  margin:20px 0 30px;
+  gap:10px;
+  margin:13px 0 22px;
 }
 
 .stat{
-  background:linear-gradient(135deg,#20192d,#181321);
+  background:linear-gradient(135deg,#211725,#17111c);
   border:1px solid var(--border);
-  border-radius:15px;
-  padding:17px 19px;
+  border-radius:12px;
+  padding:11px 13px;
 }
 
 .stat strong{
   display:block;
   font-family:Georgia,serif;
   color:var(--gold);
-  font-size:27px;
+  font-size:22px;
   line-height:1.2;
 }
 
 .stat span{
   display:block;
-  font-size:10px;
+  font-size:8px;
   color:var(--muted);
-  font-weight:800;
-  margin-top:6px;
-  letter-spacing:.5px;
+  font-weight:900;
+  margin-top:5px;
+  letter-spacing:.6px;
 }
 
 .section-head{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
+  gap:10px;
   flex-wrap:wrap;
-  margin:28px 0 15px;
+  margin:18px 0 12px;
 }
 
 .section-title{
   font-family:Georgia,serif;
-  font-size:25px;
+  font-size:22px;
   color:var(--gold2);
 }
 
 .section-sub{
-  font-size:11px;
+  font-size:10px;
   color:var(--muted);
-  margin-top:4px;
+  margin-top:3px;
 }
 
 .filters{
   display:grid;
-  grid-template-columns:2fr 1fr 1fr;
-  gap:11px;
-  background:var(--panel);
-  padding:13px;
-  border:1px solid var(--border);
-  border-radius:15px;
-  margin-bottom:17px;
+  grid-template-columns:1fr 1fr 1fr 1.5fr;
+  gap:8px;
+  margin-bottom:12px;
+  align-items:center;
 }
 
 .field{
   width:100%;
   min-width:0;
-  background:#100d18;
-  border:1px solid #40334f;
-  border-radius:10px;
-  padding:12px;
+  background:#100c15;
+  border:1px solid #403044;
+  border-radius:9px;
+  padding:10px;
   color:var(--text);
   outline:none;
-  font-size:12px;
+  font-size:10px;
 }
 
 .field:focus{
-  border-color:var(--gold-dark);
+  border-color:var(--gold3);
   box-shadow:0 0 0 3px #e8c36e12;
 }
 
@@ -431,124 +473,144 @@ select.field option{
 
 .creator-grid{
   display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:15px;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:10px;
 }
 
 .creator-card{
   min-width:0;
   position:relative;
   overflow:hidden;
-  background:linear-gradient(155deg,#21192e,#171321 75%);
-  border:1px solid var(--border);
-  border-radius:17px;
-  padding:16px;
-  transition:.25s;
+  background:linear-gradient(155deg,#241a29,#17111c 75%);
+  border:1px solid #423044;
+  border-radius:13px;
+  padding:9px;
+  transition:.23s;
 }
 
 .creator-card:hover{
-  transform:translateY(-4px);
-  border-color:#80663e;
-  box-shadow:0 13px 30px #0004;
+  transform:translateY(-3px);
+  border-color:#92703e;
+  box-shadow:0 12px 25px #0005;
 }
 
-.creator-top{
-  display:flex;
-  align-items:center;
-  gap:11px;
-  min-width:0;
-  margin-bottom:12px;
+.creator-cover{
+  height:112px;
+  position:relative;
+  margin-bottom:9px;
+  overflow:hidden;
+  border-radius:9px;
+  background:linear-gradient(145deg,#38273b,#17111d);
+  border:1px solid #604a42;
 }
 
-.avatar{
-  width:61px;
-  height:61px;
-  flex-shrink:0;
+.creator-cover img{
+  width:100%;
+  height:100%;
+  display:block;
   object-fit:cover;
-  border-radius:15px;
-  border:1px solid #80663e;
-  background:#2c2238;
 }
 
-.avatar-fallback{
+.creator-fallback{
   display:grid;
   place-items:center;
-  color:var(--gold);
+  height:100%;
+  color:var(--gold2);
   font-family:Georgia,serif;
-  font-size:24px;
+  font-size:38px;
   font-weight:900;
+  background:radial-gradient(circle,#60452c,#211725 70%);
 }
 
-.creator-info{min-width:0}
+.favorite{
+  position:absolute;
+  top:7px;
+  right:7px;
+  width:27px;
+  height:27px;
+  display:grid;
+  place-items:center;
+  border:1px solid #ffffff55;
+  border-radius:50%;
+  background:#100c15d9;
+  color:#fff;
+  font-size:15px;
+  z-index:2;
+}
+
+.favorite.active{
+  color:#ff829d;
+  border-color:#ff829d;
+}
 
 .creator-name{
-  color:#f9edda;
-  font-size:14px;
+  color:#fff0d4;
+  font-size:11px;
   font-weight:900;
+  line-height:1.35;
   overflow-wrap:anywhere;
 }
 
 .handle{
   color:var(--muted);
-  font-size:11px;
-  margin-top:2px;
+  font-size:9px;
+  margin-top:3px;
   overflow-wrap:anywhere;
 }
 
-.verified{
-  display:inline-block;
-  color:#a9d5ff;
-  font-size:10px;
-  margin-left:4px;
+.creator-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  margin:7px 0;
 }
 
 .pill{
   display:inline-block;
-  padding:5px 9px;
-  margin:2px 3px 2px 0;
+  padding:4px 7px;
   border-radius:20px;
   color:var(--gold2);
   background:#49351f;
   border:1px solid #715632;
-  font-size:9px;
+  font-size:8px;
   font-weight:900;
 }
 
 .creator-bio{
   color:#b5a9c1;
-  font-size:11px;
-  line-height:1.7;
-  min-height:57px;
-  margin:10px 0;
+  font-size:9px;
+  line-height:1.55;
+  min-height:40px;
+  margin:6px 0;
   overflow-wrap:anywhere;
 }
 
 .creator-location{
-  font-size:10px;
-  color:#a99db6;
-  margin-bottom:12px;
+  font-size:9px;
+  color:#b9a9b8;
+  margin:7px 0;
 }
 
 .card-actions{
   display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:11px;
+  gap:5px;
+  margin-top:8px;
 }
 
 .card-actions .btn{
   flex:1;
-  padding:10px 8px;
-  font-size:10px;
+  padding:8px 4px;
+  font-size:8px;
+  min-width:0;
 }
 
 .notice{
   display:none;
-  padding:12px 14px;
-  border-radius:10px;
-  font-size:11px;
+  padding:10px 12px;
+  border-radius:9px;
+  font-size:10px;
   line-height:1.6;
-  margin:12px 0;
+  margin:10px 0;
   overflow-wrap:anywhere;
 }
 
@@ -560,63 +622,206 @@ select.field option{
 .empty{
   grid-column:1/-1;
   text-align:center;
-  padding:36px 18px;
+  padding:28px 15px;
   border:1px dashed #55445e;
-  border-radius:15px;
+  border-radius:13px;
   color:var(--muted);
   background:#191425;
-  font-size:11px;
+  font-size:10px;
   line-height:1.8;
 }
 
 .empty strong{
   display:block;
   font-family:Georgia,serif;
-  font-size:18px;
+  font-size:17px;
   color:var(--gold2);
   margin-bottom:5px;
 }
 
-.panel{
-  background:linear-gradient(145deg,#20192d,#171321);
+.rightbar{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:13px;
+}
+
+.rail-panel{
+  background:linear-gradient(145deg,#211725,#15101a);
   border:1px solid var(--border);
-  border-radius:18px;
-  padding:20px;
-  margin-top:32px;
+  border-radius:14px;
+  padding:13px;
+}
+
+.rail-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  margin-bottom:11px;
+}
+
+.rail-head h3{
+  font-family:Georgia,serif;
+  color:var(--gold2);
+  font-size:15px;
+}
+
+.rail-head a{
+  color:var(--gold);
+  font-size:9px;
+  font-weight:900;
+}
+
+.mini-request{
+  border-top:1px solid #3b2c3e;
+  padding:10px 0;
+}
+
+.mini-request:first-of-type{border-top:0}
+
+.mini-request strong{
+  display:block;
+  color:#f4e2c3;
+  font-size:10px;
+  line-height:1.4;
+}
+
+.mini-request p{
+  color:var(--muted);
+  font-size:8px;
+  margin-top:3px;
+}
+
+.mini-status{
+  display:inline-block;
+  margin-top:5px;
+  padding:3px 7px;
+  border-radius:20px;
+  background:#3b301d;
+  border:1px solid #715a34;
+  color:#f4d58b;
+  font-size:8px;
+  font-weight:900;
+  text-transform:capitalize;
+}
+
+.mini-status.approved,
+.mini-status.completed{
+  color:#9de0b4;
+  background:#1b3027;
+  border-color:#365e47;
+}
+
+.mini-status.rejected,
+.mini-status.cancelled,
+.mini-status.canceled{
+  color:#f0aaaa;
+  background:#351c29;
+  border-color:#75404c;
+}
+
+.mini-empty{
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.6;
+}
+
+.promo{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 90% 15%,#b17a2c55,transparent 42%),
+    linear-gradient(145deg,#3b2832,#1c1421);
+  border:1px solid #826039;
+  border-radius:14px;
+  padding:15px;
+}
+
+.promo-icon{
+  font-size:25px;
+  color:var(--gold);
+  margin-bottom:5px;
+}
+
+.promo h3{
+  font-family:Georgia,serif;
+  color:var(--gold2);
+  font-size:17px;
+}
+
+.promo p{
+  color:#c6b5c5;
+  font-size:9px;
+  line-height:1.6;
+  margin:5px 0 12px;
+}
+
+.promo .btn{width:100%}
+
+.quick-links{
+  display:grid;
+  gap:8px;
+}
+
+.quick-links a{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#c5b7c8;
+  font-size:9px;
+  font-weight:800;
+  padding:8px;
+  background:#211725;
+  border:1px solid #3b2b40;
+  border-radius:8px;
+}
+
+.quick-links a:hover{
+  color:var(--gold2);
+  border-color:#8b683b;
+}
+
+.panel{
+  background:linear-gradient(145deg,#211725,#17111c);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:17px;
+  margin-top:25px;
 }
 
 .request-list{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:12px;
+  gap:10px;
 }
 
 .request-item{
-  background:#171321;
-  border:1px solid #40334f;
-  border-radius:13px;
-  padding:15px;
+  background:#17111c;
+  border:1px solid #403044;
+  border-radius:11px;
+  padding:12px;
   overflow-wrap:anywhere;
 }
 
 .request-item h3{
-  font-size:13px;
+  font-size:11px;
   color:var(--gold2);
   margin-bottom:7px;
 }
 
 .request-item p{
   color:#b5a9c1;
-  font-size:10px;
+  font-size:9px;
   margin:5px 0;
   line-height:1.6;
 }
 
 .status{
   display:inline-block;
-  padding:4px 9px;
+  padding:4px 8px;
   border-radius:20px;
-  font-size:9px;
+  font-size:8px;
   font-weight:900;
   text-transform:capitalize;
   background:#382d48;
@@ -628,12 +833,12 @@ select.field option{
 .status.approved,.status.completed{color:#9de0b4;background:#1b3027;border-color:#365e47}
 .status.rejected,.status.cancelled,.status.canceled{color:#f0aaaa;background:#351c29;border-color:#75404c}
 
-.request-item .btn{margin-top:10px}
+.request-item .btn{margin-top:8px}
 
 .footer{
   text-align:center;
-  padding:35px 10px 15px;
-  font-size:10px;
+  padding:27px 10px 12px;
+  font-size:9px;
   color:#80758b;
 }
 
@@ -643,7 +848,7 @@ select.field option{
   inset:0;
   z-index:50;
   background:#05040bdc;
-  padding:16px;
+  padding:15px;
   overflow-y:auto;
   align-items:center;
   justify-content:center;
@@ -653,13 +858,13 @@ select.field option{
 .modal.open{display:flex}
 
 .modal-box{
-  width:min(540px,100%);
+  width:min(520px,100%);
   max-height:92vh;
   overflow-y:auto;
   background:linear-gradient(145deg,#241b32,#15111e);
   border:1px solid #725a3c;
-  border-radius:19px;
-  padding:23px;
+  border-radius:17px;
+  padding:20px;
   box-shadow:0 25px 90px #0009;
 }
 
@@ -668,80 +873,97 @@ select.field option{
   justify-content:space-between;
   align-items:center;
   gap:12px;
-  margin-bottom:17px;
+  margin-bottom:15px;
 }
 
 .modal-head h2{
   font-family:Georgia,serif;
   color:var(--gold2);
-  font-size:22px;
+  font-size:21px;
 }
 
 .close{
   border:1px solid #51405f;
   background:#30243d;
   color:var(--gold2);
-  width:35px;
-  height:35px;
+  width:34px;
+  height:34px;
   border-radius:9px;
-  font-size:20px;
+  font-size:19px;
 }
 
-.form-grid{display:grid;gap:13px}
+.form-grid{display:grid;gap:12px}
 
 .form-group label{
   display:block;
-  font-size:10px;
+  font-size:9px;
   font-weight:900;
   color:var(--gold2);
-  margin-bottom:6px;
+  margin-bottom:5px;
 }
 
 textarea.field{
-  min-height:100px;
+  min-height:90px;
   resize:vertical;
 }
 
 .form-help{
   color:var(--muted);
-  font-size:10px;
+  font-size:9px;
   margin-top:5px;
 }
 
 .social-links{
   display:flex;
-  gap:9px;
+  gap:8px;
   flex-wrap:wrap;
-  margin:14px 0;
+  margin:12px 0;
 }
 
 .social-links a{
   background:#30243d;
   color:var(--gold2);
   border:1px solid #604a38;
-  padding:8px 12px;
-  border-radius:9px;
-  font-size:10px;
+  padding:8px 11px;
+  border-radius:8px;
+  font-size:9px;
   font-weight:900;
 }
 
 .details-bio{
-  font-size:12px;
+  font-size:11px;
   color:#c1b5c8;
   line-height:1.8;
-  margin:13px 0;
+  margin:12px 0;
   overflow-wrap:anywhere;
 }
 
 .details-location{
   color:var(--muted);
+  font-size:10px;
+}
+
+.guideline-list{
+  padding-left:18px;
+  color:#c8b9c8;
   font-size:11px;
+  line-height:1.9;
+}
+
+@media(max-width:1350px){
+  .app{grid-template-columns:190px minmax(0,1fr)}
+  .layout{grid-template-columns:minmax(0,1fr) 220px;gap:12px}
+  .creator-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
 
 @media(max-width:1100px){
-  .app{grid-template-columns:205px minmax(0,1fr)}
-  .main{padding:0 22px 30px}
-  .creator-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .layout{grid-template-columns:minmax(0,1fr)}
+  .rightbar{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    align-items:start;
+  }
+  .creator-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 
 @media(max-width:760px){
@@ -750,59 +972,70 @@ textarea.field{
     min-height:auto;
     height:auto;
     position:relative;
-    padding:15px 15px 12px;
+    padding:12px 12px 9px;
     border-right:0;
     border-bottom:1px solid var(--border);
   }
-  .brand{font-size:25px}
-  .brand-sub{margin-bottom:15px}
+  .brand{font-size:23px}
+  .brand-sub{margin-bottom:12px}
   .side-label{display:none}
   .side-nav{
     display:flex;
     overflow-x:auto;
-    padding-bottom:5px;
-    gap:6px;
+    padding-bottom:4px;
+    gap:5px;
   }
   .side-nav a{
     flex-shrink:0;
-    padding:9px 11px;
-    font-size:10px;
+    padding:9px 10px;
+    font-size:9px;
   }
-  .sidebar-bottom{display:none}
-  .main{padding:0 16px 25px}
-  .topbar{min-height:67px;margin-bottom:17px}
-  .hero{padding:29px 23px;min-height:260px}
+  .pro-box{display:none}
+  .main{padding:0 13px 23px}
+  .topbar{min-height:60px;margin-bottom:13px}
+  .layout{grid-template-columns:1fr}
+  .rightbar{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+  .hero{padding:25px 19px;min-height:225px}
   .hero:before{right:-100px}
-  .stats{gap:8px}
-  .stat{padding:13px 11px}
-  .stat strong{font-size:22px}
+  .creator-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .creator-cover{height:145px}
   .request-list{grid-template-columns:1fr}
 }
 
 @media(max-width:520px){
-  .main{padding:0 12px 22px}
-  .topbar{gap:8px}
+  .main{padding:0 12px 20px}
+  .topbar{gap:7px}
   .top-search{width:100%}
-  .top-search input{padding:10px 10px 10px 35px}
-  .search-icon{left:11px;top:8px}
+  .top-search input{padding:9px 8px 9px 32px;font-size:9px}
+  .search-icon{left:10px;top:7px}
   .top-right{gap:7px}
-  .top-link{font-size:10px}
-  .profile-chip{padding:5px 7px;font-size:9px}
-  .profile-chip span:first-child{width:25px;height:25px}
-  .hero{padding:25px 18px;border-radius:17px}
-  .hero h1{font-size:34px}
-  .hero p{font-size:11px}
-  .hero-actions .btn{font-size:10px;padding:10px 12px}
-  .stats{gap:7px}
-  .stat{padding:11px 8px}
+  .top-link{font-size:9px}
+  .notification-link{width:29px;height:29px}
+  .profile-chip{padding:4px 6px;font-size:8px}
+  .profile-chip span:first-child{width:23px;height:23px}
+  .hero{padding:23px 16px;border-radius:14px}
+  .hero h1{font-size:30px}
+  .hero p{font-size:10px}
+  .hero-actions .btn{font-size:9px;padding:9px 10px}
+  .stats{gap:6px}
+  .stat{padding:10px 7px}
   .stat strong{font-size:19px}
-  .stat span{font-size:8px}
-  .section-title{font-size:22px}
-  .filters{grid-template-columns:1fr;padding:10px}
+  .stat span{font-size:7px}
+  .section-title{font-size:21px}
+  .filters{grid-template-columns:1fr 1fr}
+  .filters input{grid-column:1/-1}
   .creator-grid{grid-template-columns:1fr}
-  .creator-card{padding:15px}
-  .panel{padding:14px}
-  .modal-box{padding:18px}
+  .creator-card{padding:12px}
+  .creator-cover{height:190px}
+  .creator-name{font-size:13px}
+  .creator-bio{min-height:0;font-size:10px}
+  .card-actions .btn{font-size:9px;padding:9px 6px}
+  .rightbar{grid-template-columns:1fr}
+  .panel{padding:13px}
+  .modal-box{padding:16px}
 }
 
 </style>
@@ -825,11 +1058,14 @@ textarea.field{
     <a class="active" href="creator-marketplace.html"><span class="side-icon">✦</span>Creator Marketplace</a>
     <a href="campaigns.html"><span class="side-icon">◈</span>Campaigns</a>
     <a href="post-analytics.html"><span class="side-icon">▥</span>Analytics</a>
-    <a href="plans.html"><span class="side-icon">♛</span>Boostly Pro</a>
+    <a href="premium.html"><span class="side-icon">♛</span>Boostly Pro</a>
   </nav>
 
-  <div class="sidebar-bottom">
-    <p>Build meaningful connections.<br><strong>Grow together with Boostly.</strong></p>
+  <div class="pro-box">
+    <div class="pro-icon">♛</div>
+    <strong>Boostly Pro</strong>
+    <p>Unlock premium features and grow your business.</p>
+    <a href="premium.html">Upgrade Now →</a>
   </div>
 
 </aside>
@@ -840,10 +1076,11 @@ textarea.field{
 
   <div class="top-search">
     <span class="search-icon">⌕</span>
-    <input id="topSearchInput" type="search" placeholder="Search creators, categories, cities...">
+    <input id="topSearchInput" type="search" placeholder="Search creators by name, category or handle...">
   </div>
 
   <div class="top-right">
+    <a class="notification-link" href="#my-requests" aria-label="My requests">♧</a>
     <a class="top-link" href="creator-profile.html">My Profile</a>
     <a class="profile-chip" href="login.html">
       <span>♙</span> Account
@@ -852,22 +1089,24 @@ textarea.field{
 
 </header>
 
-<div class="container">
+<div class="layout">
+
+<div class="content">
 
 <section class="hero">
 
   <div class="hero-content">
-    <div class="eyebrow">THE BOOSTLY CREATOR NETWORK</div>
+    <div class="eyebrow">✦ THE BOOSTLY CREATOR NETWORK</div>
 
     <h1>Discover creators who <em>inspire.</em><br>Collaborate. Grow.</h1>
 
     <p>
-      Connect with talented creators, discover meaningful partnerships
-      and turn great ideas into powerful collaborations.
+      Find talented creators for your business campaigns.
+      Collaborate with creators and grow your brand together.
     </p>
 
     <div class="hero-actions">
-      <a href="#discover" class="btn btn-gold">Explore Creators <span>→</span></a>
+      <a href="#discover" class="btn btn-gold">Explore Creators →</a>
       <a href="creator-profile.html" class="btn btn-outline">Create My Profile +</a>
     </div>
   </div>
@@ -913,7 +1152,7 @@ textarea.field{
       class="field"
       id="searchInput"
       type="search"
-      placeholder="Search name, handle, bio or city..."
+      placeholder="Search creators..."
     >
 
     <select class="field" id="categoryFilter">
@@ -922,6 +1161,12 @@ textarea.field{
 
     <select class="field" id="cityFilter">
       <option value="">All Cities</option>
+    </select>
+
+    <select class="field" id="sortFilter" aria-label="Sort creators">
+      <option value="newest">Sort: Newest</option>
+      <option value="name">Sort: Name A–Z</option>
+      <option value="category">Sort: Category</option>
     </select>
 
   </div>
@@ -963,6 +1208,50 @@ textarea.field{
 </footer>
 
 </div>
+
+<aside class="rightbar">
+
+  <section class="rail-panel">
+
+    <div class="rail-head">
+      <h3>My Requests</h3>
+      <a href="#my-requests">View All →</a>
+    </div>
+
+    <div id="miniRequestList">
+      <div class="mini-empty">Loading your requests...</div>
+    </div>
+
+  </section>
+
+  <section class="promo">
+
+    <div class="promo-icon">✦</div>
+    <h3>Grow Your Brand</h3>
+    <p>Launch a campaign and connect with creators who can help your business grow.</p>
+    <a class="btn btn-gold" href="campaigns.html">Create Campaign →</a>
+
+  </section>
+
+  <section class="rail-panel">
+
+    <div class="rail-head">
+      <h3>Quick Links</h3>
+    </div>
+
+    <div class="quick-links">
+      <a href="#my-requests">◉ My Requests</a>
+      <a href="creator-profile.html">♙ Creator Profile</a>
+      <a href="campaigns.html">✦ Browse Campaigns</a>
+      <a href="#" id="guidelinesLink">ⓘ Creator Guidelines</a>
+    </div>
+
+  </section>
+
+</aside>
+
+</div>
+
 </main>
 </div>
 
@@ -1015,18 +1304,11 @@ textarea.field{
 
       <div class="form-group">
         <label for="brandName">YOUR BUSINESS NAME *</label>
-        <input
-          class="field"
-          id="brandName"
-          maxlength="80"
-          required
-          placeholder="e.g. Royal Look Salon"
-        >
+        <input class="field" id="brandName" maxlength="80" required placeholder="e.g. Royal Look Salon">
       </div>
 
       <div class="form-group">
         <label for="goal">COLLABORATION GOAL *</label>
-
         <select class="field" id="goal" required>
           <option value="">Select a goal</option>
           <option value="Product promotion">Product promotion</option>
@@ -1040,36 +1322,14 @@ textarea.field{
 
       <div class="form-group">
         <label for="budget">BUDGET IN ₹ (OPTIONAL)</label>
-
-        <input
-          class="field"
-          id="budget"
-          type="number"
-          min="0"
-          max="10000000"
-          step="1"
-          placeholder="e.g. 2000"
-        >
-
-        <div class="form-help">
-          Enter a numeric amount in Indian Rupees. Leave blank if undecided.
-        </div>
+        <input class="field" id="budget" type="number" min="0" max="10000000" step="1" placeholder="e.g. 2000">
+        <div class="form-help">Enter a numeric amount in Indian Rupees. Leave blank if undecided.</div>
       </div>
 
       <div class="form-group">
         <label for="message">YOUR MESSAGE *</label>
-
-        <textarea
-          class="field"
-          id="message"
-          maxlength="300"
-          required
-          placeholder="Tell the creator about your collaboration idea..."
-        ></textarea>
-
-        <div class="form-help">
-          Maximum 300 characters. Do not include passwords or sensitive information.
-        </div>
+        <textarea class="field" id="message" maxlength="300" required placeholder="Tell the creator about your collaboration idea..."></textarea>
+        <div class="form-help">Maximum 300 characters.</div>
       </div>
 
       <button class="btn btn-gold" id="submitRequestBtn" type="submit">
@@ -1082,673 +1342,709 @@ textarea.field{
 
 </div>
 
+<!-- CREATOR GUIDELINES MODAL -->
+
+<div class="modal" id="guidelinesModal" role="dialog" aria-modal="true" aria-labelledby="guidelinesTitle">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2 id="guidelinesTitle">Creator Guidelines</h2>
+      <button class="close" type="button" data-close="guidelinesModal" aria-label="Close">×</button>
+    </div>
+
+    <ul class="guideline-list">
+      <li>Keep your creator profile information accurate and up to date.</li>
+      <li>Use genuine profile photos and valid social media links.</li>
+      <li>Share clear collaboration goals and expectations.</li>
+      <li>Discuss budgets and deliverables before starting a partnership.</li>
+      <li>Never share passwords or sensitive account information.</li>
+      <li>Communicate respectfully with businesses and creators.</li>
+    </ul>
+
+  </div>
+
+</div>
+
 <script>
 (function(){
-  "use strict";
+"use strict";
 
-  const $ = id => document.getElementById(id);
+const $ = id => document.getElementById(id);
 
-  let creators = [];
-  let selectedCreator = null;
-  let requests = [];
+let creators = [];
+let selectedCreator = null;
+let requests = [];
+let favorites = new Set();
 
-  function escapeHTML(value){
-    return String(value == null ? "" : value).replace(/[&<>"']/g,function(ch){
-      return {
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#39;"
-      }[ch];
-    });
+try{
+  const saved = JSON.parse(localStorage.getItem("boostly_creator_favorites") || "[]");
+  if(Array.isArray(saved)) favorites = new Set(saved.map(String));
+}catch(e){}
+
+function escapeHTML(value){
+  return String(value == null ? "" : value).replace(/[&<>"']/g,function(ch){
+    return {
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    }[ch];
+  });
+}
+
+function safeURL(value){
+  try{
+    const url = new URL(String(value || ""));
+    return url.protocol === "https:" || url.protocol === "http:" ? url.href : "";
+  }catch(e){
+    return "";
+  }
+}
+
+function showNotice(id,message,type){
+  const el = $(id);
+  el.textContent = message;
+  el.className = "notice show " + (type || "info");
+}
+
+function hideNotice(id){
+  $(id).className = "notice";
+  $(id).textContent = "";
+}
+
+async function apiFetch(url,options){
+  const response = await fetch(url,Object.assign({
+    credentials:"include",
+    cache:"no-store"
+  },options || {}));
+
+  let data;
+
+  try{
+    data = await response.json();
+  }catch(e){
+    throw new Error("Server returned an invalid response. Please try again.");
   }
 
-  function safeURL(value){
-    try{
-      const url = new URL(String(value || ""));
-      return url.protocol === "https:" || url.protocol === "http:"
-        ? url.href
-        : "";
-    }catch(e){
-      return "";
-    }
+  if(!response.ok || data.success === false){
+    throw new Error(data.error || data.message || ("Request failed (" + response.status + ")"));
   }
 
-  function showNotice(id,message,type){
-    const el = $(id);
-    el.textContent = message;
-    el.className = "notice show " + (type || "info");
+  return data;
+}
+
+function getName(c){
+  return c.creator_name || c.name || "Creator";
+}
+
+function getHandle(c){
+  return c.creator_handle || c.handle || "";
+}
+
+function getCategory(c){
+  return c.category || "Other";
+}
+
+function getCreatorId(c){
+  return String(c.id == null ? "" : c.id);
+}
+
+function renderFilters(){
+  const categories = [...new Set(
+    creators.map(c => getCategory(c)).filter(Boolean)
+  )].sort();
+
+  const cities = [...new Set(
+    creators.map(c => String(c.city || "").trim()).filter(Boolean)
+  )].sort();
+
+  const categoryValue = $("categoryFilter").value;
+  const cityValue = $("cityFilter").value;
+
+  $("categoryFilter").innerHTML =
+    '<option value="">All Categories</option>' +
+    categories.map(c =>
+      '<option value="' + escapeHTML(c) + '">' + escapeHTML(c) + '</option>'
+    ).join("");
+
+  $("cityFilter").innerHTML =
+    '<option value="">All Cities</option>' +
+    cities.map(c =>
+      '<option value="' + escapeHTML(c) + '">' + escapeHTML(c) + '</option>'
+    ).join("");
+
+  if(categories.includes(categoryValue)) $("categoryFilter").value = categoryValue;
+  if(cities.includes(cityValue)) $("cityFilter").value = cityValue;
+
+  $("creatorCount").textContent = creators.length;
+  $("categoryCount").textContent = categories.length;
+}
+
+function getVisibleCreators(){
+  const query = $("searchInput").value.trim().toLowerCase();
+  const category = $("categoryFilter").value;
+  const city = $("cityFilter").value;
+  const sort = $("sortFilter").value;
+
+  let result = creators.filter(c => {
+    const haystack = [
+      getName(c),
+      getHandle(c),
+      getCategory(c),
+      c.bio || "",
+      c.city || ""
+    ].join(" ").toLowerCase();
+
+    return (!query || haystack.includes(query)) &&
+      (!category || getCategory(c) === category) &&
+      (!city || String(c.city || "").trim() === city);
+  });
+
+  if(sort === "name"){
+    result.sort((a,b) => getName(a).localeCompare(getName(b)));
+  }else if(sort === "category"){
+    result.sort((a,b) => getCategory(a).localeCompare(getCategory(b)));
+  }else{
+    result.sort((a,b) => String(b.created_at || "").localeCompare(String(a.created_at || "")));
   }
 
-  function hideNotice(id){
-    $(id).className = "notice";
-    $(id).textContent = "";
-  }
+  return result;
+}
 
-  async function apiFetch(url,options){
-    const response = await fetch(url,Object.assign({
-      credentials:"include",
-      cache:"no-store"
-    },options || {}));
+function creatorCard(c){
+  const id = getCreatorId(c);
+  const name = getName(c);
+  const handle = getHandle(c);
+  const image = safeURL(c.profile_image || c.avatar || "");
+  const initial = escapeHTML((name.trim().charAt(0) || "C").toUpperCase());
+  const isFavorite = favorites.has(id);
 
-    let data;
+  return `
+    <article class="creator-card">
 
-    try{
-      data = await response.json();
-    }catch(e){
-      throw new Error("Server returned an invalid response. Please try again.");
-    }
-
-    if(!response.ok || data.success === false){
-      throw new Error(
-        data.error ||
-        data.message ||
-        ("Request failed (" + response.status + ")")
-      );
-    }
-
-    return data;
-  }
-
-  function getName(c){
-    return c.creator_name || c.name || "Creator";
-  }
-
-  function getHandle(c){
-    return c.creator_handle || c.handle || "";
-  }
-
-  function getCategory(c){
-    return c.category || "Other";
-  }
-
-  function renderFilters(){
-    const categories = [...new Set(
-      creators.map(c => getCategory(c)).filter(Boolean)
-    )].sort();
-
-    const cities = [...new Set(
-      creators.map(c => String(c.city || "").trim()).filter(Boolean)
-    )].sort();
-
-    const categoryValue = $("categoryFilter").value;
-    const cityValue = $("cityFilter").value;
-
-    $("categoryFilter").innerHTML =
-      '<option value="">All Categories</option>' +
-      categories.map(c =>
-        '<option value="' + escapeHTML(c) + '">' +
-        escapeHTML(c) +
-        '</option>'
-      ).join("");
-
-    $("cityFilter").innerHTML =
-      '<option value="">All Cities</option>' +
-      cities.map(c =>
-        '<option value="' + escapeHTML(c) + '">' +
-        escapeHTML(c) +
-        '</option>'
-      ).join("");
-
-    if(categories.includes(categoryValue)){
-      $("categoryFilter").value = categoryValue;
-    }
-
-    if(cities.includes(cityValue)){
-      $("cityFilter").value = cityValue;
-    }
-
-    $("creatorCount").textContent = creators.length;
-    $("categoryCount").textContent = categories.length;
-  }
-
-  function getVisibleCreators(){
-    const query = $("searchInput").value.trim().toLowerCase();
-    const category = $("categoryFilter").value;
-    const city = $("cityFilter").value;
-
-    return creators.filter(c => {
-      const haystack = [
-        getName(c),
-        getHandle(c),
-        getCategory(c),
-        c.bio || "",
-        c.city || ""
-      ].join(" ").toLowerCase();
-
-      return (!query || haystack.includes(query)) &&
-        (!category || getCategory(c) === category) &&
-        (!city || String(c.city || "").trim() === city);
-    });
-  }
-
-  function creatorCard(c){
-    const name = getName(c);
-    const handle = getHandle(c);
-    const category = getCategory(c);
-    const image = safeURL(c.profile_image || c.avatar || "");
-
-    const initial = escapeHTML(
-      (name.trim().charAt(0) || "C").toUpperCase()
-    );
-
-    return `
-      <article class="creator-card">
-
-        <div class="creator-top">
-
-          ${
-            image
-              ? `<img class="avatar" src="${escapeHTML(image)}" alt="${escapeHTML(name)}" loading="lazy" referrerpolicy="no-referrer">`
-              : `<div class="avatar avatar-fallback">${initial}</div>`
-          }
-
-          <div class="creator-info">
-
-            <div class="creator-name">
-              ${escapeHTML(name)}
-            </div>
-
-            <div class="handle">
-              ${handle
-                ? "@" + escapeHTML(handle.replace(/^@/,""))
-                : "Boostly Creator"}
-            </div>
-
-          </div>
-
-        </div>
-
-        <span class="pill">${escapeHTML(category)}</span>
-
-        <p class="creator-bio">
-          ${escapeHTML(c.bio || "This creator has not added a bio yet.")}
-        </p>
-
-        <div class="creator-location">
-          📍 ${escapeHTML(c.city || "Location not added")}
-        </div>
-
-        <div class="card-actions">
-
-          <button
-            class="btn btn-dark"
-            type="button"
-            data-details="${escapeHTML(c.id)}"
-          >
-            View Profile
-          </button>
-
-          <button
-            class="btn btn-gold"
-            type="button"
-            data-collaborate="${escapeHTML(c.id)}"
-          >
-            Send Request
-          </button>
-
-        </div>
-
-      </article>
-    `;
-  }
-
-  function renderCreators(){
-    const visible = getVisibleCreators();
-    const grid = $("creatorGrid");
-
-    if(!visible.length){
-      grid.innerHTML = `
-        <div class="empty">
-          <strong>No creators found</strong>
-          Try another search, category or city.
-          Active creator profiles appear here.
-        </div>
-      `;
-      return;
-    }
-
-    grid.innerHTML = visible.map(creatorCard).join("");
-  }
-
-  async function loadCreators(){
-    const btn = $("refreshBtn");
-
-    btn.disabled = true;
-    btn.textContent = "Loading...";
-
-    try{
-      const data = await apiFetch("/api/creators");
-
-      creators = Array.isArray(data.creators)
-        ? data.creators
-        : (Array.isArray(data.results) ? data.results : []);
-
-      renderFilters();
-      renderCreators();
-      hideNotice("creatorNotice");
-
-      if(!creators.length){
-        showNotice(
-          "creatorNotice",
-          "No active creator profiles are available yet. Create a profile from My Profile and refresh this page.",
-          "info"
-        );
-      }
-
-    }catch(error){
-
-      $("creatorGrid").innerHTML = `
-        <div class="empty">
-          <strong>Creators could not be loaded</strong>
-          ${escapeHTML(error.message)}
-          <br><br>
-          Check that /api/creators is deployed and the creators table contains active profiles.
-        </div>
-      `;
-
-      showNotice("creatorNotice",error.message,"error");
-
-    }finally{
-      btn.disabled = false;
-      btn.textContent = "↻ Refresh";
-    }
-  }
-
-  function openModal(id){
-    $(id).classList.add("open");
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeModal(id){
-    $(id).classList.remove("open");
-
-    if(
-      !$("detailsModal").classList.contains("open") &&
-      !$("requestModal").classList.contains("open")
-    ){
-      document.body.style.overflow = "";
-    }
-  }
-
-  function findCreator(id){
-    return creators.find(c => String(c.id) === String(id));
-  }
-
-  function openDetails(creator){
-    if(!creator) return;
-
-    selectedCreator = creator;
-
-    const image = safeURL(creator.profile_image || creator.avatar || "");
-    const name = getName(creator);
-    const handle = getHandle(creator);
-    const instagram = safeURL(creator.instagram_url);
-    const youtube = safeURL(creator.youtube_url);
-
-    $("detailsTitle").textContent = name + " — Creator Profile";
-
-    $("detailsContent").innerHTML = `
-      <div class="creator-top">
+      <div class="creator-cover">
 
         ${
           image
-            ? `<img class="avatar" src="${escapeHTML(image)}" alt="${escapeHTML(name)}">`
-            : `<div class="avatar avatar-fallback">${escapeHTML((name.charAt(0) || "C").toUpperCase())}</div>`
+            ? `<img src="${escapeHTML(image)}" alt="${escapeHTML(name)}" loading="lazy" referrerpolicy="no-referrer">`
+            : `<div class="creator-fallback">${initial}</div>`
         }
 
-        <div class="creator-info">
-
-          <div class="creator-name">${escapeHTML(name)}</div>
-
-          <div class="handle">
-            ${handle
-              ? "@" + escapeHTML(handle.replace(/^@/,""))
-              : "Boostly Creator"}
-          </div>
-
-          <span class="pill">${escapeHTML(getCategory(creator))}</span>
-
-        </div>
+        <button
+          class="favorite ${isFavorite ? "active" : ""}"
+          type="button"
+          data-favorite="${escapeHTML(id)}"
+          aria-label="Toggle favourite"
+          aria-pressed="${isFavorite ? "true" : "false"}"
+        >${isFavorite ? "♥" : "♡"}</button>
 
       </div>
 
-      <p class="details-bio">
-        ${escapeHTML(creator.bio || "This creator has not added a bio yet.")}
+      <div class="creator-name">${escapeHTML(name)}</div>
+
+      <div class="handle">
+        ${handle ? "@" + escapeHTML(handle.replace(/^@/,"")) : "Boostly Creator"}
+      </div>
+
+      <div class="creator-meta">
+        <span class="pill">${escapeHTML(getCategory(c))}</span>
+      </div>
+
+      <p class="creator-bio">
+        ${escapeHTML(c.bio || "This creator has not added a bio yet.")}
       </p>
 
-      <p class="details-location">
-        📍 ${escapeHTML(creator.city || "Location not added")}
-      </p>
+      <div class="creator-location">
+        📍 ${escapeHTML(c.city || "Location not added")}
+      </div>
 
-      <div class="social-links">
+      <div class="card-actions">
 
-        ${
-          instagram
-            ? `<a href="${escapeHTML(instagram)}" target="_blank" rel="noopener noreferrer">Instagram ↗</a>`
-            : ""
-        }
+        <button class="btn btn-dark" type="button" data-details="${escapeHTML(id)}">
+          View Profile
+        </button>
 
-        ${
-          youtube
-            ? `<a href="${escapeHTML(youtube)}" target="_blank" rel="noopener noreferrer">YouTube ↗</a>`
-            : ""
-        }
+        <button class="btn btn-gold" type="button" data-collaborate="${escapeHTML(id)}">
+          Send Request
+        </button>
 
+      </div>
+
+    </article>
+  `;
+}
+
+function renderCreators(){
+  const visible = getVisibleCreators();
+
+  if(!visible.length){
+    $("creatorGrid").innerHTML = `
+      <div class="empty">
+        <strong>No creators found</strong>
+        Try another search, category or city.
+      </div>
+    `;
+    return;
+  }
+
+  $("creatorGrid").innerHTML = visible.map(creatorCard).join("");
+}
+
+async function loadCreators(){
+  const btn = $("refreshBtn");
+
+  btn.disabled = true;
+  btn.textContent = "Loading...";
+
+  try{
+    const data = await apiFetch("/api/creators");
+
+    creators = Array.isArray(data.creators)
+      ? data.creators
+      : (Array.isArray(data.results) ? data.results : []);
+
+    renderFilters();
+    renderCreators();
+    hideNotice("creatorNotice");
+
+    if(!creators.length){
+      showNotice(
+        "creatorNotice",
+        "No active creator profiles are available yet. Create a profile from My Profile and refresh this page.",
+        "info"
+      );
+    }
+
+  }catch(error){
+
+    $("creatorGrid").innerHTML = `
+      <div class="empty">
+        <strong>Creators could not be loaded</strong>
+        ${escapeHTML(error.message)}
       </div>
     `;
 
-    openModal("detailsModal");
+    showNotice("creatorNotice",error.message,"error");
+
+  }finally{
+    btn.disabled = false;
+    btn.textContent = "↻ Refresh";
   }
+}
 
-  function openRequestForm(creator){
-    if(!creator) return;
+function openModal(id){
+  $(id).classList.add("open");
+  document.body.style.overflow = "hidden";
+}
 
-    selectedCreator = creator;
+function closeModal(id){
+  $(id).classList.remove("open");
 
-    $("targetCreator").value =
-      getName(creator) +
-      (getHandle(creator)
-        ? " (@" + getHandle(creator).replace(/^@/,"") + ")"
-        : "");
-
-    hideNotice("formNotice");
-    closeModal("detailsModal");
-    openModal("requestModal");
+  if(!document.querySelector(".modal.open")){
+    document.body.style.overflow = "";
   }
+}
 
-  async function loadRequests(){
-    const btn = $("refreshRequestsBtn");
+function findCreator(id){
+  return creators.find(c => getCreatorId(c) === String(id));
+}
 
-    btn.disabled = true;
-    btn.textContent = "Loading...";
+function openDetails(creator){
+  if(!creator) return;
 
-    try{
-      const data = await apiFetch("/api/creator-request");
+  selectedCreator = creator;
 
-      requests = Array.isArray(data.requests)
-        ? data.requests
-        : (
-          Array.isArray(data.results)
-            ? data.results
-            : (Array.isArray(data.data) ? data.data : [])
-        );
+  const image = safeURL(creator.profile_image || creator.avatar || "");
+  const name = getName(creator);
+  const handle = getHandle(creator);
+  const instagram = safeURL(creator.instagram_url);
+  const youtube = safeURL(creator.youtube_url);
 
-      renderRequests();
-      hideNotice("requestNotice");
+  $("detailsTitle").textContent = name + " — Creator Profile";
 
-    }catch(error){
+  $("detailsContent").innerHTML = `
+    <div class="creator-top">
 
-      requests = [];
-
-      $("requestCount").textContent = "—";
-
-      $("requestList").innerHTML = `
-        <div class="empty">
-          <strong>Requests could not be loaded</strong>
-          ${escapeHTML(error.message)}
-          <br><br>
-          Log in and refresh this section if authentication is required.
-        </div>
-      `;
-
-      showNotice("requestNotice",error.message,"error");
-
-    }finally{
-      btn.disabled = false;
-      btn.textContent = "↻ Refresh";
-    }
-  }
-
-  function renderRequests(){
-    $("requestCount").textContent = requests.length;
-
-    if(!requests.length){
-      $("requestList").innerHTML = `
-        <div class="empty">
-          <strong>No requests to show</strong>
-          Collaboration requests you send will appear here.
-        </div>
-      `;
-      return;
-    }
-
-    $("requestList").innerHTML = requests.map(r => {
-      const id = r.id || r.request_id;
-      const status = String(r.status || "pending").toLowerCase();
-
-      const canCancel =
-        id != null &&
-        status === "pending";
-
-      const budget =
-        r.budget !== null &&
-        r.budget !== undefined &&
-        r.budget !== ""
-          ? "₹" + Number(r.budget).toLocaleString("en-IN")
-          : "Not specified";
-
-      return `
-        <article class="request-item">
-
-          <h3>${escapeHTML(r.creator_name || r.creator_handle || "Creator collaboration")}</h3>
-
-          <p>
-            <strong>Status:</strong>
-            <span class="status ${escapeHTML(status)}">${escapeHTML(status)}</span>
-          </p>
-
-          <p><strong>Goal:</strong> ${escapeHTML(r.goal || "—")}</p>
-
-          <p><strong>Budget:</strong> ${escapeHTML(budget)}</p>
-
-          <p><strong>Message:</strong> ${escapeHTML(r.message || "—")}</p>
-
-          <p><strong>Date:</strong> ${escapeHTML(r.created_at || "—")}</p>
-
-          ${
-            canCancel
-              ? `<button class="btn btn-danger" type="button" data-cancel="${escapeHTML(id)}">Cancel Request</button>`
-              : ""
-          }
-
-        </article>
-      `;
-    }).join("");
-  }
-
-  $("creatorGrid").addEventListener("click",function(event){
-
-    const detailsButton = event.target.closest("[data-details]");
-    const collaborateButton = event.target.closest("[data-collaborate]");
-
-    if(detailsButton){
-      openDetails(findCreator(detailsButton.dataset.details));
-    }else if(collaborateButton){
-      openRequestForm(findCreator(collaborateButton.dataset.collaborate));
-    }
-
-  });
-
-  $("detailsCollaborateBtn").addEventListener("click",function(){
-    openRequestForm(selectedCreator);
-  });
-
-  $("collabForm").addEventListener("submit",async function(event){
-
-    event.preventDefault();
-
-    if(!selectedCreator){
-      showNotice("formNotice","Please select a creator first.","error");
-      return;
-    }
-
-    const brandName = $("brandName").value.trim();
-    const goal = $("goal").value;
-    const message = $("message").value.trim();
-    const budgetText = $("budget").value.trim();
-
-    const budget = budgetText === "" ? 0 : Number(budgetText);
-
-    if(!brandName || !goal || !message){
-      showNotice("formNotice","Please complete all required fields.","error");
-      return;
-    }
-
-    if(
-      !Number.isFinite(budget) ||
-      budget < 0 ||
-      budget > 10000000
-    ){
-      showNotice("formNotice","Enter a valid budget between ₹0 and ₹10,000,000.","error");
-      return;
-    }
-
-    if(message.length > 300){
-      showNotice("formNotice","Your message must be 300 characters or fewer.","error");
-      return;
-    }
-
-    const button = $("submitRequestBtn");
-
-    button.disabled = true;
-    button.textContent = "Sending...";
-
-    const payload = {
-      creator_name: getName(selectedCreator),
-      creator_handle: getHandle(selectedCreator),
-      brand_name: brandName,
-      goal: goal,
-      budget: budget,
-      message: message
-    };
-
-    try{
-
-      const data = await apiFetch("/api/creator-request",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify(payload)
-      });
-
-      showNotice(
-        "formNotice",
-        data.message || "Your collaboration request was submitted.",
-        "success"
-      );
-
-      $("collabForm").reset();
-
-      await loadRequests();
-
-      setTimeout(function(){
-        closeModal("requestModal");
-        hideNotice("formNotice");
-      },1200);
-
-    }catch(error){
-
-      showNotice(
-        "formNotice",
-        error.message + " If login is required, open Log in and try again.",
-        "error"
-      );
-
-    }finally{
-
-      button.disabled = false;
-      button.textContent = "Send Collaboration Request →";
-
-    }
-
-  });
-
-  $("requestList").addEventListener("click",async function(event){
-
-    const button = event.target.closest("[data-cancel]");
-
-    if(!button) return;
-
-    const requestId = button.dataset.cancel;
-
-    if(!confirm("Are you sure you want to cancel this collaboration request?")){
-      return;
-    }
-
-    button.disabled = true;
-    button.textContent = "Cancelling...";
-
-    try{
-
-      const data = await apiFetch("/api/creator-request",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-          action:"cancel",
-          request_id:requestId
-        })
-      });
-
-      showNotice(
-        "requestNotice",
-        data.message || "Request cancelled successfully.",
-        "success"
-      );
-
-      await loadRequests();
-
-    }catch(error){
-
-      showNotice("requestNotice",error.message,"error");
-
-      button.disabled = false;
-      button.textContent = "Cancel Request";
-
-    }
-
-  });
-
-  $("searchInput").addEventListener("input",renderCreators);
-
-  $("topSearchInput").addEventListener("input",function(){
-    $("searchInput").value = this.value;
-    renderCreators();
-
-    if(this.value.trim()){
-      $("discover").scrollIntoView({behavior:"smooth",block:"start"});
-    }
-  });
-
-  $("categoryFilter").addEventListener("change",renderCreators);
-  $("cityFilter").addEventListener("change",renderCreators);
-
-  $("refreshBtn").addEventListener("click",loadCreators);
-  $("refreshRequestsBtn").addEventListener("click",loadRequests);
-
-  document.querySelectorAll("[data-close]").forEach(button => {
-    button.addEventListener("click",function(){
-      closeModal(button.dataset.close);
-    });
-  });
-
-  document.querySelectorAll(".modal").forEach(modal => {
-    modal.addEventListener("click",function(event){
-      if(event.target === modal){
-        closeModal(modal.id);
+      ${
+        image
+          ? `<img class="avatar" src="${escapeHTML(image)}" alt="${escapeHTML(name)}">`
+          : `<div class="avatar creator-fallback">${escapeHTML((name.charAt(0) || "C").toUpperCase())}</div>`
       }
-    });
-  });
 
-  document.addEventListener("keydown",function(event){
-    if(event.key === "Escape"){
-      closeModal("detailsModal");
+      <div class="creator-info">
+        <div class="creator-name">${escapeHTML(name)}</div>
+        <div class="handle">
+          ${handle ? "@" + escapeHTML(handle.replace(/^@/,"")) : "Boostly Creator"}
+        </div>
+        <span class="pill">${escapeHTML(getCategory(creator))}</span>
+      </div>
+
+    </div>
+
+    <p class="details-bio">
+      ${escapeHTML(creator.bio || "This creator has not added a bio yet.")}
+    </p>
+
+    <p class="details-location">
+      📍 ${escapeHTML(creator.city || "Location not added")}
+    </p>
+
+    <div class="social-links">
+
+      ${instagram ? `<a href="${escapeHTML(instagram)}" target="_blank" rel="noopener noreferrer">Instagram ↗</a>` : ""}
+
+      ${youtube ? `<a href="${escapeHTML(youtube)}" target="_blank" rel="noopener noreferrer">YouTube ↗</a>` : ""}
+
+    </div>
+  `;
+
+  openModal("detailsModal");
+}
+
+function openRequestForm(creator){
+  if(!creator) return;
+
+  selectedCreator = creator;
+
+  $("targetCreator").value =
+    getName(creator) +
+    (getHandle(creator) ? " (@" + getHandle(creator).replace(/^@/,"") + ")" : "");
+
+  hideNotice("formNotice");
+  closeModal("detailsModal");
+  openModal("requestModal");
+}
+
+function renderMiniRequests(){
+  const list = $("miniRequestList");
+
+  if(!requests.length){
+    list.innerHTML = '<div class="mini-empty">Your collaboration requests will appear here.</div>';
+    return;
+  }
+
+  list.innerHTML = requests.slice(0,3).map(r => {
+    const status = String(r.status || "pending").toLowerCase();
+
+    return `
+      <div class="mini-request">
+        <strong>${escapeHTML(r.creator_name || r.creator_handle || "Creator collaboration")}</strong>
+        <p>${escapeHTML(r.goal || "Collaboration request")}</p>
+        <span class="mini-status ${escapeHTML(status)}">${escapeHTML(status)}</span>
+      </div>
+    `;
+  }).join("");
+}
+
+async function loadRequests(){
+  const btn = $("refreshRequestsBtn");
+
+  btn.disabled = true;
+  btn.textContent = "Loading...";
+
+  try{
+    const data = await apiFetch("/api/creator-request");
+
+    requests = Array.isArray(data.requests)
+      ? data.requests
+      : (
+        Array.isArray(data.results)
+          ? data.results
+          : (Array.isArray(data.data) ? data.data : [])
+      );
+
+    renderRequests();
+    renderMiniRequests();
+    hideNotice("requestNotice");
+
+  }catch(error){
+
+    requests = [];
+    $("requestCount").textContent = "—";
+
+    $("requestList").innerHTML = `
+      <div class="empty">
+        <strong>Requests could not be loaded</strong>
+        ${escapeHTML(error.message)}
+        <br>Log in and refresh this section if authentication is required.
+      </div>
+    `;
+
+    renderMiniRequests();
+    showNotice("requestNotice",error.message,"error");
+
+  }finally{
+    btn.disabled = false;
+    btn.textContent = "↻ Refresh";
+  }
+}
+
+function renderRequests(){
+  $("requestCount").textContent = requests.length;
+
+  if(!requests.length){
+    $("requestList").innerHTML = `
+      <div class="empty">
+        <strong>No requests to show</strong>
+        Collaboration requests you send will appear here.
+      </div>
+    `;
+    renderMiniRequests();
+    return;
+  }
+
+  $("requestList").innerHTML = requests.map(r => {
+    const id = r.id || r.request_id;
+    const status = String(r.status || "pending").toLowerCase();
+    const canCancel = id != null && status === "pending";
+
+    const budget =
+      r.budget !== null &&
+      r.budget !== undefined &&
+      r.budget !== ""
+        ? "₹" + Number(r.budget).toLocaleString("en-IN")
+        : "Not specified";
+
+    return `
+      <article class="request-item">
+
+        <h3>${escapeHTML(r.creator_name || r.creator_handle || "Creator collaboration")}</h3>
+
+        <p>
+          <strong>Status:</strong>
+          <span class="status ${escapeHTML(status)}">${escapeHTML(status)}</span>
+        </p>
+
+        <p><strong>Goal:</strong> ${escapeHTML(r.goal || "—")}</p>
+        <p><strong>Budget:</strong> ${escapeHTML(budget)}</p>
+        <p><strong>Message:</strong> ${escapeHTML(r.message || "—")}</p>
+        <p><strong>Date:</strong> ${escapeHTML(r.created_at || "—")}</p>
+
+        ${
+          canCancel
+            ? `<button class="btn btn-danger" type="button" data-cancel="${escapeHTML(id)}">Cancel Request</button>`
+            : ""
+        }
+
+      </article>
+    `;
+  }).join("");
+
+  renderMiniRequests();
+}
+
+function saveFavorites(){
+  try{
+    localStorage.setItem("boostly_creator_favorites",JSON.stringify([...favorites]));
+  }catch(e){}
+}
+
+$("creatorGrid").addEventListener("click",function(event){
+
+  const favoriteButton = event.target.closest("[data-favorite]");
+  const detailsButton = event.target.closest("[data-details]");
+  const collaborateButton = event.target.closest("[data-collaborate]");
+
+  if(favoriteButton){
+    const id = String(favoriteButton.dataset.favorite);
+
+    if(favorites.has(id)){
+      favorites.delete(id);
+    }else{
+      favorites.add(id);
+    }
+
+    saveFavorites();
+    renderCreators();
+    return;
+  }
+
+  if(detailsButton){
+    openDetails(findCreator(detailsButton.dataset.details));
+  }else if(collaborateButton){
+    openRequestForm(findCreator(collaborateButton.dataset.collaborate));
+  }
+
+});
+
+$("detailsCollaborateBtn").addEventListener("click",function(){
+  openRequestForm(selectedCreator);
+});
+
+$("collabForm").addEventListener("submit",async function(event){
+
+  event.preventDefault();
+
+  if(!selectedCreator){
+    showNotice("formNotice","Please select a creator first.","error");
+    return;
+  }
+
+  const brandName = $("brandName").value.trim();
+  const goal = $("goal").value;
+  const message = $("message").value.trim();
+  const budgetText = $("budget").value.trim();
+  const budget = budgetText === "" ? 0 : Number(budgetText);
+
+  if(!brandName || !goal || !message){
+    showNotice("formNotice","Please complete all required fields.","error");
+    return;
+  }
+
+  if(!Number.isFinite(budget) || budget < 0 || budget > 10000000){
+    showNotice("formNotice","Enter a valid budget between ₹0 and ₹10,000,000.","error");
+    return;
+  }
+
+  if(message.length > 300){
+    showNotice("formNotice","Your message must be 300 characters or fewer.","error");
+    return;
+  }
+
+  const button = $("submitRequestBtn");
+  button.disabled = true;
+  button.textContent = "Sending...";
+
+  const payload = {
+    creator_name:getName(selectedCreator),
+    creator_handle:getHandle(selectedCreator),
+    brand_name:brandName,
+    goal:goal,
+    budget:budget,
+    message:message
+  };
+
+  try{
+
+    const data = await apiFetch("/api/creator-request",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(payload)
+    });
+
+    showNotice(
+      "formNotice",
+      data.message || "Your collaboration request was submitted.",
+      "success"
+    );
+
+    $("collabForm").reset();
+
+    await loadRequests();
+
+    setTimeout(function(){
       closeModal("requestModal");
+      hideNotice("formNotice");
+    },1200);
+
+  }catch(error){
+
+    showNotice(
+      "formNotice",
+      error.message + " If login is required, open Log in and try again.",
+      "error"
+    );
+
+  }finally{
+    button.disabled = false;
+    button.textContent = "Send Collaboration Request →";
+  }
+
+});
+
+$("requestList").addEventListener("click",async function(event){
+
+  const button = event.target.closest("[data-cancel]");
+  if(!button) return;
+
+  const requestId = button.dataset.cancel;
+
+  if(!confirm("Are you sure you want to cancel this collaboration request?")){
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "Cancelling...";
+
+  try{
+
+    const data = await apiFetch("/api/creator-request",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        action:"cancel",
+        request_id:requestId
+      })
+    });
+
+    showNotice(
+      "requestNotice",
+      data.message || "Request cancelled successfully.",
+      "success"
+    );
+
+    await loadRequests();
+
+  }catch(error){
+
+    showNotice("requestNotice",error.message,"error");
+    button.disabled = false;
+    button.textContent = "Cancel Request";
+
+  }
+
+});
+
+$("searchInput").addEventListener("input",function(){
+  $("topSearchInput").value = this.value;
+  renderCreators();
+});
+
+$("topSearchInput").addEventListener("input",function(){
+  $("searchInput").value = this.value;
+  renderCreators();
+
+  if(this.value.trim()){
+    $("discover").scrollIntoView({behavior:"smooth",block:"start"});
+  }
+});
+
+$("categoryFilter").addEventListener("change",renderCreators);
+$("cityFilter").addEventListener("change",renderCreators);
+$("sortFilter").addEventListener("change",renderCreators);
+
+$("refreshBtn").addEventListener("click",loadCreators);
+$("refreshRequestsBtn").addEventListener("click",loadRequests);
+
+$("guidelinesLink").addEventListener("click",function(event){
+  event.preventDefault();
+  openModal("guidelinesModal");
+});
+
+document.querySelectorAll("[data-close]").forEach(button => {
+  button.addEventListener("click",function(){
+    closeModal(button.dataset.close);
+  });
+});
+
+document.querySelectorAll(".modal").forEach(modal => {
+  modal.addEventListener("click",function(event){
+    if(event.target === modal){
+      closeModal(modal.id);
     }
   });
+});
 
-  loadCreators();
-  loadRequests();
+document.addEventListener("keydown",function(event){
+  if(event.key === "Escape"){
+    document.querySelectorAll(".modal.open").forEach(modal => closeModal(modal.id));
+  }
+});
+
+loadCreators();
+loadRequests();
 
 })();
 </script>
